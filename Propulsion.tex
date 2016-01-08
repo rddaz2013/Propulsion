@@ -434,14 +434,510 @@ Eperm0406 = Gconst*M_earth*(-1/(2*((R_earth+Decimal(500))*10**3)) + 1/(R_earth*1
 v = \boxed{ 7611 \, m/\text{sec} \, \quad \, T = 5678 \, s \text{ or } 1.58 \, \text{ hours }  \quad \, 33.51 \, MJ/kg }
 \]
 
+\part{1-dim. propulsion (revisited)}
+
+
+Looking at pp. 40-41 of \cite{GOates1997}, Chapter 2, ``Thermodynamics and Fluid Flows'', 
+\[
+\begin{gathered}
+  (\rho u^2 A)_2 - (\rho u^2 A)_1 = \int_{ A_2 \coprod A_1 \coprod \text{side }} T^{ij} dS_j \otimes e_1
+\end{gathered}
+\]
+$\int_{ A_2 \coprod A_1 \coprod \text{side }} T^{ij} dS_j \otimes e_1$ comprise of the contribution from the fluid being a perfect fluid, $T=-pg$, so consider that \emph{only} first:
+\[
+\int_{A_2 \coprod A_1} - p g^{1j} dS_j\otimes e_1 = -pA_2 + pA_1
+\]
+
+
+Suppose shear stress (which happens at solid boundary; by no slip condition, there's a boundary layer), occurs at wall.  
+\[
+\int_{\text{side}}T^{1j}dS_j \otimes e_1 = \int_{\text{side}} (T^{12} (2dx^3 \wedge dx^1) + T^{13} (2dx^1 \wedge dx^2 ) ) e_1
+\]
+
+Assume average (constant) shear over ``infinitesimal'' or differential cross section: $T^{12}=T^{13} = \frac{\tau}{2}$
+\[
+\Longrightarrow \tau \int_{\text{side}} dx^3 \wedge dx^1 + dx^1 \wedge dx^2 = \tau (\text{circumference}) \int dx^1
+\]
+
+Thus, this explains the last equation on pp. 40, and first 2 equations, including Eq. (2.62) on pp.41 of ``Thermodynamics and Fluid Flows'', Chapter 2, of  Gas Turbine and Rocket Propulsion of Oates (1997) \cite{GOates1997}
+
+
+
+Oates (1997) \cite{GOates1997}
+
+\[
+\begin{gathered}
+  \tau d\sigma = dU + pdV \\
+  \Longrightarrow \tau d\sigma = \left( \frac{ \partial U}{ \partial \tau} \right)_V d\tau  + \left( \frac{ \partial U}{ \partial V} \right)_{\tau} dV + p dV \equiv C_V d\tau + \left( \frac{ \partial U}{ \partial V} \right)_{\tau} dV + pdV
+\end{gathered}
+\]
+with $U = U(\tau,V)$.  
+
+For (calorically) perfect gas, $U=U(\tau)$ and so
+\[
+\begin{gathered}
+  d\sigma = C_V \frac{d\tau}{\tau} + \frac{N}{V} dV = C_V \frac{d\tau}{\tau} + \frac{-Nd\rho }{\rho} \\
+  \Longrightarrow \sigma_2 - \sigma_1 = C_V \ln{ \left( \frac{\tau_2}{\tau_1} \right) } + N \ln{ \left( \frac{V_2}{V_1} \right)} = \ln{ \left[ \left( \frac{\tau_2}{\tau_1} \right)^{C_V} \left( \frac{V_2}{V_1} \right)^N \right] } \\
+  \Longrightarrow \exp{ ( \sigma_2 - \sigma_1) } = \left[ \left( \frac{\tau_2}{\tau_1} \right)^{ \frac{C_V}{N} + 1 } \frac{p_1}{p_2} \right]^{N} \text{ or } \frac{p_2}{p_1} = \left( \frac{\tau_2}{\tau_1} \right)^{\frac{\gamma}{\gamma-1}} \exp{ \left[ \frac{\sigma_2-\sigma_1}{-N} \right] }
+\end{gathered}
+\]
+
+Starting from Sec. 2.16 \emph{The Channel Flow Equations} of Ch. 2 of Oates (1997) \cite{GOates1997}, pp. 39-40, consider how heating $Q'$ inside an (control volume) element of fluid in a duct changes the (specific) enthalpy $h'$:
+\[
+\begin{aligned}
+  & Q' \in \Omega^1(\Sigma) \otimes \Omega^n(N) \\ 
+  & h' \in \Omega^1(\Sigma) \otimes \Omega^{n-1}(N)
+\end{aligned}
+\]
+where it is now clear that the integration over the (control volume) element of the fluid on spatial manifold $N$ is distinguished from the integration (usually along a curve representing a thermodynamic process) over the manifold $\Sigma$ of \emph{thermodynamic states}.  
+
+By energy conservation, 
+\[
+Q' = \mathbf{d}h'
+\]
+ where $\mathbf{d}$ is the exterior derivative \emph{on} $N$, not on $\Sigma$.  $h'$, the ``specific enthalpy'', is a \emph{Bernoulli invariant} of the flow \footnote{``Euler equations (fluid dynamics)'' \emph{Wikipedia}, \url{https://en.wikipedia.org/wiki/Euler_equations_(fluid_dynamics)}}.  
+
+$h'$ is also called \emph{stagnation enthalpy}.  
+
+For instance, integrate over the control volume, and then over a 1-dimensional flow (cylindrical volume element)
+\[
+\int_{V_0} Q' = \int_{V_0} \mathbf{d}h' = (h')_2 A_2 - (h')_1A_1 = (h_0+\frac{u^2}{2})_2 \rho_2 A_2 - (h_0 + \frac{u^2}{2})_1 \rho_1 A_1
+\]
+But one also have to account for the thermodynamic process during the flow across the element control volume, on $\Sigma$:
+\[
+\tau d\sigma = dU + pdV = dH - Vdp = dH - \frac{dp}{\rho/NM}
+\]
+So for the Bernoulli invariant $h'$, $h'$ has a piece $h \equiv H/NM \in C^{\infty}(\Sigma)$, that lives on $\Sigma$.  
+
+In conclusion,
+\begin{equation}\label{Eq:flowwithQ}
+Q' = \mathbf{d}\left( \frac{u^2}{2} \right) + \mathbf{d}h = \mathbf{d}\left( \frac{u^2}{2} \right) + \frac{\tau}{NM} d\sigma + \frac{dp}{\rho} \equiv \mathbf{d}\left( \frac{u^2}{2} \right) + \tau ds + \frac{dp}{\rho}
+\end{equation}
+which is Eq. (2.61) of Oates (1997) \cite{GOates1997}.  
+
+Consider mass conservation for fluid flow across a control volume element:
+\[
+\begin{gathered}
+  \dot{m} = \frac{d}{dt} \int_{V_0} \rho \text{vol}^n = \int_{V_0} \frac{ \partial \rho}{ \partial t} \text{vol}^n + \int_{V_0} di_u \rho \text{vol}^n = 0 + \int_{ \partial V_0} i_u \rho \text{vol}^n = (\rho u A)_2 - (\rho u A)_1
+\end{gathered}
+\]
+Then for $\rho u A = \text{ const. }$, $\frac{d\rho}{\rho} + \frac{du}{u} + \frac{dA}{A}=0$.  
+
+Assuming an ideal gas, $p=\frac{N\tau}{V} = \frac{\rho \tau}{M}$
+\[
+\begin{gathered}
+  \frac{dA}{A} + \frac{du}{u} + \frac{d\rho}{\rho} = \frac{dA}{A} + \frac{du}{u} + \frac{d (pM/\tau) }{\rho}
+\end{gathered}
+\]
+Then for $\frac{d (pM/\tau) }{\rho}$ only, and using Eq. \ref{Eq:flowwithQ}, which is from energy conservation where $Q'$ heating (or heat dissipation) is also included,
+\[
+\begin{gathered}
+ \frac{d (pM/\tau) }{\rho} = \frac{M}{\tau} \frac{dp}{\rho} + \frac{pM}{-\tau^2} \frac{d\tau}{\rho} = \\
+ = \left( Q' - \mathbf{d} \left( \frac{u^2}{2} \right) - \frac{\tau d\sigma}{NM} \right) \frac{M}{\tau} + \frac{pM}{-\tau^2} \frac{d\tau}{\rho} 
+\end{gathered}
+\]
+The last term, $\frac{pM}{-\tau^2} \frac{d\tau}{\rho}$, is resolved by considering again the Bernoulli invariant $h$, and the fact that it remains constant along the flow:
+\[
+\begin{gathered}
+  \frac{pM}{-\tau^2} \frac{d\tau}{\rho} = \frac{ pMV}{-\tau^2 MN} d\tau = -\frac{ d\tau }{\tau} \quad \, (\text{ideal gas}) \\
+h = h_1 + \frac{u_1^2}{2} =  h_2 + \frac{u_2^2}{2}  \Longrightarrow dh = C_p/(MN) d\tau = udu \\
+\Longrightarrow \frac{d\tau}{\tau} = \frac{udu}{(C_p/MN) \tau} = \frac{ udu }{ \left( \frac{\gamma  }{ M(\gamma -1) } \right)\tau } = M\frac{\gamma -1}{ \gamma} \frac{udu}{ \tau } 
+\end{gathered}
+\]
+Thus
+\[
+Q' \frac{M}{\tau} - \frac{d\sigma}{N} - \frac{M}{\gamma} \frac{udu}{\tau} = Q' \frac{M}{\tau} - \frac{d\sigma}{N} - \mathfrak{M}^2 \frac{du}{u}
+\]
+with Mach number $\mathfrak{M} := \frac{u}{a}$ and speed of sound $a^2 = \frac{\gamma \tau}{M}$ which comes from the adiabatic process of compressing and the expansion of gas longitudinally $ \left( \frac{ \partial p }{ \partial \rho } \right)_{\text{adiabatic}} = a^2$.  
+
+And so for fluid (ideal gas) flow through a (control volume, differential) element of a (area) duct, including heating (or heat dissipation), 
+\begin{equation}\label{Eq:ductflowwithQ}
+  \frac{dA}{A} + (1 - \mathfrak{M}^2) \frac{du}{u} = \frac{d\sigma}{N} - Q' \frac{M}{\tau}
+\end{equation}
+
+\subsubsection{Adiabatic Flow of Ideal Gas}
+
+Let $Q'=0$ for adiabatic flow (by definition of ``adiabatic'').  Then from Eq. \ref{Eq:ductflowwithQ}
+\[
+\frac{dA}{A} + (1-\mathfrak{M}^2) \frac{du}{u} = \frac{d\sigma}{N}
+\]
+Now $d\sigma >=0$, always (2nd. law of Thermodynamics).  $N>0$.  
+
+$dA<0$ for \emph{converging} nozzle.  
+$dA >0$ for \emph{diverging} nozzle.
+
+For isentropic flow $d\sigma =0$,  \\
+for $dA<0$, for $\mathfrak{M}<1$, $du >0$ (flow is accelerating) \\
+\phantom{for $dA<0$, } for $\mathfrak{M}>1$, $du <0$ (flow is decelerating)
+\phantom{for $dA<0$, } At the throat, $dA=0$, $\mathfrak{M}=1$.  
+
+However, for $d\sigma >0$, at the throat, $dA=0$, for acceleration $du>0$, $\mathfrak{M}<1$ and for deceleration $du<0$, $\mathfrak{M}>1$.  So from subsonic flow in the initial part (usually the converging part), then the ``effective throat'' of the nozzle is shifted slightly downstream.  
+
+
+
+
+cf. Ch. 2 Problems, Oates (1997) \cite{GOAtes1997}
+
+\problemhead{2.1}
+
+Starting from the thermodynamic identity,
+\[
+\begin{gathered}
+  d\sigma = \frac{dU}{\tau} + \frac{p}{\tau} dV  = \frac{dU}{\tau} + \frac{N dV}{V} 
+\end{gathered}
+\]
+$U=U(\tau)$ for an (perfect) ideal gas, and $C_V = \left( \frac{ \partial U}{ \partial \tau} \right)_V = \frac{dU}{d\tau}$ so
+\[
+\begin{gathered}
+  d\sigma = C_V \frac{d\tau}{\tau} + \frac{N}{V} dV
+\end{gathered}
+\]
+For an isentropic process, $\int d\sigma =0$, so 
+\[
+\int d\sigma = 0 = \int C_V \frac{d\tau}{\tau} + N \ln{ \frac{V_2}{V_1}}
+\]
+For $C_V = A + B\tau + C\tau^2 + D\tau^3$,
+\[
+\begin{gathered}
+  N \ln{ \frac{V_1}{V_2}} = N \ln{ \frac{\rho_2}{\rho_1} } = A\ln{ \left( \frac{\tau_2}{\tau_1} \right) } + B(\tau_2 - \tau_1) + \frac{C(\tau_2 - \tau)^2}{2} + D \frac{(\tau_2-\tau_1)^3}{3} \\
+  \Longrightarrow \frac{ \rho_2}{\rho_1} = \left( \left( \frac{\tau_2}{\tau_1} \right) \exp{ \left[ \frac{B}{A} (\tau_2-\tau_1) + \frac{C}{2A} (\tau_2-\tau_1)^2 + \frac{D}{3A} (\tau_2-\tau_1)^3 \right] } \right)^{A/N}
+\end{gathered}
+\]
+
+\hrulefill
+
+Over a ``wide'' temperature range, $C_p$ is usually given as a polynomial, from empirically measured parameters.  
+
+For $C_p$, consider 
+\[
+\begin{gathered}
+  dH = dU + pdV + Vdp = \tau d\sigma + Vdp = \left( \frac{ \partial H}{ \partial \tau} \right)_p d\tau + \left( \frac{ \partial H}{ \partial p} \right)_{\tau} dp \\
+  Q = dU + pdV = dH - Vdp \\
+  C_p = \left( \frac{ \partial H}{ \partial \tau} \right)_p 
+\end{gathered}
+\]
+\[
+\begin{gathered}
+  Q = \tau d\sigma = dH - Vdp  \text{ or } d\sigma = \frac{dH}{\tau} - \frac{V}{\tau} dp = \frac{dH}{\tau} - \frac{Ndp}{p} \\
+  \Longrightarrow \int d\sigma = \int \frac{C_pd\tau}{\tau} - N \ln{ \frac{p_2}{p_1}} \\
+  \Longrightarrow \frac{p_2}{p_1} = \left( \left( \frac{\tau_2}{\tau_1} \right) \exp{ \left[ \frac{B}{A} (\tau_2 - \tau_1) + \frac{C}{2A}(\tau_2 - \tau_1)^2 + \frac{D}{3A}(\tau_2 - \tau_1)^3 \right] } \right)^{A/N}
+\end{gathered}
+\]
+
+
+cf. Ch. 3 Chemical Rockets, Oates (1997) \cite{GOAtes1997}
+
+rocket volume $R_0$ \\
+$\partial R_0$ includes \\
+\phantom{\quad \, } internal surfaces wetted by fluid (chamber, pipes, pumps, etc.) 
+
+Consider rocket on thrust stand.  Consider force on thrust stand.  \\
+$\sum_0$ outer surface area. \\
+$\sum_c$ inner chamber surface area. 
+
+Now consider the total mass of the gas propellant, in the chamber and nozzle, represented by a differential $n$-form on (spatial) manifold $N$, representing spatial points, of dimension $\text{dim}N=n$, denoted by $m$:
+\[
+m = \int_{B(t)} \rho \text{vol}^n
+\]
+where $B(t)$ is the control volume, as a function of time $t$, and $\text{vol}^n \in \Omega^n(N)$ is the volume form, $\Omega^n(N)$ is the set of all $n$-forms on $N$.  
+
+Then, by differential geometry, 
+\[
+\begin{gathered}
+  \dot{m} = \int_{B(t)} \left[ \frac{ \partial \rho }{ \partial t} \text{vol}^n + \mathcal{L}_u \rho \text{vol}^n \right] = \int_{B(t)} \left[ \frac{ \partial \rho }{ \partial t} \text{vol}^n + di_u \rho \text{vol}^n \right]   = \int_{B(t)} \frac{ \partial \rho}{ \partial t} \text{vol}^n + \int_{\partial B} i_u \rho \text{vol}^n = \int_{B(t)} \frac{ \partial \rho }{ \partial t} \text{vol}^n + \int_{\partial B} \rho u^i dS_i
+\end{gathered}
+\]
+where the last equality was obtained by Stoke's law.  
+
+\setlength{\unitlength}{1cm}
+\begin{picture}(10,5.5)(-5,-2.75)
+\linethickness{1pt}
+\put(-0.7,0.0){{ $\Sigma_c$ }}
+\put(0.1,0.0){{ $\Sigma_{c'}$ }}
+\put(0,1.0){\line(1,0){1.5}}
+\put(0,1.0){\line(0,-1){2.0}}
+\put(0,-1.0){\line(1,0){1.5}}
+\qbezier(1.5,1.0)(2.1,0.7)(2.3,0.6)
+\qbezier(1.5,-1.0)(2.1,-0.7)(2.3,-0.6)
+\put(2.3,0.6){\line(1,0){.2}}
+\put(2.3,-0.6){\line(1,0){.2}}
+\qbezier(2.5,0.6)(4.5,1.4)(7.5,1.8)
+\qbezier(2.5,-0.6)(4.5,-1.4)(7.5,-1.8)
+\put(7.5,0.0){{ $\Sigma_e$}}
+\end{picture}
+
+
+Consider the total momentum, the sum of all the momentums of the fluid particles, $\Pi$, and its time derivative, $\dot{\Pi}$, 
+\[
+\begin{aligned}
+  & \Pi = \int_{B(t)} \rho u^i \text{vol}^n \otimes e_i \\ 
+  & \dot{\Pi} = \int_{B(t)} \frac{ \partial (\rho u^i ) }{ \partial t} \text{vol}^n \otimes e_i + \int_{B(t)} d(\rho u^i i_u \text{vol}^n ) \otimes e_i = \int_{B(t)} \frac{ \partial (\rho u^i )}{ \partial t} \text{vol}^n \otimes e_i + \int_{\partial B(t)} \rho u^i i_u \text{vol}^n \otimes e_i
+\end{aligned}
+\]
+For steady state $\frac{ \partial (\rho u^i)}{ \partial t} =0$, $\dot{\Pi} = \int_{\partial B(t)} \rho u^i i_u \text{vol}^n \otimes e_i$.
+
+Now
+\[
+\partial B(t) = A_e \coprod \Sigma_{c'}
+\]
+$\Sigma_{c'} \equiv$ internal surface of chamber (orientation, or outward normal, chosen to point into rocket stages, i.e. outward from engine). 
+
+Suppose $u=0$ on $\Sigma_{c'}$.  Then
+\[
+\dot{\Pi} = \int_{A_e} \rho u^i i_u \text{vol}^n \otimes e_i
+\]
+
+Consider the external forces on a fluid.  The external forces on a fluid, acting on the surface of the fluid, is ``wrapped up'' in the stress tensor $T = T^{ij} e_i \otimes e_j \in TN \otimes TN$.  On a surface,
+\[
+\int T^{ij} dS_j \otimes e_i
+\]
+and so the external forces on a fluid, decomposing $T$, is 
+\begin{equation}\label{Eq:extFonfluid}
+\begin{gathered}
+  \int_{\Sigma_{c'} + A_e } T^{ij}dS_j \otimes e_i = \\
+  = -\int_{ \Sigma_{c'} + A_e } (p-p_a) g^{ij}dS_j \otimes e_i + (\text{visc})_{\Sigma_{c'}} + (\text{visc})_{A_e} = \\
+  = \int_{A_e} \rho u^i i_u \text{vol}^n \otimes e_i 
+\end{gathered}
+\end{equation}
+where in the last equality, we equate the sum of the external forces on the fluid, to the kinematics of the external fluid, which is what Newton's second law tells us to do.  
+
+Consider the $-\int_{\Sigma_{c'} + A_e} (p-p_a) g^{ij} dS_j \otimes e_i$ term.  Consider a gas bubble in water.  For a gas bubble of high pressure $p$, expanding, after, say, an explosion underwater, then $-p g^{ij}dS_j \otimes e_i$ is from Newton's 3rd. law, the pressure pushing back on expanding gas bubble, pushing inward $(-dS_j)$.  $p_ag^{ij}dS_j otimes e_i$ is due to the ambient pressure, pushing outward.  In the context of the gas propellant in the rocket nozzle, immersed in the atmosphere, (the atmospheric) air pushes outward to try to disperse the gas propellant.  If $p_a=0$ (in vacuum), there's no other gas molecules around; the gas bubble drifts if $p=0$, or expands out unrestrained, if $p\neq 0$ or $p >0$ (defined how I defined it, $p \geq 0$ always).  
+
+Rearranging Eq. \ref{Eq:extFonfluid}, 
+\begin{equation}\label{Eq:exFonfluidoninteng}
+\begin{gathered}
+\int_{\Sigma_{c'}} T^{ij} dS_j \otimes e_i = -\int_{A_e} T^{ij}dS_j \otimes e_i + \int_{A_e} \rho u^i i_u \text{vol}^n \otimes e_i = \int_{A_e} (p-p_a) g^{ij} dS_j \otimes e_i - (\text{visc})_{\Sigma_{c'} } - (\text{visc})_{A_e} + \int_{A_e} \rho u^i i_u \text{vol}^n \otimes e_i
+\end{gathered}
+\end{equation}
+
+\setlength{\unitlength}{1cm}
+\begin{picture}(10,5.5)(-8,-2.75)
+\linethickness{1pt}
+\put(0,0.55){\line(-2,1){1.5}}
+\put(0,-0.55){\line(-2,-1){1.5}}
+\put(-1.45,1.32){\line(-1,0){4.5}}
+\put(-1.45,-1.32){\line(-1,0){4.5}}
+\put(-5.95,1.32){\line(-1,-1){1.32}}
+\put(-5.95,-1.32){\line(-1,1){1.32}}
+\put(-7.77,0){{$\Sigma_o$}}
+
+\put(-0.7,0.0){{ $\Sigma_c$ }}
+\put(0,0.5){\line(1,0){0.75}}
+\put(0,-0.5){\line(1,0){0.75}}
+\put(0,0.5){\line(0,-1){1.0}}
+\qbezier(0.75,0.5)(1.05,0.35)(1.15,0.3)
+\qbezier(0.75,-0.5)(1.05,-0.35)(1.15,-0.3)
+\put(1.15,0.3){\line(1,0){.1}}
+\put(1.15,-0.3){\line(1,0){.1}}
+\qbezier(1.25,0.3)(2.25,0.7)(3.75,0.9)
+\qbezier(1.25,-0.3)(2.25,-0.7)(3.75,-0.9)
+\end{picture}
+
+Now consider the (sum of all external) forces on the rocket (i.e. the vehicle, rocket, and the ``interesting part'', payload), and plugging in Eq. \ref{Eq:exFonfluidoninteng}, but not including body forces,
+\begin{equation}\label{Eq:extFrocket}
+\begin{gathered}
+  \sum_{\text{rocket}} F_{\text{ext}} = \int_{ \Sigma_0 + \Sigma_c } T^{ij} dS_j \otimes e_i   = \int_{\Sigma_o} T^{ij} dS_j \otimes e_i + \int_{\Sigma_c} T^{ij}dS_j \otimes e_i =  \int_{\Sigma_o} T^{ij} dS_j \otimes e_i - \int_{\Sigma_{c'}} T^{ij}dS_j \otimes e_i = \\
+  = -\int_{\Sigma_o} p_a g^{ij} dS_j \otimes e_i + (\text{visc})_{\Sigma_o} - \left[ \int_{A_e} (p-p_a) g^{ij} dS_j \otimes e_i - (\text{visc})_{\Sigma_{c'} } - (\text{visc})_{A_e} + \int_{A_e} \rho u^i i_u \text{vol}^n \otimes e_i \right] = \\
+  = -\int_{A_e} \rho u^i i_u \text{vol}^n \otimes e_i - \int_{A_e} (p-p_a) g^{ij} dS_j \otimes e_i + (\text{visc})_{\Sigma_o}  -\int_{\Sigma_o} p_a g^{ij} dS_j \otimes e_i + (\text{visc})_{\Sigma_{c'} } + (\text{visc})_{A_e}
+\end{gathered}
+\end{equation}
+
+Compare this to Eq. (3.1) or Eq. (3.3) on pp. 64, Ch. 3 of Oates (1997) \cite{GOates1997}:
+\[
+\mathbf{F} = -\iint_{A_e} (\rho \mathbf{u}) \mathbf{u}\cdot d\mathbf{s} - \iint_{A_e} (p-p_a) d\mathbf{s} + (\text{visc})_{\Sigma_o} - \iint_{\Sigma_o} (p-p_a) d\mathbf{s}
+\]
+I agree with the first 3 terms of Eq. (3.3) on pp. 64 of Oates (1997), with Eq. \ref{Eq:extFrocket}.  I don't agree with Oates on the fourth term.  The fourth term represents form drag, which depends on the shape of the external, outward rocket shell, and the atmosphere.  Oates says that it ``represents the effect of the pressure imbalance on the external surface and is termed the form drag.'' However, it is unclear to me what the $p$ is for Oates \cite{GOates1997} other than the ambient atmospheric pressure.  And, if we're in vacuum, form drag should go to $0$.  So for $p_a=0$, then form drag is zero.  
+
+In summary,
+\[
+\begin{aligned}
+  & (\text{visc})_{\Sigma_o} & =: \text{ skin drag } \\
+  & -\int_{\Sigma_o} p_a g^{ij} dS_j \otimes e_i & =: \text{ form drag }
+\end{aligned}
+\]
+Term $(\text{visc})_{A_e}$ of Eq. \ref{extFrocket} is neglected, which I agree with.  $(\text{visc})_{\Sigma_{c'}}$ was subtracted away when reversing orientation.  I do not agree with this step.  What remains invariant is stress tensor $T$, which should be orientation preserving.  The shear force, in off-diagonal entries of $T$, include viscosity.  Because clearly, in vector form, 
+\[
+\int (\mathbf{T} \cdot \mathbf{n} ) dA = \int ( T(\cdot , \mathbf{n} ) dA \xrightarrow{ \mathbf{n} \to -\mathbf{n} } \int (T\cdot (-\mathbf{n} ) ) dA = -\int T\cdot \mathbf{n} dA
+\]
+
+Nevertheless, the thrust, denoted $F_T$, is 
+\[
+F_T = M(t) \mathfrak{a} = -\int_{A_e} \rho u^i i_u \text{vol}^n \otimes e_i - \int_{A_e} (p-p_a)g^{ij} dS_j \otimes e_i 
+\]
+Assume $u^i = u_{\text{exh}}$ on $A_e$ (constant), and $p$,$p_a$ uniform (constant) on $A_e$, 
+\[
+F_T \equiv T = \dot{m} u_e + (p_{\text{exh}} - p_a) A_e
+\]
+
+On Section 3.3 Acceleration of a Rocket, pp. 66, of Oates (1997) \cite{GOates1997}, the acceleration of a rocket, in general, is 
+\[
+M \mathfrak{a} = -\int_{A_e} u^i \rho i_u \text{vol}^n \otimes e_i - \int_{A_e} (p-p_a)g^{ij} dS_j \otimes e_i - Mg - D
+\]
+In direction of flight,
+\[
+\begin{gathered}
+  M\frac{dv}{dt} = \dot{m} u_{\text{exh}} + (p_{\text{exh}} - p_a)A_e - Mg \cos{\theta} - D \text{ or } \\
+  \frac{dv}{dt} = \frac{ \dot{m} u_{\text{exh}} }{ M } + \frac{ (p_{\text{exh}} - p_a)A_e}{ M} - g\cos{\theta} - \frac{D}{M}
+\end{gathered}
+\]
+Let the mass of the rocket be 
+\[
+\begin{gathered}
+  M= M(t) = M(0) - m(t) \text{ s.t. } \\
+  \begin{aligned}
+    & m(0) = 0 \\
+    & m(t_p) = m_p \text{ so }  \\
+    & M(0) = M_0 + m_p 
+\end{aligned}
+\end{gathered}
+\]
+
+Now let 
+\[
+\begin{aligned}
+  & \lambda = \frac{m_L}{m_0}  \quad \, & \text{ payload ratio } \equiv \lambda \\  
+  & \delta = \frac{m_d}{m_0} \quad \, & \text{ dead weight ratio } \equiv \delta   
+\end{aligned} \quad \quad \, \begin{aligned}
+  & \lambda = \frac{m_L}{M(0)} \\ 
+  &  \delta = \frac{m_d}{M(0) }
+\end{aligned}
+\]
+and so, in terms of the payload ratio $\lambda$ and dead weight ratio $\delta$,
+\[
+\frac{M(0)}{M(0) - m_p } = \frac{M(0)}{m_d + m_L } = \frac{1}{\delta + \lambda}
+\]
+
+Assume constant burn rate: $M(t) = M(0) - \frac{m_p}{t_f} t$.  
+
+Free space case: $g=D=0$ 
+\[
+\begin{gathered}
+\frac{dv}{dt} = \frac{- \dot{M} u_{\text{exh} } }{ M }  + \frac{(p_{\text{exh} } - p_a ) A_e }{M} \\ \begin{aligned}
+  \Delta v_{\text{tot}} & = -u_{\text{exh}} ( \ln{ \left( \frac{M(0) - m_p }{M(0) } \right) } + \left. \frac{ (p_{\text{exh}} - p_a)A_e }{ \frac{-m_p}{t_f} } \ln{ \left( M(0) - \frac{m_p}{t_f} t \right) } \right|_0^{t_f} = \\
+  & = -u_{\text{exh}} \ln{ \left( \frac{M(0) - m_p }{M(0) } \right) } + \frac{ (p_{\text{exh} } - p_a )A_e }{ \frac{-m_p}{t_f} } \ln{ \left( \frac{M(0) - m_p }{ M(0) } \right) } =  \\
+  & = \left[ u_{\text{exh}} + \frac{ (p_{\text{exh}} - p_a )A_e }{\dot{m}} \right] \ln{ \left( \frac{M(0)}{ M(0) - m_p } \right) }
+\end{aligned}
+\end{gathered}
+\]
+
+For an atmosphere-free planet, $D=0$, 
+\[
+\begin{gathered}
+  \dot{v} = \frac{-\dot{M} u_{\text{exh} } }{M} + \frac{ (p_{\text{exh}} - p_a )A_e }{ M} - g\cos{\theta} \\
+  \Longrightarrow \Delta v= \left( u_{\text{exh}} + \frac{ (p_{\text{exh}} - p_a ) A_e }{\dot{m}} \right) \ln{ \left( \frac{M(0) }{ M(0) - m_p } \right) } - g\cos{\theta}t_f
+\end{gathered}
+\]
+
+
+
+
+
+\section{Multiple Staging}
+
+cf. pp. 67, \textbf{Multiple-Stage Rockets}, Ch. 3, Oates (1997) \cite{GOates1997}
+
+\section{Lagrangian}
+
+\subsection{Review}
+
+
+
+
+Consider a solid cylinder with surface area $A_{\text{cyl}} = A_{\text{sides}} \coprod A_{\text{top}} \coprod A_{\text{bottom} }$ s.t. 
+\[
+\begin{aligned}
+  & dA_{\text{sides}} = ad\varphi dz \\ 
+  & dA_{\text{top}} = dA_{\text{bottom}} = 2\pi r dr 
+\end{aligned} \quad \quad \, \begin{aligned}
+  & \widehat{n} = \frac{ x\mathbf{e}_x + y\mathbf{e}_y }{ \| x \mathbf{e}_x + y \mathbf{e}_y \| } = \mathbf{e}_r = \cos{\varphi} \mathbf{e}_x + \sin{\varphi} \mathbf{e}_y \\ 
+  &  \widehat{n} = \pm \mathbf{e}_z \quad \, \text{ (for top and bottom, respectively) }
+\end{aligned}
+\]
+for a fixed, \emph{body-frame} coordinates $\mathbf{e}_x ,\mathbf{e}_y, \mathbf{e}_z$.  
+
+Let 
+\[
+A_{\text{projected}} = \int_A (\cos{\beta}) dA \chi_{\cos{\beta}\geq 0}
+\]
+where $A$ is the original area \\
+\phantom{where} $\beta$ is the angle between normal to surface $A$ and normal to arbitrary plane onto which we project and \\
+\phantom{where} $\chi_{\cos{\beta} \geq 0}$ is an indicator function, a fancy way/terminology for saying s.t. $\chi_{\cos{\beta}\geq 0} = \begin{cases} 1 & \text{ if } \cos{\beta} \geq 0 \\
+  0 & \text{ otherwise } \end{cases}$.  
+
+Consider $\frac{ \mathbf{u}}{ \| u \| } \equiv \widehat{u} = \widehat{u}_x \mathbf{e}_x + \widehat{u}_y \mathbf{e}_y + \widehat{u}_z \mathbf{e}_z$.  
+
+Consider now these sanity checks: consider $\widehat{u} = \mathbf{e}_z$.  \[
+\begin{gathered}
+  \int_{A_{\text{top}} } \widehat{u} \cdot \widehat{n} 2\pi r dr = 2\pi \int_0^a r dr = \pi a^2 \\
+  \int_{A_{\text{bottom}} } \widehat{u} \cdot \widehat{n} 2\pi r dr \chi_{\widehat{u}\cdot \widehat{n} \geq 0 } = 0 \text{ since $\widehat{u} \cdot  \widehat{n} = -1$ } \\
+  \int_{A_{\text{side}}} \widehat{u} \cdot \widehat{n} 2\pi r dr = 0 \text{ since $\widehat{u} \cdot \widehat{n} = 0$ } \\
+  \Longrightarrow A_{\text{projected}} = \pi a^2
+\end{gathered}
+\]
+
+Consider $\widehat{u} = \mathbf{e}_x$ or $= \mathbf{e}_y$ or $= \mathbf{e}_r$.  $\widehat{u}\cdot \widehat{n} =0$ on $A_{\text{top}}$ and on $A_{\text{bottom}}$.  
+
+\[
+\begin{gathered}
+  \int_{A_{\text{side}}} \widehat{u}\cdot \widehat{n} a d\varphi dz \chi_{\widehat{u}\cdot \widehat{n} \geq 0 } = ah \int_{-\pi}^{\pi} d\varphi \cos{\varphi} \chi_{\cos{\varphi} \geq 0} = ah \int_{-\pi/2}^{\pi/2} d\varphi \cos{\varphi} = 2ah
+\end{gathered}
+\]
+Indeed, this result is rotationally symmetric about $\mathbf{e}_z$, for if $\widehat{u} = \mathbf{e}_y$.
+\[
+\int_{A_{\text{side}}} \sin{\varphi} d\varphi \chi_{\sin{ \varphi} \geq 0 } = \int_0^{\pi} d\varphi \sin{\varphi } = \left. - \cos{\varphi} \right|_0^{\pi} = 2 
+\]
+and so $A_{\text{projected}} = 2ah$.  
+
+Consider $\widehat{u} = \widehat{u}_{\rho} \mathbf{e}_{\rho} + \widehat{u}_z \mathbf{e}_z$.  Then $A_{\text{projected}} = \widehat{u}_z \pi a^2 + \widehat{u}_{\rho} 2ah$.  
+
+Returning back to the drag
+\[
+\mathbf{F}_d = \frac{-1}{2} \rho C_a A | \mathbf{u} | \mathbf{u}
+\]
+The components of the drag force in 2-dim. Cartesian coordinates are
+\[
+\begin{aligned}
+  & (\mathbf{F}_d)_1 = \frac{-1}{2} \rho C_a A(\dot{x}_1^2 + \dot{x}_2^2)^{1/2} \dot{x}_1 \\ 
+  & (\mathbf{F}_d)_2 = \frac{-1}{2} \rho C_a A(\dot{x}_1^2 + \dot{x}_2^2)^{1/2} \dot{x}_2 
+\end{aligned}
+\]
+In spherical coordinates, 
+\[
+\begin{aligned}
+  & Q_r = F_1 \frac{ \partial x^1}{ \partial r} + F_2 \frac{ \partial x_2 }{ \partial r } = \frac{-1}{2} \rho C_a A (\dot{r}^2 + (r\dot{\varphi})^2)^{1/2} \dot{r} \\ 
+  & Q_{\varphi} = F_1 \frac{ \partial x^1}{ \partial \varphi} + F_2 \frac{ \partial x_2 }{ \partial \varphi } = \frac{-1}{2} \rho C_a A (\dot{r}^2 + (r\dot{\varphi})^2)^{1/2} r^2 \dot{\varphi}
+\end{aligned}
+\]
+since $\begin{aligned} & \quad \\
+  & (\dot{r} c_{\varphi} - rs_{\varphi} \dot{\varphi} )c_{\varphi} + (\dot{r} s_{\varphi} + rc_{\varphi} \dot{\varphi} )s_{\varphi} = \dot{r} \\ 
+  & (\dot{r} c_{\varphi} - rs_{\varphi} \dot{\varphi} )(-s_{\varphi}) + (\dot{r} s_{\varphi} + rc_{\varphi} \dot{\varphi} )c_{\varphi} = r \dot{\varphi}
+\end{aligned}$ (cf. Chapter 6 ``Lagrangian Dynamics'' \footnote{\url{http://ice.as.arizona.edu/~dpsaltis/Phys422/chapter6.pdf}})
+
+
+
+Clearly, the so-called ``Rayleigh's dissipation function'' (Eq. (1.67) on pp. 23 of Goldstein, et. al. \cite{HGoldsteinCPooleJSafko2001}) is 
+\[
+\mathcal{F} = \frac{1}{3} \rho C_a A (\dot{x}_1^2 + \dot{x}_2^2)^{3/2}
+\]
+
+One can also write down a generalized force for the thrust
+\[
+F_{\text{thrust}} = T = \dot{m}_p \mathbf{u}_{e} + (p_e- p_a) A_e \mathbf{e}_z 
+\]
+where $\mathbf{u}_e$ is in the direction opposite of the $z$ axis of symmetry of the \emph{body-frame}, as with $\mathbf{e}_z$.  
+
+One should also consider $\mathbf{e}_z$ to be a vector in the \emph{body-frame} that's arbitrary to represent cold-gas thrusters:
+\[
+F_{\text{thrust}} \equiv T = (\dot{m}_p u_e + (p_e- p_a) A_e) \mathbf{e}_z
+\]
 
 \part{AE121}
 
 
 Let's translate $\frac{\gamma}{\gamma -1}$ between physicists and engineers:
-\[
-\frac{\gamma}{\gamma -1} = \frac{ \frac{C_p}{C_V}}{ \frac{N}{C_V}} = \frac{C_p}{N} = \frac{c_p MN}{N} = \frac{c_p k_B}{R}
-\]
+\begin{equation}
+  \boxed{ \frac{\gamma}{\gamma -1} = \frac{ \frac{C_p}{C_V}}{ \frac{N}{C_V}} = \frac{C_p}{N} = \frac{c_p MN}{N} = \frac{c_p k_B}{R} }
+\end{equation}
 
 \subsubsection{Speed of sound}
 
@@ -1629,552 +2125,6 @@ F_{\text{thrust}} = \frac{N\tau}{\pi L} = \frac{pL^2}{\pi}
 
 
 
-\part{Notes and Solutions for \emph{Thermal Physics} by Ralph Baierlein}\cite{RBaierlein1999}
-
-\section{Background}
-
-\subsection{Heating and Temperature}
-
-Heating: keep in mind 3 different types of heating for energy exchange between two systems:
-
-\begin{enumerate}
-  \item Heating by conduction - literal contact, molecules jiggle faster from molecules jiggling faster by bouncing off them
-  \item Heating by radiation - em waves from hot source strike and excite target
-  \item heating by convection - energy transport by flow (perhaps a fluid)
-\end{enumerate}
-
-This all relates to \\
-$Q$
-
-\subsection{Some dilute gas relationships}
-
-\subsubsection*{Pressure according to kinetic theory} i.e. some kinetic theory
-
-$F \equiv $ force on area $A$ due to molecules \\
-$\Delta p \equiv $ momentum transferred to wall per collision \\
-$n \equiv$ number of collisions in time $\Delta t$
-
-Thus
-\[
-F = \frac{ (\Delta p)n }{ \Delta t }
-\]
-
-Now $\Delta p = 2 m v_x$ since $\Delta p = mv_x - (-mv_x) = 2mv_x$ (elastic collision with momentum conversation)
-
-$v_x \Delta t A$ is a volume, inside of which gas molecules can be within distance $v_x \Delta t$ toward the wall.  \\
-$\frac{N}{V}$ number density of molecules
-
-Assume equal distribution of velocities: Thus $\frac{1}{2}$
-\[
- n = (v_x \Delta t A) \frac{1}{2} \frac{N}{V}
-\]
-\[
-P = \frac{F}{A} = \frac{ (2mv_x)(v_x \Delta t A ) \frac{1}{2} \frac{N}{V} }{ A \Delta t} = mv_x^2 \frac{N}{V}
-\]
-
-Suppose $\langle v^2 \rangle = \langle v_x^2 \rangle + \langle v_y^2 \rangle + \langle v_z^2 \rangle = 3 \langle v_x^2 \rangle = d \langle v_x^2 \rangle$.  
-\[
-\Longrightarrow P = \frac{mN}{dV} \langle v^2 \rangle = \frac{2}{d} \frac{1}{2} m \langle v^2 \rangle \frac{N}{V}
-\]
-
-\subsubsection*{An empirical gas law}
-Now 
-\[
-P = \frac{N\tau}{V} \quad \, \text{(empirical)}
-\]
-
-\[
-\Longrightarrow \frac{1}{2} m \langle v^2 \rangle = \frac{d}{2} \tau
-\]
-
-\subsection{The First Law of Thermodynamics}
-
-\[
-dU = Q - W \text{ or } Q = dU + W 
-\]
-
-Consider $W = Q-dU$.  
-
-Consider path in $M$, $\gamma$, $\begin{aligned} & \quad \\
-  & \gamma : \mathbb{R} \to M = (U,V) \\
-  & \gamma(t) = (U(t), V(t)) \end{aligned}$
-
-$\dot{\gamma} \in \mathfrak{X}(M)$, $\dot{\gamma} = \dot{U} \frac{\partial }{ \partial U} + \dot{V} \frac{ \partial }{ \partial V}$
-
-\[
-W(\dot{\gamma}) = pdV(\dot{\gamma}) = p\dot{V} = Q(\dot{\gamma}) - dU(\dot{\gamma}) = Q(\dot{\gamma}) - \dot{U}
-\]
-Suppose $Q(\dot{\gamma}) = Q(t)dt(\dot{\gamma} \frac{ \partial }{ \partial t} ) = Q(t) \dot{\gamma}$.  
-\[
-\begin{gathered}
-  \int p \dot{V} dt = \int Q(t) \dot{\gamma}dt - \int \dot{U}dt \\ 
-  \Longrightarrow p\Delta V = \Delta Q - \Delta U
-\end{gathered}
-\]
-$p\Delta V$ interpreted as work done by gas. $\Delta Q$ is heat transferred to gas system.  $-\Delta U$ is the drop in internal energy of gas system as it does work.  
-
-\subsection{Heat capacity}
-
-\[
-Q = Q(\tau,V) = \left( \frac{ \partial Q}{ \partial \tau} \right)_V d\tau +  \left( \frac{ \partial Q}{ \partial V} \right)_{\tau} dV
-\]
-So define $C_V \equiv \left( \frac{ \partial Q}{ \partial \tau} \right)_V$ or interpret $C_V$ as energy input by heating at constant volume over ensuing change in temperature.  
-
-In this case, $\left( \frac{ \partial U}{ \partial \tau } \right)_V$.  
-
-For the case of a monatomic gas, $U =\frac{d}{2} \tau N$, $\frac{ \partial U}{ \partial \tau} = \frac{d}{2} N$.  
-\[
-C_V = \frac{d}{2} N
-\]
-$N \equiv $ number of molecules.  
-
-Now 
-\[
-\begin{aligned}
-  & Q = \Lambda_p dp + C_p d\tau \\ 
-  & Q = \Lambda_V dV + C_V d\tau
-\end{aligned} \Longrightarrow \begin{aligned}
-  & Q \wedge dp = C_p d\tau \wedge dp \\ 
-  & Q \wedge dp = \Lambda_V dV \wedge dp + C_V d\tau \wedge dp
-\end{aligned}
-\]
-Now from the thermodynamic identity, $Q = W + dU = pdV + dU$,
-\[
-Q \wedge dp = p dV \wedge dp + dU \wedge dp
-\]
-and from (empirical) ideal gas law, $pV = N\tau$ (which defines a hypersurface on $M$),
-\[
-dp V + p dV = N d\tau \Longrightarrow p dV \wedge dp = N d\tau \wedge dp
-\]
-so then
-\[
-Q \wedge dp = N d\tau \wedge dp + dU \wedge dp
-\]
-In the case of the monatomic gas, $U = \frac{d}{2} \tau N$, and so $dU = \frac{d}{2} N d\tau = C_V d\tau$ and so comparing all the equations above, one recovers
-\[
-C_p = N + C_V = \frac{2+d}{2} N
-\]
-EY: 20151019 I'm curious to know how this all generalizes for $C_V$, $C_P$ heat capacities, regardless of the type of molecule we consider.  
-
-
-\subsubsection*{The adiabatic relation for a classical ideal gas}
-
-Consider the adiabatic expansion (or contraction!) of a classical ideal gas.  \\
-This means that $Q=0$; there is no heat exchange to or from the gas system.  
-
-Recall $Q = dU + W$.  \\
-If $Q=0$, and supposing $W = pdV$, then $0 = dU + pdV$.  
-
-EY : 20151019 Either by definition, or the thermodynamic identity, $\tau d\sigma = dU + pdV$, then $C_V := \left( \frac{ \partial U}{ \partial \tau} \right)_V$.  My question is this: for manifold of thermodynamic states $M$, $M=(U,V)$, i.e. $U$ is a global coordinate and $V$ is a ``local'' coordinate.  One can make a Legendre transformation such that $M$ is parametrized by $(\tau,V)$, where $\tau$ is the temperature.  In general, one should say that $U=U(\tau,V) \in C^{\infty}(M)$, and so $dU = \frac{ \partial U }{ \partial \tau} d\tau + \frac{ \partial U}{ \partial V} dV$, $dU \in \Omega^1(M)$.    
-
-However, for this adiabatic process, we want
-\[
-Q = 0 = dU + W = dU + pdV = C_V d\tau + pdV
-\]
-which implies that $dU = C_V d\tau$.  What happened to the $\frac{ \partial U}{ \partial V} dV$? Is it that in this adiabatic process, the internal energy of the gas system goes to either doing work (expansion) or increases due to work being done on it (contraction), and is characterized completely by a drop or increase in its temperature, respectively?  And so $dU = C_V \tau$, and $pdV$ completely describes what's going on with work done or work done on it?
-
-Nevertheless, using the (empirical) ideal gas law, $pV = N\tau$, 
-\[
-0 = C_V d\tau + pdV = C_V d\tau + \frac{N\tau}{V} dV
-\]
-Consider a path $\begin{aligned} & \quad \\
-  & \gamma : \mathbb{R} \to M \\ 
-  & \gamma(t) = (\tau(t), V(t)) \end{aligned}$ \quad \, in $M$, so that $\dot{\gamma}(t) = \dot{\tau} \frac{ \partial }{ \partial \tau } + \dot{V} \frac{ \partial }{ \partial V} \in \mathfrak{X}(M)$.  
-
-Thus, 
-\[
-\begin{gathered}
-  0 = C_v \dot{\tau} + \frac{N \tau}{V} \dot{V} \text{ so } \frac{ \dot{\tau}}{\tau} + \frac{N}{C_V} \frac{ \dot{V}}{V} \\
-  \xrightarrow{ \int dt } \ln{ \frac{ \tau_f}{ \tau_i } } + \frac{N}{C_V} \ln{ \frac{V_f}{ V_i } } = 0 \text{ or } \ln{\tau V^{\frac{N}{C_V}} } = \text{ const. }
-\end{gathered}
-\]
-
-Now
-\[
-\frac{N}{C_V} = \frac{C_P - C_V}{ C_V} = \gamma -1 
-\]
-which is true, assuming the (empirical) ideal gas law, the thermodynamic identity, and, surely, for the case of a monatomic gas.  
-
-Thus
-\[
-\tau_f V_f^{\gamma-1} = \tau_i V_i^{\gamma -1}
-\]
-
-\subsection*{Problems}
-
-\problemhead{4} \emph{Adiabatic compression}. 
-
-A diesel engine doesn't have a spark plug to ignite and explode the fuel.  Instead, the air in the cylinder is compressed so highly that the fuel ignites spontaneously when sprayed into the cylinder.  
-
-\begin{enumerate}
-\item[(a)] 
-\[
-\begin{gathered}
-  \frac{ \tau_f V_f^{\gamma -1} }{ \tau_i V_i^{\gamma -1} } = \frac{ P_f V_f^{\gamma }}{ P_i V_i^{\gamma} } = 1 \\
-  \tau_f = \left( \frac{V_i}{V_f} \right)^{\gamma -1 }\tau_i
-\end{gathered}
-\]
-
-Run the Python script \verb|thermo.py| to do the calculations.  Here is (some of) the code from \verb|thermo.py| for doing so (one still needs to import the necessary libraries):
-
-\begin{lstlisting}
-roomtemp_K = KCconv.subs(T_C,20).rhs # room temperature in Kelvin                               
-
-Prob0104ans = adia_tV.subs(gamma,1.4).subs(V_f,1).subs(V_i,15).subs(tau_i, roomtemp_K) # answer to Problem 4 of Chapter 1                                                                           
-
-Prob0104ans = N( Prob0104ans.lhs) # 866.016969686253 K                                         
-Prob0104ansC = solve( KCconv.subs( T_K, Prob0104ans), T_C )[0] # 592.866969686253 C            
-solve( FCconv.subs( T_C, Prob0104ansC ), T_F)[0] # 1099.16054543526 F   
-\end{lstlisting}
-
-The final temperature is $866.01 \, K$ or $592.87 \, C$ or $1099.16 \, F$
-
-\item[(b)] Now from the ideal gas law, which is obeyed at all thermodynamic states
-\[
-\begin{gathered}
-  \frac{P_f}{ P_i} = \frac{V_i}{V_f} \frac{ \tau_f}{ \tau_i}
-\end{gathered}
-\]
-and so $\frac{P_f}{P_i} = 44.31$
-\end{enumerate}
-
-
-\section{Phase Equilibrium}
-
-\subsection{Latent heat}
-
-$p,T$ const., liquid $\to $ gas, e.g. $ \begin{aligned} & \quad \\
-  & p = 1 \text{ atm } \\
-  & T = 373 \, K \end{aligned}$
-
-latent heat of vaporization $L_{\text{vap}}$ (by def.) amount of energy supplied by heating.  \\
-$Q = dU + W$ \\
-$\epsilon := U/N = $ average (internal) energy per molecule  \\
-$v:= V/N = $ volume per molecule 
-
-$L_{\text{vap}} = d\epsilon + p dV$ \\
-\phantom{\quad \, } $d\epsilon(\dot{\gamma}) = \epsilon_{\text{vap}} - \epsilon_{\text{liq}}$ \\
-\phantom{\quad \, } $dv(\dot{\gamma}) = v_{\text{vap}} - v_{\text{liq}} >0$
-
-if $p$ const., $L_{\text{vap}} = d(\epsilon + pV) = dh$, $h:= H/N = \frac{ U + pV}{N}$
-
-EY : 20151031 A better way to think about it is this: recall that
-\[
-\begin{aligned}
-  & Q = dU + W = dU + pdV = \tau d\sigma \\ 
-  & H = U + pV \text{ so } dH = dU + pdV + Vdp = Q + Vdp
-\end{aligned}
-\]
-Consider a path $\gamma \in M$ s.t. $\begin{aligned} & \quad \\
-  & d\tau(\dot{\gamma}) = 0 \\
-  & dp(\dot{\gamma}) = 0 \end{aligned}$ \quad \, (constant $\tau,p$)
-
-\[
-\begin{aligned}
-  & Q(\dot{\gamma}) = dH(\dot{\gamma}) - Vdp(\dot{\gamma}) = dH(\dot{\gamma}) - 0 = dH(\dot{\gamma})
-  & Q(\dot{\gamma}) = \tau d\sigma(\dot{\gamma}) \\ 
-  & \int Q(\dot{\gamma}) = \int \tau d\sigma(\dot{\gamma}) = \tau(\sigma_g - \sigma_l)
-\end{aligned}
-\]
-Thus
-\[
-\begin{gathered}
-  \frac{ \int Q(\dot{\gamma})}{ N} = \tau (s_g - s_l ) = \frac{H_g}{N} - \frac{H_l}{N} \\ 
-  L \equiv \tau(s_g - s_l) = \frac{ \int Q(\dot{\gamma})}{ N} = \frac{1}{N} (H_g -H_l)
-\end{gathered}
-\]
-
-\subsubsection*{Latent heat versus heat capacity}
-
-Take slow, reversible process.  
-
-Now 
-\[
-\begin{aligned}
-  & C_V := \tau \left( \frac{ \partial \sigma }{ \partial \tau} \right)_V \\ 
-  & C_P := \tau \left( \frac{ \partial \sigma }{ \partial \tau } \right)_P
-\end{aligned}
-\]
-
-It's stated in Kittel and Kroemer (1980), pp. 166, Equation (37), Chapter 6: Ideal Gas, Subsection ``Heat capacity'' \cite{CKittelHKroemer1980}, that 
-\begin{equation}
-  C_P = \tau \left( \frac{ \partial \sigma }{ \partial \tau} \right)_P = \left( \frac{ \partial U }{ \partial \tau} \right)_P + p \left( \frac{ \partial V}{ \partial \tau} \right)_p
-\end{equation}
-
-Suppose $\sigma = \sigma(\tau, V)$.  With $\tau d\sigma = dU + W = \tau d\sigma = dU + pdV$, 
-\[
-\begin{aligned}
-  & d\sigma = \frac{ \partial \sigma }{ \partial \tau } d\tau + \frac{ \partial \sigma }{ \partial V} dV = \frac{dU}{ \tau} + \frac{p}{\tau} dV \\ 
-  & d\sigma(\dot{\gamma}) = \left( \frac{ \partial \sigma}{ \partial \tau} \right)_V + 0 = \frac{1}{\tau} dU(\dot{\gamma}) = \frac{1}{\tau} \left( \frac{ \partial U}{ \partial \tau} \right)_V
-\end{aligned}
-\]
-Then it's clear that 
-\[
-\tau \left( \frac{ \partial \sigma }{ \partial \tau } \right)_V = \left( \frac{ \partial U}{ \partial \tau} \right)_V = C_V
-\]
-
-Now suppose $\sigma = \sigma(\tau, p)$.  
-
-Consider also the enthalpy,  $H = U + pV$, and so
-\[
-dH = dU + Vdp + pdV = \tau d\sigma + Vdp
-\]
-Now for $\sigma = \sigma(\tau,p)$,
-\[
-\begin{aligned}
-  & \sigma = \sigma(\tau,p) \\ 
-  & d\sigma = \frac{ \partial \sigma }{ \partial \tau} d\tau + \frac{ \partial \sigma }{ \partial p } dp = \frac{dH}{\tau} - \frac{V}{\tau} dp
-\end{aligned} \Longrightarrow d\sigma(\dot{\gamma}) = \left( \frac{ \partial \sigma }{ \partial \tau} \right)_p + 0 = \frac{1}{\tau} \left( \frac{ \partial H}{ \partial \tau} \right)_p - 0 
-\]
-
-So 
-\[
-C_p := \tau \left( \frac{ \partial \sigma }{ \partial \tau } \right)_p = \left( \frac{ \partial H}{ \partial \tau} \right)_p
-\]
-Now 
-\[
-\begin{gathered}
-  dH(\dot{\gamma}) = dU(\dot{\gamma}) + Vdp(\dot{\gamma} ) + pdV(\dot{\gamma}) = \left( \frac{ \partial U }{ \partial \tau} \right)_p + 0 + p \left( \frac{ \partial V}{ \partial \tau} \right)_p = \left( \frac{ \partial H }{ \partial \tau } \right)_p \text{ so } \\ 
-  C_p = \tau \left( \frac{ \partial \sigma }{ \partial \tau} \right)_p = \left( \frac{ \partial U}{ \partial \tau} \right)_p + p\left( \frac{ \partial V}{ \partial \tau} \right)_p 
-\end{gathered}
-\]
-
-Kittel and Kroemer (1980) \cite{CKittelHKroemer1980} argues that for ideal gas, 
-\[
-\left( \frac{ \partial U}{ \partial \tau} \right)_p = \left( \frac{ \partial U}{ \partial \tau} \right)_V
-\]
-since $U = U(\tau)$.  
-
-\subsection{Conditions for coexistence} Sec. 12.3 of Baierlein (1999) \cite{RBaierlein1999}.  
-
-Recall 
-\[
-G = F + pV = U + pV - \tau \sigma =G(\tau,p,N)
-\]
-
-Now 
-\[
-\begin{gathered}
-  G = G(\tau, p, N_{\text{vap}}, N_{\text{liq}} )
-\Longrightarrow dG = \frac{ \partial G}{ \partial N_{\text{vap}}} dN_{\text{vap}} + \frac{ \partial G}{ \partial N_{\text{liq}} } dN_{\text{liq}} = \mu_{\text{vap}} 1 + \mu_{\text{liq}} (-1) = 0  \\
-\Longrightarrow \mu_{\text{vap}}(\tau,p) = \mu_{\text{liq}}(\tau,p)
-\end{gathered}
-\]
-
-From Kittel and Kroemer (1980) \cite{CKittelHKroemer1980}, Example : $N$ atoms in a box, Chapter 3: ``Boltzmann Distribution and Helmholtz Free Energy'', 
-
-state of energy $\epsilon_{\alpha}(1) + \epsilon_{\beta}(2) + \dots + \epsilon_{\xi}(N)$, $\alpha, \beta, \dots \xi$ denote orbital indces of atoms in successive boxes.  \\
-each entry occurs $N!$ times in $Z_1^N$ (EY: 20151022) $N!$ ways to fill $\alpha, \beta \dots \xi$ orbitals with $N$ distinguishable particles.  Thus,
-\[
-Z_N = \frac{1}{N!} Z_1^N = \frac{1}{N!} (n_Q V)^N
-\]
-
-
-\part{Notes and Solutions on \emph{Fundamentals of Thermodynamics}, 8th Edition, by Claus Borgnakke, Richard E. Sonntag}
-\cite{CBorgnakkeRSonntag2012}
-
-\section{}
-
-\section{Properties of a Pure Substance}
-
-EY : 20151030 Is the word vapor the same as gas?  vapour, gaz, gas, vapore
-
-For coexistence equilibrium, 
-\[
-\begin{aligned}
-  & \mu_g(p_0,\tau_0) = \mu_l(p_0,\tau_0) \text{ and } \\ 
-  & \mu_g(p_0 + dp, \tau_0+d\tau) = \mu_l(p_0 + dp, \tau_0+d\tau)
-\end{aligned}
-\]
-and so 
-\begin{equation}
-  \frac{dp}{d\tau} = \frac{L}{\tau \Delta v}
-\end{equation}
-where $v\equiv \frac{V}{N}$, the so-called \textbf{vapor pressure equation} or \textbf{Clausius-Clapeyron} equation.  
-
-For (2) approximations, $\Delta v = v_g - v_l \approx v_g = \frac{V_g}{N_g}$ and idealize vapor as ideal gas, $pV = N\tau$ so $\frac{dp}{d\tau} = \frac{L}{\tau^2/p}$.  
-
-Second, if $L$ constant, 
-\begin{equation}\label{Eq:CCeq_pvsT}
-  p(\tau) = p_0 \exp{ (-L_0/\tau)} \text{ or } \ln{ \left( \frac{p(\tau)}{p_0} \right) } = \frac{-L_0}{\tau}
-\end{equation}
-cf. Ch. 10 Phase Transformations, pp. 278-284, ``Derivation of the Coexistence Curve, $p$ Versus $\tau$'' of Kittel and Kroemer (1980) \cite{CKittelHKroemer1980}.  
-
-Eq. \ref{Eq:CCeq_pvsT} explains the shape of the coexistence curve between solid and gas (vapor) (sublimation) and liquid and gas (vapor) (vaporization; vaporization curve).  
-
-\textbf{Saturation} is this $p=p(\tau)$ coexistence curve.  
-
-
-\textbf{Isotherms, Isothermals}
-
-Recall $\begin{aligned} 
-  & \quad \\
-  & G = F + pV \\
-  & F = U-\tau \sigma \end{aligned}$ and so $\begin{aligned}
-  & \quad \\
-  & dG = dF + Vdp + pdV = dU - \tau d\sigma - \sigma d\tau + pdV + Vdp = -\sigma d\tau + Vdp \\
-  & dG = -\sigma d\tau + Vdp \end{aligned}$
-
-So then $\begin{aligned} & \quad \\
-  & G = G(\tau, p) \\
-  & G= G(\tau, p, N) \end{aligned}$ 
-
-where the latter statement is when we include particle transfer, so that 
-\[
-dG = -\sigma d\tau + Vdp + \mu dN \text{ for } \mu = \mu(\tau,p)
-\]
-
-For the \emph{ideal gas}:
-
-\[
-\begin{gathered}
-  F(\tau,V) = F= -N\tau \left( \ln{ \left( \frac{n_Q}{n} \right)} + 1 \right) \\ 
-  \text{ where }  \begin{aligned}
-    & n_Q = \left( \frac{M\tau }{2\pi \hbar^2 } \right)^{3/2} \\ 
-    & n \equiv N/V = \frac{p}{\tau} 
-  \end{aligned} \\
-  G(\tau,p, N) = -N \tau ( \ln{ \left( \frac{n_Q}{n} \right) } + 1 ) + N \tau = - N\tau ( \ln{ \left( \frac{n_Q}{n} \right) } ) = -N\tau \ln{ \left( \left( \frac{M\tau}{2\pi \hbar^2 } \right)^{3/2} \frac{\tau}{p} \right) } \\
-  \text{ so then }
-\left( \frac{ \partial G}{ \partial N} \right)_{\tau,p} = \mu = -\tau \ln{ \left( \left( \frac{M\tau}{2\pi \hbar^2} \right)^{3/2} \frac{\tau}{p} \right) }
-\end{gathered}
-\]
-
-For the \emph{Van der Waals gas}
-\[
-\begin{gathered}
-  F(vdW) = -N\tau \left( \ln{ \left( \frac{n_Q (V-Nb)}{N} \right) }  + 1 \right) - \frac{N^2 a }{V} \\ 
-  p = -\left( \frac{\partial F}{ \partial V} \right)_{\tau,N} = \frac{N\tau}{V-Nb} - \frac{N^2a}{V^2} \\
-  G(\tau,V,N) = \frac{N\tau V}{ V-Nb} - \frac{2N^2 a}{V} - N\tau ( \ln{ \left( \frac{n_Q (V-Nb)}{N} \right) } + 1 )
-\end{gathered}
-\]
-
-Nevertheless, consider, when considering isotherms, isothermals, 
-\[
-dG = -\sigma d\tau  + Vdp + \mu dN
-\]
-Consider a path $\gamma$ on constant $\tau$, constant total number of particles $N$, and so
-\[
-dG(\dot{\gamma}) = Vdp(\dot{\gamma}) = G_g-G_l = \int_{\gamma} Vdp
-\]
-
-
-\part{Thermodynamics (Revisited)}
-
-\section{Heat Capacity}
-
-From Kittel and Kroemer (1980) \cite{CKittelHKroemer1980}, pp. 165-166, Chapter 6: Ideal Gas, ``Heat Capacity'',
-\[
-Q = Q(\tau,p) = \Lambda_p dp + C_p d\tau = dU + W = dU + p dV 
-\]
-Let $c\in \Sigma$ s.t. $dp(\dot{c})=0$ (constant pressure).  And so 
-\[
-Q(\dot{c}) = 0 + C_p d\tau(\dot{c}) = \tau d\sigma (\dot{c}) = dU(\dot{c}) + pdV(\dot{c})
-\]
-for $c=(\tau,0)$, $\dot{c} = \frac{\partial }{ \partial \tau} \in T\Sigma$.  
-
-\[
-\Longrightarrow C_p = \tau \left( \frac{ \partial \sigma }{ \partial \tau} \right)_p = \left( \frac{ \partial U}{ \partial \tau} \right)_p + p \left( \frac{ \partial V}{ \partial \tau} \right)_p
-\]
-for heat capacity at constant pressure is larger than $C_V$ because additional heat must be added to perform the work needed to expand volume of gas against constant pressure.  
-
-Now recall for enthalpy 
-\[
-\begin{aligned}
-  & H = U+ pV \\ 
-  & H = H(\sigma, p)
-\end{aligned}
-\]
-Then
-\[
-dH = dU+ pdV + Vdp = Q + Vdp 
-\]
-Thus, for $c\in \Sigma$, $dp(\dot{c})=0$ (constant pressure).  Hence
-\[
-dH(\dot{c}) = \left( \frac{ \partial H}{ \partial \tau} \right)_p = Q(\dot{c})  +  0 = C_p
-\]
-Hence, 
-\[
-C_p = \left( \frac{ \partial H}{ \partial \tau } \right)_p = \left( \frac{ \partial Q}{ \partial \tau} \right)_p
-\]
-
-
-
-\section{Phase Equilibrium}
-
-
-\begin{description}
-\item Phase Equilibrium
-\item Phase Diagram
-\item (Phase) Coexistence Curve 
-\item Antoine Equation (parameters)
-\end{description}
-
-
-For coexistence equilibrium, $\mu_g(p_0,\tau_0) = \mu_l(p_0,\tau_0)$ and $\mu_g(p_0 + dp, \tau_0 + d\tau) = \mu_l(p_0 + dp, \tau_0+d\tau)$, and so $\frac{dp}{d\tau} = \frac{L}{ \tau \Delta v}$ with $v \equiv \frac{V}{N}$.  
-
-Make the approximation that $\Delta v \equiv v_g - v_l \approx v_g = \frac{V_g}{N_g}$ and idealize vapor as ideal gas, $pV = N\tau$, so $\frac{dp}{d\tau} = \frac{L}{\tau^2/p}$.  
-
-If $L$ constant, 
-\begin{equation}
-p(\tau) = p_0 \exp{ (-L_0 /\tau)} \text{ or } \ln{ \left( \frac{p(\tau)}{p_0} \right) } = \frac{-L_0}{\tau}
-\end{equation}
-
-Consider the Antoine Equation Parameters given in the NIST (National Institute of Standards and Technology) Chemistry WebBook \footnote{\href{http://webbook.nist.gov/cgi/cbook.cgi?ID=C7782447&Mask=4\#Thermo-Phase}{Phase change data for Oxygen}}
-
-\begin{equation}
-  \log_{10}(P) = A- (B/(T+C))
-\end{equation}
-
-Then
-\[
-\begin{gathered}
-  P = 10^{ A = \frac{B}{T+C}} = 10^A 10^{-\frac{B}{T+C}} = 10^A \exp{ \left( \frac{-B}{T+C} \ln{10} \right) }
-\end{gathered}
-\]
-Now $\frac{D}{T+C} = \frac{D}{T} - \frac{DC}{T(T+C)}$, and so
-\[
-P = 10^A \exp{ \left( \frac{ (B\ln{10} )C }{T(T+C)} \right) }\exp{ \left( \frac{-B\ln{10} }{ T} \right) }
-\]
-Consider how much the pressure is changed due to this $C$ parameter.  Consider $P_0$, $P_1$, defined as such:
-\[
-\begin{gathered}
-  \begin{aligned}
-    & P_0 = 10^A  \exp{ \left( \frac{-B\ln{10} }{ T} \right) }
-    & P_1 = 10^A \exp{ \left( \frac{ (B\ln{10} )C }{T(T+C)} \right) }\exp{ \left( \frac{-B\ln{10} }{ T} \right) }
-  \end{aligned} \Longrightarrow \frac{P_0}{P_1} = \exp{ \left( \frac{ (B\ln{10} )C }{ T(T+C) } \right)}
-\end{gathered}
-\]
-So a deviation can be estimated from $1 - \frac{P_0}{P_1}$.  
-
-Open up \verb|thermochem.py|.  The \emph{saturation curve} or \emph{coexistence curve} for, for example, oxygen, from liquid to gas, can be reproduced.  One needs to input in the Antoine parameters from the NIST website \footnote{\url{http://webbook.nist.gov/cgi/cbook.cgi?ID=C7782447&Mask=4\#Thermo-Phase}}
-
-\begin{lstlisting}
->>> O2coec = CoexistCurve(3.85845, 325.675, -5.667 )                                            
->>> plot( O2coec.curveSI.rhs, (T,54.36,100.16) )   
-
->>> N(O2coec.curveSI.rhs.subs(T,60.))
-731.804072053687
->>> N(O2coec.curveSI.rhs.subs(T,70.))
-6253.42680398774
->>> N(O2coec.curveSI.rhs.subs(T,75.))
-14494.1195824433
-\end{lstlisting}
-
-  \quad \quad \quad
-
-
-
-
-
-
-
-%\begin{figure}[b]
-%  \centering
-%  \includegraphics[width=\columnwidth]{../eps/Nielsen2011RBB_qualitative_report_topicsentiment}
-%  \caption{Web service screenshot with text from Wikipedia
-%    article ``Lundbeck''.}
-%  \label{fig:topicsentiment}
-%\end{figure}
 
 
 
@@ -2183,7 +2133,14 @@ Open up \verb|thermochem.py|.  The \emph{saturation curve} or \emph{coexistence 
 
 \end{multicols*}
 
+
 \begin{thebibliography}{9}
+
+\bibitem{GOates1997}
+Gordon C. Oates. \textbf{Aerothermodynamics of Gas Turbine and Rocket Propulsion} 3rd Edition. AIAA; 3rd edition (January 1, 1997). ISBN-13: 978-1563472411
+
+
+
 
 \bibitem{GSuttonOBiblarz2001}
 George P. Sutton, Oscar Biblarz. \textbf{Rocket Propulsion Elements}, 7th Edition. Wiley, 2001.  
@@ -2203,6 +2160,9 @@ ISBN-13: 978-0521298872
 \bibitem{CBorgnakkeRSonntag2012}
 Claus Borgnakke, Richard E. Sonntag.  \textbf{Fundamentals of Thermodynamics}, 8th Edition, Wiley, (December 26, 2012). 
 ISBN-13: 978-1118131992  
+
+\bibitem{HGoldsteinCPooleJSafko2001}
+Herbert Goldstein, Charles P. Poole Jr., John L. Safko.  \textbf{Classical Mechanics} (3rd Edition). Addison-Wesley; 3 edition (June 25, 2001).  ISBN-13: 978-0201657029 \url{https://homepages.dias.ie/ydri/Goldstein.pdf}
 
 \end{thebibliography}
 There's an 8th edition of Biblarz and Sutton \cite{GSuttonOBiblarz2001} for 2010 that I would like to have.  If you find any of this material useful or if you'd like to help, email me or visit my Open/Tilt page \url{ernestyalumni.tilt.com} and donate to the crowdfunding campaign or click on the PayPal donate button.  

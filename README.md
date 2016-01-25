@@ -1,5 +1,5 @@
 # Propulsion
-Propulsion - Numerical recipes for (rocket) propulsion, including notes and solutions in LaTeX
+Propulsion - Numerical recipes for (rocket) propulsion, including notes and solutions in LaTeX; **Cantera** implementations in *Python*
 
 ## Cantera
 

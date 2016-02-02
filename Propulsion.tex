@@ -1974,6 +1974,225 @@ u_e = \mathfrak{M}a = \mathfrak{M}\sqrt{\gamma RT} = \mathfrak{M} \sqrt{ \gamma 
 \end{enumerate}
 
 
+\textbf{Hydrazine monopropellant thrusters}
+
+Consider in general 2 reactions of the form 
+\[
+\sum_j \nu_j A_j = 0 
+\]
+and 
+\[
+\xi_K A_K + \sum_k \xi_k B_k = 0 
+\]
+with the convention that the stoichiometric coefficients ``on the left'' (reactants) are negative integers.  
+
+Clearly, 
+\[
+\begin{gathered}
+  dN_j = \nu_j d\widehat{N} \\ 
+  dN_k = \xi_k d\widehat{N}_2
+\end{gathered}
+\]
+where 
+\[
+\begin{aligned}
+  & d\widehat{N} \equiv \text{ how many times reaction 1 takes place } \\ 
+  & d\widehat{N}_2 \equiv \text{ how many times reaction 2 takes places }
+\end{aligned}
+\]
+since in chemical reactions, chemical species can't be ``broken down'' or ``destroyed'' into smaller parts (we're not considering nuclear reactions).  
+
+Then for the particular chemical species $A_K$, \[
+\begin{aligned}
+  & dN_K = \nu_K d\widehat{N} \text{ and } \\
+  & dN_{K_2} = \xi_{K_2} d\widehat{N}_2
+\end{aligned}
+\]  for chemical species $K$ to occur in the second reaction.  Thus, given the fraction $X$ that participates in the second chemical reaction, observe, importantly, that
+\[
+\begin{gathered}
+  XdN_k = -dN_{K_2} = - \xi_{K_2} d\widehat{N}_2 \\
+  \frac{-X\nu_K}{\xi_{K_2}} d\widehat{N} = d\widehat{N}_2
+\end{gathered}
+\]
+and so for the other chemical species (molecules) in the second reaction, their ``stoichiometric'' coefficients change in the following manner:
+\begin{equation}\label{Eq:stoichiometriccoeffsreaction2}
+  dN_k = \xi_k \frac{X \nu_k}{-\xi_{K_2}} d\widehat{N}
+\end{equation}
+and so writing the first reaction as 
+\[
+\sum_j \nu_j A_j =0 = \sum_{k \neq K} \nu_k A_k + \nu_K A_K 
+\]
+then we simply only need to add up reactions 1 and 2, with reaction 2 taking new stoichiometric coefficients according to Eq. \ref{Eq:stoichiometriccoeffsreaction2}:
+\begin{equation}\label{Eq:dissociationreactiongeneral}
+\boxed{ \sum_{k\neq K} \nu_k A_k + \nu_K(1-X) A_K + \sum_l \frac{ \xi_l X \nu_l }{ -\xi_{K_2} } B_l = 0 }
+\end{equation}
+Indeed, consider the (exothermic) decomposition of hydrazine and then the dissociation of ammonia into elevated temperatures:
+\[
+\begin{aligned}
+  &  \ce{3N2H4 -> 4NH3 + N2} \\ 
+  &  \ce{4NH3 -> 2N2 + 6H2 }
+\end{aligned}
+\]
+Then plugging into our formula, Eq. \ref{Eq:dissociationreactiongeneral}, 
+\[
+\begin{gathered}
+  -3 \ce{N2H4} + 4(1-X) \ce{NH3} + \ce{N2} + \frac{2\cdot X\cdot 4}{4} \ce{N2} + \frac{6 \cdot X \cdot 4}{4} \ce{H2} = 0 = -3 \ce{N2H4} + 4(1-X) \ce{NH3} + (1+2X)\ce{N2} + 6X\ce{H2} \\
+\Longrightarrow \boxed{ \ce{N2H4 -> } 4(1-X) \ce{NH3} + (1+2X) \ce{N2} + 6X \ce{H2} }
+\end{gathered}
+\]
+Indeed, for the following limits, 
+\[
+\begin{aligned}
+X \to 0  \qquad \, &  \ce{3N2H4 -> 4NH3 + N2} \\ 
+ X \to 1  \qquad \, &  \ce{3N2H4 -> 3N2 + 6H2 }
+\end{aligned}
+\]
+
+\emph{adiabatic flame temperature}
+
+Remember that for adiabatic processes, $Q=0$, and so $Q=0=\Delta H = H_{\text{products}} - H_{\text{reactants}}$ and so for adiabatic processes, $H_{\text{products}} = H_{\text{reactants}}$, given by 
+\begin{equation}
+\begin{aligned}
+  H_P(\tau_P) = \sum_{i\in \lbrace \text{products}\rbrace } n_i \left[ \Delta_f \overline{h}_i^0 + \overline{h}_i(\tau_P) - \overline{h}_i^0 \right]   \\
+  H_R(\tau_R) = \sum_{i\in \lbrace \text{reactants} \rbrace } n_i \left[ \Delta_f \overline{h}_i^0 + \overline{h}_i(\tau_R) - \overline{h}_i^0 \right]
+\end{aligned}
+\end{equation}
+where $P$ denotes products and $R$ denotes reactants.  
+
+The upper bound of the adiabatic flame temperature is given by no dissociation $(X=0)$.  The lower bound of the adiabatic flame temperature is given by the flame temperature with full dissociation $(X=1)$.  
+
+EY : 20160121 My question is this: is this because the dissociation of ammonia is endothermic, as the heat of formation of ammonia is $\Delta H_f^{\circ} = -45.894 \, kJ/\text{mol}$, and so heat is given off in its formation, and so for full dissociation, the temperature goes down.  Is this also because of Le Chatelier's principle?  A clear explanation according to Le Chatelier's principle would also be appreciated.
+
+Remember that the heat of formation for stable elements is $0$.  
+
+For the case of $X=0$, $Q=0$ leads to
+\[
+\begin{gathered}
+  3 \cdot \left[ \Delta_{f;\ce{N2H4}}^{\circ} + 0 \right] = 4 \cdot \left[ \Delta_{f;\ce{NH3}}^{\circ} + (H-H(T^{\circ}))_{\ce{NH3} }  \right]+ 1 \left[ 0 + (H-H(T^{\circ}))_{\ce{N2}} \right]
+\end{gathered}
+\]
+
+For the case of $X=1$, $Q=0$ leads to
+\[
+\begin{gathered}
+  3 \cdot \left[ \Delta_{f;\ce{N2H4}}^{\circ} + 0 \right] =  3 \left[ 0 + (H-H(T^{\circ}))_{\ce{N2}} \right] +  6 \left[ 0 + (H-H(T^{\circ}))_{\ce{H2}} \right]
+\end{gathered}
+\]
+
+We were given a quadratic polynomial fit to data taken from JANAF (or JANNAF?) tables for \ce{N2},\ce{H2},\ce{NH3}:
+\[
+\begin{aligned}
+  \ce{N2} \qquad  & H-H(T^{\circ}) = -8.553 + 27.77 \theta + 2.317 \theta^2 \\  
+  \ce{H2} \qquad  & H-H(T^{\circ}) = -8.292 + 27.39 \theta + 1.586 \theta^2 \\ 
+  \ce{NH3} \qquad & H-H(T^{\circ}) = -10.37 + 31.32 \theta + 11.77 \theta^2
+\end{aligned}
+\]
+where $\theta = T/1000$ and $T$ is in Kelvins ($K$).  
+
+Solving for a quadratic function is easy with \verb|scipy| using the module \verb|optimize| and the method \verb|newton|.  The code is in \verb|combustion.py|.  
+
+The upper bound of the adiabatic flame temperature $T_{ad}$ was found to be
+\[
+T_{ad} = 1644 \, K = 1371 \, C = 2498 \, F
+\]
+and the lower bound of the adiabatic flame temperature was found to be 
+\[
+T_{ad} = 866 \, K = 593 \, C = 1099 \, F
+\]
+
+\textbf{Gibbs function for a mixture of gases}
+
+Let $\Sigma$ be a 2-dimensional (i.e. $\text{dim}{\Sigma}=2$) manifold representing all possible thermodynamic states of the system (in this case, of an ideal gas).  Let $\Sigma$ have  coordinates $\tau,p$, representing the temperature $\tau$, and pressure $p$, of the system, respectively, which could've been obtained from (successive) Legendre transformations of (global) coordinates $U, V$, where $U$ is energy.  
+
+Let $Q$, representing heat applied onto, or heat into, the system, be a 1-form of $\Sigma$, i.e. $Q \in \Omega^1(\Sigma)$.  
+
+Then $Q$ can be written, in general, as 
+\[
+Q = C_p d\tau + \frac{ \partial Q}{ \partial p} dp
+\]
+Let's determine $\frac{\partial Q}{\partial p}$.  From energy conservation (i.e. ``First law'' of thermodynamics), $Q = dU + pdV$ (i.e. $Q$ in (global) coordinates of $U,V$ for $\sigma$.  Next, consider a curve $\gamma:\mathbb{R}\to \Sigma$ in $\Sigma$, representing a thermodynamic process, such that $d\tau(\dot{\gamma})=0$ which says that the process occurs at constant temperature $\tau$.  Note that $\dot{\gamma}$ is a vector field in $\Sigma$, i.e. $\dot{\gamma} \in \mathfrak{X}(\Sigma)$.  Then
+\[
+\begin{gathered}
+  Q(\dot{\gamma}) = C_p d\tau(\dot{\gamma}) + \frac{ \partial Q}{ \partial p} dp(\dot{\gamma}) = 0 + \frac{ \partial Q}{ \partial p} dp(\dot{\gamma})= dU(\dot{\gamma}) + pdV(\dot{\gamma})
+\end{gathered}
+\]
+For an ideal gas, $U = \frac{1}{\gamma -1} N\tau$ and so $dU = \frac{1}{\gamma-1}Nd\tau$ and so $dU(\dot{\gamma}) = \frac{1}{\gamma -1}Nd\tau(\dot{\gamma}) =0$.  It also sufficed to say that for an ideal gas, $U=U(\tau)$, i.e. $U$ is only a function of temperature, and so $U$ is constant during a process where temperature remains constant. 
+
+Then, using $pV=N\tau$ which must always hold for an ideal gas in equilibrium, 
+\[
+V= \frac{N\tau}{p} \Longrightarrow dV = \frac{N\tau}{-p^2} dp
+\]
+and so 
+\[
+\frac{ \partial Q}{ \partial p } dp = 0 + p\left( \frac{N\tau}{-p^2} \right)dp = \frac{-N\tau}{p} dp = -Vdp
+\]
+Thus $\frac{\partial Q}{ \partial p} = -V$.  One can (physically) interpret this as showing how heat, applied to this ideal gas system, can cause our system to be able to do (physical) work.  
+
+Then equating $Q = \tau d\sigma$, 
+\[
+\begin{gathered}
+\tau d\sigma = Q = C_p d\tau - V dp \Longrightarrow d\sigma = \frac{C_p}{\tau}{d\tau}  - \frac{V}{\tau} dp = \frac{C_p d\tau}{\tau} - \frac{N dp}{p}
+\end{gathered}
+\]
+Taking the integral,
+\[
+\sigma -\sigma_0 = \int_{\tau_0}^{\tau} \frac{C_p d\tau}{\tau} - N\ln{ \frac{p}{p_0} }
+\]
+Let's talk about, for a mixture of ideal gases,  partial pressures $p_i$ for each of the (kinds of) species $i$.  It makes (physical) sense that the contribution to the total pressure $p$ from a single species labeled $i$ would be proportional to the number of particles $N_i$ of the species $i$ (imagine (infinitesimally small) colliding billiard balls).  Then $p_i = \frac{N_i}{N} p$ and so 
+\[
+N_i \ln{ \frac{p_i}{p_0} } = N_i \ln{ \frac{N_i p}{Np_0} } = N_i \ln{ \frac{p}{p_0}} + N_i \ln{ \frac{N_i}{N} }
+\]
+For a mixture of ideal gases, there is no interaction energy (by definition of \emph{ideal}), and so entropies are \emph{additive} \cite{LLandauELifshitz1980}.  So 
+\[
+\begin{gathered}
+  \sigma = \sum_i \sigma_i = \sum_i \left( \int_{\tau_0}^{\tau} \frac{C_{pi} d\tau }{\tau} + \sigma_{i0} \right) - N \ln{ \frac{p}{p_0} } - \sum_i N_i \ln{ \frac{N_i}{N} }
+\end{gathered}
+\]
+$\sigma$ in its current state is unitless.  Multiply by the Boltzmann constant $k_B$ and Avogadro's number $N_A$ as appropriate to obtain the desired units for entropy $S$.  
+
+\subsubsection{ig thermo.xls; Dealing with tables}
+
+Doing a search on Google for \verb|ig_thermo.xls| yields this link: \\
+\url{http://www.google.com/url?q=http://shepherd.caltech.edu/EDL/projects/pde/ig_thermo.xls&sa=U&ved=0ahUKEwjt2ta8x7nKAhVB8GMKHa-tCBYQFggUMAA&usg=AFQjCNGcu2ryEOaIZqwumHooxDjcxTf3gQ}
+
+However, ammonia is not to be found in \verb|ig_thermo.xls| \emph{off the Web}.  
+
+Let's consider the work-flow or process of scraping the NIST website for JANAF table data.  Starting from the \href{http://kinetics.nist.gov/janaf/}{NIST-JANAF Thermochemical Tables} webpage, one can enter, as a string, the CAS number, chemical formula, or compound name, or search by the periodic table.  However, using the periodic table, for element \ce{N} or \ce{H}, ammonia wasn't to be found (as of 20160120).  However, entering \ce{NH3} or Ammonia (the search text box ``field'' is case-sensitive), leads to the ammonia gas JANAF table.  Then one clicks on the link for ``\href{http://kinetics.nist.gov/janaf/html/H-083.html}{view}'' for the HTML-formatted table and then follow the bottom link for the tab-separated table.  
+
+So it would be nice to do the following:
+\begin{itemize}
+  \item Obtain a \emph{comprehensive} list of all available compounds of this NIST JANAF database and with that 
+  \item scrape all the tab-separated tables.  
+\end{itemize}
+A comprehensive list appears to be in this pdf link for \href{http://kinetics.nist.gov/janaf/pdf/JANAF-FourthEd-1998-1Vol1-Intro.pdf}{Volume 1} of the JANAF tables.  Perhaps this pdf could be ``scraped'' to obtain a list of compounds in text format?  
+
+
+
+\subsubsection{entropy of a mixture of ammonia, nitrogen, and hydrogen}
+
+Recall that 
+\[
+\ce{N2H4 -> } 4(1-X) \ce{NH3} + (1+2X) \ce{N2} + 6X \ce{H2}
+\]
+and that we had derived
+\[
+S(T,P) = \sum_i N_i \left( \int_{T_0}^T c_{pi} \frac{dT}{T} + s_{i0} \right) - NR \ln{ \frac{P}{P_0} } - R \sum_i N_i \ln{ \frac{N_i}{N} }
+\]
+
+The values we want are for $P = 1 \, \text{atm}$ and $P=10 \, \text{atm}$  
+
+Note that 
+\[
+N=4(1-X) + (1+2X) + 6X = 4X +5
+\]
+and 
+\[
+\sum_i N_i \ln{\frac{N_i}{N} } = 4(1-X) \ln{ \left( \frac{4(1-X)}{4X+5} \right) } + (1+2X)\ln{ \left( \frac{1+2X}{4X+5} \right) } + 6X \ln{ \left( \frac{6X}{4X+5} \right) }
+\]
+
+
+
+
 \part{Basic Feeling}
 
 \section{Box with a hole rocket; bottled (box) rocket}
@@ -2125,13 +2344,330 @@ F_{\text{thrust}} = \frac{N\tau}{\pi L} = \frac{pL^2}{\pi}
 
 
 
+\part{Combustion}
 
+\section{mass fraction vs. mole fraction vs. molecular mass i.e. ``molecular weight''}
+
+This follows Powers (2014) \cite{JPowers2014}, Section 2.1. Some general issues, Chapter 2. Gas Mixtures, as some of the following concepts need to be clarified.  
+
+Consider a mixture of $\mathcal{N}\in\mathbb{Z}^+$, each ``a pure substance''.  
+
+Let the total mass of the mixture be $M$ such that ($\equiv$ s.t.)
+\[
+M = \sum_{j=1}^{\mathcal{N}} m_j
+\]
+where $m_j \equiv $ is the mass of the $j$th substance.  
+
+Let $N$ be the total number of \emph{particles} s.t. 
+\[
+N = \sum_{j=1}^{\mathcal{N}} N_j
+\]
+where $N_j$ is the (total) number of particles of the $j$th substance.  
+
+Define
+\[
+N_j/N_A =: n_j
+\]
+with $n_j$ be the number of moles of the $j$th substance, and where $N_A$ is \emph{Avogadro's number}, which really is a conversion \emph{factor} between units of moles to units for number of particles.
+
+Then
+\[
+n = \sum_{j=1}^{\mathcal{N}} n_j
+\]
+is the (total) number of moles of the mixture, or the ``total number'' (pp. 73, Powers (2014)) \cite{JPowers2014}.  
+Define 
+\begin{equation}
+  Y_j := \frac{m_j}{M} \qquad \, \text{ (mass fraction) }
+\end{equation}  
+$Y_j$ to be the mass fraction.  
+
+Define 
+\begin{equation}
+  X_j := \frac{n_j}{n} = \frac{N_j}{N} \qquad \, \text{ (mole fraction or particle fraction) }
+\end{equation}
+$X_j$ to be the mole fraction or particle fraction or just fraction.  
+
+Define the \emph{molecular mass} or ``molecular weight'' $\widehat{m}_j$ to be
+\begin{equation}
+  \widehat{m}_j := \frac{m_j}{n_j} = \frac{m_j}{N_j} N_A
+\end{equation}
+
+Then the mass fraction $Y_j$ in terms of molecular mass and in terms of mole fraction, respectively, is
+\[
+Y_j = \frac{m_j}{m} = \frac{ \widehat{m}_j n_j}{ \sum_{\xi=1}^{\mathcal{N}} n_{\xi} \widehat{m}_{\xi} } = \frac{ \widehat{m}_j X_j }{ \sum_{\xi=1}^{\mathcal{N}} X_{\xi} \widehat{m}_{\xi} }
+\]
+
+Mole fraction in terms of mass fraction is 
+\[
+X_j = \frac{n_j}{n} = \frac{ m_j/\widehat{m}_j }{ \sum_{k=1}^{\mathcal{N}} m_k/\widehat{m}_k } = \frac{ Y_j / \widehat{m}_j }{ \sum_{k=1}^{\mathcal{N}} Y_k / \widehat{m}_k }
+\]
+The mean molecular mass (of the mixture) is 
+\[
+\widehat{M} := \frac{M}{n} = \sum_{j=1}^{\mathcal{N}} \frac{n_j}{n} \widehat{m}_j = \sum_{j=1}^{\mathcal{N}} X_j \widehat{m}_j
+\]
+
+Example 2.1 of Powers (2014) \cite{JPowers2014}
+
+
+
+I will now follow the second edition (2000) of Turns \cite{STurns2011} (note that there is a third edition for 2011, but I only have the second edition available to me).  
+
+On the end of subsection ``Ideal-Gas Mixtures'' (pp. 15) of Chapter 2 Combustion and Thermochemistry of Turns (2000) \cite{STurns2011}, recall the Sackur-Tetrode equation for monatomic ideal gas \cite{CKittelHKroemer1980} 
+\[
+\begin{gathered}
+  \sigma = N \left[ \ln{ \left( \frac{n_Q}{n} \right) } + \frac{d}{2} + 1 \right]
+\end{gathered} \text{ where } \begin{gathered}
+  n \equiv N/V \\ 
+  n_Q = \left( \frac{M\tau}{2\pi \hbar^2} \right)^{d/2}
+\end{gathered}
+\]
+Now $\forall \, j$th substance, let $n_{Q;j} := \left( \frac{M_j \tau}{2\pi \hbar^2} \right)^{d/2}$, since each substance will have a different mass $M_j$ for each of its molecules, and let $n = n_j = \frac{N_j}{V} = \frac{p_j}{\tau}$.   Then
+\[
+\sigma_j = N_j \left[ \ln{(n_{Q;j} \tau )} - \ln{p_j} + \frac{d}{2} + 1 \right]
+\]
+where $\mathcal{N}$ is the total number of substances in the mixture.
+
+If we were to add these entropies up for each of the substances, assuming the additivity of entropies, and thus assuming that the interaction between the disparate substances is negligible, 
+\[
+\begin{gathered}
+  \sum_{j=1}^{\mathcal{N}} \sigma_j = \sum_{j=1}^{\mathcal{N}} N_j \left[ \ln{ n_{Q;j} } - \ln{p_j} \right] + N_j [ \ln{\tau} + \frac{d}{2} + 1 ]  = \sum_{j=1}^{\mathcal{N}} N_j( \ln{ n_{Q;j} }- \ln{p_j} )  + N ( \ln{\tau} + 1 + \frac{d}{2}  ) 
+\end{gathered}
+\]
+If we wanted to also include internal degrees of freedom (e.g. vibrational and rotational degrees of freedom), the expression for the entropy becomes (derived in \verb|thermo.pdf|, notes on thermodynamics by me)
+\[
+  \sigma = N \left[ \ln{ \left( \frac{n_Q}{n} \right) } + \left( \frac{d}{2} + 1 \right) \right] + \sigma_{\text{int}}
+\]
+and so 
+\[
+\sum_{j=1}^{\mathcal{N}} \sigma_j = \sum_{j=1}^{\mathcal{N}} N_j \ln{ n_{Q;j} } + \sigma_{\text{int};j} - N_j\ln{p_j}   + N ( \ln{\tau} + 1 + \frac{d}{2}  ) 
+\]
+with
+\[
+\sigma_j = N_j \ln{n_{Q;j}} + \sigma_{\text{int};j} - N_j \ln{p_j} + N_j (\ln{\tau} + 1 + \frac{d}{2})
+\]
+
+We can make a \emph{formal} definition, with respect to a reference pressure $p_{\text{ref}}$, of $\sigma_j$ so that 
+\begin{equation}
+  \sigma_j(\tau,p_j) = \sigma_j(\tau,p_{\text{ref}}) - N_j \ln{ \frac{p_j}{p_{\text{ref}}} }
+\end{equation}
+recovering Eq. (2.17a) of Turns (2000) \cite{STurns2011}.  
+
+
+
+
+
+
+
+\section{Enthalpy}
+\subsection{Stoichiometry}
+
+
+
+
+
+
+
+
+stoichiometric air-fuel ratio
+\[
+\left( \frac{A}{F} \right)_{\text{stoic}} \equiv \left( \frac{m_{\text{air}} }{ m_{\text{fuel} } } \right)_{\text{stoic} } = \frac{4.76 a \, MW_{\text{air}} }{ 1 \, MW_{\text{fuel}} }
+\]
+where $MW_{\text{air}}$; $MW_{\text{fuel}}$ are molecular weights of air and fuel.  
+
+
+
+
+\emph{equivalence ratio} $\Phi$
+\[
+\Phi := \frac{ (A/F)_{\text{stoic}} }{ (A/F) } = \frac{(F/A)}{(F/A)_{\text{stoic}} }
+\]
+
+
+fuel rich $\Phi > 1$ \\
+\phantom{fuel } lean $\Phi <1$
+
+
+So the immediate previous expressions are in Turns' notation\cite{STurns2011}.  In the notation used above, the stoichiometric oxidizer-fuel ratio is 
+\[
+\left( \frac{m_{\text{Ox}}}{m_{\text{fuel}} } \right)_{\text{stoic} }  = \frac{N_{\text{Ox}} \widehat{m}_{\text{Ox}} }{ N_{\text{fuel}} \widehat{m}_{\text{fuel}} } = \frac{ n_{\text{Ox}} \widehat{m}_{\text{Ox}} }{ n_{\text{fuel} } \widehat{m}_{\text{fuel}} }
+\]
+
+
+
+
+
+
+
+
+
+
+
+
+\subsection{Absolute (or standardized) Enthalpy and Enthalpy of Formation}
+cf. Turns (2000) \cite{STurns2011}
+
+\emph{enthalpy of formation} $h_f$ - takes into account energy associated iwth chemical bonds \\
+\emph{sensible enthalpy change} $\delta h_s$ - enthalpy associated only with temperature     \\
+absolute (or standard) enthalpy $\overline{h}_i(\tau) := \overline{h}^0_{f,i}(\tau) + \Delta \overline{h}_{s,i}(\tau_{\text{ref}})$  where
+
+$\overline{h}_i(\tau) \equiv $ absolute enthalpy at temperature $\tau$ \\
+$\overline{h}_{f,i}^0(\tau_{\text{ref}}) \equiv $ enthalpy of formation at standard reference state $(\tau_{\text{ref}},p^0)$ \\
+$\Delta \overline{h}_{s,i}(\tau_{\text{ref}}) \equiv $ sensible enthalpy change in going from $\tau_{\text{ref}}$ to $\tau$ \\
+$p_{\text{ref}} = p^0 = 1$ \, atm
+
+
+
+
+
+
+
+
+
+Example 2.3.\cite{STurns2011} gas stream at 1 atm. a mixture of \ce{CO}, \ce{CO2}, \ce{N2}; given $\begin{aligned} & \quad \\
+  & X_{CO} = 0.1 \\
+  & X_{CO_2} \end{aligned}$, gas stream temperature $T=1200 \, K$
+
+$X_{N_2} = 1 - X_{CO} - X_{CO_2} = 0.7$
+
+
+
+
+
+
+
+
+\section{Thermochemistry of combustion}
+
+cf. 20151203 Dr. Polk AE121a Fall 2015 Lecture
+
+The key is how we define enthalpy.  We need to agree on 
+\begin{enumerate}
+  \item how to include enthalpy due to chemical changes in addition to the sensible enthalpy (due to temperature changes)
+  \item Reference state for sensible and chemical enthalpy
+\end{enumerate}
+
+Taking into account the above, then
+
+\[
+\begin{gathered}
+  H_P(T_P) = \sum_i^{\text{products}} \mathcal{N}_i \left[ \underbrace{ \Delta_f \overline{h}_i^0}_{ \substack{ \text{chemical} \\ \text{  (enthalpy of formation)} } } + \underbrace{\overline{h}_i(T_P)  - \overline{h}_i^0 }_{\text{sensible}} \right] \\
+  H_R(T_R) = \sum_i^{\text{reactants}} \mathcal{N}_i \left[ \Delta_f \overline{h}_i^0 + \overline{h}_i(T_R) - \overline{h}_i^0 \right]
+\end{gathered}
+\]
+where $P$ denotes products and $R$ denotes reactants, and notation is Polk's.
+
+To reiterate, in my notation,
+\begin{equation}
+\begin{aligned}
+  H_P(\tau_P) = \sum_{i\in \lbrace \text{products}\rbrace } n_i \left[ \Delta_f \overline{h}_i^0 + \overline{h}_i(\tau_P) - \overline{h}_i^0 \right]   \\
+  H_R(\tau_R) = \sum_{i\in \lbrace \text{reactants} \rbrace } n_i \left[ \Delta_f \overline{h}_i^0 + \overline{h}_i(\tau_R) - \overline{h}_i^0 \right]
+\end{aligned}
+\end{equation}
+
+
+cf. Chapter 7 Simplified Conservation Equations for Reacting Flows of Turns (2011) \cite{STurns2011}
+
+
+
+
+
+
+
+
+
+
+
+
+\part{Cantera}
+
+\section{Professor David Goodwin, 1957-2012}
+
+\begin{quotation}
+``Keep on working to make this world a better place. It is important to get your thoughts away from your problems and focused on those who are less fortunate than you are.''
+
+``We can't control the hand of cards we are dealt, but we sure can determine how we play them.''
+\end{quotation}
+
+\begin{itemize}
+  \item Open-Source, Berkeley license,
+  \item Object-Oriented Structure, multi-inferface structure, 
+  \item formalism for collision integrals in evaluating transport parameters of dilute ideal gases
+\end{itemize}
+
+cf. \url{https://code.google.com/archive/p/cantera/wikis/DaveGoodwin.wiki}
+
+The following includes (disorganized) notes on using, implementing, and developing for Cantera.  
+
+EY : 20160125 I wanted to obtain the \emph{equation of state} but in Python.  This was implemented in Matlab as \verb|eosType.m| here
+\url{https://github.com/Cantera/cantera/blob/master/interfaces/matlab/toolbox/%40ThermoPhase/eosType.m}
+It leads to \verb|thermo_get| for the code says
+\begin{lstlisting}
+e = thermo_get(tp.tp_id, 18);
+\end{lstlisting}
+I don't think the \verb|tp.tp_id| equilvalent in Python is \verb|tp.ID|; searching for \verb|tp_id| led to \href{https://github.com/Cantera/cantera/blob/5926d2db7c0d4919b75ee50828b0adab4e691a51/interfaces/matlab/toolbox/%40ThermoPhase/ThermoPhase.m}{ThermoPhase.m} and 
+\begin{lstlisting}
+if nargin == 1
+    if isa(r, 'ThermoPhase')
+        % create a copy
+        t = r;
+        return
+    elseif isa(r, 'XML_Node')
+        t.owner = 1;
+        hr = xml_hndl(r);
+        t.tp_id = thermo_get(hr, 0);
+        if t.tp_id < 0
+            error(geterr);
+        end
+    else
+        t.owner = 0;
+        t.tp_id = r;
+    end
+    t = class(t, 'ThermoPhase');
+\end{lstlisting}
+
+\verb|thermo_get| of MatLab is here, in the \verb|private| folder:
+\url{https://github.com/Cantera/cantera/blob/master/interfaces/matlab/toolbox/%40ThermoPhase/private/thermo_get.m}
+which leads to the MatLab command \verb|ctmethods| and the following inputs/parameters
+\begin{lstlisting}
+function i = thermo_get(n, job, a, b)
+if nargin == 2
+    i = ctmethods(20, n, job);
+\end{lstlisting}
+
+I was only able to find the ``definition'' of \verb|ctmethods| for \emph{MatLab} here:
+\url{https://github.com/Cantera/cantera/blob/5926d2db7c0d4919b75ee50828b0adab4e691a51/src/matlab/ctmethods.cpp}
+
+which was essentially a so-called ``mex function'' which was a bunch of different cases; the case I was interested in was for Thermo, leading me to
+\url{https://github.com/Cantera/cantera/blob/5926d2db7c0d4919b75ee50828b0adab4e691a51/src/matlab/thermomethods.cpp}
+with its \verb|thermo_get| and \verb|thermo_set|
+
+as above, the so-called ``job'' I wanted was \verb|job=18|, which lead me to the command 
+\verb|th_eosType|
+\begin{lstlisting}
+case 18:
+            vv = double(th_eosType(n));
+            break;
+\end{lstlisting}
+
+
+In \href{https://github.com/Cantera/cantera/blob/master/interfaces/matlab/toolbox/@ThermoPhase/soundspeed.m}{soundspeed.m} for the Matlab toolbox ThermoPhase, notice the line \verb|if isIdealGas(tp)|.  This is implemented in \href{https://github.com/Cantera/cantera/blob/5926d2db7c0d4919b75ee50828b0adab4e691a51/interfaces/matlab/toolbox/%40ThermoPhase/isIdealGas.m}{isIdealGas.m} by returning \verb|v| in 
+\begin{lstlisting}
+if eosType(tp) == 1
+    v = 1;
+else
+    v = 0;
+\end{lstlisting}
 
 
 
 
 
 \end{multicols*}
+
+
+
+
+
 
 
 \begin{thebibliography}{9}
@@ -2164,6 +2700,23 @@ ISBN-13: 978-1118131992
 \bibitem{HGoldsteinCPooleJSafko2001}
 Herbert Goldstein, Charles P. Poole Jr., John L. Safko.  \textbf{Classical Mechanics} (3rd Edition). Addison-Wesley; 3 edition (June 25, 2001).  ISBN-13: 978-0201657029 \url{https://homepages.dias.ie/ydri/Goldstein.pdf}
 
+\bibitem{JPowers2014}
+Joseph M. Powers.  ``Lecture Notes on Fundamentals of Combustion.'' updated 30 March 2014, 2:12pm
+\url{http://www3.nd.edu/~powers/ame.60636/notes.pdf}
+
+
+\bibitem{STurns2011}
+Stephen Turns. \textbf{An Introduction to Combustion: Concepts and Applications} 3rd Edition.  McGraw-Hill Education; 3 edition (January 24, 2011).  The second edition, 2000, was used in these notes.  
+
+\bibitem{LLandauELifshitz1980}
+L.D. Landau, E.M. Lifshitz.  \textbf{Statistical Physics}, Third Edition, Part 1: Volume 5 (Course of Theoretical Physics, Volume 5). Butterworth-Heinemann; 3rd edition (January 15, 1980).  ISBN-13: 978-0750633727
+
+\bibitem{DGoodwin}
+D. G. Goodwin, CANTERA, Division of Engineering and Applied Science, California Institute of Technology,\url{www.cantera.org}.
+
+
+
+
 \end{thebibliography}
 There's an 8th edition of Biblarz and Sutton \cite{GSuttonOBiblarz2001} for 2010 that I would like to have.  If you find any of this material useful or if you'd like to help, email me or visit my Open/Tilt page \url{ernestyalumni.tilt.com} and donate to the crowdfunding campaign or click on the PayPal donate button.  
 
@@ -2175,35 +2728,35 @@ There's an 8th edition of Biblarz and Sutton \cite{GSuttonOBiblarz2001} for 2010
 \clearpage
 \onecolumn
 
-\section{Code listings}
+%\section{Code listings}
 
-\definecolor{darkgreen}{rgb}{0, 0.4, 0}
-\lstset{language=Python,
-  numbers=left,
-  frame=bottomline,
-  basicstyle=\scriptsize,
-  identifierstyle=\color{blue},
-  keywordstyle=\bfseries,
-  commentstyle=\color{darkgreen},
-  stringstyle=\color{red},
-  literate={Ö}{{\"O}}1 {é}{{\'e}}1 {Å}{{\AA}}1,
-}
-\lstlistoflistings
+%\definecolor{darkgreen}{rgb}{0, 0.4, 0}
+%\lstset{language=Python,
+%  numbers=left,
+%  frame=bottomline,
+%  basicstyle=\scriptsize,
+%  identifierstyle=\color{blue},
+%  keywordstyle=\bfseries,
+%  commentstyle=\color{darkgreen},
+%  stringstyle=\color{red},
+%  literate={Ö}{{\"O}}1 {é}{{\'e}}1 {Å}{{\AA}}1,
+%}
+%\lstlistoflistings
 
 
 %\label{listing:brede_str_nmf}\lstinputlisting{../../matlab/brede/python/brede_str_nmf}
 
 
 \newpage
-\section{Automatic generation of documentation}
+%\section{Automatic generation of documentation}
 
-Demontration using epydoc:
-\begin{verbatim}
-epydoc --pdf -o /home/fnielsen/tmp/epydoc/ --name RBBase wikipedia/api.py
-\end{verbatim}
-This example does not use \verb!brede_str_nmf! but another more
-well-documented module called {\tt api.py} that are used to download
-material from Wikipedia. 
+%Demontration using epydoc:
+%\begin{verbatim}
+%epydoc --pdf -o /home/fnielsen/tmp/epydoc/ --name RBBase wikipedia/api.py
+%\end{verbatim}
+%This example does not use \verb!brede_str_nmf! but another more
+%well-documented module called {\tt api.py} that are used to download
+%material from Wikipedia. 
 
 %\includepdf[pages={-}]{/home/fnielsen/tmp/epydoc/api.pdf}
 

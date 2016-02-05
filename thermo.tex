@@ -1590,6 +1590,68 @@ entropy production, called \emph{dissipation}; all physical phenomena accompanie
 
 
 
+
+
+\subsubsection{Particle Diffusion}
+
+cf. pp. 399 of Kittel and Kroemer \cite{CKittelHKroemer1980}
+
+Consider a system.  \\
+One end in diffusive contact with reservoir at chemical potential $\mu_1$ \\
+Other end in diffusive contact with reservoir at chemical potential $\mu_2$ \\
+Constant temperature $\tau$.  \\
+If $\mu_1 > \mu_2$, particle flow through system from reservoir 1 to reservoir 2; $1\to 2$.   \\
+$n_i \equiv $ particle concentration in $i$ 
+
+Take
+\begin{equation}
+\mathbf{j}_n = -D \text{grad}n
+\end{equation}
+which is \textbf{Fick's law}, and where $D \equiv$ particle diffusion constant or \textbf{diffusivity}.  
+
+Mean free path $l$.  Particles freely travel over $l$.  
+
+Assume in a collision at $z$, particles come into local equilibrium at local chemical potential $\mu(z)$, local concentration $n(z)$.  
+
+At $z$, particle flux density in positive $z$ direction \qquad $\frac{1}{2} n(z-l_z) \overline{c}_z$ \\
+\phantom{At $z$, } particle flux density in negative $z$ direction \qquad $-\frac{1}{2} n(z+l_z) \overline{c}_z$
+
+Note $n(z-l_z)$ is particle concentration at $z-l_z$
+\[
+J_n^z = \frac{1}{2} \left[ n(z-l_z) - n(z+l_z) \right] \overline{c}_z = -\frac{dn}{dz} \overline{c}_z l_z
+\]
+where $\begin{aligned} & \quad \\
+  & \overline{c}_z = \overline{c} \cos{\theta}  \\
+  & \overline{l}_z = \overline{l} \cos{\theta}  
+\end{aligned}$
+
+\[
+\langle \overline{c}_z l_z \rangle = \overline{c} \overline{l} \frac{ \int_{\text{hemisphere} } \cos^2{\theta} dS }{ \int_{\text{hemisphere} } dS } = \overline{c}\overline{l} \frac{ \int_0^{\pi/2}d\theta \int_0^{2\pi } d\varphi \cos^2{\theta} \sin{\theta} d\theta }{ \int_0^{\pi/2} d\theta \sin{\theta} \int_0^{2\pi } d\varphi } = \overline{c} \overline{l} \frac{1}{3}
+\]
+Comparing with Fick's law, 
+\[
+J_n^z = \frac{-1}{3} \overline{c}\overline{l} \frac{dn}{dz} \text{ or } \mathbf{J}_N = -\frac{1}{3} \overline{c}\overline{l} \nabla n
+\]
+For diffusivity $D$ is then $D = \frac{1}{3} \overline{c}\overline{l}$.  
+
+Now recall that $\overline{l}$, the \emph{mean free path}, was derived from kinetic theory:
+\[
+l = \frac{1}{n\pi d^2}
+\]
+where $d$ is the diameter of the particle.  
+
+The mean thermal velocity was derived from the Maxwell distribution:
+\[
+\overline{c} = \left( \frac{ 8 \tau }{M \pi} \right)^{1/2}
+\]
+
+
+
+
+
+
+
+
 \subsubsection{Momentum conservation}
 
 Introduce \emph{stress tensor} $\mathcal{P}_{\alpha \beta}$, $-\mathcal{P}_{\alpha \beta}$ is $\alpha$ component of force per unit area applied by fluid outside parallelopiped on surface $\mathcal{S}_{\beta}$.  

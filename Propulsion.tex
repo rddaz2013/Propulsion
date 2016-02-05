@@ -1,18 +1,9 @@
 % file: Propulsion.tex
 % Propulsion, in unconventional ``grande'' format; fitting a widescreen format
 % 
-% If you liked this this file or found it useful, please consider donating on my Tilt/Open 
-% campaign: I'd want to raise money for a new computer. 
-% ernestyalumni.tilt.com 
-%
-% Facebook      : ernestyalumni 
 % github        : ernestyalumni
-% gmail         : ernestyalumni 
 % linkedin      : ernestyalumni 
-% twitter       : ernestyalumni 
 % wordpress.com : ernestyalumni
-% youtube       : ernestyalumni 
-% Tilt/Open     : ernestyalumni
 %
 % This code is open-source, governed by the Creative Common license.  Use of this code is governed by the Caltech Honor Code: ``No member of the Caltech community shall take unfair advantage of any other member of the Caltech community.'' 
 % 
@@ -2574,6 +2565,248 @@ cf. Chapter 7 Simplified Conservation Equations for Reacting Flows of Turns (201
 
 
 
+Start from
+\begin{equation}
+  m_i = \int_V \rho_i \text{vol}^n
+\end{equation}
+and so
+\[
+\frac{dm_i}{dt} \equiv \dot{m}_i = \int_V \frac{ \partial \rho_i}{ \partial t} \text{vol}^n + \int_{\partial V} \rho_i i_{u_i} \text{vol}^n = \int_V \frac{ \partial \rho_i}{ \partial t} \text{vol}^n + \int_{\partial V} \rho_i u^j_i dS_j = \dot{m}_i = \int_V \dot{m}_i'''\text{vol}^n
+\]
+where we've defined
+\[
+\dot{m}_i''' \equiv \text{ rate of mass production per unit volume }
+\]
+Thus
+\[
+\Longrightarrow \frac{ \partial \rho_i}{ \partial t} + \text{div}(\rho_i u_i) = \dot{m}_i'''
+\]
+where 
+\[
+\text{div}(\rho_i u_i) := \frac{1}{\sqrt{g}} \frac{ \partial (\rho_i u^j \sqrt{g})}{ \partial x^j }
+\]
+Now
+\[
+\begin{gathered}
+  \rho_i = \frac{M_i N_i }{V} \\ 
+  \Longrightarrow \sum_i \rho_i = \rho \equiv \frac{M}{V} \text{ with } \sum_i M_i N_i \equiv M 
+\end{gathered}
+\]
+where we assume negligible interaction between species.  
+
+Now
+\[
+\begin{gathered}
+  \sum_i \rho_i \mathbf{u}_i = \rho \mathbf{u} \text{ since } \\
+  \sum_i \rho_i \mathbf{u}_i = \sum_i \frac{M_i N_i \mathbf{u}_i }{ V } = \frac{M \mathbf{u}}{V} = \rho\mathbf{u}
+\end{gathered}
+\]
+and so for 
+\[
+\begin{gathered}
+  Y_i := \frac{m_i}{m} 
+\end{gathered}
+\]
+Then
+\begin{equation}
+  \mathbf{u} = \sum_i Y_i \mathbf{u}_i = \sum_i \frac{m_i}{m} \mathbf{u}_i = \sum_i \frac{M_i N_i \mathbf{u}_i }{ M }
+\end{equation}
+is the \textbf{bulk velocity} in usual fluid equations.  
+
+So taking the sum over species labeled by $i$, $\sum_i$, 
+\begin{equation}
+  \sum_i \frac{ \partial \rho_i}{ \partial t} + \text{div}(\sum_i \rho_i u_i ) = \sum_i \dot{m}_i''' \Longrightarrow \frac{ \partial \rho }{ \partial t} + \text{div}(\rho u) = \dot{m}''' = 0 
+\end{equation}
+
+Use Galilean invariant, or rather \emph{Galilean transformation}, between ``lab frame'' (denoted with unprimed notation), and fluid-at-rest frame, or bulk velocity-is-zero frame (primed notation).  
+\begin{equation}
+  \mathbf{u}_i' = \mathbf{u}_i - \mathbf{u} \text{ so } \mathbf{u}_i = \mathbf{u}_i' + \mathbf{u}
+\end{equation}
+
+Thus
+\begin{equation}
+  \frac{ \partial \rho_i}{ \partial t} + \text{div}(\rho_i(u_i' + u)) = \frac{ \partial \rho_i}{ \partial t} + \text{div}(\rho_i u_i') + \text{div}(\rho_i u) = \dot{m}_i'''
+\end{equation}
+where 
+\begin{equation}
+\begin{aligned}
+  \text{div}( \rho_i u_i') & \qquad \text{ diffusion } \\ 
+ \text{div}(\rho_i u)  &  \qquad \text{ convection }
+\end{aligned}
+\end{equation}
+
+Define \textbf{diffusion flux}
+\begin{equation}
+  \mathbf{j}_i = \rho_i \mathbf{u}_i'
+\end{equation}
+
+Now, note that 
+\[
+\begin{gathered}
+  Y_i = \frac{m_i}{m} = \frac{M_i N_i}{ \sum_j M_j N_j } \text{ for } \\
+  \begin{aligned}
+    Y_i m & = m_i \\ 
+    Y_i \rho & = \rho_i
+\end{aligned}
+\end{gathered}
+\]
+and so 
+\[
+\begin{gathered}
+  \frac{ \partial (\rho Y_i)}{ \partial t} + \text{div}(\rho Y_i u_i') + \text{div}(\rho Y_i u) = \dot{m}_i''' \\
+  \Longrightarrow \rho \frac{ \partial Y_i}{ \partial t} + Y_i \frac{ \partial \rho }{ \partial t} + Y_i \text{div}(\rho u) + \rho u^j \frac{ \partial Y_i}{ \partial x^j} = -\text{div}j_i + \dot{m}_i''' \\
+  \xrightarrow{ \frac{ \partial \rho }{ \partial t} + \text{div}(\rho u) = 0 } \rho \frac{ \partial Y_i}{ \partial t} + \rho u^j \frac{ \partial Y_i}{ \partial x^j} + \text{div}j_i = \dot{m}_i'''
+\end{gathered}
+\]
+
+\section{Droplet Evaporation}
+
+\subsection{Evaporation Rate}
+
+cf. Chapter 3 Introduction to Mass Transfer, Droplet Evaporation section, Evaporation Rate SubSection of Turns (2011) \cite{STurns2011}.  
+
+Starting from $m = \int_V \rho \text{vol}^n$, 
+\begin{equation}\label{Eq:DropletEvaporationRateSphericalSymmetry}
+\begin{gathered}
+  \dot{m} = \int_V \frac{ \partial \rho }{ \partial t} \text{vol}^n + \int_{ \partial V} d(\rho i_u \text{vol}^n ) = \int_V \frac{ \partial \rho}{ \partial t} \text{vol}^n + \int_{\partial V} \rho u^i dS_i \\
+  = 0 + \rho u^r(r_s)4\pi r_s^2 \equiv 4\pi r^2 \dot{m}''
+\end{gathered}
+\end{equation}
+where we had assumed, first, steady state for the density $\rho$, and second, spherical symmetry.
+
+Consider $m = \sum_i m_i$.  For binary collisions condition, $m = m_A + m_B$.  Then \\
+\phantom{Consider } $\dot{m} = \sum_i \dot{m}_i$.  Assuming the above just like in Eq. \ref{Eq:DropletEvaporationRateSphericalSymmetry}, steady-state density and spherical symmetry, then $\dot{m}'' = \dot{m}_A'' + \dot{m}_B = \dot{m}_A''$, since $\dot{m}_B'' =0$ (assumed \emph{no flow into droplet}).  
+
+\subsubsection{Separating diffusion and bulk flow}
+
+Beginning with $m_i = \int_V \rho_i \text{vol}^n$ (and $m = \sum_i m_i = \int_V \rho \text{vol}^n$, where $\rho = \sum_i \rho_i$, which is allowed if we assume \emph{negligible interaction} between species, until chemical reactions), 
+\[
+\begin{gathered}
+  \dot{m}_i = \int_V \frac{ \partial \rho_i}{ \partial t} \text{vol}^n + \int_{\partial V} \rho_i u_i^j dS_j = \int_V \frac{ \partial \rho_i }{ \partial t} \text{vol}^n + \int_{\partial V} \rho_i(u_i')^j dS_j + \int_{\partial V} \rho_i u^j dS_j = \int_V \frac{ \partial \rho_i}{ \partial t} \text{vol}^n + \int_{\partial V} j_{i,\text{diff}} \cdot dS + \int_{\partial V} \rho_i u \cdot dS \text{ using } \\
+  \int_{ \partial V} \rho_i u_i^j dS_j = \int_{\partial V} \rho_i((u_i')^j + u^j)dS_j 
+\end{gathered}
+\]
+Assuming steady state density $\rho_i$, \\
+\phantom{Assuming } constant physical parameters on a particular choice of the surface boundary $\partial V$, with surface area $A$, 
+\[
+\frac{\dot{m}_i}{A} \equiv \dot{m}_i'' = 0 + (j_{i,\text{diff}})^r + \rho_i u^r
+\]
+Now for the total mass of all (i.e. all the species), $m = \sum_i m_i$, 
+\[
+\dot{m} = \int \frac{ \partial \rho }{ \partial t} \text{vol}^n + \int_{\partial V} \rho u^j dS_j
+\]
+Assuming steady state density $\rho$, \\
+\phantom{Assuming } constant physical parameters on a particular choice of the surface boundary $\partial V$, with surface area $A$,
+\[
+\dot{m}/A \equiv \dot{m}'' = 0 + \rho u^r
+\]
+So one \emph{must define carefully} the choice of volume $V$ (and thus surface $\partial V$).  For we want to consider a choice of volume $V$ s.t. the choice of $\partial V$ results in a \emph{net flux} of the bulk flow (we want a measure of that across the surface $\partial V$.  In this case,
+\[
+\dot{m}'' = \rho u^r \equiv \rho u^n
+\]
+From the definition of $Y_i := \frac{m_i}{m}$, then 
+\[
+\rho_i u = Y_i \rho u \equiv Y_i (\dot{m}'')
+\]
+Thus
+\begin{equation}
+  \dot{m}_i'' = Y_i(\dot{m}'') + (j_{i,\text{diff}}) 
+\end{equation}
+which is Eqns. (3.1), (3.5) in Turns (2011) \cite{STurns2011}.  
+
+
+From Le Bellac, Mortessagne, Batrouni (2004) \cite{MLeBellacFMortessagneGBatrouni2004}, namely Chapter 6 on Irreversible Processes, for the section on ``Particle Diffusion'', for particle diffusion of species $A$, with the number of particles of species $A$, 
+\[
+j_{\alpha}^{N_A} = \sum_{j,\beta} L^{\alpha \beta}_{N_A j} \partial_{\beta} \gamma_j = \sum_{j,\beta} L^{\alpha \beta}_{N_A j} \partial_{\beta} \left( \frac{-\mu_j}{\tau} \right) = \sum_{j,\beta} \frac{-L_{N_A j}^{\alpha \beta} }{ \tau } \sum_i \frac{ \partial \mu_j}{ \partial n_i} \frac{ \partial n_i}{ \partial x^{\beta} }
+\]
+If $\mu_i = \mu_i(n_i)$, so that $\mu_i$ doesn't depend on $\mu_j$, $j\neq i$, i.e. the chemical potential of species $i$ does not depend on the concentrations of the other species, 
+\[
+\sum_{j,\beta} \frac{-L_{N_A j}^{\alpha \beta} }{\tau} \frac{ \partial \mu_j}{ \partial n_j} \frac{ \partial n_j}{ \partial x^{\beta} } = \sum_{j,\beta} \frac{-L_{N_Aj}^{\alpha \beta} }{ \tau} \frac{1}{ \kappa_T n_j^2 } \frac{ \partial n_j}{ \partial x^{\beta} }
+\]and so 
+\begin{equation}\label{Eq:diffusionfluxmultispecies}
+\mathbf{j}_{N_A} = \sum_j \frac{-L_{N_Aj} }{ \tau \kappa_T n_j^2 } \nabla n_j
+\end{equation}
+Now
+\[
+\begin{gathered}
+  \frac{N_i}{V} \equiv n_i = \frac{Y_i m/M_i}{V} = \frac{Y_i m }{ M_iV} = \frac{Y_i \rho }{ M_i} \text{ so } \boxed{ \nabla n_i = \nabla \frac{Y_i \rho }{M_i} = \frac{ \rho}{ M_i} \nabla Y_i } \text{ for } \\ 
+  \sum_i \rho_i = \rho := \frac{M}{V} \Longrightarrow \sum_i M_i n_i = \frac{M}{V}
+\end{gathered}
+\]
+So then we can reexpress Eqn. \ref{Eq:diffusionfluxmultispecies} in terms of \emph{mass fractions} $Y_i$ as 
+\[
+\mathbf{j}_{N_A} = -\rho \sum_j \frac{L_{N_Aj}}{\tau \kappa_T n_j^2  M_j } \nabla Y_j
+\]
+Note that $\kappa_T$ is the \textbf{coefficient of isothermal compressibility} which was defined in Le Bellac, Mortessagne, Batrouni (2004) \cite{MLeBellacFMortessagneGBatrouni2004}, 
+\[
+\kappa_T = \frac{-1}{V} \left. \frac{ \partial V}{ \partial p } \right|_{\tau} 
+\]
+Now I guess that $L_{N_Aj} \propto \delta_{N_Aj}$ meaning $L_{N_A j} \neq 0$ only if $j = N_A$, and so $\mathbf{j}_{N_A}$ only depends on the gradient $\nabla Y_{N_A}$, the gradient for what is the concentration of species $A$, and \emph{not} on the gradient of the concentrations of the other species.  I \emph{think} (please contact me if this is wrong) this is because the species are nonreacting, and even when including chemical reactions, the chemical reactions does not affect this diffusion process; the diffusion process is independent of what goes on with the chemical reactions after the chemical reactions occur.  
+
+I conjecture that $L_{N_Aj}$ does not depend on direction (i.e. \emph{isotropic}), which is reasonable, by spatial symmetry.  
+
+If so, then
+\begin{equation}\label{Eq:diffusionfluxsinglespeciesisotropic}
+\mathbf{j}_{N_A} = -\rho \left( \frac{L_{N_A N_A}}{ \tau \kappa_T n_A^2 M_A} \right) \nabla Y_A
+\end{equation}
+%Notice the inverse temperature relation, $\frac{1}{\tau}$.  This is reasonable: hotter it is, the more excited the particles are and they'll just sit around.  Notice the $\frac{1}{n_A^2}$ relation.  This is reasonable: the more particles there already are, the less likely it'll move away from the bunch.  Same with $\frac{1}{M_A}$ inverse individual particle mass relation: the heavier the particle, the less it'll want to move away.  
+
+%For the factor in parentheses in Eq. \ref{Eq:diffusionfluxsinglespeciesisotropic}, $\left( \frac{L_{N_A N_A}}{ \tau \kappa_T n_A^2 M_A} \right)$, one should keep in mind the temperature dependence, $\frac{1}{\tau}$.  For the $\frac{1}{ n_A^2 M_A}$ dependence, this could be ``wrapped up'' in a diffusion 
+
+
+\subsubsection{Particle Diffusion}
+
+cf. pp. 399 of Kittel and Kroemer \cite{CKittelHKroemer1980}
+
+Consider a system.  \\
+One end in diffusive contact with reservoir at chemical potential $\mu_1$ \\
+Other end in diffusive contact with reservoir at chemical potential $\mu_2$ \\
+Constant temperature $\tau$.  \\
+If $\mu_1 > \mu_2$, particle flow through system from reservoir 1 to reservoir 2; $1\to 2$.   \\
+$n_i \equiv $ particle concentration in $i$ 
+
+Take
+\begin{equation}
+\mathbf{j}_n = -D \text{grad}n
+\end{equation}
+which is \textbf{Fick's law}, and where $D \equiv$ particle diffusion constant or \textbf{diffusivity}.  
+
+Mean free path $l$.  Particles freely travel over $l$.  
+
+Assume in a collision at $z$, particles come into local equilibrium at local chemical potential $\mu(z)$, local concentration $n(z)$.  
+
+At $z$, particle flux density in positive $z$ direction \qquad $\frac{1}{2} n(z-l_z) \overline{c}_z$ \\
+\phantom{At $z$, } particle flux density in negative $z$ direction \qquad $-\frac{1}{2} n(z+l_z) \overline{c}_z$
+
+Note $n(z-l_z)$ is particle concentration at $z-l_z$
+\[
+J_n^z = \frac{1}{2} \left[ n(z-l_z) - n(z+l_z) \right] \overline{c}_z = -\frac{dn}{dz} \overline{c}_z l_z
+\]
+where $\begin{aligned} & \quad \\
+  & \overline{c}_z = \overline{c} \cos{\theta}  \\
+  & \overline{l}_z = \overline{l} \cos{\theta}  
+\end{aligned}$
+
+\[
+\langle \overline{c}_z l_z \rangle = \overline{c} \overline{l} \frac{ \int_{\text{hemisphere} } \cos^2{\theta} dS }{ \int_{\text{hemisphere} } dS } = \overline{c}\overline{l} \frac{ \int_0^{\pi/2}d\theta \int_0^{2\pi } d\varphi \cos^2{\theta} \sin{\theta} d\theta }{ \int_0^{\pi/2} d\theta \sin{\theta} \int_0^{2\pi } d\varphi } = \overline{c} \overline{l} \frac{1}{3}
+\]
+Comparing with Fick's law, 
+\[
+J_n^z = \frac{-1}{3} \overline{c}\overline{l} \frac{dn}{dz} \text{ or } \mathbf{J}_N = -\frac{1}{3} \overline{c}\overline{l} \nabla n
+\]
+For diffusivity $D$ is then $D = \frac{1}{3} \overline{c}\overline{l}$.  
+
+Now recall that $\overline{l}$, the \emph{mean free path}, was derived from kinetic theory:
+\[
+l = \frac{1}{n\pi d^2}
+\]
+where $d$ is the diameter of the particle.  
+
+The mean thermal velocity was derived from the Maxwell distribution:
+\[
+\overline{c} = \left( \frac{ 8 \tau }{M \pi} \right)^{1/2}
+\]
+
 
 
 
@@ -2710,6 +2943,11 @@ Stephen Turns. \textbf{An Introduction to Combustion: Concepts and Applications}
 
 \bibitem{LLandauELifshitz1980}
 L.D. Landau, E.M. Lifshitz.  \textbf{Statistical Physics}, Third Edition, Part 1: Volume 5 (Course of Theoretical Physics, Volume 5). Butterworth-Heinemann; 3rd edition (January 15, 1980).  ISBN-13: 978-0750633727
+
+
+\bibitem{MLeBellacFMortessagneGBatrouni2004}
+Michel Le Bellac, Fabrice Mortessagne, G. George Batrouni.  \textbf{Equilibrium and Non-Equilibrium Statistical Thermodynamics}.  Cambridge University Press (May 3, 2004).  ISBN-13: 978-0521821438
+
 
 \bibitem{DGoodwin}
 D. G. Goodwin, CANTERA, Division of Engineering and Applied Science, California Institute of Technology,\url{www.cantera.org}.

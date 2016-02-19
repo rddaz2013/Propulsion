@@ -101,9 +101,13 @@
 
 \maketitle
 
-\tableofcontents
+
 
 \begin{multicols*}{2}
+
+\tableofcontents
+
+
 
 \begin{abstract}
 Everything about Propulsion, with a focus on rocket propulsion.  
@@ -567,7 +571,7 @@ However, for $d\sigma >0$, at the throat, $dA=0$, for acceleration $du>0$, $\mat
 
 
 
-cf. Ch. 2 Problems, Oates (1997) \cite{GOAtes1997}
+cf. Ch. 2 Problems, Oates (1997) \cite{GOates1997}
 
 \problemhead{2.1}
 
@@ -2182,6 +2186,311 @@ and
 \]
 
 
+\section{Equilibrium flow vs. frozen flow for Nozzle Flow and the Example of the Space Shuttle Main Engine (SSME)}
+
+\begin{enumerate}
+  \item Remember that from Newton's 2nd law, the so-called momentum equation, is 
+\[
+  \rho \frac{Du}{Dt}  = \text{div}(\mathbf{T}) \text{ or } \rho \left[ \frac{ \partial \mathbf{u} }{ \partial t} + u^j \frac{ \partial \mathbf{u} }{ \partial x^j} \right] = \text{div}(\mathbf{T})
+\]
+
+Let 
+\begin{equation}
+  k := \frac{1}{2} \rho u^2 
+\end{equation}
+which is a scalar quantity that depends on time $t$ and spatial coordinates $\mathbf{x} = (x^1 \dots x^n) \in N$ and represents the density of kinetic energy of the bulk fluid at time $t$ and spatial point $\mathbf{x}$.  
+
+Clearly, product rule still applies when using the material derivative $\frac{D}{Dt}:= \frac{ \partial }{ \partial t} + u^j \frac{ \partial }{ \partial x^j}$:
+\[
+\begin{gathered}
+  \frac{D}{Dt} k =\frac{D}{Dt} \frac{1}{2} \rho u^2 = \frac{1}{2} \left[ u^2 \frac{D\rho }{Dt} + \rho \left( \frac{D}{Dt} u^2 \right)\right] = \frac{1}{2} \left[ u^2 (-\rho \text{div}u ) + \rho \left( \frac{D}{Dt} u^2 \right) \right]
+\end{gathered}
+\]
+If, say, $g = 1$, then $u^2 = u_i u^i = (u^i)^2$, and so 
+\[
+\begin{gathered}
+ \rho \frac{D}{Dt} u^2 = 2\rho u^i \frac{D}{Dt} u^i = 2 u^i \text{div}(T^i)
+\end{gathered}
+\]
+and so in this case,
+\[
+\frac{D}{Dt} k = \frac{-1}{2} \rho u^2 \text{div}(u) + u^i \text{div}(T^i) = -k \text{div}(u) + u^i \text{div}(T^i)
+\]
+and since
+\[
+u^j \frac{ \partial k}{ \partial x^j} + k\text{div}(u) = \text{div}(ku)
+\]
+then we could also write
+\[
+\frac{D}{Dt}k + k \text{div}(u) = \frac{ \partial k}{ \partial t } + \text{div}(ku) = u^i \text{div}(T^i)
+\]
+
+What about the case where $g \neq 1$ but could be dependent upon time and space?  
+
+Invoke the ``Fundamental Theorem on Time-Dependent Flows'' (Theorem 9.48 in Chapter 9 Integral Curves and Flows, pp. 237 of Lee (2012) \cite{JLee2012}, which guarantees the existence of a time-dependent flow $\phi$ for our velocity vector field $\mathbf{u}$.  
+
+So for our time-dependent velocity vector field, $\mathbf{u} \in \mathfrak{X}(\mathbb{R}\times N)$, i.e.
+\[
+\begin{aligned}
+  & \mathbf{u}: \mathbb{R} \times N \to TN \\
+  & \mathbf{u} = \mathbf{u}(t,\mathbf{x}) = u^i(t,\mathbf{x}) \frac{ \partial }{ \partial x^i}
+\end{aligned}
+\]
+there exists a flow, given initial conditions, $\phi = \phi(t) \in N$, such that 
+\[
+\begin{aligned}
+  & \phi(t) = (x^1(t) \dots x^n(t) ) \\ 
+  & \dot{\phi}(t) = (\dot{x}^1(t) \dots \dot{x}^n(t)) = (u^1 \dots u^n)
+\end{aligned}
+\]
+Thus, again emphasizing on any Riemannian manifold $(M,g)$, equipped with metric $g$,
+\[
+u^2 = g_{ij} u^i u^j = g_{ij} \dot{\phi}^i \dot{\phi}^j
+\]
+
+Consider any time and space dependent scalar quantitiy, $f$, $f \in C^{\infty}(\mathbb{R}\times N)$, i.e. $f:\mathbb{R}\times N \to \mathbb{R}$.  On a flow $\phi$ for a time-dependent vector field $\mathbf{u}$ generating this flow,
+\[
+\begin{gathered}
+  \frac{d}{dt}f = \frac{d}{dt}f(t,\mathbf{x}) = \frac{d}{dt}f(t,\mathbf{x}(t)) = \frac{ \partial }{ \partial t}f + \frac{ \partial f}{ \partial x^i} \dot{x^i} = \frac{ \partial }{ \partial t} f + u^i \frac{ \partial f}{ \partial x^i} =  \\
+  = \frac{D}{Dt}f
+\end{gathered}
+\]
+Thus, in this scenario, then $\forall \, f \in C^{\infty}(\mathbb{R}\times N)$, the material derivative $\frac{D}{Dt}$ of $f$ is equal to the total time derivative $\frac{d}{dt}$.  
+
+Then for scalar quantity $u^2 = u^2(t,\mathbf{x}) = g_{ij}(\phi(t)) \dot{\phi}^i \dot{\phi}^j$, 
+\[
+\frac{d}{dt} u^2 = \frac{ \partial g_{ij}}{ \partial x^k } \dot{\phi}^k \dot{\phi}^i \dot{\phi}^j + 2 g_{ij} \dot{\phi}^i \ddot{\phi}^j = 2 g_{ks} \Gamma_{ij}^k \dot{\phi}^i \dot{\phi}^j \dot{\phi}^s + 2 g_{sk} \dot{\phi}^s \dot{\phi}^k = 2g_{ks} \dot{\phi}^s \left[ \ddot{\phi}^k + \Gamma^k_{ij} \dot{\phi}^i \dot{\phi}^j \right]
+\]
+where the identity
+\[
+\frac{ \partial g_{ij} }{ \partial x^k} \dot{\phi}^k \dot{\phi}^i \dot{\phi}^j = 2 g_{ks} \Gamma^k_{ij} \dot{\phi}^i \dot{\phi}^j \dot{\phi}^s
+\]
+was used, which is in the proof for Theorem 3.25 on pp. 49 of section 3.8 The natural Lagrangian on manifolds of Calin and Chang (2005) \cite{OCalinDChang2005}.  I want to remark that Calin and Chang (2005) \cite{OCalinDChang2005} has explicit computations showing this identity to be the case locally, and at least for me, I don't see many other sources that are this thorough with presenting explicit computations.  
+
+Noting that 
+\[
+\nabla_u u = \nabla_{u^j \frac{ \partial }{ \partial x^j} } u = u^j \nabla_{\frac{\partial }{ \partial x^j} } u = u^j \left( \frac{ \partial u^k}{ \partial x^j} + \Gamma^k_{ij} u^i \right) \frac{ \partial }{ \partial x^k} = \left( \ddot{\phi}^k + \Gamma^k_{ij} \dot{\phi}^i \dot{\phi}^j \right) \frac{ \partial }{ \partial x^k}
+\]
+and so
+\[
+\begin{gathered}
+g_{ks}\dot{\phi}^s \left[ \ddot{\phi}^k + \Gamma^k_{ij} \dot{\phi}^i \dot{\phi}^j \right] = \langle u , \nabla_uu\rangle \Longrightarrow \frac{d}{dt}u^2 = 2 \langle u , \nabla_u u \rangle
+\end{gathered}
+\]
+Thus, in general (on a Riemannian manifold), 
+\begin{equation}\label{Eq:KEdensityflow}
+\boxed{ \frac{\partial k}{\partial t} + \text{div}(ku) = \frac{Dk}{Dt} + k\text{div}(u) = \rho \langle u, \nabla_u u \rangle = \langle u, \text{div}(T) \rangle }
+\end{equation}
+
+Now when following a volume element $\text{vol}^n$, along the flow of the fluid, one should be concerned that in a ``lab frame'', the volume itself can change with time:
+\[
+\begin{gathered}
+  \dot{V} = \frac{d}{dt} \int_V \text{vol}^n = \int_V \mathcal{L}_{ \frac{\partial }{ \partial t} + \mathbf{u} } \text{vol}^n = \int_V 0 + \mathcal{L}_{\mathbf{u}} \text{vol}^n = \int_V (\mathbf{d}i_{\mathbf{u}} + i_{\mathbf{u}} \mathbf{d} ) \text{vol}^n = \int_V\mathbf{d}i_{\mathbf{u}} \text{vol}^n + 0 = \\
+  = \int_{\partial V} i_{\mathbf{u}} \text{vol}^n = \int_{ \partial V} u^j dS_j
+\end{gathered}
+\]
+Indeed, if the time-dependent velocity vector field $\mathbf{u}$ changes at the boundary $\partial V$, then so does our volume, in this frame.  
+
+The correct way out of this conundrum is to switch to the frame where the bulk velocity of the fluid is $0$, so it's at rest in this frame.  This is paramount to choosing $\mathbf{u}=0$ above, and so $\dot{V}=0$.  
+
+The strategy is this: one should recognize that number of particles $N$, or in general, number of particles for species $i$, $N_i$ and entropy $\sigma$ are invariants under Galilean (or Lorentz) transformation: observers, whether in the lab frame, or the frame in which the bulk velocity of the fluid is $0$ so the bulk fluid flow is at rest, or any other frame, must agree upon these numbers (that can be objectively measured).  So we've fixed our ``control volume'' that remains constant in time in this fluid-at-rest frame, and count the number of particles that come in, and the entropy.  
+
+For only 1 kind of particle, let 
+\[
+\begin{aligned}
+  & \check{\sigma} \equiv \sigma/N \text{ entropy per particle } \\ 
+  & \check{\epsilon} \equiv E/N \text{ energy per particle }
+\end{aligned}
+\]
+Thus
+\[
+\tau d\sigma = \tau d(N \check{\sigma}) = \tau N d\check{\sigma} + \tau \check{\sigma} dN
+\]
+where 
+\[
+\begin{aligned}
+  & \tau N d\check{\sigma} \text{ is entropy change due to change in entropy per particle, i.e. \textbf{ conduction term } } \\
+  & \tau \check{\sigma} dN \text{ is entropy change due to change in number of particles, i.e. \textbf{ convection term } }
+\end{aligned}
+\]
+Generalizing this to $\mathcal{N}$ species, indexed by $i=1\dots \mathcal{N}$, 
+\[
+\begin{aligned}
+  & \check{\sigma}_i \equiv \sigma_i/N_i \text{ entropy per particle of species $i$ } 
+\end{aligned}
+\]
+Assuming that entropies are additive (which is a reasonable assumption if the interaction between species is negligible \cite{LLandauELifshitz1980}), then for total entropy of the system in volume $V$ in this fluid-at-rest frame (which will be denoted with prime as needed), 
+\[
+\sigma = \sum_i \sigma_i = \sum_i \check{\sigma}_i N_i
+\]
+So
+\[
+\tau d\sigma = \tau \sum_i N_i d\check{\sigma}_i + \tau \sum_i \check{\sigma}_i dN_i
+\]
+where 
+\[
+\begin{aligned}
+  & \tau \sum_i N_i d\check{\sigma}_i \text{ is entropy change due to change in entropy per particle for each species, i.e. \textbf{ conduction term } } \\
+  & \tau \sum_i \check{\sigma}_i dN_i \text{ is entropy change due to change in number of particles for each species, i.e. \textbf{ convection term } }
+\end{aligned}
+\]
+Using the above result for the decomposition of $\tau d\sigma$ into a conduction term and convection term, then
+\begin{equation}\label{Eq:dEconductionconvectiondecomposition}
+\begin{gathered}
+  dE = \tau d\sigma - p dV + \sum_i \mu_i dN_i = \tau \sum_i N_i d\check{\sigma}_i + \tau \sum_i \check{\sigma}_i dN_i - pdV + \sum_i \mu_i dN_i = \\
+  = \tau \sum_i N_i d\check{\sigma}_i + \sum_i ( \tau \check{\sigma}_i + \mu_i ) dN_i - pdV = \tau \sum_i N_i d\check{\sigma}_i + \sum_i \check{h}_i dN_i - pdV = \tau \sum_i N_i d\check{\sigma}_i + \sum_i \check{h}_i dN_i 
+\end{gathered}
+\end{equation}
+since $dV=0$ for any thermodynamic process in this constant volume and that
+\[
+G_i = F_i + p_iV = E_i - \tau \sigma_i + p_i V = H_i - \tau \sigma_i = \mu_i N_i \Longrightarrow \check{h}_i = \mu_i + \tau\check{\sigma}_i
+\]
+since Gibbs free energy $G_i$ for each species $i$ should be additive, partial pressures $p_i$ for each species $i$ should be additive to the total pressure $p$, as forces are additive, and from the definition of enthalpy $H_i = E_i + p_iV$ for each species $i$.  
+
+For the case of 1 species, and for this volume at rest in the fluid-at-rest frame, $V$, then defining
+\[
+\begin{aligned}
+  & h := \frac{H}{V} \\
+  & s := \frac{\sigma}{V} \\
+  & \epsilon := \frac{E}{V}
+\end{aligned}
+\]
+and so from Eq. \ref{Eq:dEconductionconvectiondecomposition},
+\[
+\begin{gathered}
+  d\epsilon  = \tau \frac{N}{V} d\left( \frac{\sigma}{N} \right) + \frac{H}{N} d\left( \frac{N}{V} \right) = \tau \frac{N}{V} \left( \frac{d\sigma}{N} + -\frac{ \sigma dN}{ N^2 } \right) + \frac{H}{N} \frac{d\sigma}{M} = \tau ds - \frac{\tau s}{\rho} d\rho + \frac{h d\rho}{\rho} = \tau ds + \frac{h-\tau s}{ \rho} d\rho 
+\end{gathered}
+\]
+We should denote with prime symbols ($'$) the quantities that transform under change of observer's frame, and is specific, in value, to this fluid-at-rest frame:
+\[
+d\epsilon' = \tau ds + \frac{h'-\tau s}{\rho} d\rho
+\]
+For many species, then generalizing the above,
+\[
+d\epsilon' = \tau \sum_i \frac{N_i}{V} d\left( \frac{\sigma_i}{N_i} \right) + \sum_i \frac{H_i}{N_i}d\frac{N_i}{V} = \tau \sum_i \frac{N_i}{V} \left( \frac{d\sigma_i}{N_i} + - \frac{\sigma_i dN_i}{N_i^2} \right) + \sum_i \frac{h_i'}{\rho_i}d\rho_i = \tau ds + \sum_i \frac{ h_i' - \tau s_i }{\rho_i} d\rho_i 
+\]
+
+Thus, in this fluid-at-rest frame,
+\begin{equation}\label{Eq:internalenergyfluidatrest}
+  \boxed{ d\epsilon' = \tau ds + \sum_i \frac{h_i'-\tau s_i}{\rho_i} d\rho_i}
+\end{equation}
+
+Next, use the fact that for a fluid in the ``lab frame'', the current density for the total energy $E$ is carried by $(k+h')\mathbf{u}$ and \emph{not} $(k+\epsilon')\mathbf{u}$.  This comes from the fact that for compressible flows, the Bernoulli invariant is $k+h' = \frac{1}{2} \rho u^2 + h'$, and not $k+\epsilon'$.  The physical interpretation is that the enthalpy $h'$ is needed to account for all convection terms, to account for the ``energy balancing'' needed, done by the compression of the volume by $vdN_i := V/N_i dN_i$ to return to the initial volume $V$ in the fluid-at-rest frame, when particles of species $i$ flow through the volume $V$, convection.  
+
+Thus
+\begin{equation}\label{Eq:totalenergyfluxbyenthalpy}
+\begin{gathered}
+  \frac{ \partial \epsilon }{ \partial t} + \text{div}( (k+h')\mathbf{u} ) = 0 \text{ or } \frac{ \partial \epsilon }{ \partial t} + \text{div}(ku) = -\text{div}(h'u)
+\end{gathered}
+\end{equation}
+
+With all these ingredients, begin with the account of all energies in the lab frame, for a fluid:
+\[
+E= KE + U \Longrightarrow \epsilon = k + \epsilon' \Longrightarrow \frac{ \partial \epsilon }{ \partial t} = \frac{ \partial k }{ \partial t} + \frac{ \partial \epsilon'}{ \partial t}
+\]
+From Eq. \ref{Eq:KEdensityflow}, to substitute into $\frac{ \partial k}{ \partial t}$, 
+\[
+\frac{ \partial \epsilon}{ \partial t} = -\text{div}(ku) + \langle u, \text{div}T \rangle + \frac{ \partial \epsilon'}{ \partial t}
+\]
+From Eq. \ref{Eq:internalenergyfluidatrest}, we can consider a thermodynamic process where we vary the time, generated by vector $\frac{ \partial }{ \partial t}$, so that we have
+\[
+\frac{ \partial \epsilon'}{ \partial t} = \tau \frac{ \partial s}{ \partial t} + \sum_i \frac{h_i'-\tau s_i}{\rho_i} \frac{ \partial \rho_i}{ \partial t}
+\]
+and so 
+\[
+\frac{ \partial \epsilon}{ \partial t} = -\text{div}(ku) + \langle u, \text{div}T \rangle + \tau \frac{ \partial s}{ \partial t} + \sum_i \frac{h_i'-\tau s_i}{\rho_i} \frac{ \partial \rho_i}{ \partial t} = -\text{div}(ku) - \text{div}(h'u)
+\]
+where in the last equality, we used Eq. \ref{Eq:totalenergyfluxbyenthalpy}.  Eliminating $-\text{div}(ku)$ from both sides, noting that 
+\[
+\text{div}(h'u) = \frac{1}{\sqrt{g}} \frac{ \partial (h'u^j \sqrt{g} )}{ \partial x^j} = u^j \frac{ \partial h'}{ \partial x^j} + h'\text{div}(u)
+\]
+and using $T = -p1$, the case where the stress tensor is only the isotropic (same in all directions) pressure $p$, then
+\begin{equation}\label{Eq:provingisentropicflow}
+-u^j \frac{ \partial p}{ \partial x^j} + \tau \frac{ \partial s}{ \partial t} + \sum_i \frac{ h_i' - \tau s_i}{ \rho_i} \frac{ \partial \rho_i}{ \partial t} =  - u^j \frac{ \partial h'}{ \partial x^j} - h'\text{div}(u)
+\end{equation}
+Now we'll need to use a mass conservation law for each of the species $i$, which I'm not sure is valid (please correct me if I'm wrong):
+\[
+\frac{ \partial \rho_i}{ \partial t} + \text{div}(\rho_i u) =0 \Longrightarrow \frac{ \partial \rho_i}{ \partial t} = - \rho_i \text{div}u - u^j \frac{ \partial \rho_i}{ \partial x^j}
+\]
+and so
+\[
+\begin{gathered}
+  \sum_i \frac{ h_i' - \tau s_i}{ \rho_i} \frac{ \partial \rho_i}{ \partial t} = \sum_i -h_i' \text{div}u + \tau s_i \text{div}u - \frac{ h_i' - \tau s_i }{ \rho_i} u^j \frac{ \partial \rho_i}{ \partial x^j} = -h' \text{div}u + \tau s \text{div}u - \sum_i \frac{ h_i' - \tau s_i }{ \rho_i} u^j \frac{ \partial \rho_i}{ \partial x^j}
+\end{gathered}
+\]
+Plugging this into Eq. \ref{Eq:provingisentropicflow}, 
+\[
+\begin{gathered}
+  -u^j \frac{ \partial p}{ \partial x^j} + \tau \frac{ \partial s}{ \partial t} + -h' \text{div}u + \tau s \text{div}u - \sum_i \frac{ h_i' - \tau s_i }{ \rho_i} u^j \frac{ \partial \rho_i}{ \partial x^j}  =  - u^j \frac{ \partial h'}{ \partial x^j} - h'\text{div}(u)
+\end{gathered}
+\]
+Noting that by definition, $h':= H'/V = \epsilon' +p$
+Using Eq. \ref{Eq:internalenergyfluidatrest} one more time so that
+\[
+ \frac{ \partial \epsilon'}{ \partial x^j} u^j= \left[ \tau \frac{ \partial s}{ \partial x^j} + \sum_i \frac{h_i'-\tau s_i}{\rho_i} \frac{ \partial \rho_i}{ \partial x^j} \right]u^j
+\]
+and thus
+\[
+\tau \frac{ \partial s}{ \partial t} + \tau s\text{div}u + \tau u^j \frac{ \partial s }{ \partial x^j} = 0 \Longrightarrow \boxed{ \frac{ \partial s}{ \partial t} + \text{div}(su) }
+\]
+Thus, entropy is conserved over time.  Indeed
+\[
+\dot{S} = \frac{d}{dt} \int_V s \text{vol}^n = \int_V \left( \frac{ \partial s}{ \partial t} + \text{div}(su)  \right) \text{vol}^n
+\]
+Also notice that I did not assume incompressibility.  This, and the statements above, are true for compressible and incompressible flow.  Also, note that all the above was proven for any Riemannian manifold $N$ representing space.  \item I supposed the reaction was \[
+\begin{gathered}
+  \ce{2H2 + O2 -> 2H2O }   
+\end{gathered}
+\]
+But the reaction listed for \verb|h2o2.cti| or \verb|h2o2_highT.cti| is 
+\[
+\ce{H2 + O2 -> H + HO2 }
+\]
+\end{enumerate}
+
+\section{Liquid-Vapor Equilibrium}
+
+From \href{https://en.wikipedia.org/wiki/Clausius–Clapeyron_relation}{wikipedia}'s article on ``Clausius-Clapeyron relation'', start from the definition of particle diffusion equilibrium, that 
+\[
+\begin{aligned}
+  \mu_v & = \mu_l \\
+  d \mu_v & = d \mu_l
+\end{aligned}
+\]
+Using the Gibbs-Duhem relation for each side of the above, that $N d\mu = Vdp - \sigma d\tau$, then
+\[
+\begin{aligned}
+  & d\mu_v = v_v dp- s_v d\tau \\ 
+  & d\mu_l = v_l dp- s_l d\tau
+\end{aligned}
+\]
+Thus
+\[
+(v_v - v_l) dp = (s_v - s_l) d\tau \Longrightarrow \boxed{ \frac{dp}{d\tau} = \frac{s_v - s_l }{ v_v - v_l } }
+\]
+Using the definition of enthalpy $H:= U + pV$, so that 
+\[
+dH = dU + Vdp + pdV = \tau d\sigma + Vdp \text{ or } \frac{1}{\tau} ( dH - Vdp) = d\sigma
+\]
+where $\tau d\sigma = dU + pdV$ was used.  
+
+Considering the thermodynamic process at constant pressure $dp=0$ that begins with a single molecule being in a liquid state and changing into vapor state, then
+\[
+\frac{1}{\tau} (\Delta H_v) = \sigma_v - \sigma_l
+\]
+Thus
+\[
+\frac{dp}{dT} = \frac{ \Delta H_v}{ T (V_v-V_l ) } \approx \frac{\Delta H_v}{ TV_v}
+\]
+since it's reasonable to assume that the volume of the vapor molecule is much greater than when the molecule is in a liquid state.  
+
+Using the ideal gas law for a single molecule, $pV = \tau$, then
+\[
+\begin{gathered}
+  \frac{dp}{dT} = \frac{ p\Delta H_v}{T^2} \text {or } \frac{dp}{p} = \frac{\Delta H_v dT}{T^2} \\
+  \Longrightarrow p(T) = p_0 \exp{ \left( \frac{- \Delta H_v}{T} \right) }
+\end{gathered}
+\]
 
 
 \part{Basic Feeling}
@@ -2452,20 +2761,67 @@ recovering Eq. (2.17a) of Turns (2000) \cite{STurns2011}.
 \section{Enthalpy}
 \subsection{Stoichiometry}
 
+cf. pp. 18, Chapter 2 Combustion and Thermochemistry, Section Reactant and Product Mixtures, Subsection Stoichiometry of Turns (2000) \cite{STurns2011}.  
 
+\begin{equation}\label{Eq:hydrocarbonairstoich}
+C_xH_y + a (O_2 + 3.76  N_2 ) \ce{->} x CO_2 + \left( \frac{y}{2} \right) H_2O + 3.76 \ce{ a N_2 }
+\end{equation}
+and so $a = x+\frac{y}{4}$.  
 
-
-
-
-
-
-stoichiometric air-fuel ratio
+Therefore, the \emph{stoichiometric air-fuel ratio} in this case is 
 \[
 \left( \frac{A}{F} \right)_{\text{stoic}} \equiv \left( \frac{m_{\text{air}} }{ m_{\text{fuel} } } \right)_{\text{stoic} } = \frac{4.76 a \, MW_{\text{air}} }{ 1 \, MW_{\text{fuel}} }
 \]
 where $MW_{\text{air}}$; $MW_{\text{fuel}}$ are molecular weights of air and fuel.  
 
+To reproduce Table 2.1 on pp. 19 of Turns (2000) \cite{STurns2011}, consider the following: \\
+reusing Eq. \ref{Eq:hydrocarbonairstoich}, then for methane, \ce{CH_4}, $x=1,y=4$ in this case, and so $a = 2$.  For \ce{H_2 + O_2}, consider \ce{2 H_2 + O_2 -> 2H_2O}.  For \ce{C(s)+ \text{air}}, consider a ``1 to 1'' reaction, of 1 C and 1 ``air'' reacting with each other.  
 
+Then consider how the $O/F$ ratio is \textbf{defined}:
+\begin{equation}
+  \frac{O}{F} := \frac{m_{\text{Ox} } }{ m_F } = \frac{ \nu_{\text{Ox} } MW_{\text{Ox}} }{ MW_F } \equiv \frac{ \nu_{\text{Ox}} \widehat{m}_{\text{Ox}} }{ \nu_F \widehat{m}_F } 
+\end{equation}
+
+Thus, for example, for \ce{CH_4} and air, $\nu_{\ce{CH_4}}=1$, $\nu_{\text{air}}$, for \ce{H_2 + O_2}, $\nu_{\ce{H_2}}=2$ and $\nu_{\ce{O_2}}=1$, and $\nu_{\ce{C(s)}} = 1, \nu_{\text{air}}=1$.  Then look up the molecular masses or ``molecular weights'' for the constituents.  
+
+I suggest using the Python library \verb|thermopy3| in this \href{https://github.com/fmv1992/thermopy3.git}{github repository} in the following manner (and the following  code snippet is in \verb|combustion.py| of my github repository for \href{https://github.com/ernestyalumni/Propulsion.git}{Propulsion}:
+\begin{lstlisting}
+import thermopy3
+from thermopy3 import nasa9polynomials as nasa9p
+nasa9pDB = nasa9p.Database() # this initializes or ``instantiates'' the database that contains the 
+ # coefficients and other data using NASA 9 polynomials
+
+# find if a compound is in the database using the list_compound method
+# then initialize or ``create'' the compound by the method set_compound
+nasa9pDB.list_compound("methane")
+CH4 = nasa9pDB.set_compound("methane")
+
+nasa9pDB.list_compound("N2")
+N2 = nasa9pDB.set_compound('N2')
+
+nasa9pDB.list_compound("O2")
+O2 = nasa9pDB.set_compound("O2")
+
+nasa9pDB.list_compound("H2")
+H2 = nasa9pDB.set_compound("H2")
+
+nasa9pDB.list_compound("C")
+C = nasa9pDB.set_compound("C")
+
+CH4.molecular_weight # 0.016042459999999998 kg/mol
+O2.molecular_weight # 0.0319988 kg/mol
+N2.molecular_weight # 0.0280134 kg/mol
+airMW = O2.molecular_weight + 3.76*N2.molecular_weight # 0.137329184 kg/mol
+
+# O/F for oxidizer air and fuel methane
+2*airMW / CH4.molecular_weight # 17.12071390547335
+
+# O/F for oxidizer oxygen and fuel hydrogen
+O2.molecular_weight / (2.*H2.molecular_weight) # 7.936682739051927
+
+# O/F for oxidizer air and fuel Carbon
+airMW / C.molecular_weight # 11.433903436102808
+\end{lstlisting}
 
 
 \emph{equivalence ratio} $\Phi$
@@ -2548,12 +2904,36 @@ Taking into account the above, then
 where $P$ denotes products and $R$ denotes reactants, and notation is Polk's.
 
 To reiterate, in my notation,
-\begin{equation}
+\begin{equation}\label{Eq:enthalpyreactantsproducts}
 \begin{aligned}
   H_P(\tau_P) = \sum_{i\in \lbrace \text{products}\rbrace } n_i \left[ \Delta_f \overline{h}_i^0 + \overline{h}_i(\tau_P) - \overline{h}_i^0 \right]   \\
   H_R(\tau_R) = \sum_{i\in \lbrace \text{reactants} \rbrace } n_i \left[ \Delta_f \overline{h}_i^0 + \overline{h}_i(\tau_R) - \overline{h}_i^0 \right]
 \end{aligned}
 \end{equation}
+
+\subsection{Law of Mass Action}
+
+Let's recall the \emph{law of mass action}, derived from Kittel and Kroemer \cite{CKittelHKroemer1980} and mentioned for how chemical reactions go in Ch. 3 Chemical Rockets pp. 77 of Oates (1997) \cite{GOates1997}.  
+
+For an ideal gas, $pV= N\tau$ or $p = n\tau$, 
+\begin{equation}
+  \begin{gathered}
+    \prod_j n_j^{\nu_j} = K(\tau) := \prod_j n_{Q_j}^{\nu_j} \exp{ (-\nu_j F_j(\text{int})/\tau) } \xrightarrow{ \frac{1}{ \tau^{\sum_j \nu _j }} } \prod_j p_j^{\nu_j} \equiv K_p(\tau) \text{ equilibrium constant } \\
+      \prod_j X_j^{\nu_j} = K_p(\tau) p^{ -(\nu_1 + \nu_2 + \dots + \nu_n) }
+\end{gathered}
+\end{equation}
+where $\frac{p_j}{p} = \frac{n_j}{ \sum_i n_i} = X_j$ is the usual mole (molar; particle) fraction for species $j$.  
+\subsubsection{Example - \ce{H}-\ce{O} Reaction}
+
+Consider
+\[
+\ce{H2 + l O2  -> m H2O + n H2 + q O2 }
+\]
+\ce{H} : $m+n =1$ \\
+\ce{O} : $m+2q = 2l$  
+
+
+
 
 
 cf. Chapter 7 Simplified Conservation Equations for Reacting Flows of Turns (2011) \cite{STurns2011}
@@ -2658,6 +3038,105 @@ and so
   \xrightarrow{ \frac{ \partial \rho }{ \partial t} + \text{div}(\rho u) = 0 } \rho \frac{ \partial Y_i}{ \partial t} + \rho u^j \frac{ \partial Y_i}{ \partial x^j} + \text{div}j_i = \dot{m}_i'''
 \end{gathered}
 \]
+
+To recap our results, armed with the definitions (and resulting identities) $\rho_i := \frac{M_iN_i}{V} \equiv M_i n_i$, $Y_i:= \frac{m_i}{m} = \frac{\rho_i}{\rho}$ and so $Y_i\rho = \rho_i$, and starting from $m_i = \int_V \rho_i \text{vol}^n$, and using Galilean transformation $u_i = u_i' +u$
+\[
+\begin{gathered}
+  \dot{m}_i = \int_V \left( \frac{ \partial \rho_i }{ \partial t} + \text{div}(\rho_i u_i ) \right) \text{vol}^n = \int_V \text{vol}^n \left[ \frac{ \partial \rho Y_i}{ \partial t} + \text{div}(\rho_i(u_i' +u)) \right] =  \int_V \text{vol}^n \left[ Y_i \frac{ \partial \rho }{ \partial t} + \rho \frac{ \partial Y_i}{ \partial t} + \text{div}(\rho_i u_i') + \text{div}(\rho Y_i u) \right] = \\
+  =  \int_V \text{vol}^n \left[ Y_i \frac{ \partial \rho }{ \partial t} + \rho \frac{ \partial Y_i}{ \partial t} + \text{div}(\rho_i u_i') + Y_i \text{div}(\rho u) + \rho u^j \frac{ \partial Y_i}{ \partial x^j} \right] = \int_V \text{vol}^n \left[ \rho \frac{ \partial Y_i}{ \partial t} + \text{div}(\rho_i u_i') + \rho u^j \frac{ \partial Y_i}{ \partial x^j} \right]
+\end{gathered}
+\]
+where total mass conservation $\dot{m} =0 \Longrightarrow \frac{ \partial \rho}{ \partial t} + \text{div}(\rho u)=0$ was used in the last equality, which must be true, even if chemical reactions occur.  
+
+Then use Fick's law for particle diffusion for each species:
+\[
+\rho_i u_i' = j_{m_i} = -\rho D_{AB} \text{grad}Y_i
+\]
+and so
+\begin{equation}\label{Eq:SpeciesConservation}
+  \boxed{ \dot{m}_i = \int_V \text{vol}^n \left[ \rho \frac{ \partial Y_i}{ \partial t} + - \text{div}(\rho D_{AB} \text{grad}Y_i ) + \rho u^j \frac{ \partial Y_i}{ \partial x^j} \right] }
+\end{equation}
+Compare this to Eq. 3.31, where steady flow is assumed ($\partial (\rho Y_A)/\partial t =0$) in the section on \textbf{Species Conservation} of Chapter 3 Introduction to Mass Transfer of Turns (2011) \cite{STurns2011}.  I don't agree with his usage of this steady flow assumption because one needs to use the \emph{total} mass conservation first as shown above.  Eq. 3.31 of Turns (2011) \cite{STurns2011} is, for reference,
+\[
+\dot{m}_A''' - \frac{d}{dx} \left[ Y_A \dot{m}'' - \rho D_{AB} \frac{dY_A}{dx} \right] = 0 
+\] 
+What is useful from Turns (2011) \cite{STurns2011} is the physical interpretation he provides: from Eq. \ref{Eq:SpeciesConservation}, $\dot{m}_i$ is the net rate of production of species $i$ by chemical reaction by the entire system.  $\rho \frac{ \partial Y_i}{ \partial t} + -\text{div}(\rho D_{AB} \text{grad}Y_i ) + \rho u^j \frac{ \partial Y_i}{ \partial x^j}$ is the net flow of species $i$ out of the (control) volume $V$ per unit volume.  
+
+Then take a look at the section on \textbf{Species Mass Conservation (Species Continuity)} on pp. 218 of Chapter 7 ``Simplified Conservation Equations'' of Turns (2011) \cite{STurns2011}, namely Eq. (7.8) and (7.10).  Further physical interpretation is provided there, and so we can interpret terms in Eq. \ref{Eq:SpeciesConservation} as follows:
+\[
+\begin{aligned}
+  -\text{div}(\rho D_{AB} \text{grad}Y_i) & \qquad  \text{ mass flow of species $i$ due to molecular diffusion per unit volume (kg$/s\cdot m^3$) } \\ 
+    \rho u^j \frac{ \partial Y_i}{ \partial x^j} & \qquad \text{ mass flow of species $i$ due to convection (advection by bulk flow) per unit volume (kg$/s\cdot m^3$) }  \\
+    \dot{m}_i & \qquad \text{ net mass production rate of species $i$ by chemical reaction (for the entire system) $\text{kg}/s$ }
+\end{aligned}
+\]
+
+
+
+\subsection{Energy Conservation applied to Combustion}
+
+Following the Section \textbf{Energy Conservation} on pp. 334, Chapter 7 Simplified Conservation Equations, of Turns (2011) \cite{STurns2011}, 
+
+\[
+\dot{E} = -\int_V \text{div}((k+h')\mathbf{u}) \text{vol}^n 
+\]
+where we keep in mind the difference in notation and meaning of $h$ and $h'$: $h' := \frac{H}{V}$ where $H = \int_V h'\text{vol}^n$, is the enthalpy density, whereas $h:= \frac{H}{m}$ where $H = \int_V hm = \int_V h\rho \text{vol}^n$ is the so-called \emph{specific enthalpy}, enthalpy per unit mass.  So $\rho h = h'$
+
+
+
+Noting that 
+\[
+\text{div}((\frac{\rho u^2}{2} + h' )u) = \text{div}((\frac{\rho u^2}{2} + \rho h)u) = \text{div}(\rho u)(h + \frac{u^2}{2} ) + \rho u^j \frac{ \partial }{ \partial x^j}(h+\frac{u^2}{2} )
+\]
+and that 
+\[
+u^2 = g_{ij} u^i u^j \Longrightarrow  \, 
+\begin{gathered}
+  \quad \\
+  u^k \frac{ \partial }{ \partial x^k } u^2 = 2 u^k g_{ij} \frac{ \partial u^i}{ \partial x^k} u^j + \frac{ \partial g_{ij} }{ \partial x^k } u^k u^i u^j = 2u^k \langle u, \frac{ \partial u}{ \partial x^k} \rangle + 2g_{ks} \Gamma^k_{ij} u^i u^j u^s = \\ 
+  = 2g_{ks}u^s \left[ u^j \frac{ \partial u^k}{\partial x^j} + \Gamma^k_{ij} u^i u^jr \right]  = 2 g_{ks} u^s (\nabla_u u) = 2\langle u , \nabla_u u \rangle
+\end{gathered}
+\]
+where the identity
+\[
+\frac{ \partial g_{ij} }{ \partial x^k} \dot{\phi}^k \dot{\phi}^i \dot{\phi}^j = 2 g_{ks} \Gamma^k_{ij} \dot{\phi}^i \dot{\phi}^j \dot{\phi}^s  \text{ with } u^i = \dot{\phi}^i
+\]
+was used, which is in the proof for Theorem 3.25 on pp. 49 of section 3.8 The natural Lagrangian on manifolds of Calin and Chang (2005) \cite{OCalinDChang2005}
+
+Then
+\[
+\begin{gathered}
+  \dot{E} = -\int_V \text{vol}^n \left[ \text{div}(\rho u)(h + \frac{u^2}{2} ) + \rho u^j \frac{ \partial }{ \partial x^j} (h+ \frac{u^2}{2} ) \right] = \int_V \frac{ \partial \rho }{ \partial t}(h+ \frac{u^2}{2} )\text{vol}^n - \int_V \text{vol}^n \left[ \rho u^j \frac{ \partial h}{ \partial x^j} + \rho \langle u, \nabla_u u \rangle \right]
+\end{gathered}
+\]
+
+Now consider the heat $Q \in \Omega^1(\Sigma)$.  If we define the heat density $q' \in C^{\infty}(\mathbb{R} \times N) \times \Omega^1(\Sigma)$, then
+\[
+\dot{Q} = \int_V \left( \frac{ \partial q'}{ \partial t} + \text{div}(q'u) \right) \text{vol}^n \xrightarrow{ \frac{ \partial q'}{ \partial t} = 0 } \int_V \text{vol}^n \left[ u^j \frac{ \partial q' }{ \partial x^j } + q' \text{div}u \right]
+\]
+where we'd have to deal with whether the fluid is compressible $\text{div}u\neq 0$ or incompressible $\text{div}u =0$.  
+
+If we define the ``specific heat,'' the heat per unit mass, $q$, defined via $Q = \int \rho q \text{vol}^n$, $q \in C^{\infty}(\mathbb{R}\times N) \times \Omega^1(\Sigma)$,
+\[
+\begin{gathered}
+  \dot{Q} = \int_V \left( \rho \frac{ \partial q}{ \partial t} + q \frac{ \partial \rho }{ \partial t} \right) \text{vol}^n + \text{div}(\rho q u) \text{vol}^n = \int_V \left( \rho \frac{ \partial q}{ \partial t} + q \frac{ \partial \rho}{ \partial t} \right) \text{vol}^n + q\text{div}(\rho u) \text{vol}^n + \rho u^j \frac{ \partial q}{ \partial x^j} \text{vol}^n  = \\
+   = \int_V \rho \text{vol}^n \left( \frac{ \partial q }{ \partial t} + u^j \frac{ \partial q}{ \partial x^j } \right)
+\end{gathered}
+\]where total mass conservation was used (which should still be valid even if chemical reactions occur; the masses for individual species can change, but the total mass doesn't change for chemical reactions),
+so that 
+\[
+u^j \frac{ \partial q}{ \partial x^j} = -u^j \frac{ \partial h }{ \partial x^j} - \langle u , \nabla_u u \rangle \text{ or } - \frac{ \partial q}{ \partial x^j} = \frac{ \partial h}{ \partial x^j} + ( \nabla_u u)_j
+\]
+
+Compare this expression we had just derived
+\begin{equation}
+  - \frac{ \partial q}{ \partial x^j} = \frac{ \partial h}{ \partial x^j} + ( \nabla_u u)_j
+\end{equation}
+with Eq. 7.51 on pp. 235 of Chapter 7 of Turns (2011) \cite{STurns2011}
+\[
+-\frac{d \dot{Q}_x''}{ dx} = \dot{m}'' \left( \frac{dh}{dx} + v_x \frac{d v_x}{ dx} \right)
+\]
+
 
 \section{Droplet Evaporation}
 
@@ -2766,7 +3245,7 @@ If $\mu_1 > \mu_2$, particle flow through system from reservoir 1 to reservoir 2
 $n_i \equiv $ particle concentration in $i$ 
 
 Take
-\begin{equation}
+\begin{equation}\label{Eq:Fickslaw}
 \mathbf{j}_n = -D \text{grad}n
 \end{equation}
 which is \textbf{Fick's law}, and where $D \equiv$ particle diffusion constant or \textbf{diffusivity}.  
@@ -2807,6 +3286,627 @@ The mean thermal velocity was derived from the Maxwell distribution:
 \overline{c} = \left( \frac{ 8 \tau }{M \pi} \right)^{1/2}
 \]
 
+\subsection{Binary case for Fick's law for mass transfer; $A$ and $B$ species only}
+
+It seems that for combustion, we only worry about 2 species, $A$ and $B$, coming together, most of the time.  
+
+I am following pp. 84 Chapter 3 Introduction to Mass Transfer, Section \textbf{Mass Transfer Rate Laws} of Turns (2011) \cite{STurns2011} here, applying Fick's law of Diffusion from my own development and comparing results from Turns.
+
+Recall the basic quantities for summing up masses and particles (in this case, only two kinds), and mass fraction vs. mole fraction:
+
+\[
+\begin{gathered}
+  \begin{gathered}
+  m_A + m_B = m \\
+  Y_A := \frac{m_A}{m} = \frac{M_A N_A}{ M_A N_A + M_B N_B} \\ 
+  m_A + m_B = Y_Am + Y_Bm = m
+\end{gathered} \qquad \qquad \begin{gathered}
+    N_A + N_B = N \\
+    X_A:= \frac{N_A}{N} \\
+    M_A X_A + M_BX_B = \frac{m}{N} \\
+    \rho_A =\frac{M_A N_A}{V} \text{ so } Y_A(\rho_A + \rho_B) = \rho_A
+\end{gathered}
+\end{gathered}
+\]
+Now
+\[
+\dot{m}_A = \frac{d}{dt} \int_V \rho_A \text{vol}^n = \int_V \left[ \frac{ \partial \rho_A}{\partial t} + \text{div}(\rho_A u_a)  \right] \text{vol}^n
+\]
+Using Galilean transformation $\mathbf{u}_A - \mathbf{u} = \mathbf{u}_A'$ or $\mathbf{u}_A = \mathbf{u} + \mathbf{u}_A'$, 
+\[
+\begin{gathered}
+  \text{div}(\rho_A u ) = \text{div}(\rho_A(u+u_A')) = \text{div}(\rho_A u) + \text{div}(\rho_A u_A')  
+\end{gathered}
+\]
+Considering the term $\text{div}(\rho_A u)$, 
+\[
+\begin{gathered}
+  \text{div}(\rho_Au) = \text{div}(Y_A\rho u) \text{ and also note that } \\
+  \int_V \text{div}( Y_A \rho u) = \int_{\partial V} dS\cdot Y_A \rho \mathbf{u}
+\end{gathered}
+\]
+
+Now for term $\text{div}(\rho_Au_A')$, using Eq. \ref{Eq:Fickslaw}, Fick's law, 
+\[
+\begin{gathered}
+  \text{div}(\rho_A u_A') = \text{div}(j_{\rho_A}) = \text{div}( -M_A \mathcal{D}_{AB} \text{grad}n_A ) = -\text{div}(\mathcal{D}_{AB} \text{grad}\rho_A) = -\text{div}(\rho \mathcal{D}_{AB} \text{grad}Y_A)
+\end{gathered}
+\]
+Putting everything in terms of a surface area integral,
+\[
+\dot{m}_A = \int_{\partial V} dS \cdot \dot{m}_A'' = \int_{\partial V} dS\cdot \rho uY_A - \int_{\partial V} dS \cdot \rho \mathcal{D}_{AB} \text{grad}Y_A
+\]
+Then
+\begin{equation}
+\boxed{   \dot{m}_A '' = Y_A \rho u -\rho \mathcal{D}_{AB} \text{grad}Y_A }
+\end{equation}
+Note that $\mathcal{D}_{AB}$ is in units of $[m^2/2]$.  
+
+The physical interpretation for the terms is as follows: \\
+$\dot{m}_A''$ is the mass flow of species $A$ per unit area \\
+$Y_A \rho u$ is the mass flow of species $A$ associated with bulk flow per unit area \\
+$\rho \mathcal{D}_{AB} \text{grad}Y_A$ is the mass flow of species $A$ associated with molecular diffusion per unit area.  
+
+Compare this to Eq. 3.1, 3.5 of Turns (2011) \cite{STurns2011}: 
+\begin{equation}
+\dot{m}_A'' = Y_A(\dot{m}''_A + \dot{m}''_B) - \rho \mathcal{D}_{AB} \text{grad}Y_A
+\end{equation}
+
+\section{Droplet Evaporation and Burning}
+
+
+
+I am following Chapter 10 Droplet Evaporation and Burning of Turns (2011) \cite{STurns2011}.  
+
+``There are two types of liquid rockets: \textbf{pressure-fed}, in which the fule and oxidizer are pushed into the combustion chamber by a high-pressure gas; and \textbf{pump-fed}, where turbopumps deliver the propellants.''\cite{STurns2011}
+
+
+
+
+
+
+\section{Shvab-Zeldovich forms}
+
+Lewis number ($\text{Le} := \frac{K}{\rho c_p D }$) $\text{Le}=1$ by assumption.  
+
+Species flux and Fick's law.  
+\[
+\mathbf{j}_q = -K \text{grad}\tau + \sum_i \dot{m}''_{i \, \text{diff}} h_i = -K\text{grad}\tau - \sum_i \rho D(\text{grad}Y_i)h_i = -K\text{grad}\tau - \rho D\text{grad} \sum_i Y_i h_i + \rho D \sum_i Y_i \text{grad}h_i
+\]
+Noting that 
+\[
+\sum_i Y_i \text{grad}h_i = \sum_i Y_i c_{pi} \text{grad}\tau = c_p \text{grad}\tau
+\]
+then
+\[
+j_q = -K \text{grad}\tau - \rho D \text{grad} h + \rho D c_p \text{grad}\tau
+\]
+thermal diffusivity $\alpha := \frac{K}{\rho c_p}$.  
+
+If $\text{Le}=1$, $K= \rho Dc_p$ and so $j_q = -\rho D\text{grad}h$ or $\dot{Q}'' = -\rho D\text{grad}h$.  
+
+
+
+\subsection{Heat $Q$ }
+
+Again $Q \in \Omega^1(\Sigma)$ represents heat on the system.  
+
+The conundrum is whether $Q$ is best served with the heat density $q':= Q/V$ or ``specific heat'' per mass, $q:= Q/m$, because it'll affect whether we have to deal with the compressibility or incompressibility of the fluid or mass conservation, and the form of the ``heat flux.''
+
+So
+\[
+Q = \int_V q \rho \text{vol}^n = \int_V qm = \int_V q' \text{vol}^n
+\]
+Then
+\[
+\begin{aligned}
+  \dot{Q} & = \int_V \left( \rho \frac{ \partial q }{ \partial t} + q \frac{ \partial \rho }{ \partial t} \right) \text{vol}^n + \int_V \text{div}( \rho qu ) \text{vol}^n = \int_V \left[ \rho \left( \frac{ \partial q}{ \partial t} + u^j \frac{ \partial q }{ \partial x^j} \right) + q \left( \frac{ \partial q}{ \partial t} + \text{div}(\rho u) \right) \right] \text{vol}^n = \\
+   & = \int_V \left( \frac{ \partial q'}{ \partial t} + \text{div}(q'u) \right) \text{vol}^n = \int_V \left( \frac{ \partial q'}{ \partial t} + \text{div}(\mathbf{j}_{q'}) \right) \text{vol}^n
+\end{aligned}
+\]
+where
+\[
+\text{div}(\mathbf{j}_{q'} ) = \frac{1}{\sqrt{g}} \frac{ \partial }{ \partial x^j} (- \rho D \sqrt{g} \text{grad}h ) = \frac{1}{\sqrt{g}} \frac{ \partial }{ \partial x^j} (-\rho D \frac{ \partial h}{ \partial x^k} g^{jk} \sqrt{g} )
+\]
+
+
+
+Employ the definition of absolute (or standardized) enthalpy in Turns (2011) \cite{STurns2011}:
+\[
+h = \sum_i Y_i \Delta_f \overline{h}_i^{\circ} + \int_{T_{\text{ref}}}^T c_p d\tau
+\]
+
+The proper way to treat the usage of energy conservation with the Shvab-Zeldovich form is this: starting from $Q = dE - W$, and having no external work done on the system $\dot{W}=0$
+\begin{equation}\label{Eq:EconservationShvabZeldovich}
+\begin{gathered}
+  Q\left( \frac{d}{dt} \right) = \dot{Q} = \int_V \text{vol}^n \left( \frac{ \partial q'}{ \partial t} + \text{div}(j_{q'}) \right) = dE\left( \frac{d}{dt} \right) = \dot{E} = -\int_V \text{vol}^n \left[ (\rho u^j) \left( \frac{ \partial h}{ \partial x^j} + (\nabla_u u)_j \right) \right]
+\end{gathered}
+\end{equation}
+where on the right hand side (RHS) of Eq. \ref{Eq:EconservationShvabZeldovich} is from the energy conservation of the total energy density of the fluid system, 
+\[
+\frac{ \partial \epsilon}{ \partial t} + \text{div}((h'+k)u) = 0 
+\]
+which is from 6.5.2 of Le Bellac, Mortessagne, Batrouni (2004) \cite{MLeBellacFMortessagneGBatrouni2004}).  Then for steady-state assumption, $\frac{ \partial q'}{ \partial t}=0$, 
+\[
+\text{div}(j_{q'}) = -(\rho u^j) \left( \frac{ \partial h}{ \partial x^j} + (\nabla_u u)_j \right)
+\]
+The Shvab-Zeldovich form for $j_{q'}$ is
+\begin{equation}
+  j_q = -\rho D \text{grad}h 
+\end{equation}
+and so
+\begin{equation}\label{Eq:basicenergyequation}
+\text{div}(\mathbf{j}_{q'} ) = \frac{1}{\sqrt{g}} \frac{ \partial }{ \partial x^j} (- \rho D \sqrt{g} \text{grad}h ) = \frac{1}{\sqrt{g}} \frac{ \partial }{ \partial x^j} (-\rho D \frac{ \partial h}{ \partial x^k} g^{jk} \sqrt{g} ) = - (\rho u^j) \left( \frac{ \partial h}{ \partial x^j} + (\nabla_u u)_j \right) 
+\end{equation}
+Compare Eq. \ref{Eq:basicenergyequation} to Eq. (7.61) of Turns (2011) \cite{STurns2011}.  
+
+Employ now Turns' definition of absolute (or standardized) enthalpy \cite{STurns2011}:
+\[
+h = \sum_i Y_i \Delta_f \overline{h}_i^0 +\int_{T_{\text{ref}}}^T c_p dT
+\]
+Then applying this definition to Eq. \ref{Eq:basicenergyequation},
+\[
+\begin{gathered}
+  \text{div}(\rho D \text{grad}h ) = \text{div}\left( \rho D \sum_i \Delta_f \overline{h}_i^0 \text{grad}Y_i + \rho D \text{grad} \int_{T_{\text{ref}}}^T c_pdT  \right)  = \\
+  = (\rho u^j) \left( \frac{ \partial h}{ \partial x^j} + (\nabla_u u)_j \right) = (\rho u^j) \left( \sum_i \Delta_f \overline{h}_i^0 \frac{ \partial Y_i}{ \partial x^j} + \frac{ \partial }{ \partial x^j} \int_{T_{\text{ref}}}^T c_p dT + (\nabla_u u)_j \right) \text{ or (moving terms from left to right and vice versa) } \\ 
+  (\rho u^j) \frac{ \partial }{ \partial x^j} \int c_p dT - \text{div}(\rho D\text{grad} \int c_p dT ) + \rho u^j (\nabla_u u)_j = \sum_i \text{div}(\rho D\Delta_f \overline{h}_i^0 \text{grad}Y_i ) - (\rho u^j) \Delta_f \overline{h}_i^0 \frac{ \partial Y_i}{ \partial x^j}
+\end{gathered}
+\]
+Use Eq. \ref{Eq:SpeciesConservation}, the generalized equation for species conservation, 
+\[
+\begin{gathered}
+  \sum_i \Delta_f \overline{h}_i^0 (\text{div}(\rho D\text{grad}Y_i) - (\rho u^j) \frac{ \partial Y_i}{ \partial x^j}) = \sum_i \Delta_f \overline{h}_i^0 (-\dot{m}_i''')
+\end{gathered}
+\]
+where $\dot{m}_i = \int_V \text{vol}^n \dot{m}_i'''$.  
+
+Thus, in general,
+\begin{equation}
+  \boxed{   (\rho u^j) \frac{ \partial }{ \partial x^j} \int c_p dT - \text{div}(\rho D\text{grad} \int c_p dT ) + \rho u^j (\nabla_u u)_j = -\sum_i \Delta_f \overline{h}_i^0 \dot{m}_i''' }
+\end{equation}
+where Turns (2011) \cite{STurns2011} gives the (important) physical interpretations:
+\[
+\begin{aligned}
+  (\rho u^j) \frac{ \partial }{ \partial x^j} \int c_p dT & \qquad \text{ rate of sensible enthalpy transport by convection (advection) per unit volume ($W/m^3$)  } \\ 
+- \text{div}(\rho D\text{grad} \int c_p dT )  & \qquad \text{ rate of sensible enthalpy transport by diffusion per unit volume ($W/m^3$)  } \\ 
+-\sum_i \Delta_f \overline{h}_i^0 \dot{m}_i'''   & \qquad \text{ rate of formation enthalpy production by chemical reaction per unit volume ($W/m^3$) } 
+\end{aligned}
+\]
+Turns (2011) \cite{STurns2011} says that $-\sum_i \Delta_f \overline{h}_i^0 \dot{m}_i'''$ is the ``rate of sensible enthalpy production by chemical reaction per unit volume ($W/m^3$)'', but I think this is wrong because the terms are dealing with the formation enthalpy, the enthalpy locked in the chemical bonds of the constituents.  
+
+It will pay to consider the case of spherical symmetry for droplets.  Assuming only dependence upon $r$ for all quantities by spherical symmetry, and keeping in mind that total mass conservation holds, i.e.
+\[
+\begin{gathered}
+\dot{m} =0 \Longrightarrow \frac{ \partial \rho}{ \partial t} + \text{div}(\rho u ) = 0 \xrightarrow{ \text{ spherical symmetry } } \frac{1}{r^2} \frac{d}{dr} ( \rho u^r r^2 ) = -\frac{ \partial \rho}{ \partial t} \\
+  \xrightarrow{ \frac{ \partial \rho }{ \partial t } = 0 \text{ steady state } } \frac{1}{r^2} \frac{d}{dr} (\rho u^r r^2 ) = 0 
+\end{gathered}
+\]
+then
+\[
+\begin{gathered}
+  -\text{div}( \rho D \text{grad} \int c_p dT) = -\frac{1}{r^2} \frac{d(\rho Dr^2 \frac{d \int c_p dT }{dr} ) }{ dr} \\ 
+  \frac{d}{dr} ( r^2 \rho u^r \int c_p dT  ) = \left( \frac{d}{dr} (r^2 \rho u^r) \right) \int c_p dT + r^2 \rho u^r \frac{d}{dr} \int c_p dT \xrightarrow{\dot{m}=0} 0 + r^2 \rho u^r \frac{d}{dr} \int c_p dT
+\end{gathered}
+\]
+so
+\begin{equation}\label{Eq:enthalpyproductionspherical}
+\frac{1}{r^2} \frac{d}{dr} \left[ r^2 \rho u^r \int c_p dT - \rho Dr^2 \frac{d\int c_p dT}{dr} \right] = -\sum_i \Delta_f h_i^0 \dot{m}_i'''
+\end{equation}
+Compare this to Eq. (7.65) of Turns (2011) \cite{STurns2011}.  
+
+\subsubsection{Temperature distribution in the gas phase for Droplet Evaporation }
+
+From Eq. \ref{Eq:enthalpyproductionspherical}, supposing steady state mass conservation with spherical symmetry:
+\[
+\dot{m} = 4\pi r^2 \rho u^r
+\]
+and supposing that 
+\[
+\sum_i \Delta_f \overline{h}_i^0 \dot{m}_i''' = 0 
+\]
+which means that ``reaction rate term is zero, since no reactions occur for pure evaporation'' (cf. pp. 372 Ch. 10 Droplet Evaporation and Burning, Eq. (10.3), of Turns (2011) \cite{STurns2011}), and that the Lewis number $\text{Le} := \frac{K}{\rho c_pD}$ is $1$, then for the remaining terms in Eq. \ref{Eq:enthalpyproductionspherical}
+\[
+\begin{gathered}
+  r^2 \rho u^r \frac{d}{dr} \int c_p dT = r^2 \rho u^r c_p \frac{dT}{dr} = \frac{ \dot{m}}{4\pi } c_p \frac{dT}{dr} \\ 
+  \frac{d}{dr} \left[ \rho Dr^2 \frac{d\int c_p dT }{ dr} \right] = \frac{d}{dr} \left[ \rho Dr^2 c_p \frac{dT}{dr} \right] = \frac{d}{dr} \left[ K r^2 \frac{dT}{dr} \right]
+\end{gathered}
+\]
+\[
+\Longrightarrow \frac{d}{dr} \left[ r^2 \frac{dT}{dr} \right] = \frac{ \dot{m} c_{pg}}{ 4\pi K} \frac{dT}{dr} \equiv Z \dot{m} \frac{dT}{dr} 
+\]
+
+Let's solve this (easy) ODE (ordinary differential equation):
+\[
+\frac{d (r^2 \frac{dT}{dt})}{dr} = Z\dot{m} \frac{dT}{dr}
+\]
+Then 
+\[
+\begin{gathered}
+  \Longrightarrow 2r\dot{T} + r^2 \ddot{T} = Z\dot{m} \dot{T} \text{ or } \ddot{T} = \frac{(Z\dot{m}-2r)}{r^2} \dot{T} \text{ so } \ln{ \dot{T}} = \frac{Z\dot{m}}{-r} - 2\ln{r} + C \text{ or } \dot{T} = \frac{C_1}{r^2} \exp{ \left( \frac{-Z\dot{m }}{r} \right) } \\ 
+  \xrightarrow{ \int dr } T(r) = \frac{C_1 \exp{ \left( \frac{-Z\dot{m}}{r} \right) } }{ Z\dot{m}} + C_2
+\end{gathered}
+\]
+Let's consider the (important physically) boundary conditions:
+\begin{equation}
+  \begin{aligned}
+    & T_b \equiv T_{\text{boil}} = T(r=r_s) \\ 
+    & T(r=\infty) = T_{\infty} = \frac{C_1}{Z\dot{m}} + C_2
+  \end{aligned}
+\end{equation}
+which is physically interpreted (importantly) that out in $r=\infty$, the system is in thermal equilibrium to some temperature $T_{\infty}$, and at the surface of the droplet, $r=r_s$, the liquid making up the droplet is evaporating away, and this occurs at the boiling temperature $T_b$.  Thus, the temperature at $r=r_s$, the surface of the droplet, has to be $T_b$.  
+
+Then
+\[
+\begin{gathered}
+  \begin{aligned}
+    &  T_{\infty} = \frac{C_1}{Z\dot{m}} + C_2
+    &  T_b = \frac{C_1 \exp{ \left( -\frac{Z\dot{m}}{r_s} \right) } }{Z\dot{m} } + C_2
+  \end{aligned} \\
+\Longrightarrow \begin{gathered} C_1 \left( \frac{1- \exp{ \left( -\frac{Z\dot{m}}{r_s} \right) } }{Z\dot{m}} \right) = T_{\infty} - T_b \\
+  C_2 = T_{\infty} - \frac{T_{\infty} - T_b }{ 1 - \exp{ \left( \frac{-Z \dot{m}}{ r_s } \right) } } = \frac{ T_b - T_{\infty} \exp{ \left( \frac{-Z\dot{m}}{r_s } \right) } }{ 1 - \exp{ \left( \frac{-Z\dot{m}}{r_s } \right) } }
+\end{gathered}
+\end{gathered}
+\]
+Therefore
+\begin{equation}
+\boxed{   T(r) = \frac{ (T_{\infty} - T_b  ) \exp{ \left( \frac{-Z\dot{m}}{r} \right) } + T_b - T_{\infty} \exp{ \left( \frac{-Z\dot{m}}{r_s} \right) } }{ 1 - \exp{ \left( \frac{-Z\dot{m}}{r_s} \right) } } }
+\end{equation}
+
+Note that the dependence on $r$ of $T(r)$, $\frac{dT(r)}{dr}$ is easily given by
+\begin{equation}\label{Eq:dTdrdroplet}
+\frac{dT(r)}{dr} = \frac{ (T_{\infty} -T_b) \exp{ \left( \frac{ -Z\dot{m}}{r} \right) } \left( Z\dot{m} \frac{1}{r^2} \right) }{ 1 - \exp{ \left( \frac{-Z\dot{m}}{r_s} \right) } }
+\end{equation}
+
+Let's consider the surface of the droplet.  Obviously, if it's evaporating off the surface, then heat $Q$ is supplied at the surface, raising the temperature of the droplet molecules at the surface to boiling temperature, enough to change (its state) into a vapor.  This is the so-called latent heat of vaporization.  Denote this heat by $Q_{\text{conduction}}$.  
+
+Starting from the general statement that $Q = dH - Vdp$, then the thermodynamic process $\gamma:\mathbb{R} \to \Sigma$ we want to consider here results in the following:
+\[
+\int Q(\dot{\gamma}) = H_{\text{vap}} - H_{\text{liq}}
+\]
+Then 
+\begin{equation}\label{Eq:dropletsurfaceenthalpychange}
+\dot{Q}_{\text{conduction}} = \frac{d}{dt} \int_{\gamma} Q(\dot{\gamma}) = \dot{m}(h_{\text{vap}} -h_{\text{liq}}) \equiv \dot{m}h_{fg} 
+\end{equation}
+
+Now consider Fourier's law for heating (cf. pp. 401 Eq. (26) of Kittel and Kroemer (1980) \cite{CKittelHKroemer1980}).  It says
+\[
+j_u = -K \text{grad}\tau
+\]
+This implies, for the steady-state case, that 
+\[
+\dot{Q}_{\text{conduction}} = \int_{\partial V} dS_j j_u^j = K 4\pi r_s^2 \left. \frac{dT}{dr} \right|_{r_s}
+\]
+Note that the direction is such that positive heat flows \emph{into} the droplet system, whereas, geometrically, the normal to the surface is outward and \emph{out} of the droplet.  Plugging this into Eq. \ref{Eq:dropletsurfaceenthalpychange}, 
+\[
+\dot{m}h_{fg} = K4\pi r_s^2 \left. \frac{dT}{dr} \right|_{r_s}
+\]
+Plugging in Eq. \ref{Eq:dTdrdroplet},
+\[
+\begin{gathered}
+  \frac{ (T_{\infty} - T_b)\exp{ \left( \frac{-Z\dot{m}}{r_s} \right) } (Z\dot{m} \frac{1}{r_s^2} ) }{ 1 - \exp{ \left( \frac{-Z\dot{m}}{r_s} \right) } } \left( \frac{K4\pi r_s^2}{h_{fg}} \right) = \dot{m}  \Longrightarrow 
+\begin{gathered}
+  \frac{ (T_{\infty} - T_b)\exp{ \left( \frac{-Z\dot{m}}{r_s} \right) } (Z \frac{1}{r_s^2} ) }{ 1 - \exp{ \left( \frac{-Z\dot{m}}{r_s} \right) } } \left( \frac{ \frac{c_{pg}}{Z} r_s^2}{h_{fg}} \right) = 1 \\
+  \Longrightarrow \frac{ (T_{\infty} - T_b)\exp{ \left( \frac{-Z\dot{m}}{r_s} \right) }  }{ 1 - \exp{ \left( \frac{-Z\dot{m}}{r_s} \right) } }  = \frac{h_{fg}}{c_{pg}} \\
+\Longrightarrow  \ln{ \left( \frac{c_{pg}}{h_{fg}} (T_{\infty} - T_b) + 1 \right) } = \frac{Z\dot{m}}{r_s} 
+\end{gathered} \\
+\Longrightarrow \dot{m} = \frac{ 4\pi K_g r_s }{c_{pg}} \ln{ \left( \frac{c_{pg}}{h_{fg}}(T_{\infty} - T_b) + 1 \right) }
+\end{gathered}
+\]
+Noting that $m_d = \rho_l V = \rho_l \frac{4}{3} \pi \left( \frac{  D}{2} \right)^3$, then 
+\[
+\dot{m}_d = \rho_l 4\pi \frac{D^2}{8} \frac{dD}{dt}
+\]
+Keeping in mind that $\dot{m}_d = - \dot{m}$ because the mass of the droplet decreases with each layer of mass on the surface moving outward and away as a vapor,
+\[
+\frac{dD^2}{dt} = - \frac{ 8 K_g}{ c_{pg} \rho_l } \ln{ \left( 1 + \frac{c_{pg}}{h_{fg}} (T_{\infty} - T_b) \right) }
+\]
+
+
+
+
+\[
+\frac{dD^2}{dt} = -\frac{ 8 K_g}{\rho_l c_{pg}} \ln{ \left[ 1 + \frac{ c_{pg} (T_{\infty} - T_b)}{h_{fg} } \right] } = \text{ const. } \equiv k_{\text{evap}}
+\]
+The decrease in $D^2$ is constant!  Then simply $D^2(t) = D_0^2 - k_{\text{evap}}t$.  Thus, the lifetime of the droplet $t_d$ is
+\[
+t_d = \frac{D_0^2}{k_{\text{evap}}} = \frac{D_0^2}{ \frac{8k_g}{ \rho_l c_{pg}} \ln{ \left[ 1 + \frac{c_{pg} (T_{\infty} - T_b) }{ h_{fg}} \right] }  }
+\]
+
+\section{Droplet model; Burning Droplets}
+
+cf. 20160129 Dr. Jay Polk Ae121b Winter 2016
+
+What we want to solve for:
+\[
+\begin{aligned}
+  \dot{m}_f \Longrightarrow \text{ fuel production rate } \\
+  D(t) \Longrightarrow \text{ applet lifetime }
+\end{aligned}
+\]
+5 unknowns: 
+\[
+\begin{aligned}
+  T_f \\
+  T_s \\
+  Y_{f,s} \\
+  r_f \\
+  \dot{m}_f
+\end{aligned}
+\]
+
+The assumptions for this model is also given on pp. 379 of Turns (2011) \cite{STurns2011}, with the section \textbf{Simple Model of Droplet Burning}.  
+
+Note Assumption 3: ``The fuel is a single-component liquid with zero solubility for gases.''  Thus, there cannot be any net mass flux or mass flow of products inward from the flame to the droplet surface, since products cannot dissolve in the liquid by assumption 3.  
+
+Thus, in the inner zone $r \in [r_s,r_f]$, $\dot{m}_{\text{Products}} \equiv \dot{m}_{\text{Pr}}$.  However, there is products in the inner zone, that form a stagnant film through which the fuel vapor flows through.    
+
+\subsection{Species Conservation (Inner Zone) } $F$ denotes fuel. We're thinking about the diffusion of fuel vapor, according to Fick's law, and so $\mathcal{D}$ is the diffusivity constant in Fick's law, and is for binary diffusion (fuel vapor and combustion products), and for fuel vapor, in this case.  $\rho$ is for the fuel density.  
+
+Let $Z_F := \frac{1}{4\pi \rho \mathcal{D}}$.  
+
+The boundary conditions (BCs) are 
+\[
+\begin{aligned}
+  & Y_F(r_s) = Y_{F,s}(T_s) \\ 
+  & Y_F(r_f) = 0
+\end{aligned}
+\]
+\[
+Y_F(r) = 1 - \frac{ (1-Y_{F,s} ) \exp{ (-Z_F \dot{m}_F/r ) }}{ \exp{ (-Z_F \dot{m}_F /r_s ) } }
+\]
+Applying boundary condition $Y_F(r_f)=0$, 
+\[
+\Longrightarrow \frac{ (1 - Y_{F,s})\exp{ (-Z_F \dot{m}_F/r_f ) } }{ \exp{ (-Z_F \dot{m}_F/r_s ) } } = 1 
+\]
+So 
+\begin{equation}\label{Eq:DropletI}
+\boxed{   Y_{F,s}(r_s) = 1 - \frac{ \exp{(-Z_F \dot{m}_F /r_s ) } }{ \exp{ (-Z_F \dot{m}_F /r_f ) } }   }
+\end{equation}
+
+
+
+
+
+
+
+
+
+
+
+\subsection{Species Conservation (Outer Zone)}
+
+Assume stoichiometric combustion.  
+
+1 kg fuel $ + \nu $ kg oxidizer $\to $ $\underbrace{ (\nu + 1) }_{ \text{ get from stoichiometry } } $ kg of products.  
+
+EY : 20160216 Note that by mass conservation, 
+\[
+\begin{gathered}
+  m_f + m_{\text{Ox}} = m_p \Longrightarrow 1 + \frac{m_{\text{Ox}}}{ m_f} = \frac{ m_p }{m_f } \\ 
+  \nu_f M_f + \nu_{\text{Ox}} M_{\text{Ox}} = m_p \Longrightarrow 1 + \frac{ \nu_{\text{Ox}} }{ \nu_f } \frac{M_{\text{Ox}}}{M_f} = \frac{m_p}{ \nu_f M_f }
+\end{gathered}
+\]
+
+The boundary conditions (BCs) are 
+\[
+\begin{aligned}
+  & Y_{\text{Ox}}(r_f) = 0 \\ 
+  & Y_{\text{Ox}}(\infty) = 1
+\end{aligned}
+\]
+
+With
+\[
+Y_{\text{Ox}}(r) = \nu \left[ \frac{ \exp{ (-Z_F \dot{m}_F /r ) } }{ \exp{ (-Z_F \dot{m}_F /r_f )} } - 1 \right]
+\]
+then, from $Y_{\text{Ox}}(\infty)=1$, 
+\begin{equation}\label{Eq:DropletII}
+\boxed{   \exp{ ( Z_F \dot{m}_F /r_f) } = \frac{\nu+1}{\nu} }
+\end{equation}
+
+One needs to take care in using the above.  For instance, for the \emph{outer zone}, by Assumption 5, \emph{only} the \emph{oxidizer and products} are there.  
+So in 
+\[
+\dot{m}_F = 4\pi r^2 \frac{\rho_{\mathcal{D}}}{\nu + Y_{\text{Ox}}} \frac{dY_{\text{Ox}}}{dr}
+\]
+and in solving it
+\[
+\begin{gathered}
+  \Longrightarrow \frac{dr}{r^2} = \frac{4\pi \rho \mathcal{D}\dot{m}_F}{ \nu + Y_{\text{ox}} } dY_{\text{Ox}} \\
+\Longrightarrow \frac{-1}{r} + \frac{1}{r_f} = \frac{4\pi \rho \mathcal{D}}{\dot{m}_F} \left( \ln{(\nu + Y_{\text{ox}} ) }  - \ln{ (\nu + Y_{\text{Ox}}(r_f)) } \right)
+\end{gathered}
+\]
+then $Z_f = \frac{1}{4\pi \rho \mathcal{D}}$ was used, but in this case, with binary diffusion between species $A$, which is the oxidizer, Ox, in this case, and species $B$ which is the products, Pr, in this case, then $\rho = \rho_A + \rho_B$ is for the total density of Ox and Pr in this case, not fuel F and Pr.  Also, $\mathcal{D}$ in this case refers to the binary diffusion of Ox and Pr, not to F and Pr, as in the inner zone, previously.  
+
+\subsection{Energy conservation at droplet}
+Chemical reactions confined to occur only at the boundary i.e. the flame sheet (flame front).  The reaction rate term is $0$ both inside and outside the flame.  
+
+Thus, the energy equation for droplet evaporation is used.  
+
+$Z_T = \frac{c_{pg}}{ 4\pi k_g} = Z_F$ if $\text{Le}=1$, Lewis number is $1$.  
+
+\[
+\begin{gathered}
+  \underbrace{ \dot{q}_{i-l} }_{ \text{ interface into liquid } } \qquad \qquad \underbrace{ \dot{q}_{g-i} }_{ \text{ gas to interface } } = - \left[ - k_g 4\pi r^2 \left. \frac{dT}{dr} \right|_{r_s} \right]
+\end{gathered}
+\]
+
+\begin{equation}\label{Eq:DropletIII}
+  \boxed{ \frac{ c_{pg} (T_f- T_s) }{(q_{i-l} + h_{fg}  )} \frac{ \exp{ (-Z_T \dot{m}_F/r_s ) } }{ \left[ \exp{ \left( - Z_T\dot{m}_F / r_s  \right) } - \exp{ \left( -Z_T \dot{m}_F /r_f \right) } \right] }  + 1 = 0 }
+\end{equation}
+
+
+
+\subsection{Energy Conservation at Flame Front}
+
+Chemical energy released at flame taken account by absolute enthalpy fluxes for fuel, oxidizer, and products:
+\[
+\dot{m}_F h_F + \dot{m}_{\text{Ox}} h_{\text{Ox}} - \dot{m}_{\text{Pr}} h_{\text{Pr}} = \dot{Q}_{f-i} + \dot{Q}_{f-\infty}
+\]
+Enthalpies are defined as
+\[
+\begin{aligned}
+  h_F := h^{\circ}_{f,F} + c_{pg} (T-T_{\text{ref}}) \\ 
+  h_{\text{Ox}} := h^{\circ}_{f,\text{Ox}} + c_{pg} (T-T_{\text{ref}}) \\ 
+  h_{\text{Pr}} := h^{\circ}_{f,\text{Pr}} + c_{pg} (T-T_{\text{ref}}) \\ 
+\end{aligned}
+\]
+Heat of combustion $\Delta h_c$ per unit mass of fuel given by
+\[
+\Delta h_c(T_{\text{ref}}) = (1) h_{f,F}^{\circ} + (\nu) h_{f,\text{Ox}}^{\circ} - (1+\nu) h^{\circ}_{f,\text{Pr}}
+\]
+Note that although products exist in inner region, $\nexists$ net flow of products between droplet surface and flame; thus all products flow radially outward away from flame, i.e.
+
+ \begin{tikzpicture}
+  \matrix (m) [matrix of math nodes, row sep=0.9em, column sep=7.8em, minimum width=2.2em]
+  {
+r_s & r_f & \, &  \,  \\
+\, & \, & \, & \, \\
+};
+  \path[->]
+  (m-1-1) edge node [above] {$ \dot{m}_F $} (m-1-2)
+  (m-1-3) edge node [above] {$ \dot{m}_{\text{Ox}} $ } (m-1-2)
+  (m-1-2) edge node [below] {$ \dot{m}_{\text{Pr}} $ } (m-2-4)
+  ;
+\end{tikzpicture}
+Thus $\dot{m}_F + \dot{m}_{\text{Ox}} = -\dot{m}_{\text{Pr}}$, or $\dot{m}_F + \nu \dot{m}_F = -\dot{m}_{\text{Pr}}$ or thus $\dot{m}_F(1+\nu) = -\dot{m}_{\text{Pr}}$
+
+Hence
+\[
+\begin{gathered}
+\dot{m}_F [ h_F + \nu h_{\text{Ox}} - (\nu + 1) h_{\text{Pr}} ] = \dot{Q}_{f-i} + \dot{Q}_{f-\infty} \\
+\Longrightarrow \dot{m}_F \Delta h_c + \dot{m}_F c_{pg} [ (T_f - T_{\text{ref}} ) + \nu (T_f - T_{\text{ref}} ) - (\nu + 1) (T_f - T_{\text{ref}} ) ] = \dot{Q}_{f-i} + \dot{Q}_{f-\infty}
+\end{gathered}
+\]
+Since we assume $c_{pg}$ constant, then $\Delta h_c $ independent of temperature; thus choose flame temperature as reference state,
+\[
+\Longrightarrow \dot{m}_F \Delta h_c = \dot{Q}_{f-i} + \dot{Q}_{f-\infty}
+\]
+Therefore, the trick that we can employ is to simply only consider the $\Delta h_c$ at the flame temperature.  
+
+
+%\text{ interface } & \underbrace{|}_{ \text{ flame } } & \infty \\ 
+%\text{ i } & \underbrace{|}_{ \text{ f } } & \infty \\ 
+%           & \underbrace{|}_{ \text{ f } } & \infty \\ 
+
+\[
+ \begin{tikzpicture}
+  \matrix (m) [matrix of math nodes, row sep=1.4em, column sep=7.8em, minimum width=2.2em]
+  {
+\text{ interface } & \| \text{flame} \| & \infty \\ 
+\text{ i } & \|f \| & \infty \\ 
+           & \| f \| & \infty \\ 
+};
+  \path[->]
+  (m-1-2) edge node [above] {$ \dot{q}_{f-i} $} (m-1-1)
+  (m-1-2) edge node [above] {$ \dot{q}_{f-\infty} $ } (m-1-3)
+  (m-2-1) edge node [above] {$ \dot{m}_f h_f $ } (m-2-2)
+  (m-2-3) edge node [above] {$ \dot{m}_{\text{Ox}}h_{\text{Ox}} = \nu \dot{m}_f h_{\text{Ox}} $ } (m-2-2)
+  (m-3-2) edge node [above] {$ \dot{m}_p h_p = (\nu + 1) \dot{m}_f h_p $ } (m-3-3)
+  ;
+\end{tikzpicture} 
+\]
+
+Thus
+\[
+\begin{gathered}
+  \dot{m}_f [ h_f + \nu h_{\text{Ox}} - (\nu + 1) h_f ]  = \dot{q}_{f-i} + \dot{q}_{f-\infty} \\
+  \Delta h_c (T_{\text{ref}}) = h_{f,f}^{\circ} + \nu h^{\circ}_{\text{Ox},f} - (\nu +1)h_{f,f}^{\circ} \\ 
+  \dot{m}_f \Delta h_c = \dot{q}_{f-i} + \dot{q}_{f-\infty}
+\end{gathered}
+\]
+Using $\left. \frac{dT}{dr} \right|_{\text{rs}}$ from inner+outer energy conservation.  
+\begin{equation}\label{Eq:DropletIV}
+\boxed{   \frac{c_{pg}}{\Delta h_c} \left[ \frac{ (T_s - T_f )\exp{ (-Z_T \dot{m}_F /r_f ) } }{ \exp{ (-Z_T \dot{m}_F /r_s ) } - \exp{ (-Z_T \dot{m}_F /r_f ) } } - \frac{ (T_{\infty} - T_f )\exp{ (-Z_T \dot{m}_F /r_f ) } }{ [ 1 - \exp{ (-Z_T \dot{m}_F /r_f ) } ] } \right] - 1 = 0  }
+\end{equation}
+
+\subsection{Liquid-Vapor Equilibrium at Droplet Surface}
+
+Clausius-Clapeyron Eqn. 
+\[
+p_v = p_0 \exp{ \left[ \frac{h_{fg} }{R} \left( \frac{1}{T_0 } - \frac{1}{T} \right) \right] }
+\]
+can rewrite as 
+\[
+p_v = A \exp{ \left( \frac{-B}{T_s} \right) }
+\]
+$A,B$ are constants for a given liquid.  
+
+So fuel partial pressure at surface $\simeq $ equilibrium vapor.  
+
+pressure $p_{F,s} = A\exp{ \left( \frac{-B}{T_s} \right) }$
+
+Fuel mole fraction $X_{Fs} = \frac{p_{Fs}}{p}$ and 
+\[
+Y_{F,s} = \frac{N_F m_F}{ N_F m_F + N_P m_P } = X_F \frac{m_F}{ X_F m_F + (1-X_F)m_P }
+\]
+
+\begin{equation}\label{Eq:DropletV}
+  \boxed{ Y_{F,s} = \frac{A \exp{ (-B/T_s) } m_F }{ A\exp{ (-B/T_s) }m_F + [p- A \exp{ (-B/T_s) }]m_P } }
+\end{equation}
+
+
+
+
+
+
+After algebraic manipulations (which can be done in \verb|BurningDroplet.py| with \verb|sympy| in Python, instead of by hand), then we have 5 equations
+\begin{itemize}
+\item \begin{equation}
+  \dot{m}_F = \frac{4\pi k_g r_s }{c_{pg}} \ln{ [1 + B_{oq}]}
+\end{equation}
+\item \begin{equation}
+  T_f = \frac{q_{i-l} + h_{fg}}{ c_{pg}(1+\nu ) } [ \nu B_{oq} - 1 ] + T_s
+\end{equation}
+\item \begin{equation}
+  r_f = r_s \frac{ ln{ (1+B_{oq } )} }{ \ln{ [ (\nu +1)/\nu ] } }
+\end{equation}
+\item \begin{equation}
+  Y_{F,s} = \frac{B_{oq} - 1/\nu }{ B_{oq}  +1 }
+\end{equation}
+\item \begin{equation}
+  T_s = \frac{-B}{ \ln{ \left[ \frac{-Y_{F,s} p m_P }{ A(Y_{F,s} m_F - Y_{F,s} m_P - m_F ) } \right] } }
+\end{equation}
+\end{itemize}
+with 
+\[
+B_{oq} := \frac{\Delta h_c/\nu + C_p(T_{\infty} -T_s) }{ q_{i-l} + h_{fg} }
+\]
+
+Keep in mind the constant decrease in the size of the droplet, measured by diameter squared, or $D^2$, 
+\[
+\frac{dD^2}{dt} = -\kappa
+\]
+with 
+\[
+\kappa := \frac{ -8 k_g}{\rho_l c_{pg}} \ln{(1+ B_{oq} ) }
+\]
+
+I will compare with Turns (2011) \cite{STurns2011}, from pp. 378, Section \textbf{Simple Model of Droplet Burning} of Chapter 10 Droplet Evaporation and Burning.  
+
+Turns (2011) \cite{STurns2011} lists 10 assumptions on pp. 379 for the Simple Model of Droplet Burning.  Beginning with his fifth assumption,
+
+The gas phase consists of only 3 species: fuel vapor, oxidizer, and combustion products.  The gas phase region is divided into 2 zones, inner zone, and outer zone.  So for this spherically symmetric problem, parametrize space by radius $r \in \mathbb{R}^+$ from the center of the (fuel) droplet. 
+
+Assumption 3 of Turns (2011) \cite{STurns2011}: Fuel is single-component liquid with $0$ solubility for gases.  Phase equilibrium at liquid-vapor interface (which I believe is at the surface of the droplet, $r_s$).  
+
+Assumption 10 of Turns (2011) \cite{STurns2011}: ``Liquid fuel droplet is the only condensed phase; no soot or liquid water is present.''
+
+$Y_F \equiv $ fuel vapor mass fraction.  
+
+\subsubsection{Inner zone}
+
+Define the inner zone $r \in [r_s,r_f]$ between droplet surface $r_s$ and flame front $r_f$.  
+
+Inner zone only contains fuel vapor and combustion products: binary diffusion prevails.
+
+$T_s \equiv $ droplet surface temperature.   \\
+$T_f \equiv $ flame temperature.   \\
+$Y_{F,s} = Y_F(r=r_s) \equiv Y_F(r_s) = $ fuel vapor mass fraction at the droplet surface
+
+$Y_F(r_f)=0$ means that all the fuel is consumed by the time we reach the flame front.  
+
+Turns mentions that ``a more elegant approach'' is described in Kuo's \textbf{Principles of Combustion}, that ``combines the species and energy equations to create a conserved-scalar variable.  
 
 
 
@@ -2893,6 +3993,408 @@ else
 
 
 
+\section{Speed of Sound and sound speed.py}
+
+Take a look at \verb|sound_speed.py| in the github repository for \href{https://github.com/Cantera/cantera/blob/master/interfaces/cython/cantera/examples/thermo/sound_speed.py}{cantera}.
+
+Take a look at \verb|afrozen| in the code.  This is an exact implementation of the usual speed of sound:
+\[
+a^2_{\text{frozen}} = \left( \frac{ \partial p}{ \partial \rho} \right)_{\sigma}
+\]
+Take a look at \verb|afrozen2| in the code.  This is an exact implementation of the speed of sound for an ideal gas.  Let's review its derivation.  
+
+From $pV=N\tau$, which is how ideal gases behave at any time, then $p = \frac{\rho \tau}{M}$ where $\rho := \frac{MN}{V}$ and $M$ is the mass of a single particle of the species.  Then
+\[
+dp = \frac{ \tau d\rho + \rho d\tau }{ M }
+\]
+and so
+\[
+C_p \frac{d\tau}{\tau} = C_p \left( \frac{dp}{p} - \frac{d\rho}{\rho} \right) = \frac{Vdp}{\tau}
+\]
+where the last equality comes from the following derivation
+\[
+\begin{gathered}
+  Q = C_pd\tau - Vdp = \tau d\sigma = 0 \text{ since $d\sigma=0$ for an isentropic process } \\ 
+  \Longrightarrow \frac{C_p }{\tau} d\tau = \frac{V}{\tau} dp
+\end{gathered}
+\]
+Thus
+\[
+C_p \frac{d\rho}{\rho} = \left( \frac{C_p}{p} - \frac{V}{\tau} \right) dp = \left( \frac{C_p - N}{p} \right)dp = C_V \frac{dp}{p} \Longrightarrow \left( \frac{ \partial p}{ \partial \rho} \right)_{\sigma} = \frac{\gamma \tau}{M}
+\]
+recovering the usual speed of sound for ideal gases.  
+
+The derivation on pp. 3-4 of Lecture 14 of MIT OCW 16.512 by Martinez-Sanchez (2005) \cite{MMartinez-Sanchez2005} is fallacious because $M$ is constant always and even in chemical reactions, masses for each species don't get created or destroyed.  The changes due to chemical reactions show up in $dN_i$.  And even then, we know that the changes in $N_i$, the number of particles for each species $i$, $dN_i$, is governed by the chemical reaction and the number of times the chemical reaction occurs.
+
+For instance, surely the total mass $m$ of the system is thus given by
+\[
+m \equiv \sum_j m_j := \sum_j N_j M_j
+\]
+and so
+\[
+dm = \sum_j dm_j = \sum_j M_j dN_j = \sum_j M_j \nu_j d\widehat{N}
+\]
+where $d\widehat{N} \in \mathbb{Z}$ indicates how many times a reaction occurs, and $dN_j = \nu_j d\widehat{N}$, which tells us how the number of particles in each species changes everytime a chemical reaction occurs, as the chemical reaction is given by $\sum_j \nu_j A_j =0$ (see pp. 267 Section \textbf{Equilibrium in Reactions}, Ch. 9 Gibbs Free Energy and Chemical Reactions of Kittel and Kroemer \cite{CKittelHKroemer1980}).  
+
+Considering the total number of particles $N = \sum_j N_j$, the total pressure $p = \sum_j p_j$ as a sum of partial pressure $p_j$, and taking the system as a whole to always obey ideal gas behavior, $pV=N\tau$, then
+\[
+p_j V= N_j \tau
+\]
+so that each species, at any time, behaves as an ideal gas. 
+
+Considering the (mass) density of species $i$, $\rho_j := \frac{N_j M_j}{V}$, and so $\sum_j \rho_j = \frac{m}{V} = \rho$, then rewrite the ideal gas law as $p_j = \frac{N_j\tau}{V} = \frac{ \rho_j \tau }{M_j}$.  
+
+If one takes the differential as does Martinez-Sanchez (2005) \cite{MMartinez-Sanchez2005} in Lecture 14, pp. 3-4, 
+\[
+dp_j = \frac{ \tau d\rho_j + \rho_j d\tau }{M_j} \Longrightarrow \frac{dp_j}{p_j} = \frac{d\rho_j}{\rho_j} + \frac{d\tau}{\tau}
+\]
+and the derivation for speed of sound $a^2 = \left( \frac{ \partial p_j}{ \partial \rho_j} \right)_{\sigma}$ goes as above.  It is fallacious to say that $M_j$ changes as it is a constant for each species $j$.  The changes in $N_j$ due to chemical reactions are already accounted for in $\rho_j$.  
+
+Instead, one must go back to the general form of heat $Q$:
+\[
+Q = Q(\tau,p,\lbrace N_i \rbrace) = C_p d\tau + \left( \frac{ \partial \tau \sigma }{ \partial p} \right)_{\tau, \lbrace N_i \rbrace } + \sum_i \frac{ \partial Q}{ \partial N_i} dN_i = \tau d\sigma
+\]
+and realize that the implementation of \verb|aequil| in \verb|sound_speed.py| is this general implementation of 
+\[
+a^2 = \left( \frac{ \partial p }{ \partial \rho } \right)_{\sigma, \lbrace N_i \rbrace}
+\]
+that does not assume ideal gas behavior, and also equilibrates the changes in species, $dN_i$, and does not presume that heat capacities $C_V, C_p$ have the nice form that arises from the assumption of ideal gas behavior.  
+
+
+\part{Compressible Flow}
+
+I'll review or verify aspects of \emph{compressible flow} for gas dynamics.  
+
+I want to verify the so-called \emph{Bernoulli constant} or Bernoulli invariant $h+u^2/2 + \Phi$ on pp. 38 of Thompson (1988) \cite{PThompson1988} for \emph{compressible} flow.  Note that Thompson uses $h:= H/m$ to denote the \emph{specific enthalpy}, whereas I used the notation of $h:=H/V$ for the enthalpy density.  I'll use the same notation and one should be able to understand which one is being used from context and/or from the units.  
+
+Now for the (internal) energy density $\epsilon$ and kinetic energy density $k$, defined such that 
+\[
+\begin{aligned}
+  & \epsilon := \frac{E}{V} \\ 
+  & k = \frac{1}{2} \rho u^2
+\end{aligned} \Longrightarrow E_{\text{tot}} = \int_V (\epsilon +k) \text{vol}^n
+\]
+(which is the notation used by Le Bellac, Mortessagne, Batrouni (2004) \cite{MLeBellacFMortessagneGBatrouni2004}), then from the physical principle that the change in total energy of a system is given by the work done on it by the sum of all external forces on the system,
+\[
+\frac{d}{dt} \int_V (\epsilon + k) \text{vol}^n = \int_V \left[ \frac{ \partial }{ \partial t}( \epsilon + k) + \text{div}((\epsilon +k)\mathbf{u} ) \right] \text{vol}^n = \int_V \rho \langle u,b\rangle \text{vol}^n + \int_{\partial V} \langle u , T^j \rangle dS_j - \int_{\partial V} q^j dS_j
+\]
+where $b$ is the density associated with (external) body forces on the system and $q$ is the outward-directed heat flux representing the system's heat loss, i.e.
+\[
+q^j dS_j = q\cdot n > 0 \text{ for outward-directed heat flux, } \qquad -\int_{\partial V} q^j dS_j \text{ represents heat loss }
+\]
+The \emph{specific energy} (unfortunately denoted as $e$ in Thompson (1988) \cite{PThompson1988}, as it looks like the exponential), the energy per unit mass, or specific internal energy, a thermodynamic quantity, is defined as such:
+\[
+\rho e = \epsilon = \frac{MN}{V} e = \frac{E}{V} \Longrightarrow e:= \frac{E}{m}
+\]
+Then
+\[
+\begin{gathered}
+  \frac{d}{dt} \int_V (\rho e + k ) \text{vol}^n = \int_V \left[ \frac{ \partial }{ \partial t} (\rho e + k) + \text{div}((\rho e + k)\mathbf{u}) \right] \text{vol}^n
+\end{gathered} \Longrightarrow \frac{D}{Dt}(\rho e + k) + (\rho e+k) \text{div}u = \text{div}\langle u, T \rangle + \rho \langle u, b\rangle - \text{div} q
+\]
+If one can use mass conservation for the flow
+\[
+\frac{ \partial \rho }{ \partial t} + \text{div}(\rho u) = \frac{D\rho }{ D t} + \rho \text{div}u = 0 \text{ for } \dot{m}=0
+\]
+then
+\[
+\rho \frac{D}{Dt}( e + \frac{k}{\rho } ) = \text{div}\langle u, T \rangle + \rho \langle u,b\rangle - \text{div}q
+\]
+since, from Newton's second law and using that on $\frac{Du^2}{Dt}$, 
+\[
+\begin{aligned}
+  & \rho \frac{Du}{Dt} = \text{div}(T) \\
+  & \rho \frac{Du^2}{Dt} = \langle u,\text{div}T \rangle
+\end{aligned}
+\]
+Working the following out,
+\[
+\begin{gathered}
+  \text{div}\langle u, T \rangle = \frac{1}{\sqrt{g}} \frac{ \partial }{ \partial x^k} (g_{ij} u^i T^{jk} \sqrt{g} ) = \langle u, \text{div}T \rangle + T^{jk} \frac{ \partial }{ \partial x^k}(g_{ij} u^i )
+\end{gathered}
+\]
+For $T = -p g$, 
+\[
+\begin{gathered}
+  \text{div}\langle u, T \rangle  = \text{div}( g_{ij}u^i T^j ) = \frac{1}{\sqrt{g}} \frac{ \partial ( g_{ij} u^i T^{jk} \sqrt{g} ) }{ \partial x^k } = \frac{1}{\sqrt{g}} \frac{ \partial ( g_{ij} u^i (-p)g^{jk } \sqrt{g} ) }{ \partial x^k} = \frac{-1}{\sqrt{g}} \frac{ \partial ( u^k p \sqrt{g} ) }{ \partial x^k} = -u^j \frac{ \partial p }{ \partial x^j} - p \text{div}u
+\end{gathered}
+\]
+and
+\[
+\frac{D}{Dt}\left( \frac{ p}{\rho} \right) = \frac{1}{\rho} \frac{D}{Dt}p + \frac{-p}{\rho^2} \frac{D}{Dt}(\rho) = \frac{1}{\rho} \frac{Dp}{Dt} - \frac{p}{\rho} \text{div}u
+\]
+since, again, using mass conservation, 
+\[
+\frac{ \partial \rho }{ \partial t} + \text{div}(\rho u) = \frac{D\rho }{ Dt} + \rho \text{div}u = 0 
+\]
+Then
+\[
+\rho \frac{D}{Dt} \left( \frac{ p}{ \rho } \right) = \frac{Dp}{Dt} - p \text{div}u
+\]
+and so
+\[
+\Longrightarrow \rho \frac{D}{Dt} \left( e + \frac{p}{\rho} + \frac{k}{\rho} \right) = \frac{ \partial p}{ \partial t} + -q
+\]
+in the case of $b=0$ (no external body forces).
+
+\section{Nozzle Flow of a Reacting Gas}
+
+This follows from Section 3.7 \textbf{Nozzle Flow of a Reacting Gas} of Oates (1997) \cite{GOates1997}.  Also see Lecture 14 of Martinez-Sanchez (2005) \cite{MMartinez-Sanchez2005}.  
+
+Investigate 2 limits to flow within nozzles, ``equilibrium'' and ``frozen.'' 
+
+\subsection{Equilibrium flow}
+
+Suppose all chemical reactions occur in times very short compared to the time of fluid passage through the nozzle, so that the fluid will be at all times (almost) in a state of chemical equilibrium.  Clearly, this is an approximation as we can imagine that during supersonic flow, the reactants could've traveled far, already, before the chemical reaction goes to completion.  
+
+The reactions occur continuously throughout the flow, leading to a continuous passage of energy from chemical binding and excitation modes to translational modes.  Since the fluid is kept at equilibrium (locally) at all times, the ``equivalent' temperatures of all such modes of energy storage are equal and as a result the total entropy of the fluid remains constant.'' (cf. pp. 86 of Oates (1997) \cite{GOates1997}).  
+
+From Oates (1997) \cite{GOates1997}, starting from 
+\[
+\begin{gathered}
+\tau d\sigma_j = C_{p_j} d\tau - Vdp_j \text{ or }   d\sigma_j = \frac{C_{p_j} d\tau }{ \tau } - \frac{N_j dp_j}{p_j} \\
+  \Longrightarrow \tau d\sigma_j = C_{p_j} d\tau - \frac{N_j\tau}{p_j} dp_j \text{ or } \widehat{\sigma}_j - \widehat{\sigma}_j(p_0,\tau_0) = \int_{\tau_0}^{\tau} \frac{ \widehat{C}_{p_j} d\tau }{\tau } - \ln{ \frac{p_j}{p_{j0} } }  \\
+\begin{gathered}
+  \widehat{\sigma}_j - \widehat{\sigma}_j(p_0,\tau_0) = \int_{\tau_0}^{\tau} \frac{ \widehat{C}_{p_j} d\tau }{ \tau } - \ln{ \frac{p_j}{p_{j0}} } \\ 
+  \sigma = \sum_{j=1}^{\mathcal{N}} N_j \widehat{\sigma}_j = \sum_{j=1}^{\mathcal{N}} N_j \left[ \left( \int_{\tau_0}^{\tau} \frac{\widehat{C}_{p_j} d\tau }{ \tau} + \widehat{\sigma}_j(p_0,\tau_0) \right) - \ln{ \frac{p_j}{p_{j0}} } \right]
+\end{gathered}
+\end{gathered}
+\]
+
+Recall that a chemical reaction, labeled by $I$,  with the convention that reactant (stoichiometric) coefficients are negative integers, is given by $\sum_j \nu_{jI} A_j =0$ and so 
+\[
+\sum_j \nu_j A_j = 0 \Longrightarrow dN_{jI} = \nu_{jI} d\widehat{N}_I
+\]
+which informs us that a chemical reaction, every time it occurs, adds in and subtracts out particles of each species, represented by $dN_{jI}$, each time a chemical reaction is run, $d\widehat{N}$.  
+
+Recalling the definition of enthalpy $H = H(\sigma,p;\lbrace N_i \rbrace_i):= U + pV$, then the total enthalpy $H$ of a system is completely specified by total entropy $\sigma$, pressure $p$, and $\mathcal{N}$ numbers, $\lbrace N_i \rbrace_i \equiv \lbrace N_i \rbrace_{i=1 \dots \mathcal{N}}$ for the number of particles in each species, with $\mathcal{N}$ being the total number of (different) species to consider in all possible chemical reactions $I$.  Effectively, $H$ is a smooth scalar function on a $2+\mathcal{N}$ manifold $\Sigma$, with $\Sigma$ representing all possible thermodynamic processes.   Also, recall that  
+\[
+dH = \tau d\sigma + Vdp + \sum_i \mu_i dN_i
+\]
+Consider a curve on $\Sigma$, $\gamma:\mathbb{R} \to \Sigma$, representing a thermodynamic process such that $\sigma$ is constant (isentropic) and $p$ is constant (isobaric).  This means that $d\sigma(\dot{\gamma})=0$ and $dp(\dot{\gamma})=0$, respectively, and so we have $d\sigma =dp=0$ in this case.  Then, this case,
+\[
+\begin{gathered}
+  dH = \sum_i \mu_i dN_i \\
+  \Longrightarrow dH(\dot{\gamma}) = \sum_i \mu_i \Delta N_i = H_P(\tau_P) - H_R(\tau_0)
+\end{gathered}
+\]
+where $H_P$, $H_R$ refer to the total enthalpies of the products and reactants, respectively, as defined in Eq. \ref{Eq:enthalpyreactantsproducts}.  
+
+
+
+%Recalling that $dG = dH - d(\tau \sigma)$, and so Gibbs equilibrium is achieved when $dG=0$, so when $dH=0$ and $d\sigma =0$ (which we can guaranteed for isentropic processes), and $d\tau=0$ (which we can guarantee by requiring thermal equilibrium).  Therefore, the condition that $dH=0$ implies $dG=0$.  
+
+Recall that $dG = dH-d(\tau \sigma)$ and $dF = dU-d(\tau \sigma)=0$.  Suppose $dH=0$ and $dG=0$.  This implies that $d(\tau \sigma)=0$ so therefore $dU=0$ and $dF=0$ and so we're in Helmholtz free energy equilibrium.  One can imagine that both $\sigma$ and $\tau$ change during the process in such a way that $d(\tau \sigma)=0$.  
+
+If we suppose we want Gibbs equilibrium $dG=0$, and so for an isentropic process $d\sigma =0$, then $dH = \sigma d\tau$ and so the so-called \emph{stagnation} enthalpy can drop (or at least change) with a drop (or change) in temperature.  
+
+Thus, what's going on is that there's a transformation, or mapping, via a thermodynamic process represented by curve $\gamma : \mathbb{R} \to \Sigma$ in $\Sigma$, a $2+\mathcal{N}$-dim. manifold:
+
+\[
+\begin{gathered}
+ \begin{tikzpicture}
+  \matrix (m) [matrix of math nodes, row sep=4.8em, column sep=5.8em, minimum width=2.2em]
+  {
+\Sigma & \Sigma \\ 
+};
+  \path[->]
+  (m-1-1) edge node [above] {$ \gamma $} (m-1-2);
+\end{tikzpicture}  \\
+ \begin{tikzpicture}
+  \matrix (m) [matrix of math nodes, row sep=4.8em, column sep=5.8em, minimum width=2.2em]
+  {
+(\tau_0,p_0,\lbrace N_{i0} \rbrace) & (\tau_p, p_0, \lbrace N_{i \text{eq} } \rbrace)   \\ 
+};
+  \path[|->]
+  (m-1-1) edge node [above] {$ \substack{  \gamma \text{ s.t. } \\ dG(\dot{\gamma}) = 0 \\ d\sigma(\dot{\gamma}) = 0 \\ dp(\dot{\gamma})=0   } $} (m-1-2);
+\end{tikzpicture} 
+\end{gathered}
+\]
+and if we wanted enthalpy to remain constant,
+\[
+\begin{gathered}
+ \begin{tikzpicture}
+  \matrix (m) [matrix of math nodes, row sep=4.8em, column sep=5.8em, minimum width=2.2em]
+  {
+\Sigma & \Sigma \\ 
+};
+  \path[->]
+  (m-1-1) edge node [above] {$ \gamma $} (m-1-2);
+\end{tikzpicture}  \\
+ \begin{tikzpicture}
+  \matrix (m) [matrix of math nodes, row sep=4.8em, column sep=5.8em, minimum width=2.2em]
+  {
+(\tau_0,p_0,\lbrace N_{i0} \rbrace) & (\tau_p, p_0, \lbrace N_{i \text{eq} } \rbrace)   \\ 
+};
+  \path[|->]
+  (m-1-1) edge node [above] {$ \substack{  \gamma \text{ s.t. } \\ dG(\dot{\gamma}) = 0 \\ dH(\dot{\gamma}) = 0 \\ d(\tau \sigma)(\dot{\gamma})=0   } $} (m-1-2);
+\end{tikzpicture} 
+\end{gathered}
+\]
+I think what we want, since the flow was shown to be isentropic, and, again, as Oates \cite{GOates1997} argued, that local equilibrium leads to equilibrium in all modes of energy storage, chemical bonds, vibrational modes, to translational modes, that the total entropy of the fluid remains constant, this:
+\[
+\begin{gathered}
+ \begin{tikzpicture}
+  \matrix (m) [matrix of math nodes, row sep=4.8em, column sep=5.8em, minimum width=2.2em]
+  {
+\Sigma & \Sigma \\ 
+};
+  \path[->]
+  (m-1-1) edge node [above] {$ \gamma $} (m-1-2);
+\end{tikzpicture}  \\
+ \begin{tikzpicture}
+  \matrix (m) [matrix of math nodes, row sep=4.8em, column sep=5.8em, minimum width=2.2em]
+  {
+(\tau_0,p_0,\lbrace N_{i0} \rbrace) & (\tau_p, p_0, \lbrace N_{i \text{eq} } \rbrace)   \\ 
+};
+  \path[|->]
+  (m-1-1) edge node [above] {$ \substack{  \gamma \text{ s.t. } \\ dG(\dot{\gamma}) = 0 \\ d\sigma(\dot{\gamma}) = 0 \\ dp(\dot{\gamma})=0   } $} (m-1-2);
+\end{tikzpicture} 
+\end{gathered} 
+\]
+
+\subsubsection{Continuity equations for equilibrium flow}
+
+The continuity equations to use for equilibrium flow should be (correct me if I'm wrong) are
+\[
+\dot{m} = \rho u A
+\]
+for which $\dot{m}$ should be constant at each point along the 1-dimensional flow (out) by mass conservation (which should still should hold for chemical reactions).  
+
+One possible form of mass conservation that could prove useful is 
+\[
+\rho_2u_2 A_2 = \rho_1 u_1 A_1 \text{ or } \frac{A_2}{A_1} = \frac{ \rho_1 u_1}{\rho_2 u_2}
+\]
+
+Also, throughout the flow, the Bernoulli invariant is $h+k$, i.e.
+\[
+\frac{u_2^2}{2} + h_2 = \frac{u_1^2}{2} + h_1 \text{ or } u_2^2 = u_1^2 + 2(h_1 -h_2)
+\]
+Note that the speed of sound $a^2 = \left( \frac{ \partial \rho }{ \partial p} \right)_{\sigma,\lbrace N_i \rbrace}$ can be calculated at each instance, and so the Mach number can be calculated: 
+\[
+\mathfrak{M} = \frac{u}{a}
+\]
+
+\subsection{Frozen flow}
+
+Note that there are a number of critical typos in Martinez-Sanchez (2005) \cite{MMartinez-Sanchez2005} that makes it difficult to understand, in this case, Lecture 14.  
+
+Given nozzle exit (i.e. entering combustion chamber), pressure $p_c$, and consider chamber entropy $\sigma_c$.  Then $(\sigma_c,p_c)$ specifies completely the thermodynamic state, and so enthalpy (or specific enthalpy) $h_c$ is specified.  
+\[
+(\sigma_c, p_c) \mapsto h_c(\sigma_c,p_c)
+\]
+For adiabatic flows, the energy equation (for steady state) is
+\[
+\frac{u_2^2}{2} = h_c - h_2
+\]
+In general, for multiple number of species, 
+\[
+(\sigma_c, p_c; \lbrace N_i \rbrace_{i=1 \dots \mathcal{N} } ) \mapsto h_c(\sigma_c,p_c; \lbrace N_i \rbrace)
+\]
+
+For throat conditions, consider mass flow $\dot{m} = \rho uA$.  
+
+Assuming steady state (EY: 20160210 check if throat conditions necessitates $\dot{m}=0$), then 
+\[
+\begin{gathered}
+  \begin{gathered}
+  \frac{d\rho}{\rho} + \frac{du}{u } + \frac{dA}{A} = 0 
+  \end{gathered} \Longrightarrow \frac{du}{u} = -\frac{dh}{ 2(h_c - h) } = \frac{-dp}{2 \rho (h_c- h) } = \frac{-dp }{ \rho u^2} \text{ since } \\
+  u du = -dh \text{ and } \\
+  dh = \tau ds + \frac{1}{\rho } dp + \frac{h}{\rho} d\rho \text{ and for this thermodynamic process $ds=d\rho =0$ in the fluid-at-rest frame }
+\end{gathered}
+\]
+At the throat, $dA=0$ (by definition of a throat), and so \[
+\frac{d\rho }{ \rho } = -\frac{du}{u} = \frac{dp}{\rho u^2} \Longrightarrow (u^*)^2 = \left( \frac{ \partial p}{ \partial \rho} \right)_{\sigma}
+\]
+
+Also, consider from mass conservation, that, at the throat, $dA =0$, 
+\[
+\begin{gathered}
+  d(\rho u )A + \rho u dA = 0 \\
+  \Longrightarrow \frac{d(\rho u)}{ \rho u} + \frac{dA}{A} = 0 \xrightarrow{ dA = 0 } d(\rho u)=0
+\end{gathered}
+\]
+$\rho u$ is at a \emph{maximum} at the throat.  
+
+\subsection{Implementation in Cantera of equilibrium flow and frozen flow}
+
+The first thing that happens is \emph{combustion}!  Fule and oxidizer enters through inlets into combustion chamber.  Then combustion occurs in the (combustion) chamber!
+\[
+\begin{gathered}
+ \begin{tikzpicture}
+  \matrix (m) [matrix of math nodes, row sep=4.8em, column sep=5.8em, minimum width=2.2em]
+  {
+\Sigma & \Sigma \\ 
+};
+  \path[->]
+  (m-1-1) edge node [above] {$ \gamma $} (m-1-2);
+\end{tikzpicture}  \\
+ \begin{tikzpicture}
+  \matrix (m) [matrix of math nodes, row sep=4.8em, column sep=5.8em, minimum width=2.2em]
+  {
+(\tau_0,p_0,\lbrace N_{i0} \rbrace ) & (\tau_c, p_0, \lbrace N_{i \,  c } \rbrace)   \\ 
+};
+  \path[|->]
+  (m-1-1) edge node [above] {$ \substack{  \gamma \text{ s.t. } \\ dH(\dot{\gamma}) = 0 \\  dp(\dot{\gamma})=0   } $} (m-1-2);
+\end{tikzpicture} 
+\end{gathered} 
+\]
+and $dH(\dot{\gamma}) =0$ since $H_P(\tau_c)=H_R(\tau_0)$ so $\Delta H \equiv H_p(\tau_c)-H_R(\tau_0) = 0$
+
+$h(\sigma_c, p_0, \lbrace N_{i \, c} \rbrace_i ) \equiv h_0 \in C^{\infty}(\Sigma)$ and $h_0$ is the stagnation enthalpy, used as the Bernoulli invariant in the energy equation (i.e. $\frac{u^2}{2} = (h_0-h)$).  
+
+Then consider isentropic flow $\gamma_{\text{isent}}$:
+\[
+\begin{gathered}
+ \begin{tikzpicture}
+  \matrix (m) [matrix of math nodes, row sep=4.8em, column sep=5.8em, minimum width=2.2em]
+  {
+\Sigma & \Sigma \\ 
+};
+  \path[->]
+  (m-1-1) edge node [above] {$ \gamma_{\text{isent}} $} (m-1-2);
+\end{tikzpicture}  \\
+ \begin{tikzpicture}
+  \matrix (m) [matrix of math nodes, row sep=4.8em, column sep=5.8em, minimum width=2.2em]
+  {
+(\tau_c,p_0,\lbrace N_{i\, c} \rbrace ) & (\tau, p, \lbrace N_{i \,  f } \rbrace)   \\ 
+};
+  \path[|->]
+  (m-1-1) edge node [above] {$ \substack{  \gamma_{\text{isent}} \text{ s.t. } \\ d\sigma(\dot{\gamma}_{\text{isent}}) = 0    } $} (m-1-2);
+\end{tikzpicture}  \\
+ \begin{tikzpicture}
+  \matrix (m) [matrix of math nodes, row sep=1.1em, column sep=5.8em, minimum width=2.2em]
+  {
+    C^{\infty}(\Sigma) & C^{\infty}(\Sigma) \\ 
+    h(\sigma_c,p_0,\lbrace N_{ic} \rbrace ) \equiv h_0 & h(\sigma_c,p,\lbrace N_{if} \rbrace ) \\
+};
+  \path[->]
+  (m-1-1) edge node [above] {$ \gamma_{\text{isent}} $} (m-1-2);
+  \path[|->]
+  (m-2-1) edge node [above] {$\gamma_{\text{isent}}$} (m-2-2);
+\end{tikzpicture} 
+\end{gathered} 
+\]
+How I implemented this in Cantera is by setting the state of the gas to the desired $p$, and then equilibrating the gas under constant entropy $\sigma_c$ and constant pressure $p$.  
+
+\subsubsection{Getting the results for rocket (and nozzle) performance (i.e. collecting the dividends)}
+
+You want to calculate the specific impulse (for the rocket).  Use this handy relation:
+\[
+\begin{gathered}
+  gI_{\text{sp}} = \frac{F}{\dot{m}} = \frac{\dot{m} u_{\text{exh}} + (p_{\text{exh}}-p_a)A_e }{ \rho_{\text{exh}} u_{\text{exh}} A_e} = u_{\text{exh}} + \frac{p_{\text{exh}} - p_a}{ \rho_{\text{exh}} u_{\text{exh}} }
+\end{gathered}
+\]
+and $\dot{m} = \rho^* u^* A^*$.  
+
+
+
+
+
+
+
+
 
 
 \end{multicols*}
@@ -2949,10 +4451,21 @@ L.D. Landau, E.M. Lifshitz.  \textbf{Statistical Physics}, Third Edition, Part 1
 Michel Le Bellac, Fabrice Mortessagne, G. George Batrouni.  \textbf{Equilibrium and Non-Equilibrium Statistical Thermodynamics}.  Cambridge University Press (May 3, 2004).  ISBN-13: 978-0521821438
 
 
+\bibitem{JLee2012}
+John Lee, \textbf{Introduction to Smooth Manifolds} (Graduate Texts in Mathematics, Vol. 218), 2nd edition, Springer,  2012, ISBN-13: 978-1441999818
+
+\bibitem{OCalinDChang2005}
+Ovidiu Calin, Der-Chen Chang. \textbf{Geometric Mechanics on Riemannian Manifolds: Applications to Partial Differential Equations} (Applied and Numerical Harmonic Analysis).  Birkh\"{a}user. 2005. ISBN-13: 978-0817643546
+
+
 \bibitem{DGoodwin}
 D. G. Goodwin, CANTERA, Division of Engineering and Applied Science, California Institute of Technology,\url{www.cantera.org}.
 
+\bibitem{PThompson1988}
+Philip A. Thompson.  \textbf{Compressible-Fluid Dynamics}.  1988.
 
+\bibitem{MMartinez-Sanchez2005}
+Manuel Martinez-Sanchez. 16.512 Rocket Propulsion, Fall 2005. (Massachusetts Institute of Technology: MIT OpenCourseWare), \href{http://ocw.mit.edu/courses/aeronautics-and-astronautics/16-512-rocket-propulsion-fall-2005}{http://ocw.mit.edu} (Accessed 10 Feb, 2016). License: \href{http://creativecommons.org/licenses/by-nc-sa/4.0/}{Creative Commons BY-NC-SA}
 
 
 \end{thebibliography}

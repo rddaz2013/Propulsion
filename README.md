@@ -1,6 +1,16 @@
 # Propulsion
 Propulsion - Numerical recipes for (rocket) propulsion, including notes and solutions in LaTeX; **Cantera** implementations in *Python*
 
+## Liquid-Vapor Equilibrium: 
+### Clausius-Clapeyron Equation and Antoine Equation from NIST Chemistry Webbook
+
+*Web-scrape* directly the National Institute of Standards and Technology (NIST) Chemistry Webbook for the Phase change data, and "clean" or format the data into the **Antoine Equation** and **Clausius-Clapeyron** relation.  
+
+- Uses only the packages `Requests`, `BeautifulSoup`,`sympy`
+
+You'll be able to make plots of the *Antoine Equation* and *Clausius-Clapeyron relation* like this, in this case for methane, CH_4:
+![Clausius-Clapeyon relation vs. Antoine Equation for methane (CH_4), p (bar) vs. T(K)](https://ernestyalumni.files.wordpress.com/2015/11/methaneclausclapvsanteq.png?w=1000&h=&crop=1)
+
 ## Cantera
 
 ### `cantera_stuff` - examples (of usage) and implementations of Cantera

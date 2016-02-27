@@ -77,7 +77,7 @@ def _get_Phase_data(name="methane"):
     url = requests.get( target_url )
     soup = BeautifulSoup( url.content, "html.parser")
 
-    PhaseURL = WEBBK_URL + soup.find('a',string="Phase change data")['href']
+    PhaseURL = WEBBK_URL + soup.find('a',text="Phase change data")['href']
 
     Phaseurl = requests.get( PhaseURL )
     Phasesoup = BeautifulSoup( Phaseurl.content, "html.parser")
@@ -144,7 +144,7 @@ def cleaned_Phase_data(name="methane"):
     AntEqhdrs_split = [ AntEqhdrs[0] +u' lo', AntEqhdrs[0]+u' hi']+AntEqhdrs[1:]
 
     # scrape Molecular Weight 
-    MW = Phasesoup.find('a',string="Molecular weight").find_previous('li').text
+    MW = Phasesoup.find('a',text="Molecular weight").find_previous('li').text
     MW = float(MW.split(':')[1].strip())
     
     # scrape Enthalpy of vaporization 

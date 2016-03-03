@@ -13,6 +13,10 @@ You'll be able to make plots of the *Antoine Equation* and *Clausius-Clapeyron r
 
 ## Cantera
 
+### `PRF_171.cti` added in cantera_stuff directory: .cti Cantera file for n-heptane, along with its Chemical Kinetics (!!!)
+
+cf. Oku Nyong posted this file in his question on [Autoignition of Heptane in RCM](https://groups.google.com/forum/#!msg/cantera-users/zxKsnG41jDM/SmL-2N9zCAAJ).  I added it to the subdirectory `cantera_stuff` of this same repository.  
+
 ### `cantera_stuff` - examples (of usage) and implementations of Cantera
 First, the folder [cantera_stuff](https://github.com/ernestyalumni/Propulsion/tree/master/cantera_stuff) contains an implementation in Python of the (useful) Matlab tutorial .m files/examples/ and (some of the) Matlab examples on the [Index of Examples](http://www.cantera.org/docs/sphinx/html/matlab/examples.html) of *Cantera Matlab Toolbox* (but it's now in **Python**). *See* the Cantera Matlab Toolbox examples page http://www.cantera.org/docs/sphinx/html/matlab/examples.html and compare it with the files in [cantera_stuff](https://github.com/ernestyalumni/Propulsion/tree/master/cantera_stuff).
 

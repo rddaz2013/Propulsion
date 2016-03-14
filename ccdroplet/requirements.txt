@@ -1,0 +1,6 @@
+cantera
+numpy
+scipy
+sympy
+BeautifulSoup
+requests

@@ -223,7 +223,7 @@ def evap_K(gas,reaction_tuple,T_g,P,phi_g,h_fg,T_boil, rho_l ,T_infty, dotm_Ox, 
     Ox_index = gas.species_index(reaction_tuple.Oxstr)
     F_index  = gas.species_index(reaction_tuple.Fuelstr)
 
-    NU = dotm_Ox/(dotm_l-(dotm_g-dotm_Ox))
+    NU = dotm_Ox/(dotm_l+(dotm_g-dotm_Ox))
     
     Deltah_c = Deltah_Fc + NU*Deltah_Oxc - (NU+1)*Deltah_Prc
 

@@ -366,6 +366,7 @@ CH4v_g_ax.set_ylabel("$v_g$ speed of gas (m/s)")
 CH4v_g_ax.legend()
 
 CH4flowstr = [(D_0,flow) for D_0 in D_0s for flow in CH4flows.columns.levels[1][:3]]
+
 CH4flowstr = [(D_0,flow) for D_0 in D_0s for flow in CH4flows.columns.levels[1][1:3]]
 
 dotm_gtitle = "$\dot{m}_g (kg/s)$ with $\dot{m}_{Ox} (kg/s)$ vs. $x$ (m) for methane ("+CC_out.CH4_TUP.Fuelstr+") with "+CC_out.CH4_TUP.Oxstr+" as oxidizer for various $D_0 (\mu m)$"
@@ -373,6 +374,8 @@ CH4dotm_gOx_ax = CH4flows[CH4flowstr].plot(title=dotm_gtitle,grid=True,colormap=
 CH4dotm_gOx_ax.set_xlabel("Combustion chamber length $x$ (m)")
 CH4dotm_gOx_ax.set_ylabel("$\dot{m}_g$ and $\dot{m}_{Ox} (kg/s)$")
 CH4dotm_gOx_ax.legend(loc=4)
+
+
 
 dotm_ltitle = "$\dot{m}_l (kg/s)$ with $\dot{m}_{Ox} (kg/s)$ vs. $x$ (m) for methane ("+CC_out.CH4_TUP.Fuelstr+") with "+CC_out.CH4_TUP.Oxstr+" as oxidizer for various $D_0 (\mu m)$"
 
@@ -401,6 +404,9 @@ import ccdroplet
 from ccdroplet import CC_out
 HEPRES = CC_out.output_from_main(CC_out.prf_gas,CC_out.ctHep,"heptane",CC_out.C7H16_TUP,CC_out.HEPCH_PARAMS,CC_out.HEPINLETS_VARY_D_0,'n',371.5)
 
+HEPflows = CC_out.compute_flows_phi_g_v_g_vary_D_0(CC_out.prf_gas,CC_out.ctHep,CC_out.C7H16_TUP,CC_out.HEPCH_PARAMS,CC_out.HEPINLETS_VARY_D_0,371.5,HEPRES,'n')
+
+
 D_0s = HEPflows.columns.levels[0]
 
 T_g_D_v_dstr = [str(col) for col in HEPRES.columns.levels[1]]
@@ -424,6 +430,20 @@ HEPv_d_ax = HEPRES[[(D_0,'v_d') for D_0 in D_0s]].plot(title= plttitles[2],grid=
 HEPv_d_ax.set_xlabel("Combustion chamber length $x$ (m)")
 HEPv_d_ax.set_ylabel("droplet speed $v_d$ (m/s)")
 HEPv_d_ax.legend(loc=4)
+
+fig = plt.figure()
+ax = fig.add_subplot(111)
+ax2 = ax.twinx()
+HEPRES[[(D_0,'T_g') for D_0 in D_0s]].plot(title= plttitles[0],grid=True,colormap=cm.Blues, style=['*',':','-.','--','-'],linewidth=10, ax=ax)
+
+HEPflows[[(D_0,'phi_g') for D_0 in D_0s]].plot(grid=True,colormap=cm.Purples, style=['*',':','-.','--','-'],linewidth=4, ax=ax2)
+ax.set_ylabel("gas temp. $T_g$ (K)")
+ax2.set_ylabel("$\phi_g$ equivalence ratio of fuel to oxidizer for gases only")   
+
+HEPv_d_v_g = pd.concat([HEPRES[[(D_0,'v_d') for D_0 in D_0s]],HEPflows[[(D_0,'v_g') for D_0 in D_0s]]],axis=1)
+
+HEPv_d_v_g.plot(title="n-heptane $v_g,v_d$ (m/s) vs. x (m)",grid=True,colormap=cm.Blues,style=['*',':','-.','--','-','*',':','-.','--','-'],linewidth=5)
+
 
 
 

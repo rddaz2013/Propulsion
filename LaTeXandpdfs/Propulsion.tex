@@ -3950,7 +3950,7 @@ Suppose some of the fuel from the inlet will come in as a liquid $l$; denote the
 \begin{picture}(10,5.5)(-5,-2.75)
 \linethickness{1pt}
 \put(-3.7,0.4){{ gaseous $\{ \begin{gathered} \dot{m}_{\text{F}}(0) \\ \dot{m}_{\text{Ox}}(0) \end{gathered} \}$ }}
-\put(-3.7,-0.4){{ liquid $\dot{m}_{\text{Ox}}(0)$ }}
+\put(-3.7,-0.4){{ liquid $\dot{m}_l(0)$ }}
 \put(0.1,0.0){{ $$ }}
 \put(-0.5,0.2){\vector(1,0){2}}
 \put(-0.5,0.7){\vector(1,0){2}}
@@ -4070,7 +4070,7 @@ Equating Eqns. \ref{Eq:GasPhase1dimenthalpyadiabaticflow}, \ref{Eq:GasPhase1dime
 \[
 \frac{dT_g}{dx} = \left[ \frac{-1}{\dot{m}_g} \left( h_g \frac{d\dot{m}_g}{dx} + h_l \frac{d\dot{m}_l}{dx} \right) - \frac{ \partial h_g}{ \partial \phi_g} \frac{d\phi_g}{dx} \right]/\frac{ \partial h_g}{\partial T_g}
 \]
-Using mass conservation on fuel, $\frac{d\dot{m}_g}{dx} = -\frac{d\dot{m}_g}{dx}$, so
+Using mass conservation on fuel, $\frac{d\dot{m}_g}{dx} = -\frac{d\dot{m}_l}{dx}$, so
 \begin{equation}
 \boxed{ \frac{dT_g}{dx}= \left[ \frac{-1}{\dot{m}_g} \frac{d\dot{m}_g}{dx}(h_g - h_l) - \frac{\partial h_g}{ \partial \phi_g} \frac{d\phi_g}{dx} \right]/\frac{ \partial h_g}{ \partial T_g} }
 \end{equation}
@@ -4242,9 +4242,9 @@ Clearly, we have
 as gaseous oxidizer is injected in, and gaseous fuel is from the evaporation off the liquid droplet.  
 
 Modelling the liquid fuel being injected into the combustion chamber through an injection plate of total fuel injection cross-section $A_{\text{tot fuel inj}}$, at injection speed $v_d(0)$, then clearly
-\[
+\begin{equation}\label{Eq:dotm_l0_def}
 \dot{m}_l(x=0) = \dot{m}_l(0) = \rho_l v_d(0) A_{\text{tot fuel inj}} = \rho_l(T_b,P) v_d(0) A_{\text{tot fuel inj}}
-\]
+\end{equation}
 I would argue that for the liquid density $\rho_l = \rho_l(T_b,P)$, which is completely specified by 2 thermodynamic quantities in $\Sigma^l$, $(T,P) \in \Sigma^l$, the temperature is $T_b$, the boiling temperature specified by the Clausius-Clapeyron relation for a given combustion chamber pressure $P$.  The inlet temperature is usually much higher than the boiling temperature of our fuel: we wouldn't have any liquid, or droplets, if its local temperature is this inlet temperature.  I will also argue that the liquid droplet is entirely in thermal equilibrium and at its surface, fuel molecules are evaporating away at $T_b$: so the entire liquid is at $T_b = T_b(P)$.  This remains the case as the liquid droplet travels throughout the combustion chamber.
 
 Out of this injection plate, for a droplet of initial size $D_0$, then for number of droplets per unit time emerging out of the injection plate, $\dot{\mathcal{N}}$, clearly
@@ -4277,9 +4277,9 @@ I haven't mentioned where this is all occurring.  Here is one important fact abo
 i.e. the oxidizer is constantly being injected in and flowing uniformly through the chamber.
 
 At $x=0$, the start of the combustion chamber, 
-\[
+\begin{equation}\label{Eq:dotm_Ox0}
 \dot{m}_{\text{Ox}}(0) = \frac{\dot{m}_l(0) }{ \left( \phi_{\text{overall}}(x=0) - \phi_g(x=0) \right) \left( \frac{F}{O} \right)_{\Phi=1} }
-\]
+\end{equation}
 
 Let's take stock of the quantities and its properties that we've discussed so far:
 \[
@@ -4317,7 +4317,7 @@ and thus, taking the spatial derivative of both sides of Eq. \ref{Eq:def_phi_g}
 
 By gas phase continuity,
 \[
-v_g = v_g(x) = \frac{m_g}{\rho_g A_{cc}} = \frac{\dot{m}_g(X) R_U T_g(x) }{ MW_g P A_{cc}} = \frac{ \left( \left( \frac{F}{O} \right)_{\Phi =1} \phi_g(x) + 1 \right) \dot{m}_{\text{Ox}}(0) R_U T_g(x) }{ MW_g P A_{cc}}
+v_g = v_g(x) = \frac{\dot{m}_g}{\rho_g A_{cc}} = \frac{\dot{m}_g(x) R_U T_g(x) }{ MW_g P A_{cc}} = \frac{ \left( \left( \frac{F}{O} \right)_{\Phi =1} \phi_g(x) + 1 \right) \dot{m}_{\text{Ox}}(0) R_U T_g(x) }{ MW_g P A_{cc}}
 \]
 
 We can obtain $\dot{m}_l = \dot{m}_l(x)$ (i.e. as a function of $x\in N$):
@@ -4347,13 +4347,98 @@ It may be interesting to notice that, and to take stock of what we've uncovered 
 \]
 along with initial (inlet) conditions
 \[
-( \dot{m}_{\text{Ox}}(0), \mathcal{N}, \dot{m}_l(0) ) \in C^{\infty}(N_0) \times C^{\infty}(N_0) \times C^{\infty}(N_0)
+( \dot{m}_{\text{Ox}}(0), \dot{\mathcal{N}}, \dot{m}_l(0) ) \in C^{\infty}(N_0) \times C^{\infty}(N_0) \times C^{\infty}(N_0)
 \]
 completely determines, algebraically, the quantities 
 \[
 (\phi_g(x), \dot{m}_g(x), v_g(x) ) \in C^{\infty}(\Sigma^g) \times C^{\infty}(N) \times TN, \qquad \dot{m}_l(x) \in C^{\infty}(N)
 \]
 all throughout $x\in N$.
+
+Alternatively, and even \emph{better}, keeping the assumption that $\dot{\mathcal{N}}$ is constant, we should eliminate $\dot{\mathcal{N}}$ algebraically and write only in terms of the flow rates: starting from $\dot{m}_l(0) = \rho_l(T_{\text{boil}},P)v_d(0) A_{\text{tot fuel inj}}$, Eq. \ref{Eq:dotm_l0_def}, 
+\[
+\dot{m}_l(0) = \frac{ \dot{\mathcal{N}} \rho_l(T_{\text{boil}}, P) \pi D_0^3}{6} \text{ or } \frac{ \dot{m}_l(0) }{ D_0^3} = \frac{ \dot{\mathcal{N}} \rho_l(T_{\text{boil}}, P ) \pi }{ 6}
+\]
+and thus
+\[
+\dot{m}_l(x) =  \dot{m}_l(0) \left( \frac{D}{D_0} \right)^3
+\]
+From $\dot{m}_{\text{Ox}}(0) = \frac{ \dot{m}_l(0)}{ (\phi_{\text{overall}}(0) - \phi_g(0) ) \left( \frac{F}{O} \right)_{\Phi =1} }$, Eq. \ref{Eq:dotm_Ox0}
+So then
+\[
+\dot{m}_g(0) = (\phi_{\text{overall}}\left( \frac{F}{O} \right)_{\Phi =1} + 1 ) \dot{m}_{\text{Ox}}(0) - \dot{m}_l(0)
+\]
+and for $x\in N$,
+\[
+\dot{m}_g(x) = \dot{m}_g(0) + \dot{m}_l(0) - \dot{m}_l(x)
+\]
+and for $v_g$, the initial condition and general expression for $x\in N$ is 
+\[
+v_g(0) = \frac{\dot{m}_g(0) R_U T_g(0) }{ MW_g(\phi_g(0)) P A_{cc} } \qquad \, v_g(x) = \frac{\dot{m}_g(x) R_U T_g(x) }{ MW_g(\phi_g(x)) P A_{cc} }
+\]
+
+Taking stock of everything so far, the overall outlook is the following:
+\begin{itemize}
+  \item chamber parameters are fixed and given
+\[
+(A_{\text{tot fuel inj}}, A_{cc}, l_{cc} ) \in (\mathbb{R}^+)^3
+\]
+  \item inlet parameters
+\[
+((T_{\text{in}},P,\phi_g(0)), \phi_{\text{overall}}, v_d(0), D(0) ) \in (\Sigma_{x=0}, C^{\infty}(\Sigma_{x=0}),TN, C^{\infty}(N)) 
+\]
+\end{itemize}
+The use of the Clausius-Clapeyron relation for the vapor pressure, and how the thermodynamic system straddles between the liquid phase and vapor (gas) phase, yields a one-to-one mapping (isomorphism): from $p = p_0 \exp{ \left( L\left( \frac{1}{T} - \frac{1}{T^o} \right) \right)}$,
+\[ 
+\begin{tikzpicture}
+  \matrix (m) [matrix of math nodes, row sep=1.4em, column sep=7.8em, minimum width=2.2em] 
+  {
+p & T(p) = T_{\text{boil}} \\
+};
+  \path[|->]
+  (m-1-1) edge node [above] {$ \text{Cl}-\text{Cl} $} (m-1-2)
+  ;
+\end{tikzpicture} 
+\]
+So for 
+\[
+\begin{aligned}
+  & \dot{m}_l(0) = \rho_l(T_b,P)v_d(0) A_{\text{tot fuel inj}} \\ 
+  & \dot{m}_{\text{Ox}}(0) = \frac{ \dot{m}_l(0) }{ (\phi_{\text{overal}} - \phi_g(0) ) \left( \frac{F}{O} \right)_{\Phi =1} } \\ 
+  & \dot{m}_g(0) = \left( \phi_{\text{overall}} \left( \frac{F}{O} \right)_{\Phi =1} + 1 \right) \dot{m}_{\text{Ox}}(0) - \dot{m}_l(0) \\ 
+  & v_g(0) = \frac{\dot{m}_g(0) R_U T_g(0) }{ MW_g(\phi_g(0)) PA_{cc} }
+\end{aligned}
+\]
+and then for general $x\in N$, 
+\[
+\begin{aligned}
+  & \dot{m}_l(x) = \dot{m}_l(0) \left( \frac{D}{D_0} \right)^3 \\ 
+  & \dot{m}_g(x) = \dot{m}_g(0) + \dot{m}_l(0) - \dot{m}_l(x) \\ 
+  & \phi_g(x) = \frac{ \frac{ \dot{m}_g(x) }{ \dot{m}_{\text{Ox}}(0) } - 1 }{ \left( \frac{F}{O} \right)_{\Phi =1} } \\ 
+  & v_g(x) = \frac{\dot{m}_g(x) R_U T_g(x) }{ MW_g(\phi_g(x)) P A_{cc} }
+\end{aligned}
+\]
+
+\begin{tikzpicture}
+  \matrix (m) [matrix of math nodes, row sep=1.4em, column sep=7.8em, minimum width=2.2em] 
+  {
+\text{ chamber parameters, inlet conditions } & (\dot{m}_l(0) , \dot{m}_{\text{Ox}}(0), \dot{m}_g(0) , v_g(0)) \\
+};
+  \path[|->]
+  (m-1-1) edge node [above] {$  $} (m-1-2)
+  ;
+\end{tikzpicture} 
+
+\begin{tikzpicture}
+  \matrix (m) [matrix of math nodes, row sep=1.4em, column sep=7.8em, minimum width=2.2em] 
+  {
+\text{ chamber parameters, inlet conditions } \times (\dot{m}_l(0), \dot{m}_{\text{Ox}}(0), \dot{m}_g(0) ) & (\dot{m}_l(x) ,  \dot{m}_g(x)) \times (\phi_g(x) , v_g(x)) \\
+};
+  \path[|->]
+  (m-1-1) edge node [above] {$(T_g(x),D(x),v_d(x))  $} (m-1-2)
+  ;
+\end{tikzpicture} 
+
 
 \part{Numerical Computation; Scientific Computation}
 

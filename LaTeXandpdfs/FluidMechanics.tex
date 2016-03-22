@@ -1,0 +1,1287 @@
+% file: FluidMechanics.tex
+% Fluid Mechanics
+% 
+% Typeset with LaTeX format
+% cf. Math Into Latex Third Edition pp. 290
+% This file has my modifications
+%
+% github        : ernestyalumni
+% gmail         : ernestyalumni 
+% linkedin      : ernestyalumni 
+% twitter       : ernestyalumni 
+% wordpress.com : ernestyalumni
+% 
+% This code is open-source, governed by the Creative Common license.  Use of this code is governed by the Caltech Honor Code: ``No member of the Caltech community shall take unfair advantage of any other member of the Caltech community.'' 
+% 
+
+
+\documentclass[twoside,landscape,10pt]{amsart}
+
+%\setcounter{tocdepth}{1} % to get subsubsections in toc 
+% cf. http://www.latex-community.org/forum/viewtopic.php?f=47&p=44760
+
+
+\usepackage{amsmath,amssymb,latexsym}
+\usepackage{graphics}
+\usepackage{tikz}
+\usepackage{hyperref}
+\usepackage{listings}
+\hypersetup{colorlinks=true, urlcolor=blue}
+
+\usetikzlibrary{matrix,arrows}
+
+%\usepackage[parfill]{parskip}
+
+\usepackage{multicol}
+
+%\usepackage{fontspec}
+%\setmainfont{Times New Roman} % this sets the real Times New Roman via modern TeX engines
+
+\usepackage{mathptmx}
+
+%\hoffset-
+
+\oddsidemargin=15pt
+\evensidemargin=5pt
+\hoffset-40pt
+\voffset-55pt
+\topmargin=-4pt
+\headsep=5pt
+\textwidth=1120pt
+\textheight=620pt
+\paperwidth=1200pt
+\paperheight=700pt
+
+\marginparwidth=12pt
+
+\parindent0.0em
+
+%\linespread{1.2}
+
+%plain makes sure that we have page numbers
+\pagestyle{plain}
+
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}
+\newtheorem{corollary}{Corollary}
+%\newtheorem*{main}{Main Theorem}
+\newtheorem{lemma}{Lemma}
+\newtheorem{proposition}{Proposition}
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}
+
+\theoremstyle{remark}
+\newtheorem*{notation}{Notation}
+
+%\numberwithin{equation}{section}
+
+%This defines a new command \questionhead which takes one argument and
+%prints out Question #. with some space.
+\newcommand{\questionhead}[1]
+  {\bigskip\bigskip
+   \noindent{\small\bf Question #1.}
+   \bigskip}
+
+\newcommand{\problemhead}[1]
+  {
+   \noindent{\small\bf Problem #1.}
+   }
+
+\newcommand{\exercisehead}[1]
+  { \smallskip
+   \noindent{\small\bf Exercise #1.}
+  }
+
+\newcommand{\solutionhead}[1]
+  {
+   \noindent{\small\bf Solution #1.}
+   }
+
+
+
+%-----------------------------------
+\begin{document}
+%-----------------------------------
+\title[FluidMechanics]{Fluid Mechanics}
+\author{Ernest Yeung}
+\address{}
+\email{ernestyalumni@gmail.com}
+\urladdr{http://ernestyalumni.wordpress.com}
+\thanks{linkedin : ernestyalumni }
+
+\keywords{Fluid Mechanics}
+\subjclass[Fluid Mechanics]{Fluid Mechanics}
+\date{17 juillet 2015}
+\begin{abstract}
+Everything about Fluid Mechanics
+\end{abstract}
+
+\definecolor{darkgreen}{rgb}{0,0.4,0}
+\lstset{language=Python,
+ frame=bottomline,
+ basicstyle=\scriptsize,
+ identifierstyle=\color{blue},
+ keywordstyle=\bfseries,
+ commentstyle=\color{darkgreen},
+ stringstyle=\color{red},
+ }
+%\lstlistoflistings
+
+\maketitle
+
+
+
+\tableofcontents
+
+
+\begin{multicols*}{2}
+
+\part{On Landau and Lifshitz's \textbf{Fluid Mechanics}}\cite{LLandauELifshitz1987}
+
+\section{Ideal Fluids} Chapter 1 of Landau and Lifshitz (1987) \cite{LLandauELifshitz1987}.  
+
+Use the \textbf{Eulerian} or \text{spatial velocity}, the velocity at time $t$ of the particle currently in position $\mathbf{x}$ \cite{DHolmTSchmahCStoica2009} which is a time-dependent velocity field:
+
+Let $N$ be the spatial manifold, with spacetime manifold $M = \mathbb{R} \times N$, $\text{dim}N=n$  
+
+\begin{tikzpicture}
+  \matrix (m) [matrix of math nodes, row sep=3.8em, column sep=4.8em, minimum width=2.2em]
+  {
+TN         & u(t,x)         \\
+J\times N  & (t,x)         \\
+};
+  \path[->]
+  (m-2-1) edge node [auto] {$u$} (m-1-1)
+;
+  \path[|->]
+  (m-2-2) edge node [auto]  {$u$} (m-1-2)
+  ;
+\end{tikzpicture}
+
+cf. Section 11.2 ``Geometric setting of ideal continuum motion'' of Holm, Schmah, Stoics \cite{DHolmTSchmahCStoica2009}
+\begin{definition}
+  Let spacetime manifold $M$ admit a time-foliation $M = \mathbb{R} \times N$, where $N$ represents spatial points. 
+Let domain $\mathcal{D} \subseteq N$ represent positions of material particles of system in its \textbf{reference configuration.} Coordinate function $(a^i)$ on $\mathcal{D}$ represent \textbf{particle labels}.  
+
+\begin{itemize}
+  \item \textbf{configuration} $:= $ diffeomorphism $g: \mathcal{D} \to \mathcal{D}$, $g\in \text{Diff}(\mathcal{D})$ space of diffeomorphisms from $\mathcal{D}$ to $\mathcal{D}$ 
+\item \textbf{fluid motion} $g_t \equiv g(t) \in \text{Diff}(\mathcal{D})$
+\end{itemize}  
+\end{definition}
+
+\begin{definition}
+  \begin{equation}
+    \begin{aligned}
+      & x: \mathcal{D} \times \mathbb{R} \to \mathcal{D} \\ 
+      & x(a,t) := g_t(a) = g(t)\cdot a \in \mathcal{D}      
+\end{aligned}
+\end{equation} describes path in $\mathcal{D}$ by a particle labeled $a \in \mathcal{D}$
+\end{definition}
+
+\begin{definition}
+\textbf{Lagrangian or material velocity} - keep particle labels $a$ fixed.  
+\begin{equation}
+  U(a,t) := \frac{ \partial }{ \partial t} g_t \cdot a = \frac{ \partial }{ \partial t} x(a,t)
+\end{equation}
+$U(a,t)$ is velocity of particle with label $a$ at time $t$.  
+
+
+\textbf{Eulerian or spatial velocity } $u$ \\
+\phantom{\quad \, } if $x = x(a,t) = g_t(a)$ 
+\begin{equation}
+u(x,t) := U(a,t) = U(g^{-1}_t(x),t)
+\end{equation}
+$u(x,t)$ is velocity at time $t$ of particle currently in position $x$
+\end{definition}
+
+Now $u \Longrightarrow \begin{aligned} & \quad \\
+  & u_t \in \mathfrak{X}(\mathcal{D}) \\
+  & u_t(x) := u(x,t) \end{aligned}$ 
+
+$U_t(a) := U(a,t)$ though this isn't really a vector field.  
+\[
+U_t = u_t \circ g_t
+\]
+
+
+\begin{tikzpicture}
+  \matrix (m) [matrix of math nodes, row sep=3.8em, column sep=4.8em, minimum width=2.2em]
+  {
+& \mathfrak{X}(\mathcal{D}) \\
+    \mathcal{D} \subseteq N & \mathcal{D} \subseteq N \\
+};
+  \path[->]
+  (m-2-1) edge node [above] {$U_t$} (m-1-2)
+          edge node [above] {$g(t) = g_t$} (m-2-2)
+  (m-2-2) edge node [auto]  {$$} (m-1-2)
+          edge [bend left=30] node [below] {$g_t^{-1} = g_{-t}$} (m-2-1)
+  ;
+\end{tikzpicture}  \quad \quad \quad \begin{tikzpicture}
+  \matrix (m) [matrix of math nodes, row sep=3.8em, column sep=4.8em, minimum width=2.2em]
+  {
+& u_t(x):= u(x,t) = U(a,t) =: U_t(a)    \\
+    a  & x(a,t)=x   \\
+};
+  \path[|->]
+  (m-2-1) edge node [above] {$U_t $} (m-1-2)
+          edge node [above] {$g(t) = g_t$} (m-2-2)
+  (m-2-2) edge node [auto]  {$$} (m-1-2)
+          edge [bend left=30] node [below] {$g_t^{-1} = g_{-t}$} (m-2-1)
+  ;
+\end{tikzpicture}  
+
+
+\begin{definition}
+  Given path $g(t) \in \text{Diff}(\mathcal{D})$, \\
+  Lagrangian velocity field $\begin{aligned} & \quad \\ 
+    & U_t: \mathcal{D} \to \mathfrak{X}(\mathcal{D}) \\
+    & U_t \equiv \dot{g}(t) \equiv \frac{ \partial g(t) }{ \partial t} \end{aligned}$ 
+\[
+\dot{g}(t) \cdot a := \dot{g}(t)(a) = U_t(a) = \frac{ \partial g_t}{ \partial t} \cdot a
+\]
+
+\end{definition}
+
+\begin{tikzpicture}
+  \matrix (m) [matrix of math nodes, row sep=3.8em, column sep=4.8em, minimum width=2.2em]
+  {
+\begin{aligned} 
+  & g: \mathbb{R} \to \text{Diff}(\mathcal{D}) \\ 
+  & g(t) \in \text{Diff}(\mathcal{D})
+\end{aligned}  & \text{Diff}(\mathcal{D}) \\
+    \dot{g}(t) \equiv \frac{ \partial g(t)}{ \partial t} \equiv U_t  &  T_g\text{Diff}(\mathcal{D})    \\
+};
+  \path[|->]
+  (m-1-1) edge node [left] {$\frac{\partial}{\partial t}$} (m-2-1)
+  (m-1-2) edge node [left]  {$\frac{\partial}{\partial t}$} (m-2-2)
+  ;
+\end{tikzpicture}  
+
+\begin{tikzpicture}
+  \matrix (m) [matrix of math nodes, row sep=3.8em, column sep=7.8em, minimum width=2.2em]
+  {
+a \in \mathcal{D} & U_t(a) \in T_{g_t(a)}\mathcal{D} \\
+& g(t)\cdot a = x(a,t) \in \mathcal{D} \\ 
+};
+  \path[|->]
+  (m-1-1) edge node [above] {$\dot{g}(t) \equiv \frac{ \partial g(t)}{ \partial t} \equiv U_t$} (m-1-2)
+          edge node [left] {$g(t) = g_t$} (m-2-2)
+  (m-2-2) edge node [auto]  {$u_t$} (m-1-2)
+         ;
+\end{tikzpicture}  
+
+Thus
+\[
+U_t = u_t \circ g_t
+\]
+\begin{equation}
+  \begin{aligned}
+    T_g\text{Diff}(\mathcal{D}) & = \lbrace u \circ g | u \in \mathfrak{X}(\mathcal{D}) \rbrace = \\
+    & = \lbrace \text{ smooth } U : \mathcal{D} \to T \mathcal{D} | U(a) \in T_{g(a)}\mathcal{D} \quad \, \forall \, a \in \mathcal{D} \rbrace
+\end{aligned}
+\end{equation}
+
+\begin{theorem}[(Tangent lift of right translation)]
+  Let $\varphi \in \text{Diff}(\mathcal{D})$ \\
+Let $R_{\varphi}$ be right translation map \\
+\phantom{Let } $ R_{\varphi}: \text{Diff}(\mathcal{D}) \to \text{Diff}(\mathcal{D}) $\\
+\phantom{Let } $ R_{\varphi}: g \mapsto g\circ \varphi$ 
+
+tangent life of $R_{\varphi}$ is map $TR_{\varphi} : T\text{Diff}(\mathcal{D}) \to T\text{Diff}(\mathcal{D})$
+\begin{equation}
+  TR_{\varphi}(U) = TR_{\varphi} \left( \left. \frac{d}{dt} \right|_{t_0} g_t \right) := \left. \frac{d}{dt} \right|_{t_0} (g_t \circ \varphi) = U\circ \varphi
+\end{equation}
+since $\forall \, a \in \mathcal{D}$
+
+\begin{equation}
+  \left. \frac{d}{dt} \right|_{t_0} (g_t \circ \varphi)(a) = \left. \frac{d}{dt} \right|_{t_0} (g_t \circ \varphi(a)) = \left( \left. \frac{d}{dt} \right|_{t_0} g_t \right) \cdot \varphi(a) = U\circ \varphi(a)
+\end{equation}
+
+$U\varphi \equiv TR_{\varphi}(U)$
+
+\textbf{Eulerian velocity} corresponding to flow $g(t)$ is $u_t = \dot{g}(t) g^{-1}(t)$
+
+\end{theorem}
+
+\begin{tikzpicture}
+  \matrix (m) [matrix of math nodes, row sep=3.8em, column sep=7.8em, minimum width=2.2em]
+  {
+T\text{Diff}(\mathcal{D} ) & T\text{Diff}(\mathcal{D} ) \\ 
+ \text{Diff}(\mathcal{D}) &   \text{Diff}(\mathcal{D}) \\
+};
+  \path[->]
+  (m-1-1) edge node [above] {$TR_{\varphi} $} (m-1-2)
+  (m-2-1) edge node [auto]  {$$} (m-1-1)
+          edge node [auto]  {$R_{\varphi}$} (m-2-2)
+  (m-2-2) edge node [auto] {$$} (m-1-2)
+         ;
+\end{tikzpicture}  
+ \quad \quad \,  \begin{tikzpicture}
+  \matrix (m) [matrix of math nodes, row sep=3.8em, column sep=7.8em, minimum width=2.2em]
+  {
+\left. \frac{d}{dt} \right|_{t_0} g_t = U   & U\circ \varphi = \left. \frac{d}{dt} \right|_{t_0} (g_t \circ \varphi) \\
+g & g\circ \varphi   \\
+};
+  \path[|->]
+  (m-1-1) edge node [above] {$TR_{\varphi} $} (m-1-2)
+  (m-2-1) edge node [auto]  {$$} (m-1-1)
+          edge node [auto]  {$R_{\varphi}$} (m-2-2)
+  (m-2-2) edge node [auto] {$$} (m-1-2)
+         ;
+\end{tikzpicture}  
+
+cf. Section 5.2 ``Abstract Lie groups and Lie algebras'' of Holm, Schmah, Stoics \cite{DHolmTSchmahCStoica2009}
+
+
+
+
+The mass of fluid in some volume $V_0 \subset N$ is $\int_{V^0} \rho \text{vol}^n$, where $\rho$ is fluid density, $\rho \in C^{\infty}(N)$.  
+
+The total mass of fluid flowing out of volume $V_0$ is 
+\[
+\begin{gathered}
+  \frac{d}{dt} \int_{V_0} \rho \text{vol}^n = \int_{V_0} \mathcal{L}_{\frac{\partial}{\partial t} + \textbf{u}} (\rho \text{vol}^n) = \int_{V_0} \frac{ \partial }{\partial t} \rho \text{vol}^n + \int_{V_0} \mathcal{L}_u \rho \text{vol}^n   \\
+ \int_{V_0} \mathcal{L}_u \rho \text{vol}^n = \int_{V_0} di_{\mathbf{u}} \rho \text{vol}^n  + i_{\mathbf{u}} d\rho \text{vol}^n = \int_{V_0} di_{\mathbf{u}} \rho \text{vol}^n + 0 = \int_{V_0} di_{\mathbf{u}} \rho \text{vol}^n = \int_{\partial V_0} i_{\mathbf{u}} \rho \text{vol}^n
+\end{gathered}
+\]  
+Now
+\[
+\begin{gathered}
+  i_u \text{vol}^n = i_u\frac{\sqrt{g}}{n!} \epsilon_{i_1 \dots i_n} dx^{i_1} \wedge \dots \wedge dx^{i_n} \\ 
+  i_u dx^{i_1} \wedge \dots \wedge dx^{i_n} = u^{i_1} dx^{i_2} \wedge \dots \wedge dx^{i_n} - dx^{i_1} \wedge u^{i_2} dx^{i_3} \wedge \dots \wedge dx^{i_n} +  \dots + (-1)^{n+1} dx^{i_1} \wedge \dots \wedge dx^{i_{n-1}} u^{i_n} = \epsilon^{i_1 \dots i_n}_{j_1 \dots j_n } u^{j_1 } dx^{j_2} \wedge \dots \wedge dx^{j_n}  \\
+\Longrightarrow i_u\text{vol}^n = \frac{ \sqrt{g}}{ (n-1)!} \epsilon_{j_1 \dots j_n} u^{j_1} dx^{j_2} \wedge \dots \wedge dx^{j_n}
+\end{gathered} 
+\]
+If $\sqrt{g} = 1$, $n=2$, 
+\[
+i_u \text{vol}^2 = (u^1 dx^2 - u^2 dx^1) = u\cdot n_1 dx^2 + u\cdot n_2 dx^1 = u\cdot n dS
+\]
+with $n_1 =e_1$ and $n_2=-e_2$.  
+
+Now 
+\[
+\begin{gathered}
+  di_u \rho \text{vol}^n = \\
+  = \frac{ \partial ( \sqrt{g} \rho u^{j_1} ) }{ \partial x^k} \frac{ \epsilon_{j_1 \dots j_n} }{ (n-1)! } dx^k \wedge dx^{j_2} \wedge \dots \wedge dx^{j_n} = \frac{ \partial (\sqrt{ g} \rho u^k) }{ \partial x^k} \frac{ \epsilon_{j_1 \dots j_n }}{ n!} dx^{j_1} \wedge \dots \wedge dx^{j_n} = \frac{1}{\sqrt{g}} \frac{ \partial (\sqrt{g} \rho u^k)}{ \partial x^k} \text{vol}^n = \\
+  = \frac{ \partial (\rho u^k)}{ \partial x^k} \text{vol}^n + \rho u^k \frac{ \partial \ln{ \sqrt{g}}}{ \partial x^k} \text{vol}^n = \text{div}(\rho u) \text{vol}^n + \rho u^k \frac{ \partial \ln{ \sqrt{g}}}{ \partial x^k} \text{vol}^n
+\end{gathered}
+\]
+Now if $\sqrt{g}=1$, then 
+\[
+\begin{gathered}
+  \frac{d}{dt} \int_{V_0} \rho \text{vol}^n = \int_{V_0} \frac{ \partial \rho }{ \partial t} \text{vol}^n + \int_{V_0} di_u \rho \text{vol}^n = \int_{V_0} \frac{ \partial \rho }{ \partial t} \text{vol}^n + \int_{V_0} \text{div}(\rho u) \text{vol}^n \Longrightarrow \frac{ \partial \rho}{\partial t} + \text{div}(\rho u) = 0
+\end{gathered}
+\]
+which is the so-called mass continuity equation.  $ j = \rho u$ is the mass flux density.  
+
+cf. Sec.1.2. Euler's equation \cite{LLandauELifshitz1987}, 
+
+The Cauchy-stress tensor $T$ is a symmetric $(0,2)$ tensor, so that $T \in \Gamma(T^*M \otimes T^*M)$.  
+
+Let the normal field $n$ be normal to the surface of $V_0$.  
+
+Let's do this:
+
+\begin{tikzpicture}
+  \matrix (m) [matrix of math nodes, row sep=3.8em, column sep=4.8em, minimum width=2.2em]
+  {
+T & T(n,-) \in T^*M = \Omega^1(M) & *T(n,-) \in \Omega^{m-1}(M) \\ 
+};
+  \path[->]
+  (m-1-1) edge node [above] {$(n,-)$} (m-1-2)
+  (m-1-2) edge node [auto]  {$*$} (m-1-3)
+  ;
+\end{tikzpicture}  
+
+So applying the Hodge operator, 
+\[
+pg_{ij} n^i dx^j \overset{*}{\mapsto} \frac{ \sqrt{g}}{(n-1)!} pg_{ij} n^i \epsilon^j_{ \,\, j_2 \dots j_n} dx^{j_2} \wedge \dots \wedge dx^{j_n} = pi_n \text{vol}^n
+\]
+
+$-\int * T(n,-)$
+
+The force on $V_0$ due to the Cauchy-stress tensor is 
+\[
+\int_{\partial V_0} *T(n,-)
+\]
+Taking, for the special case of the perfect fluid, $T = - pg$, then 
+\[
+- \int_{\partial V_0} pi_n\text{vol}^n = -\int_{V_0} d(pi_n\text{vol}^n) = - \int \text{div}(pn) \text{vol}^n = -\int \text{grad}p \text{vol}^n
+\]
+using Stoke's law.  
+
+EY : 20150720 come to think about it, we should probably treat $T$ as $T_{ij} dx^i \otimes dx^j$ and only do stuff on $dx^i$ to retain $\otimes dx^j$ to get a direction out, a 1-formed valued $m-1$ form, $\text{dim}M=m$
+
+This is probably the correct way to think about it:
+
+Given the Cauchy stress tensor $T = T^{ij} e_i \otimes e_j$, which is a $(2,0)$-rank tensor, $T$ is a section of the $TM\otimes TM$ bundle, i.e. $\Gamma(TM \otimes TM)$, so that $T \in \Gamma(TM \otimes TM)$.  
+
+We want to do this:
+
+\begin{tikzpicture}
+  \matrix (m) [matrix of math nodes, row sep=2.8em, column sep=4.8em, minimum width=4.5em]
+  {
+\Gamma(TM\otimes TM) & \Omega^1(M,TM)                                         & \Omega^{n-1}(M,TM) \\
+T= T^{ij}e_i \otimes e_j = T^{ij}e_j \otimes e_i & T^i_{ \,\,j} e^j \otimes e_i & T^i_{\,\,j} \frac{\sqrt{g}}{(n-1)!} \epsilon^j_{\,\,j_2\dots j_n}dx^{j_2}\wedge \dots \wedge dx^{j_n} \otimes e_i = T^i_{\,\,j}dS^j \otimes e_i   \\
+};
+  \path[->]
+  (m-1-1) edge node [above] {$(\sharp,-)$} (m-1-2)
+  (m-1-2) edge node [auto]  {$(*,-)$} (m-1-3);
+  \path[|->]
+  (m-2-1) edge node [above] {$(\sharp,-)$} (m-2-2)
+  (m-2-2) edge node [auto]  {$(*,-)$} (m-2-3);
+\end{tikzpicture}
+
+Thus, the force on $V_0$ due to the Cauchy-stress tensor is 
+\[
+\int_{\partial V_0} T^i_{\,\,j}dS^j\otimes e_i
+\]
+and so for the case of $T = -pg$, 
+\[
+-\int_{\partial V_0} p g^i_{\,\,j} dS^j \otimes e_i
+\]
+
+For the time rate of change of momentum, see my other pdf entitled ``Aspects of Geometry in Propulsion.''  There, we find the rate of change of momentum
+\[
+\int_{V_0} \rho \left( \frac{\partial u^i}{ \partial t} + u^j \frac{ \partial u^i}{ \partial x^j} \right) \text{vol}^n \otimes e_i
+\]
+
+Euler's equation is then
+\begin{equation}
+  \rho \left( \frac{\partial u^i}{ \partial t} + u^j \frac{ \partial u^i}{ \partial x^j} \right) = - \frac{ \partial \rho }{ \partial x^j}g^{ij} 
+\end{equation}
+
+
+
+\subsection*{The energy flux}
+
+\subsubsection*{Review of Thermodynamics}
+
+Let $\Sigma$ be the manifold of equilibrium (and non-equilibrium) states of the system.  
+
+\begin{proposition}[First Law: Energy Conservation]
+\begin{equation}
+dU = Q - dW = Q - pdV
+\end{equation}
+\end{proposition}
+with $U, p ,V \in C^{\infty}(\Sigma)$, and $dU, Q, dW , dV \in \Omega^1(\Sigma)$, and where $U$ is internal energy, $p$ is pressure, $V$ is the volume of the system.  
+
+\begin{proposition}[Second Law]
+\begin{equation}
+  Q = TdS
+\end{equation} where $Q, dS \in \Omega^1(\Sigma)$, and $S \in C^{\infty}(\Sigma)$ and
+with 
+\begin{equation}
+  dS \geq 0
+\end{equation} describing irreversibility.  
+\end{proposition}
+
+\begin{definition}[Enthalpy]
+  \begin{equation}
+    H = U + pV
+\end{equation}
+where $H$ is the \textbf{enthalpy}, $H \in C^{\infty}(\Sigma)$.  
+\end{definition}
+
+Now, for $M$ being the molar mass, and defining per unit mass quantities as we go,
+\[
+\begin{gathered}
+  dH = dU + Vdp + pdV = Q + Vdp = TdS + Vdp \\
+  \xrightarrow{ 1/M} \frac{dH}{M} = dh = T \frac{dS}{M} + \frac{V}{M} dp = Tds + \frac{dp}{\rho}
+\end{gathered}
+\]
+where $\rho = M/V$.  
+
+Now the total energy in a fluid occupying region $V_0$ is 
+\[
+\int_{V_0} \left( \frac{1}{2} \rho v^2 + \rho \epsilon \right)\text{vol}^n
+\]
+where $\int_{V_0} \frac{1}{2} \rho v^2 \text{vol}^n$ is the total kinetic energy of fluid and $\epsilon$ internal energy per unit mass.  
+
+The time rate of change of the energy is 
+\[
+\begin{gathered}
+  \frac{d}{dt} \int_{V_0} ( \frac{1}{2} \rho v^2 + \rho \epsilon )\text{vol}^n = \int_{V_0} \mathcal{L}_{ \frac{\partial}{\partial t} + v } (\frac{1}{2} \rho v^2 + \rho \epsilon )\text{vol}^n = \int_{V_0} \frac{\partial }{\partial t} (\frac{1}{2} \rho v^2 + \rho \epsilon ) \text{vol}^n + \mathcal{L}_v ((\frac{1}{2} \rho v^2 + \rho \epsilon ) \text{vol}^n ) = \\
+  = \int_{V_0} \frac{\partial }{\partial t} (\frac{1}{2} \rho v^2 + \rho \epsilon ) \text{vol}^n + di_v ((\frac{1}{2} \rho v^2 + \rho \epsilon ) \text{vol}^n ) 
+\end{gathered}
+\]
+
+\subsection*{So-called momentum flux}
+
+Sec. 1.7 of Landau and Lifshitz \cite{LLandauELifshitz1987}.  
+
+Let the total momentum of a fluid in volume $V_0 \subset N$, $V_0$ a submanifold of spatial manifold $N$, with $\text{dim}V_0 = \text{dim}N =n$ be $P$:
+\[
+P = \int_{V_0} \rho \text{vol}^n u^i \otimes e_i \in \mathfrak{X}(M)
+\]
+with 
+\[
+\rho \text{vol}^n u^i \otimes e_i \in \Omega^n(M;TM)
+\]
+Now 
+\[
+\dot{P} := \frac{d}{dt}P = \int_{V_0} \mathcal{L}_{\frac{ \partial}{\partial t} + u} (\rho \text{vol}^nu^i \otimes e_i)
+\]
+which can be shown (see Yeung (2015) ``Aspects of Geometry in Propulsion'') to be
+\[
+\dot{P} = \int_{V_0} \frac{ \partial (\rho u^i)}{ \partial t} \text{vol}^n \otimes e_i + \int_{\partial V^0} \rho u^i i_u \text{vol}^n \otimes e_i
+\]
+
+Now
+\[
+\rho u^i i_u \text{vol}^n = \rho u^i \frac{\sqrt{g}}{(n-1)!} \epsilon_{ki_2\dots i_n} u^k dx^{i_2} \wedge \dots \wedge dx^{i_n} = \rho u^i u^k \frac{\sqrt{g}}{ (n-1)!} \epsilon_{ki_2 \dots i_n} dx^{i_2} \wedge \dots \wedge dx^{i_n} = \rho u^i u^k dS_k
+\]
+
+So starting from equating the time rate of change of momentum $\dot{P}$ with the external forces on it, $\int_{\partial V_0} T^i_{\,\,j}dS^j \otimes e_i$, then, for the special case of the perfect fluid, $T = -pg$
+\[
+\begin{gathered}
+  \dot{P} = \int_{\partial V_0} T^i_{\,\,j}dS^j \\ 
+  \Longrightarrow \int_{V_0} \frac{ \partial \rho u^i}{ \partial t} \text{vol}^n \otimes e_i + \int_{\partial V^0} \rho u^i u^k dS_k \otimes e_i = - \int_{\partial V^0} p g^{ij} dS_j \otimes e_i
+\end{gathered}
+\]
+Now move the boundary term on the left hand side, $\int_{\partial V^0} \rho u^i u^j dS_j \otimes e_i$ over to the right hand side:
+\[
+\begin{gathered}
+\int_{V_0} \frac{ \partial \rho u^i}{ \partial t} \text{vol}^n \otimes e_i  = -  \int_{\partial V^0} \rho u^i u^k dS_k \otimes e_i - \int_{\partial V^0} p g^{ij} dS_j \otimes e_i = -\int_{\partial V_0} (\rho u^i u^j + p g^{ij}) dS_j \otimes e_i
+\end{gathered}
+\]
+Then the momentum flux tensor $\Pi \in \Gamma(TM\otimes TM)$, in this case, takes the form
+\[
+\Pi^{ij} = \rho u^i u^j + p g^{ij}
+\]
+
+\subsection*{Drag force in potential flow past a body}
+
+Sec. 1.11 of Landau and Lifshitz \cite{LLandauELifshitz1987}.  
+
+The dictionary: for $v = v^i \frac{\partial }{ \partial x^i} \in \mathfrak{X}(M)$, \\
+$v^{\flat} = v_i dx^i = g_{ij} v^j dx^i \in \Omega^1(M)$
+
+\[
+\begin{gathered}
+  *v^{\flat} = \frac{ \sqrt{g}}{(n-1)!} v_i \epsilon^i_{ \,\, j_2 \dots j_n} dx^{j_2} \wedge \dots \wedge dx^{j_n} \\ 
+  d*v^{\flat} = \frac{ \partial }{ \partial x^k} (\sqrt{g} v_i) \frac{ \epsilon^i_{ \,\, j_2 \dots j_n} }{(n-1)!} dx^k \wedge dx^{j_2} \wedge \dots \wedge dx^{j_n} = \text{div}(v) \text{vol}^n + \frac{ \partial \ln{ \sqrt{g}}}{ \partial x^i} v^i \text{vol}^n \\ 
+  dv^{\flat} = \frac{ \partial v_j}{ \partial x^j} dx^i \wedge dx^j \\ 
+  *dv^{\flat} = \frac{ \partial v_j}{ \partial x^i} \frac{ \sqrt{g}}{ (n-2)!} \epsilon^{ij}_{ \,\, k_3 \dots k_n} dx^{k_3} \wedge \dots \wedge dx^{k_n} 
+\end{gathered}
+\]
+if $\sqrt{g} =1$, $n=3$, 
+\[
+(*dv^{\flat})^{\sharp} = \text{curl}(v)
+\]
+
+If $dv^{\flat}=0$, then $v^{\flat} = d\phi$ (i.e. $v^{\flat} $ is an exact form).  
+
+
+\section{Viscous Fluids} Chapter 2 of Landau and Lifshitz \cite{LLandauELifshitz1987}
+
+Introduce a viscous stress tensor $\sigma' \in \Gamma(TM\otimes TM)$.  Then do the following transformations:
+
+\begin{tikzpicture}
+  \matrix (m) [matrix of math nodes, row sep=3.8em, column sep=4.8em, minimum width=2.2em]
+  {
+\sigma' & (\sigma')^i_{\,\,j} e^j \otimes e_i & (\sigma')^{ij} dS_j \otimes e_i    \\
+};
+  \path[->]
+  (m-1-1) edge node [above] {$(\sharp,-)$} (m-1-2)
+  (m-1-2) edge node [auto]  {$(*,-)$} (m-1-3)
+  ;
+\end{tikzpicture}
+
+So the external force on the fluid in region $V_0$ is 
+\[
+\int_{\partial V_0} (T^{ij} + (\sigma')^{ij}) dS_j \otimes e_i
+\]
+
+
+\begin{tikzpicture}
+  \matrix (m) [matrix of math nodes, row sep=3.8em, column sep=4.8em, minimum width=2.2em]
+  {
+\sigma & \tau \\
+F(\sigma) & F(\tau) \\
+};
+  \path[->]
+  (m-1-1) edge node [above] {$c$} (m-1-2)
+          edge node [auto]  {$F$} (m-2-1)
+  (m-1-2) edge node [auto]  {$F$} (m-2-2)
+  (m-2-1) edge node [above] {$F(c)$} (m-2-2)        
+  ;
+\end{tikzpicture} \quad \quad \quad \,  \begin{tikzpicture}
+  \matrix (m) [matrix of math nodes, row sep=3.8em, column sep=4.8em, minimum width=2.2em]
+  {
+\rho & \sigma & \tau \\
+F(\rho) & F(\sigma) & F(\tau) \\ 
+};
+  \path[->]
+  (m-1-1) edge node [above] {$c_1$} (m-1-2)
+  edge[bend left=45] node [above] {$c_2\circ c_1$} (m-1-3)
+  edge node [auto] {$F$} (m-2-1)
+  (m-1-2) edge node [above] {$g$} (m-1-3)
+  edge node [auto] {$F$} (m-2-2)
+  (m-1-3) edge node [auto] {$F$} (m-2-3)
+  (m-2-1) edge node [above] {$F(c_1)$} (m-2-2)
+  edge[bend right=45] node [below] {$F(c_2\circ c_1) = F(c_2) \circ F(c_1)$} (m-2-3)
+  (m-2-2) edge node [above] {$F(c_2)$} (m-2-3)  
+;
+\end{tikzpicture} 
+
+
+
+\section{Navier-Stokes Equations}
+
+I am following closely Chorin and Marsden, Sec. 1.3 ``The Navier-Stokes Equations'', Ch. 1 The Equations of Motion \cite{AChorinJMarsden2000}.
+
+``On the left hand side,''
+\[
+\begin{gathered}
+  \frac{d}{dt} \int_{B(t)} \rho u \text{vol}^n =: \frac{d}{dt} P := \frac{d}{dt} \int_{B(t)} m \otimes u = \int_{B(t)} ( \mathcal{L}_{ \frac{ \partial }{ \partial t} +u } m ) \otimes u + \int_{B(t)} m \otimes \mathcal{L}_{\frac{\partial}{\partial t} + u } u = \\
+  = 0 + \int_{B(t)} m \otimes \left( \frac{ \partial u}{ \partial t} + u^i \frac{ \partial u^j}{ \partial x^i} \frac{ \partial }{ \partial x^j} \right) = \int_{B(t)} m \otimes \left( \left(\frac{ \partial u^j}{ \partial t} + u^i \frac{ \partial u^j}{ \partial x^i} \right) \frac{ \partial }{ \partial x^j} \right)
+\end{gathered}
+\]
+assuming mass conservation $\mathcal{L}_{\frac{\partial }{\partial t} + u } m =0$.  
+
+``On the right hand side'' are the physical forces on the fluid.  Consider first only the forces on its surface $\partial B(t)$:
+\[
+\int T^{ij}dS_j \otimes \frac{\partial}{\partial x^i}
+\]
+with $T$ being the stress tensor.  For the case of a fluid, 
+\[
+T = -gp + \sigma \in \Gamma(\otimes^2TM)
+\]
+where $\sigma$ is usually called the \emph{viscous stress tensor}.  
+
+For deformation tensor $E$, $\sigma$ can appear in two forms for its constitutive relation with $E$ (this constitutive relation is assumed to be linear, $E$ and $\sigma$ are symmetric rank-2 tensors, due to angular momentum conservation, and fluid is assumed to be isotropic), 
+\[
+\begin{gathered}
+  \sigma = \lambda ( \text{tr}E)1 + 2 \mu E \\ 
+  \sigma = 2 \mu (E - \frac{1}{d}\text{tr}(E) 1) + \eta \text{tr}(E) 1 \in \Gamma(\otimes^2 TM)
+\end{gathered}
+\]
+with $\mu$ being the 1st. coefficient of viscosity \\
+\phantom{with }$\eta =  \lambda + \frac{2}{d} \mu$ being the 2nd. coefficient of viscosity.  
+
+Now if we took the exterior derivative $d$ of each of the following:
+\[
+\begin{gathered}
+  -g^{ij} p dS_j = -p g^{ij} \frac{\sqrt{g}}{(n-1)!} \epsilon_{ji_2 \dots i_n} dx^{i_2} \wedge \dots \wedge dx^{i_n} \xrightarrow{ d } -\frac{1}{\sqrt{g}}\frac{ \partial (p g^{ik} \sqrt{g})}{ \partial x^k} \text{vol}^n
+\end{gathered}
+\]
+Consider $E = \frac{1}{2} \left( g_{kj} \frac{ \partial u^k}{ \partial x^i} + g_{ik} \frac{ \partial u^k}{ \partial x^j} + \frac{ \partial g_{ij}}{ \partial x^k} u^k \right)dx^i \otimes dx^j \in \Gamma(\otimes^2 T^*M )$, then
+\[
+E^{\sharp} =  \frac{1}{2} \left( g_{kj} \frac{ \partial u^k}{ \partial x^i} + g_{ik} \frac{ \partial u^k}{ \partial x^j} + \frac{ \partial g_{ij}}{ \partial x^k} u^k \right) g^{il} \frac{ \partial }{ \partial x^l} \otimes g^{jm} \frac{ \partial }{ \partial x^m} = \frac{1}{2} \left( g^{il} \frac{ \partial u^m}{ \partial x^i} + g^{jm} \frac{ \partial u^l }{ \partial x^j} + g^{il} g^{jm} \frac{ \partial g_{ij} }{ \partial x^k} u^k \right) \frac{\partial}{ \partial x^l} \otimes \frac{\partial }{ \partial x^m}
+\]
+\[
+\begin{gathered}
+  \Longrightarrow \frac{ \partial (E^{\sharp})^{ij} }{ \partial x^j} = \\
+  = \frac{1}{2} \left( \frac{ \partial g^{ki} }{ \partial x^j} \frac{ \partial u^j}{ \partial x^k} + g^{ki} \frac{ \partial^2 u^j }{ \partial x^j \partial x^k } + \frac{ \partial g^{kj} }{ \partial x^j} \frac{ \partial u^i }{ \partial x^k} + g^{kj} \frac{ \partial^2 u^i }{ \partial x^j \partial x^k} + \frac{ \partial }{ \partial x^j } (g^{li} g^{mj} ) \frac{ \partial g_{lm}}{ \partial x^k} u^k + g^{li} g^{mj} \frac{ \partial^2 g_{lm}}{ \partial x^j \partial x^k} u^k + g^{li} g^{mj} \frac{\partial g_{lm}}{ \partial x^k} \frac{\partial u^k}{ \partial x^j} \right)
+\end{gathered}
+\]
+If $g^{ij} = \delta^{ij}$ (i.e. Cartesian coordinates)
+\[
+\begin{gathered}
+  (E^{\sharp})^{ij} = \frac{1}{2} \left( \frac{ \partial u^j}{ \partial x^i} + \frac{ \partial u^i }{ \partial x^j} \right) \\ 
+  \Longrightarrow \text{tr}(E^{\sharp}) = \frac{ \partial u^i}{ \partial x^i}
+\end{gathered}
+\]
+\[
+\begin{gathered}
+  \frac{ \partial (E^{\sharp})^{ij}}{ \partial x^j} = \frac{1}{2} \left( \frac{ \partial^2 u^j}{ \partial x^j \partial x^i} + \frac{ \partial^2 u^i }{ \partial x^j  \partial x^j } \right) := \frac{1}{2} \left( \frac{ \partial }{ \partial x^i} (\text{div}u) + \Delta u^i \right)
+\end{gathered}
+\]
+So then, if $\lambda$, $\mu$ don't depend on position, for 
+\[
+\begin{gathered}
+  \sigma^{ij} dS_j = \lambda (\text{tr}E) \delta^{ij} + 2\mu E^{ij} \xrightarrow{ d} \left( \frac{ \partial ( \lambda (\text{tr}E ) \delta^{ij }\sqrt{g} )}{ \partial x^j} + 2 \frac{ \partial ( \mu E^{ij} \sqrt{g}) }{ \partial x^j} \right)\text{vol}^n \frac{1}{\sqrt{g}}= \\
+  = \left( \lambda \frac{ \partial (\text{tr}E\sqrt{g})}{ \partial x^i } + 2\mu \frac{ \partial E^{ij}\sqrt{g}}{ \partial x^j } \right) \text{vol}^n \frac{1}{\sqrt{g}}
+\end{gathered}
+\]
+then with $g^{ij} = \delta^{ij}$,
+\[
+\begin{gathered}
+  d \sigma^{ij} dS_j = \left( \lambda \frac{ \partial }{ \partial x^i} \text{div}u + \mu \left( \frac{\partial }{ \partial x^i} (\text{div}u ) + \Delta u^i \right) \right)\text{vol}^n
+\end{gathered}
+\]
+
+Thus, we reproduce, in Cartesian coordinates, the \emph{Navier-Stokes equations} for \emph{compressible, viscous} fluid flow:
+\begin{equation}
+\boxed{
+  \rho \left( \frac{ \partial u^i}{ \partial t} + u^j \frac{ \partial u^i}{ \partial x^j} \right) = - \frac{ \partial p}{ \partial x^i} + (\lambda +  \mu ) \frac{ \partial}{\partial x^i} \text{div}u + \mu \Delta u^i
+}
+\end{equation}
+
+The case of \emph{incompressible homogeneous} flow is when $\rho = \rho_0$, a constant, and $\text{div}u=0$ (i.e. ``no volume expansion''), so that the Navier-Stokes equations for incompressible flow is 
+\[
+\rho_0 \left( \frac{ \partial u^i}{ \partial t} + u^j \frac{ \partial u^i}{ \partial x^j} \right) = -\frac{ \partial p }{ \partial x^i} + \mu \Delta u^i
+\]
+
+Set $L$ \emph{characteristic length} \\
+\phantom{Set }$U$ \emph{characteristic velocity}
+
+Then
+\[
+\begin{aligned}
+  & (u')^i = \frac{u^i}{U} \\ 
+  & (x')^j = \frac{x^j}{L} \\ 
+  & t' = \frac{t}{ L/U}
+\end{aligned} \quad \quad \quad \, \begin{aligned}
+  & \frac{ \partial u^i}{ \partial t} = \frac{U}{ L/U} \frac{ \partial (u^i)' }{ \partial t'} = \frac{U^2}{L} \frac{ \partial (u^i)' }{ \partial t' } \\ 
+  & \frac{ \partial u^i }{ \partial x^j} = \frac{U}{L} \frac{ \partial (u')^i }{ \partial (x')^j } \\
+  & \frac{ \partial u^i}{ \partial t} + u^j \frac{ \partial u^i}{ \partial x^j} = \frac{U^2}{L} \frac{ \partial (u^i)' }{ \partial t' } + U (u')^j \frac{U}{L} \frac{ \partial (u')^i }{ \partial (x')^j } = \frac{U^2}{L} \left( \frac{ \partial (u^i)' }{ \partial t' } + (u')^j \frac{ \partial (u')^i }{ \partial (x')^j } \right)
+\end{aligned}
+\]
+\[
+\begin{gathered}
+  \begin{aligned}
+    & \text{div}u = \frac{L}{U} \text{div}u' \\ 
+    & \Delta (u')^i = \frac{L^2}{U} \Delta u^i
+  \end{aligned} \quad \quad \quad \, \begin{aligned} 
+    & - \frac{ \partial p}{ \partial x^i} = \frac{-1}{L} \frac{ \partial p}{ \partial (x')^i } \xrightarrow{ \cdot \frac{L}{ \rho U^2} } -\frac{1}{ \rho U^2} \frac{ \partial p }{ \partial (x')^i } \\
+    & (\lambda + \mu) \frac{ \partial }{ \partial x^i} \text{div}u = (\lambda + \mu) \frac{U}{L^2} \frac{ \partial }{ \partial (x')^i } \text{div}u' \xrightarrow{ \frac{L}{ \rho U^2} } (\lambda + \mu ) \frac{1}{ \rho LU } \frac{ \partial }{ \partial (x')^i } \text{div}u' \\
+    & \mu \Delta u^i = \mu \frac{U}{ L^2} \Delta (u')^i \xrightarrow{ \frac{L}{ \rho U^2} } \frac{ \mu L}{ \rho U^2} \Delta u^i = \frac{ \mu }{ \rho LU} \Delta(u')^i
+\end{aligned}
+\end{gathered}
+\]
+Define $R:= \frac{ \rho LU }{ \mu }$, the \textbf{Reynolds number}.  $R$ is a dimensionless quantity.  $\frac{(\lambda + \mu )}{ \rho L U}$ is a dimensionless quantity.  
+
+Bhatia, Norgard, Pascucci, Bremer have an insightful survey on the so-called Helmholtz-Hodge decomposition and expands upon it and what's out there already in the literature \cite{HBhatiaGNorgardVPascucciPBremer2013}.  
+
+
+
+
+
+Let domain be the smooth submanifold $\mathcal{D} \subset N$, $N$ is the spatial manifold. $\text{dim}a = \text{dim}N=n$; spacetime manifold $M = \mathbb{R}\times N$.  \\
+\phantom{Let} $a =(a^i) \in \mathcal{D}$ is a particle label.  
+
+
+It'd be instructive to compare expressions between Chorin and Marsden \cite{AChorinJMarsden2000} and Landau and Lifshitz \cite{LLandauELifshitz1987}:
+\[
+\begin{gathered}
+  \begin{gathered}
+    \sigma = 2 \mu ( E - \frac{1}{d} \text{tr}(E)1 ) + \eta \text{tr}(E) 1 \in \Gamma(\otimes^2TM) \\ 
+    E = \frac{1}{2} ( g_{kj} \frac{ \partial u^k}{ \partial x^i} + g_{ik} \frac{ \partial u^k}{ \partial x^j} + \frac{ \partial g_{ij}}{ \partial x^k} u^k ) dx^i \otimes dx^j \in \Gamma(\otimes^2 T^*M) \\ 
+    E^{\sharp} = \frac{1}{2} \left( \frac{ \partial u^j}{ \partial x^i} + \frac{ \partial u^i}{ \partial x^j} \right) \frac{ \partial }{ \partial x^i} \otimes \frac{ \partial x^j} \in \Gamma(\otimes^2 TM) \\
+\text{tr}E^{\sharp} = \frac{ \partial u^i}{ \partial x^i}
+\end{gathered} \Longleftrightarrow \begin{gathered}
+    \sigma'_{ik} = \eta \left( \frac{ \partial v_i}{ \partial x_k} + \frac{ \partial v_k}{ \partial x_i} - \frac{2}{3} \delta_{ik} \frac{ \partial v_l}{ \partial x_l } \right) +\eta \delta_{ik} \frac{ \partial v_l}{ \partial x_l}
+\end{gathered} \\
+\begin{aligned}
+&  \mu  & \equiv \text{1st. coefficient of viscosity } \\ 
+&  \eta = \lambda + \frac{2}{d} \mu & \equiv \text{ 2nd. viscosity }
+\end{aligned} \Longleftrightarrow \begin{aligned}
+&  \eta & \equiv \text{ 1st. coefficient of viscosity }\\
+& \zeta & \equiv \text{ second viscosity } \end{aligned} 
+\end{gathered}
+\]
+\[
+\begin{gathered}
+\begin{gathered}
+  \rho \left( \frac{ \partial u^i}{ \partial t} + u^j \frac{ \partial u^i }{ \partial x^j} \right) = - \frac{ \partial p}{ \partial x^i } + (\lambda + \mu) \frac{ \partial }{ \partial x^i} \text{div}u + \mu \Delta u^i = \\
+  = - \frac{ \partial p}{ \partial x^i} + \mu \Delta u^i + \left( \eta + (1- \frac{2}{d} ) \mu \right) \frac{ \partial }{ \partial x^i} \text{div}u
+\end{gathered} \Longleftrightarrow \begin{gathered}
+\rho \left[ \frac{ \partial v}{ \partial t} + (v\cdot \text{grad})v \right] = -\text{grad}p + \eta \Delta v + \left(\zeta + \frac{ \eta}{3} \right)\text{grad}\text{div}v 
+\end{gathered}
+\end{gathered}
+\]
+
+\subsection{Material Derivative}
+
+Consider $u^j \frac{ \partial u^i}{ \partial x^j}$ or $(u\cdot \text{grad})u$.  Landau and Lifshitz on pp. 48, Sec. 15 has a useful table of the Equations of Motion in Curvilinear Coordinates \cite{LLandauELifshitz1987}.  Recall the metric $g$ for cylindrical and spherical coordinates, for $g\in \otimes^2 T^*M$ and $g^{-1} \in \otimes^2 TM$
+
+\[
+\begin{gathered}
+  g = dr^2 + r^2 d\phi^2 + dz^2 \\
+  g^{-1} = (\frac{\partial}{\partial r})^2 + \frac{1}{r^2} (\frac{ \partial }{ \partial \phi })^2 + ( \frac{ \partial }{ \partial z} )^2
+\end{gathered} \quad \quad \quad \, 
+\begin{gathered}
+  g = d\rho^2 + \rho^2 d\theta^2 + \rho^2 \sin{\theta} d\phi^2  \\
+  g^{-1} = (\frac{\partial}{\partial \rho})^2 + \frac{1}{\rho^2} (\frac{ \partial }{ \partial \theta })^2 + \frac{1}{ \rho^2 \sin{\theta}}( \frac{ \partial }{ \partial \phi} )^2
+\end{gathered}
+\]
+
+\section{Energy transport and Energy dissipation}
+
+Chorin and Marsden, pp. 10 \cite{AChorinJMarsden2000}.
+
+\begin{definition}
+  Fluid is \emph{incompressible} if $\frac{d}{dt} \int \text{vol}^n =0$
+\end{definition}
+
+Now 
+\[
+\begin{gathered}
+  \frac{d}{dt} \int \text{vol}^n = \int \mathcal{L}_{ \frac{ \partial }{ \partial t} + u } \text{vol}^n = \int \frac{ \partial }{ \partial t} \text{vol}^n + \mathcal{L}_u \text{vol}^n = \int 0 + di_u \text{vol}^n + i_u d\text{vol}^n = \int d \frac{\sqrt{g}}{ n } \epsilon_{i_1 i_2 \dots i_n} u^{i_1 } dx^{i_2} \wedge \dots \wedge dx^{i_n} + 0 = \\
+  = \int \frac{1}{\sqrt{g}} \frac{ \partial (\sqrt{g} u^k )}{ \partial x^k} \text{vol}^n 
+\end{gathered}
+\]
+If $\frac{d}{dt} \int \text{vol}^n =0$ i.e. fluid is incompressible, $\text{div}u := \frac{1}{\sqrt{g}} \frac{ \partial (\sqrt{g} u^k  )}{ \partial x^k } = 0 $  
+
+Let 
+\[
+E_{\text{KE}} := \frac{1}{2} \int_{B(t)} \rho |u|^2 \text{vol}^n
+\]
+Then
+\[
+\begin{gathered}
+  \frac{d}{dt} E_{\text{KE}} = \frac{d}{dt} \left[ \frac{1}{2} \int_{B(t)} \rho |u|^2 \text{vol}^n \right] = \frac{1}{2} \int_{B(t)} \mathcal{L}_{\frac{\partial}{\partial t} + u }( m|u|^2) = \frac{1}{2} \int_{B(t)} ( \mathcal{L}_{\frac{\partial }{ \partial t} + u } m ) |u|^2 + m \mathcal{L}_{\frac{ \partial }{ \partial t} + u } |u|^2  = \frac{1}{2} \int_{B(t)} 0 + m \mathcal{L}_{\frac{\partial}{\partial t} +u } |u|^2 
+\end{gathered}
+\]
+Now
+\[
+\frac{\partial}{\partial t} |u|^2  = u^i \frac{\partial}{\partial t} (g_{ij} u^j ) + u_i \frac{\partial u^i}{ \partial t} 
+\]
+If $g_{ij}$ is time-independent, 
+\[
+\frac{\partial }{ \partial t} |u|^2 = 2u_i \frac{\partial u^i}{\partial t}
+\]
+Also,
+\[
+\begin{gathered}
+  \mathcal{L}_u |u|^2  = u^k \frac{\partial }{ \partial x^k} (g_{ij} u^j u^i) = 2u^k u_i \frac{\partial u^i}{ \partial x^k} + u^k u^j u^i \frac{ \partial g_{ij} }{ \partial x^k} = 2u_i ( u^k \frac{ \partial u^i }{ \partial x^k} + \frac{1}{2}u^l \frac{ \partial g_{jk}}{ \partial x^l} u^j g^{ik} ) = \\
+  = 2u_i \left( u^k \frac{ \partial u^i}{ \partial x^k} + \Gamma^i_{jk} u^j u^k \right) = 2u \cdot \nabla_u u
+\end{gathered}
+\]
+and all (I claim; I worked it out) that was required was that $g$ be metric-compatible, i.e. $\nabla g=0$.  
+
+Thus,
+\[
+\frac{d}{dt} E_{\text{KE}} =  \int_{B(t)} m u_i \left(  \frac{ \partial u^i }{ \partial t} + \nabla_u u^i \right)
+\]
+
+Consider the ``right hand side'' (RHS), the work done on the fluid system by the stresses on the surface boundary, $T \in \Gamma( \otimes^2 T^*M)$, and body forces per mass, $b$.  I propose that this work takes this form:
+\begin{equation}
+  \int_{\partial B} u_i T^{ij} dS_j + \int_B m b^i u_i \equiv \int_{\partial B} T(u,dS) + \int_B m \langle u,b \rangle
+\end{equation}
+
+Now
+\[
+\begin{gathered}
+\int_{\partial B} u_i T^{ij} dS_j = \int_B \frac{1}{\sqrt{g}} \frac{ \partial ( u_i T^{ij} \sqrt{g})}{ \partial x^j} \text{vol}^n \equiv \int_B \text{div}(u_i T^{ij}) \text{vol}^n = \int_B \left( u_i \frac{ \partial T^{ij}}{ \partial x^j} + T^{ij} \frac{1}{\sqrt{g}} \frac{ \partial (u_i \sqrt{g})}{ \partial x^j} \right) \text{vol}^n \equiv \\
+\equiv \int_B \left( u_i \frac{ \partial T^{ij}}{ \partial x^j} + T^{ij} \text{div}u_i \right)\text{vol}^n
+\end{gathered}
+\]
+
+Suppose $T^{ij} = -p g^{ij}$.  Then
+\[
+\begin{gathered}
+  \int_B \text{div}(u_i T^{ij})\text{vol}^n \equiv \int_B \frac{-1}{\sqrt{g}} \frac{ \partial (u_i pg^{ij} \sqrt{g})}{ \partial x^j} \text{vol}^n = -\int_B \frac{1}{\sqrt{g}} \frac{ \partial (u^j p \sqrt{g})}{ \partial x^j} \text{vol}^n = -\int_B \left( u^j \frac{ \partial p}{ \partial x^j} + \frac{p}{ \sqrt{g}} \frac{ \partial (u^j \sqrt{g})}{ \partial x^j} \right) \text{vol}^n = \\
+  = -\int_B \left( u^j \frac{ \partial p }{ \partial x^j } + p\text{div}u \right) \text{vol}^n
+\end{gathered}
+\]
+For $T^{ij} = -pg^{ij}$, this result is the most general case.  If the fluid is incompressible, then $\text{div}u=0$, so the contribution to the work done on the fluid is $-\int_B u^j \frac{ \partial p }{ \partial x^j} \text{vol}^n$.  
+
+Thus, energy conservation, for an incompressible fluid is 
+\[
+ \rho u_i \left( \frac{ \partial u^i }{ \partial t} + \nabla_u u^i \right) = - u^j \frac{ \partial p}{ \partial x^j }+ \rho u_i b^i
+\]
+
+
+\part{Notes on Sabersky}
+
+
+
+\section{Shear: shear stress}
+
+cf. Chapter 1 Introduction
+
+In Appendix A Forms in Continuum Mechanics, Subsection A.g. Some Typical Computations Using Forms, Frankel (2004) \cite{TFrankel2004} defines the so-called \textbf{rate of deformation} tensor, which Frankel describes as measuring how the flow deforms the physical system in consideration.  
+
+Consider curve $\begin{aligned} & \quad \\ 
+  & \gamma : \mathbb{R} \to N \\
+  & \gamma(t) \in N \end{aligned}$ and generating velocity vector field $u = \dot{\gamma} \in \mathfrak{X}(N)$.  
+
+Now $\begin{aligned} & \quad \\
+  & \gamma(0)= x(0) \\
+  & \gamma(t) = x(t) \end{aligned}$ and so we recall the idea of $\psi_t$, a local 1-parameter group $(\psi_t)_{t\in I \subset \mathbb{R}}$ of local diffeomorphisms s.t. $\psi_t(x(0)) = x(t) \in N$.  
+
+Now recall the definition of the Lie derivative of a tensor (e.g. Def. 2.2.6 on pp. 58, Chapter 2 Lie Groups and Vector Bundles of Jost (2011) \cite{JJost2011}: 
+\[
+\mathcal{L}_ug := \frac{d}{dt} \left. (\psi_t^* g) \right|_{t=0} = \lim_{t\to 0 } \frac{ \psi_t^*g' - g}{t} = \lim_{t\to 0} \frac{ \left( g'_{ij} \frac{ \partial x^i}{ \partial a^k } \frac{ \partial x^k}{ \partial a^l } - g_{kl} \right) }{ t} da^k \otimes da^l
+\]
+If $\mathcal{L}_ug = 0$, then metric $g$ doesn't change along integral curves of $u$, so $u$ generates cont. 1-parameter family of symmetries $\psi_t$ for $g$.  \footnote{Fionn Fitzmaurice. ``Differential Geometry.''  \url{https://www.maths.tcd.ie/~fionn/dg/dg.pdf} }
+
+Otherwise, $\mathcal{L}_ug\neq 0$.  
+
+Then $u$ is \emph{not} a Killing vector.  $\psi_t$ are not symmetric diffeomorphisms (i.e. isometries).  
+
+Let's compute $\mathcal{L}_ug$.  
+
+Calin and Chang (2005) \cite{OCalinDChang2005} does a great job in calculating out \emph{explicitly} with \emph{explicit} calculation steps in all their proofs of theorems, lemmas, claims.  For instance, in Chapter 5 Conservation Theorems, Section 5.3 The Energy-momentum tensor, Subsection 5.3.4 Divergence of the energy-momentum tensor, pp. 83, Lemma 5.33 of Calin and Chang (2005) \cite{OCalinDChang2005}, it gives the explicit calculation of $\mathcal{L}_ug$, exactly what we need:
+\[
+\begin{gathered}
+  \mathcal{L}_ug = ( \mathcal{L}_u g_{ij} dx^i ) \otimes dx^j + g_{ij} dx^i \otimes \mathcal{L}_u dx^j = (i_u d(g_{ij} dx^i ) + d(g_{ij}u^i )) \otimes dx^j + g_{ij}dx^i \otimes du^j = \\ 
+   = (i_u \left( \frac{ \partial g_{ij}}{ \partial x^k} dx^k \wedge dx^i \right) + \frac{ \partial (g_{ij}u^i )}{ \partial x^k} dx^k ) \otimes dx^j + g_{ij} dx^i \otimes \frac{ \partial u^j}{ \partial x^k} dx^k  = \\
+  = \left( u^k \frac{ \partial g_{ij}}{ \partial x^k} dx^i - u^i \frac{ \partial g_{ij} }{ \partial x^k} dx^k + u^i \frac{ \partial g_{ij}}{ \partial x^k } dx^k + g_{ij} \frac{ \partial u^i }{ \partial x^k} dx^k \right) dx^j + g_{ij} \frac{ \partial u^j }{ \partial x^k} dx^i \otimes dx^k = \left( u^k \frac{ \partial g_{ij}}{ \partial x^k} + g_{kj} \frac{ \partial u^k}{ \partial x^i } + g_{ik} \frac{ \partial u^k}{ \partial x^j} \right) dx^i \otimes dx^j
+\end{gathered}
+\]
+This calculation is completely equivalent to using, besides the product rule on symmetric tensors, the $\mathbb{K}$-linearity property of $\mathcal{L}$,
+\begin{equation}\label{Eq:Liederivativeofthemetric}
+\begin{gathered}
+  \mathcal{L}_u g = (\mathcal{L}_u g_{ij}) dx^i \otimes dx^j + g_{ij} (( \mathcal{L}_u dx^i \otimes dx^j ) + dx^i \otimes \mathcal{L}_u dx^j ) = (u^k \frac{ \partial g_{ij}}{ \partial x^k} + g_{kj} \frac{ \partial u^k}{ \partial x^i} + g_{ik} \frac{ \partial u^k }{ \partial x^j} ) dx^i \otimes dx^j
+\end{gathered}
+\end{equation}
+Now, by theorem, for any smooth manifold, $\exists \, !$ Levi-Civita connection that's torsion-free (which can always be constructed to be torsion-free) and metric-compatible (which has to be defined, but otherwise, we've got not enough structure).  Then on any coordinate chart, since by requiring metric compatibility, then $\nabla g = 0$, so
+\[
+\begin{gathered}
+  \nabla g= 0 \Longrightarrow \\ 
+  \frac{ \partial g_{ij}}{ \partial x^k} - g_{lj} \Gamma^l_{ \; \; ik } - g_{il } \Gamma^l_{ \; \; jk} = \frac{ \partial g_{ij} }{ \partial x^k} - g_{lj} \Gamma^l_{ \; \; ki} - g_{il } \Gamma^l_{ \; \; kj} = 0 
+\end{gathered}
+\]
+using torsion free $\nabla$ (so $\Gamma^l_{ \; \; ki} = \Gamma^l_{ \; \; ik}$ i.e. index symmetry) property.    
+
+Then from our expression for $\mathcal{L}_ug$, Eq. \ref{Eq:Liederivativeofthemetric}, 
+\[
+\begin{gathered}
+  u^k \frac{ \partial g_{ij}}{ \partial x^k} + g_{kj} \frac{ \partial u^k}{ \partial x^i} + g_{ik} \frac{ \partial u^k }{ \partial x^j}   = u^k \frac{ \partial g_{ij}}{ \partial x^k} + g_{kj} ((\nabla_iu)^k - \Gamma^k_{ \; \; ji} u^j ) + g_{ik} ((\nabla_j u)^k - \Gamma^k_{ \; \; ij} u^i ) = \\
+  = \underbrace{ u^k \frac{ \partial g_{ij} }{ \partial x^k} - g_{kj} \Gamma^k_{ \; \; ji} u^j - g_{ik} \Gamma^k_{ \; \; ij} u^i }_{ = \nabla_u g = \nabla g(u) = 0 } + g_{kj} (\nabla_i u)^k + g_{ik} (\nabla_j u)^k 
+\end{gathered}
+\]
+
+Thus,
+\begin{equation}\label{Eq:Liederivativeofmetricresult}
+  \boxed{ \mathcal{L}_u g = (g_{kj} (\nabla_i u)^k + g_{ik} (\nabla_j u)^k ) dx^i \otimes dx^j }
+\end{equation}
+for the Levi-Civita connection on any metric manifold $(N,g)$.  
+
+Note that wikipedia calls this the ``strain rate'' tensor in its ``Viscous stress tensor'' article.  
+
+The viscous stress tensor, $\epsilon_{ij}$ or $\epsilon = \epsilon_{ij} dx^i \otimes dx^j \in \Gamma( \otimes^2 T^*M)$, then is related, for the case of Newtonian fluids, to $\mathcal{L}_ug$ in the following manner:
+\[
+\epsilon_{ij} = \mu_{ij}^{ \; \; kl} (\frac{1}{2} \mathcal{L}_ug)_{kl} \text{ or } \epsilon = (\mu_{ij}(\frac{1}{2} \mathcal{L}_ug) ) dx^i \otimes dx^j = \mu(\frac{1}{2} \mathcal{L}_u g)
+\]
+where $\otimes^2 T^*M \xrightarrow{ \mu } \otimes^2 T^*M$.  
+
+Examples, i.e. specific cases.  
+
+Suppose $u$ is all in $\frac{ \partial }{ \partial x}$ direction (1 direction).  
+\[
+u = u^x \frac{ \partial }{ \partial x} \equiv u \frac{ \partial }{ \partial x}
+\]
+\[
+\begin{gathered}
+  g_{kj} (\nabla_i u)^k = g_{kj} \left( \frac{ \partial u^k}{ \partial x^i} + \Gamma^k_{ \; \; ji} u^j \right) = g_{xj} \left( \frac{ \partial u}{ \partial x^i} \right) + g_{kj} \Gamma^k_{ \; \; xi } u \\
+  \mathcal{L}_u g = (g_{kj} (\nabla_i u)^k + g_{ik} (\nabla_j u)^k ) dx^i \otimes dx^j = (g_{xj} \left( \frac{ \partial u}{ \partial x^i} \right) + g_{kj} \Gamma^k_{ \; \; xi} u + g_{xi} \left( \frac{ \partial u }{ \partial x^j} \right) + g-{ki} \Gamma^k_{ \; \; xj} u ) dx^i \otimes dx^j = \\
+  = 2 \left( g_{xj} \left( \frac{ \partial u}{ \partial x^i} \right)+ g_{ki} \Gamma^k_{ \; \; xj} u \right) dx^i \otimes dx^j
+\end{gathered}
+\]
+if $u=u(y)$, $\Gamma^k_{ \; \; xj} = 0$, $g=1$
+\[
+\begin{gathered}
+  \mathcal{L}_u g = 2 \left( \frac{ \partial u }{ \partial y} \right) dy \otimes dx \\ 
+  \mu\left( \frac{1}{2} \mathcal{L}_u g \right) \left( \frac{ \partial }{ \partial y} \right) = \mu \frac{ \partial u}{ \partial y } dx \overset{\sharp}{\mapsto } \mu \frac{ \partial u}{ \partial y} = \tau_x = \tau
+\end{gathered}
+\]
+
+
+
+
+
+\section{Compressible Fluids-One-Dimensional Flow}
+
+\subsection{thermodynamic Preliminaries}
+
+\subsection{The Energy Equation}
+
+Since 
+\[
+h_0 = h_1 + \frac{u_1^2}{2}
+\]
+then
+\[
+\frac{C_p}{MN} \tau_0 = \frac{C_p \tau_1}{MN} + \frac{u_1^2}{2} = \frac{C_p \tau_2}{MN} + \frac{u_2^2}{2} \text{ or } \tau_0 = \tau + \frac{u^2}{ 2 \frac{C_p}{MN} }
+\]
+Now the speed of sound at a particular point along the flow, $1$, is 
+\[
+a_1 = \sqrt{ \gamma RT_1 } = \sqrt{ \gamma \frac{\tau_1}{M} }
+\]
+and so 
+\[
+\Longrightarrow \tau_0 = \tau + \frac{ \mathfrak{M}^2 \gamma \tau }{ 2 \frac{C_p}{M}} = \tau \left( 1 + \frac{ \mathfrak{M}^2 (\gamma-1) }{2} \right)
+\]
+If $\mathfrak{M}=1$, when $\tau_1=\tau^*$, 
+\[
+\tau_0 = \tau^* \left( 1 + \frac{\gamma -1}{2} \right) = \tau^* \left( \frac{\gamma + 1 }{2} \right)
+\text{ or } \tau^* = \frac{ 2\tau_0 }{ \gamma + 1 } 
+\]
+
+\begin{equation}\label{Eq:criticalvelocity}
+a^* = \sqrt{ \gamma R T^*} = \sqrt{ \frac{\gamma \tau^* }{M} } = \sqrt{ \frac{2\gamma \tau_0 }{ M(\gamma + 1 ) } } = \left( \frac{2\gamma R T_0 }{\gamma + 1 } \right)^{1/2} \Longrightarrow u^* \equiv a^*  = \left( \frac{2\gamma RT_0 }{ \gamma + 1 } \right)^{1/2} = \sqrt{ \frac{2\gamma \tau_0}{M(\gamma +1) } }
+\end{equation}
+
+If $u > u^*$, 
+\[
+\begin{gathered}
+  \mathfrak{M} := \frac{u}{a} = \frac{u}{ \sqrt{ \frac{ \gamma \tau }{ M } } } > \sqrt{ \frac{ 2\tau_0}{ \tau (\gamma + 1 ) } } = \sqrt{ \frac{2}{\gamma +1 } (1 + \frac{ \mathfrak{M}^2(\gamma - 1) }{2}  ) } \\ 
+  \Longrightarrow \mathfrak{M}^2 > \frac{2}{\gamma +1 } + \mathfrak{M}^2 \frac{ (\gamma - 1) }{ \gamma + 1 } \text{ or } \mathfrak{M}^2 \left( \frac{2}{\gamma + 1} \right) > \frac{2}{\gamma +1 } \\
+  \Longrightarrow \mathfrak{M} > 1
+\end{gathered}
+\]
+So if $u > u^*$, then $\mathfrak{M}>1$.  Likewise, \\
+\phantom{So } if $u < u^*$, then $\mathfrak{M}<1$
+
+Thus, the name $u^*\equiv a^*$ \emph{critical velocity}
+
+\subsection{Normal Shock Waves}
+
+Use moving reference frame in which shock is stationary, and resulting steady.
+
+
+
+
+Continuity:
+\[
+\rho_1 v_1 A = \rho_2 v_2 A \Longrightarrow \rho_1 v_1 = \rho_2 v_2 
+\]
+
+momentum equation: using
+\[
+\Pi^{ij} = \rho u^i u^j + p g^{ij}
+\]
+then
+\[
+\rho_1 v_1^2 + p_1 = \rho_2 v_2^2 + p_2 
+\]
+
+energy equation:
+\[
+h_0 = h_1 + \frac{v_1^2}{2} = h_2 + \frac{v_2^2}{2} \text{ or } \frac{C_p \tau_1}{MN} + \frac{v_1^2}{2} = \frac{C_p\tau_2}{MN} + \frac{v_2^2}{2} \Longrightarrow \frac{C_p R T_1}{N} + \frac{v_1^2}{2} = \frac{C_pR}{N} T_0
+\]
+
+Also, note that I end up using this heat capacity \emph{ for the ideal gas } relation all the time in (rocket) propulsion:
+\[
+C_p = \gamma C_v = \frac{\gamma N}{\gamma -1}  \text{ since } C_p = C_v + N \text{ or } \gamma = 1 + N/C_V
+\]
+
+With mass continuity, momentum conservation, and the energy equation (Bernoulli invariant), then, using Python's sympy to do the algebra, detailed in file \verb|fluid.py|
+\begin{lstlisting}
+# mass conservation
+massconsEq = Eq(rho_1*u_1,rho_2*u_2)
+
+# momentum flux conservation
+momconsEq  = Eq(rho_1*u_1**2+p_1,rho_2*u_2**2+p_2)
+
+# energy equation or Bernoulli invariant
+Bernoulli_invariant_1to2_Eq = Eq( C_p*R*T_1/N + u_1**2/2, C_p*R*T_2/N + u_2**2/2)
+
+# stagnation enthalpy relation
+stagh1Eq = Eq( C_p*R*T_0/N , C_p*R*T_1/N + u_1**2/2)
+stagh2Eq = Eq( C_p*R*T_0/N , C_p*R*T_2/N + u_2**2/2)
+
+# ideal gas law
+ideal_gas1Eq = Eq(p_1,rho_1*R*T_1)
+ideal_gas2Eq = Eq(p_2,rho_2*R*T_2)
+
+# This reproduces Eq. (9.26) of Sabersky, Acosta, Hauptmann, Gates pp. 357, Sec. 9.6., Normal Shock Waves !!!
+(momconsEq.subs(p_1,ideal_gas1Eq.rhs).subs(p_2,ideal_gas2Eq.rhs).subs(rho_2,solve(massconsEq,rho_2)[0])/rho_1).simplify()
+# R*T_1 - R*T_2*u_1/u_2 + u_1**2 - u_1*u_2
+
+# This reproduces Eq. (9.27) of Sabersky, Acosta, Hauptmann, Gates pp. 357, Sec. 9.6., Normal Shock
+ Waves, where stagnation temperature relation was substituted into momentum and continuity equation
+PrandtlEq1d = momconsEq.subs(p_1,ideal_gas1Eq.rhs).subs(p_2,ideal_gas2Eq.rhs).
+subs(rho_2,solve(massconsEq,rho_2)[0]).subs(T_1,solve(stagh1Eq,T_1)[0]).subs(T_2,solve(stagh2Eq,T_2)[0])
+
+PrandtlEq1d = PrandtlEq1d.subs(C_p, gamma*N/(gamma-1) )
+
+solve(PrandtlEq1d,u_1**2)[0]
+# (2*R*T_0*gamma*u_1 - 2*R*T_0*gamma*u_2 + gamma*u_1*u_2**2 + u_1*u_2**2)/(u_2*(gamma + 1))
+# Thus, writing this out on paper, we get the desired result, Prandtl's equation (9.28) on pp. 357 of 
+# Sabersky, Acosta, Hauptmann, Gates
+\end{lstlisting}
+and thus
+\[
+u_1u_2 = \frac{2RT_0\gamma}{\gamma +1} = (a^*)^2
+\]
+for, the critical velocity was derived from only the energy equation (or Bernoulli invariant) and Mach \emph{definition}, and was shown, explicitly, that if the velocity $u$ at a point is greater than this critical velocity $u^*\equiv a^*$, then the flow is supersonic (cf. Eq. \ref{Eq:criticalvelocity}):
+\[
+u^* \equiv a^*  = \left( \frac{2\gamma RT_0 }{ \gamma + 1 } \right)^{1/2} = \sqrt{ \frac{2\gamma \tau_0}{M(\gamma +1) } }
+\]
+So if $u_1 > a^*$, then $u_2 < a^*$, and so approaching flow is supersonic and downstream flow is subsonic.   \\
+Second law of thermodynamics forbids the other way.
+
+Note that 
+\[
+\begin{gathered}
+  u_1 u_2 = \frac{2RT_0 \gamma }{ \gamma +1} \text{ or } \mathfrak{M}_1\mathfrak{M}_2 = \frac{2}{\gamma +1} \frac{T_0 }{\sqrt{ T_1 T_2 }}
+\end{gathered}
+\]
+
+(9.16) from Sabersky,
+\begin{equation}
+  \boxed{ \mathfrak{M}_2^2 = \frac{ \mathfrak{M}_1^2 (\gamma -1) + 2 }{ 2\gamma \mathfrak{M}_1^2 - \gamma + 1 } }
+\end{equation}
+
+Although preceding results obtained for constant-area duct, they're valid in gradually varying duct \\
+\phantom{Although} shock region very thin; order of a few molecular mean free path lengths; area change across the shock is then usually negligible for practical purposes
+
+Preceding, viscosity effects near wall ignored; since velocity must still be $0$ at wall, supersonic flow must revert to subsonic in near-wall region.\cite{SAHG1998}
+
+
+
+Now recall that for $U=U(\tau,V)$ (in general, $U=U(\tau)$ for perfect ideal gas), 
+\[
+\tau d\sigma = dU + pdV = \left( \frac{ \partial U}{ \partial \tau} \right)_V d\tau + \left( \frac{ \partial U}{ \partial V} \right)_{\tau} dV + pdV = C_V d\tau + \left( \left( \frac{ \partial U}{ \partial V} \right)_{\tau} + p \right) dV
+\]
+If $U=U(\tau)$, 
+\[
+\begin{gathered}
+  \tau d\sigma = C_V d\tau + p dV \text{ or } d\sigma = \frac{C_V}{\tau} d\tau + \frac{p}{\tau} dV = \frac{C_V}{\tau} d\tau + \frac{N}{V} dV  \\
+  \Longrightarrow \int_{\gamma} d\sigma = \sigma_2 - \sigma_1 = C_V \ln{ \left( \frac{\tau_2}{\tau_1} \right) } + N \ln{\frac{ V_2}{V_1}} = C_V \ln{ \left( \frac{\tau_2}{\tau_1} \right) } + N\ln{ \left( \frac{\rho_1}{\rho_2} \right) }
+\end{gathered}
+\]
+
+
+From momentum conservation, and ideal gas law and Mach definition,
+\[
+\begin{gathered}
+  \rho_1 u_1^2 + p_1 = \rho_2 u_2^2 + p_2 \text{ or } p_1 - p_2 = \rho_2u_2^2 - \rho_1u_1^2 = \frac{p_2}{RT_2} u_2^2 - \frac{p_1}{RT_1} u_1^2 = \gamma \left( p_2 \mathfrak{M}_2^2 - p_1\mathfrak{M}_1^2 \right) \text{ or } \frac{p_1}{p_2} = \frac{1+\gamma \mathfrak{M}_2^2}{ 1 + \gamma \mathfrak{M}_1^2 }
+\end{gathered}
+\]
+For real shocks, $\mathfrak{M}_1 > \mathfrak{M}_2$, so $p_1 < p_2$
+
+Now
+\[
+\begin{gathered}
+  \frac{\rho_1}{\rho_2} = \frac{p_1T_2}{p_2T_1} \\ 
+  \frac{T_1}{T_2} = \frac{ 1 + \frac{\gamma-1}{2} \mathfrak{M}_2^2 }{ 1 + \frac{\gamma-1}{2} \mathfrak{M}_1^2 } \\
+  \frac{\rho_1}{\rho_2} = \frac{(1+\gamma \mathfrak{M}_2^2 )}{ (1 + \gamma \mathfrak{M}_1^2 ) } \frac{ (1 + \frac{\gamma -1}{2} \mathfrak{M}_2^2 ) }{ (1 + \frac{\gamma-1}{2} \mathfrak{M}_1^2)}
+\end{gathered}
+\]
+
+
+Shock waves are highly irreversible, since very large velocity and temperature gradients occur through shock itself; hence frictional, or dissipative effects must be present.\cite{SAHG1998}
+
+
+\[
+\sigma_2 - \sigma_1 = \frac{N}{\gamma -1} \ln{ \left[ \frac{1 + \frac{\gamma -1}{2} \mathfrak{M}_1^2 }{ 1 + \frac{\gamma-1}{2} \mathfrak{M}_2^2 } \right] } + N \ln{ \left[ \frac{1 + \gamma \mathfrak{M}_2^2 }{ 1 + \gamma \mathfrak{M}_1^2 } \frac{ ( 1 + \frac{\gamma -1}{2} \mathfrak{M}_2^2 ) }{ (1 + \frac{\gamma-1}{2} \mathfrak{M}_1^2) } \right] }
+\]
+From Sabersky (9.29),(9.16),(9.31) \cite{SAHG1998}
+\[
+\Longrightarrow s_2 - s_1 = \frac{R\gamma}{\gamma -1} \ln{ \left[ \frac{2}{(\gamma +1) \mathfrak{M}_1^2} + \frac{\gamma -1}{\gamma +1} \right] } + \frac{R}{\gamma -1} \ln{ \left[ \frac{2\gamma \mathfrak{M}_1^2 }{ \gamma +1 } - \frac{\gamma -1}{\gamma +1 } \right] }
+\]
+
+
+
+\part{Fluid Mechanics (revisited)}
+
+\section{Conservation}
+
+\begin{equation}
+  \frac{ \partial \rho }{ \partial t } + \nabla \cdot \mathbf{j} = 0 
+\end{equation}
+
+\[
+\begin{gathered}
+  \frac{d}{dt} m \equiv \dot{m} = \frac{d}{dt} \int \rho \text{vol}^n = \int \left( \frac{ \partial \rho}{ \partial t} + \mathcal{L}_u \rho \right)\text{vol}^n = \int \left( \frac{ \partial \rho }{ \partial t} + (\mathbf{d}i_u + i_u \mathbf{d})\rho \right)\text{vol}^n = \int \frac{ \partial \rho }{ \partial t} + \mathbf{d}i_u \rho \text{vol}^n 
+\end{gathered}
+\]
+Now
+\[
+\begin{gathered}
+  \text{vol}^n = \frac{ \sqrt{g}}{n!} \epsilon_{i_1 \dots i_n} dx^{i_1} \wedge \dots \wedge dx^{i_n} \\ 
+  i_{\mathbf{u}} \text{vol}^n = \frac{ \sqrt{g}}{(n-1)!} \epsilon_{i_1 \dots i_n} u^{i_1} dx^{i_2} \wedge \dots \wedge dx^{i_n} \\
+  \xrightarrow{ \mathbf{d}} \frac{ \epsilon_{i_1 \dots i_n}}{ (n-1)!} \frac{ \partial (\sqrt{g} u^{i_1} \rho ) }{ \partial x^j} dx^j \wedge dx^{i_2} \wedge \dots \wedge dx^{i_n} = \frac{1}{\sqrt{g}} \frac{ \partial ( \sqrt{g} u^j \rho ) }{ \partial x^j} \text{vol}^n 
+\end{gathered}
+\]
+
+\[
+\Longrightarrow \frac{ \partial \rho }{ \partial t} + \text{div} j = 0 \text{ or } \frac{ \partial \rho}{ \partial t} + \frac{1}{\sqrt{g}} \frac{ \partial ( \sqrt{g} u^j \rho ) }{ \partial x^j} = 0 
+\]
+
+As a sanity check, consider a change of coordinates from cylindrical to Cartesian coordinates.  
+
+Consider $g=  g_{ij} dx^i \otimes dx^j \in T^*M \otimes T^*M \equiv \otimes^2 T^*M$.  
+
+For smooth (embedding or diffeomorphism) $F : N\to M$, \\
+in our particular case, $F(r,\phi,z) = (x,y,z) = \left( \begin{matrix} r\cos{\phi } \\ r\sin{\phi} \\ z \end{matrix} \right)$
+
+Now the pullback is $F^*g \in \otimes^2T^*N$
+\[
+\begin{gathered}
+  F^* g(X,Y) = g(F_*X, F_*Y) = g\left( \frac{ \partial y^j}{ \partial x^i }X^i \frac{ \partial }{ \partial y^j}, \frac{ \partial y^k}{ \partial x^l} Y^l \frac{ \partial }{ \partial y^k} \right) = \frac{ \partial y^j}{ \partial x^i} \frac{ \partial y^k}{\partial x^l} X^i Y^l g\left( \frac{ \partial }{ \partial y^j}, \frac{ \partial }{ \partial y^k } \right) = \frac{ \partial y^j}{ \partial x^i} \frac{ \partial y^k}{ \partial x^l} X^i Y^l g_{jk} \\
+\Longrightarrow  (F^*g)_{ij} = \frac{ \partial y^l}{ \partial x^i} \frac{ \partial y^m}{ \partial x^j} g_{lm}
+\end{gathered}
+\]
+If $g_{jk} = \delta_{jk}$ (usual Euclidean metric),
+\[
+(F^*g)_{ij} = \frac{ \partial y^k}{ \partial x^i } \frac{ \partial y^k}{ \partial x^j} = \left( \frac{ \partial y^i}{ \partial x^k}\right)^T \frac{ \partial y^k}{ \partial x^j} = (D_xy)^T D_xy
+\]
+$(F^*g)$ is simply the $\text{Jacobian}^T\cdot \text{Jacobian}$.  
+
+For cylindrical coordinates,
+\[
+\begin{gathered}
+  D_xy = \left[ \begin{matrix} c{\phi } & - rs{\phi} & \\ 
+      s{\phi} & rc{\phi} & \\
+      & & 1 \end{matrix} \right] \\ 
+  \Longrightarrow F^*g = \left[ \begin{matrix} c{\phi } & s{\phi} & \\ 
+      -rs{\phi} & rc{\phi} & \\
+      & & 1 \end{matrix} \right] \left[ \begin{matrix} c{\phi } & - rs{\phi} & \\ 
+      s{\phi} & rc{\phi} & \\
+      & & 1 \end{matrix} \right]  = \left[ \begin{matrix} 1 & & \\ & r^2 & \\ & & 1 \end{matrix} \right]
+\end{gathered}
+\]
+\[
+\sqrt{ \text{det}(F^*g) } = \sqrt{r^2} =r 
+\]
+So
+\[
+\text{div}j = \frac{1}{r} \frac{ \partial (ru^r\rho ) }{ \partial r } +\frac{1}{r} \frac{ \partial (ru^{\varphi } \rho ) }{ \partial \varphi } + \frac{1}{r} \frac{ \partial (ru^z \rho ) }{ \partial z} = \frac{1}{r} \frac{ (\partial ru^r \rho  )}{ \partial r } + \frac{ \partial (u^{\varphi} \rho ) }{ \partial \varphi } + \frac{ \partial (u^z \rho ) }{ \partial z}
+\]
+
+
+
+\end{multicols*}
+
+
+
+\begin{thebibliography}{9}
+
+\bibitem{LLandauELifshitz1987}
+L. D. Landau, E.M. Lifshitz, \textbf{Fluid Mechanics}, Second Edition: Volume 6 (Course of Theoretical Physics S) Butterworth-Heinemann, 1987, ISBN-13: 978-0750627672
+
+\bibitem{SAHG1998}
+Rolf H. Sabersky, Allen J. Acosta, Edward G. Hauptmann, E.M. Gates.  \textbf{Fluid Flow: A First Course in Fluid Mechanics} (4th Edition).  Prentice Hall. (August 22, 1998).  ISBN-13: 978-0135763728
+
+\bibitem{TFrankel2004}
+T. Frankel,
+\textbf{The Geometry of Physics}, 
+Cambridge University Press, 
+Second Edition,
+2004.
+
+\bibitem{JJost2011}
+J\"{u}rgen Jost. \textbf{Riemannian Geometry and Geometric Analysis (Universitext)}. 6th ed. 2011 Edition.  Springer; 6th ed. 2011 edition (August 9, 2011).  ISBN-13: 978-3642212970
+
+
+\bibitem{OCalinDChang2005}
+Ovidiu Calin, Der-Chen Chang. \textbf{Geometric Mechanics on Riemannian Manifolds: Applications to Partial Differential Equations} (Applied and Numerical Harmonic Analysis).  Birkh\"{a}user. 2005. ISBN-13: 978-0817643546
+
+
+
+
+
+
+
+\bibitem{AChorinJMarsden2000}
+Alexandre J. Chorin, Jerrold E. Marsden. \textbf{A Mathematical Introduction to Fluid Mechanics} (Texts in Applied Mathematics), Springer; 3rd edition, 2000. ISBN-13: 978-0387979182
+
+
+\bibitem{HBhatiaGNorgardVPascucciPBremer2013}
+Harsh Bhatia, Gregory Norgard, Valerio Pascucci, Peer-Timo Bremer. ``The Helmholtz-Hodge Decomposition—A Survey,'' IEEE Transactions on Visualization and Computer Graphics, Vol. 19,  2013
+
+
+\bibitem{JLee2012}
+John Lee, \textbf{Introduction to Smooth Manifolds} (Graduate Texts in Mathematics, Vol. 218), 2nd edition, Springer,  2012, ISBN-13: 978-1441999818
+
+
+\bibitem{DHolmTSchmahCStoica2009}
+Darryl D. Holm, Tanya Schmah, Cristina Stoica, \textbf{Geometric Mechanics and Symmetry: From Finite to Infinite Dimensions} (Oxford Texts in Applied and Engineering Mathematics) 2009,  ISBN-13: 978-0199212903  ISBN-10: 0199212902  
+
+\bibitem{TKambe2009}
+Tsutomu Kambe, \textbf{Geometrical Theory of Dynamical Systems and Fluid Flows}, Advanced Series in Nonlinear Dynamics: Volume 23, 2009, \url{http://www.worldscientific.com/worldscibooks/10.1142/7418} ISBN: 978-981-4282-24-6 (hardcover)
+
+
+
+\end{thebibliography}
+
+\end{document}

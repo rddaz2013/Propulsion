@@ -74,6 +74,9 @@
 \theoremstyle{remark}
 \newtheorem*{notation}{Notation}
 
+\theoremstyle{remark}
+\newtheorem{remark}{Remark}
+
 %\numberwithin{equation}{section}
 
 %This defines a new command \questionhead which takes one argument and
@@ -136,6 +139,135 @@ Everything about Fluid Mechanics
 
 
 \begin{multicols*}{2}
+
+\part{div, grad, curl}
+
+\section{gradient}
+
+Jost (2011) \cite{JJost2011}, in Chapter 3 The Laplace Operator and Harmonic Differential Forms, Section 3.1 The Laplace Operator on Functions, Eqns. (3.1.16)-(3.1.17) on pp. 92, has a definition for gradient on a Riemannian manifold $(M,g)$, along with Calin and Chang (2005) \cite{OCalinDChang2005}, in Chapter 2 Laplace Operators on Riemannian Manifolds, Section 2.1 Gradient vector field; Divergence and Laplacian, Definition 2.1 on pp. 18:
+\begin{definition}
+  Let $(M,g)$ Riemannian manifold, $f\in C^{\infty}(M)$.  
+\begin{equation}
+  \begin{aligned}
+    &    \text{grad}:C^{\infty}(M) \to \mathfrak{X}(M) \text{ s.t. } \\  
+    &  g( \text{grad}f,X) = df(X) \quad \, \forall \, f \in C^{\infty}(M), \, \forall \, X \in \mathfrak{X}(M)
+\end{aligned}
+\end{equation}
+Then locally,
+\begin{equation}
+g_{ij} (\text{grad}f)^i X^j = \frac{ \partial f}{ \partial x^j} X^j \Longrightarrow (\text{grad}f)^i = g^{ij} \frac{ \partial f}{ \partial x^j}
+\end{equation}
+
+\end{definition}
+
+\section{divergence}
+
+Jost (2011) \cite{JJost2011}, in Chapter 3 The Laplace Operator and Harmonic Differential Forms, Section 3.1 The Laplace Operator on Functions, Eq. (3.1.20) on pp. 92, has a definition for divergence on a Riemannian manifold $(M,g)$:
+\begin{definition}[divergence]
+  $\forall \, $ Riemannian manifold $(M,g)$, 
+\begin{equation}
+  \begin{aligned}
+    & \text{div}: \mathfrak{X}(M) \to C^{\infty}(M) \\ 
+    & \text{div}Z = \frac{1}{\sqrt{g}} \frac{ \partial }{ \partial x^j} (\sqrt{g} Z^j ) = *d*Z^{\flat}
+\end{aligned}
+\end{equation}
+\end{definition}
+Indeed, since, locally,
+\[
+\begin{gathered}
+  Z^i \frac{ \partial }{ \partial x^i} \overset{\flat}{\mapsto } g_{ij} Z^j dx^i \overset{*}{\mapsto } \frac{ \sqrt{g}}{ (d-1)!} g^{ij} \epsilon_{jj_2 \dots j_d} Z_i dx^{j_2} \wedge \dots \wedge dx^{j_d} \overset{d}{\mapsto } \frac{1}{\sqrt{g}} \frac{ \partial ( \sqrt{g} Z^j ) }{ \partial x^j} \text{vol}^d \overset{*}{\mapsto } \frac{1}{\sqrt{g}} \frac{ \partial (\sqrt{g} Z^j)}{ \partial x^j}
+\end{gathered}
+\]
+
+Calin and Chang (2005) \cite{OCalinDChang2005}, in Chapter 2 Laplace Operators on Riemannian Manifolds, Section 2.1 Gradient vector field; Divergence and Laplacian, Definition 2.5 on pp. 18, had a definition for divergence, but in terms of an orthonormal frame for the local coordinates, to make their definition of divergence work: here, I'll consider the local \emph{coordinate} frame:
+\begin{definition}[divergence]
+\begin{equation}
+  \text{div}X := dx^j (\nabla_j X )
+\end{equation}
+and so 
+\[
+  \text{div}X := dx^j(\nabla_j X ) = dx^j \left( \left( \frac{ \partial X^k}{ \partial x^j} + \Gamma^k_{ \; \; ij} X^i \right) \frac{ \partial }{ \partial x^k}  \right) = \left( \frac{ \partial X^j}{ \partial x^j} + \Gamma^j_{ \; \; ij} X^i \right) 
+\]
+\end{definition}
+%\sum_j g\left( \left( \frac{ \partial X^k}{ \partial x^j} + \Gamma^k_{ \; \; ij} X^i \right) \frac{ \partial }{ \partial x^k}, \frac{ \partial }{ \partial x^j} \right) = \sum_j g_{kj} \left( \frac{ \partial X^k}{ \partial x^j} + \Gamma^k_{ \; \; ij} X^i \right)
+
+This is Lemma 2.6 of Calin and Chang (2005) \cite{OCalinDChang2005}, in Chapter 2 Laplace Operators on Riemannian Manifolds, Section 2.1 Gradient vector field; Divergence and Laplacian on pp. 19, but proven using the local coordinate frame, since I can easily use the unique existence of a Levi-Civita connection, on any Riemannian manifold.    
+\begin{lemma}
+  locally,
+\begin{equation}
+  \text{div}X = \sum_j g(\nabla_j X, \frac{ \partial }{ \partial x^j} ) = \frac{1}{\sqrt{g}} \frac{ \partial }{ \partial x^j} (\sqrt{g} X^j )
+\end{equation}
+\end{lemma}
+
+\begin{proof}
+  By theorem, in full generality, $\forall \, $ Riemannian manifold $(M,g)$, $\exists \, !$ Levi-Civita connection locally expressed as 
+\[
+\Gamma^c_{ \; \; ba } = \frac{1}{2} g^{cm} \left( \frac{ \partial g_{bm}}{ \partial x^a } + \frac{ \partial g_{ma}}{ \partial x^b} - \frac{ \partial g_{ab}}{ \partial x^m} \right)
+\]
+following the convention by Dr. Schuller \footnote{Frederic Schuller, The WE-Heraeus International Winter School on Gravity and Light, ``Lecture 10: Metric Manifolds (International Winter School on Gravity and Light 2015)'', \url{https://youtu.be/ONCZNwKswn4}}
+
+Rewriting the indices:
+\[
+\Gamma^k_{ \; \; ij } = \frac{1}{2} g^{kl} \left( \frac{ \partial g_{il}}{ \partial x^j } + \frac{ \partial g_{lj}}{ \partial x^i} - \frac{ \partial g_{ij}}{ \partial x^l} \right)
+\]
+Then
+%\[
+%\begin{gathered}
+%g_{kj}\Gamma^k_{ \; \; ij }X^i = g_{kj} \frac{1}{2} g^{kl} \left( \frac{ \partial g_{il}}{ \partial x^j } + \frac{ \partial g_{lj}}{ \partial x^i} - \frac{ \partial g_{ij}}{ \partial x^l} \right) X^i = g_{kj} \frac{1}{2} g^{kl} \left( \frac{ \partial g_{il}}{ \partial x^j } + \frac{ \partial g_{lj}}{ \partial x^i} - \frac{ \partial g_{ij}}{ \partial x^l} \right) X^i = \frac{1}{2} \delta^l_j \left( \frac{ \partial g_{il}}{ \partial x^j } + \frac{ \partial g_{lj}}{ \partial x^i} - \frac{ \partial g_{ij}}{ \partial x^l} \right) X^i = \frac{1}{2} \frac{ \partial g_{jj}}{ \partial x^i} X^i 
+%\end{gathered}
+%\]
+
+\[
+\begin{gathered}
+\Gamma^j_{ \; \; ij }X^i =  \frac{1}{2} g^{jl} \left( \frac{ \partial g_{il}}{ \partial x^j } + \frac{ \partial g_{lj}}{ \partial x^i} - \frac{ \partial g_{ij}}{ \partial x^l} \right) X^i =  \frac{1}{2} g^{jl} \left( \frac{ \partial g_{lj}}{ \partial x^i }X^i + \frac{1}{2} g^{jl}\frac{ \partial g_{il}}{ \partial x^j}X^i - \frac{1}{2}g^{jl} \frac{ \partial g_{ij}}{ \partial x^l} \right) X^i = \frac{1}{2} g^{jl} \frac{ \partial g_{lj} }{ \partial x^i} X^i
+\end{gathered}
+\]
+
+
+Let $g\equiv \text{det}g = g(g_{11}, g_{12} \dots g_{ij} \dots g_{nn})$ i.e. $g\in C^{\infty}(\mathbb{R}^{n^2})$.  Now by product rule (1-dimensional calculus)
+\[
+\frac{ \partial g}{ \partial x^k} = \frac{ \partial g}{ \partial g_{ij} } \frac{ \partial g_{ij}}{ \partial x^k}
+\]
+$\frac{ \partial g}{ \partial g_{ij}}$ is the minor of $g_{ij}$ (recall your undergraduate linear algebra of computing determinants explicitly).  
+
+Then
+\[
+g^{ij} = \frac{1}{g} \frac{ \partial g}{ \partial g_{ij}}
+\]
+where $g^{ij}$ is the inverse matrix of $g_{ij}$ (again, recall your undergraduate linear algebra for matrices).  
+
+Then
+\[
+\frac{ \partial g}{ \partial x^k} = gg^{ij} \frac{ \partial g_{ij}}{ \partial x^k}
+\]
+and so 
+\[
+\Gamma^j_{ \; \; ij} X^i = \frac{1}{2} \frac{1}{g} \frac{ \partial g}{ \partial x^i} X^i
+\]
+
+Now 
+\[
+\frac{1}{\sqrt{g}} \frac{ \partial }{ \partial x^k} (\sqrt{g} X^k)  = \frac{ \partial X^k}{ \partial x^k} + \frac{1}{\sqrt{g}} \frac{1}{2} \frac{1}{\sqrt{g}} \frac{ \partial g}{ \partial x^k} X^k = \frac{ \partial X^k}{ \partial x^k} + \frac{1}{2g} \frac{ \partial g}{ \partial x^k} X^k = \frac{ \partial X^k}{ \partial x^k} + \Gamma^j_{ \; \; kj } X^k
+\]
+and since
+\[
+dx^j( \nabla_jX) = dx^j \left( \left( \frac{ \partial X^k}{ \partial x^j} + \Gamma^k_{ \; \; ij} X^i \right) \frac{ \partial }{ \partial x^k} \right) = \frac{ \partial X^j}{ \partial x^j} + \Gamma^j_{ \; \; ij} X^i 
+\]
+then
+\[
+dx^j(\nabla_jX) = \frac{1}{\sqrt{g}} \frac{ \partial }{ \partial x^k} (\sqrt{g} X^k)
+\]
+
+\end{proof}
+
+\begin{remark}
+It's remarkable that these definitions for the divergence $\text{div}$ are equivalent:
+\begin{equation}
+  \boxed{ 
+    \text{div}X = dx^j\left( \nabla_j X \right) = \frac{ \partial X^j}{ \partial x^j} + \Gamma^j_{ \; \; ij} X^i = \frac{1}{\sqrt{g}} \frac{ \partial }{ \partial x^k} (\sqrt{g} X^k) = (*d*)X^{\flat}
+    }
+\end{equation}
+\end{remark}
 
 \part{On Landau and Lifshitz's \textbf{Fluid Mechanics}}\cite{LLandauELifshitz1987}
 

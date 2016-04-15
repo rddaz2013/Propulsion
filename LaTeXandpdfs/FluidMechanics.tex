@@ -269,6 +269,35 @@ It's remarkable that these definitions for the divergence $\text{div}$ are equiv
 \end{equation}
 \end{remark}
 
+\section{curl}
+
+I seek a global and invariant definition or description of $\emph{curl}$ on a Riemannian manifold $(M,g)$.  
+
+Consider a metric connection $D$ on vector bundle $E\to M$, with bundle metric $\langle \cdot , \cdot \rangle$, s.t., by definition of a metric connection, $d\langle s,t\rangle = \langle Ds,t \rangle + \langle s,Dt\rangle \quad \, \forall \, s,t \in \Gamma(E)$.  Then $D=d+A$, and $A$ either is skew-symmetric or anti-Hermitian, for a field $\mathbb{K} = \mathbb{R}$ or $\mathbb{C}$, respectively (cf. Jost (2011) \cite{JJost2011}).  
+
+  
+
+\begin{lemma}
+\end{lemma}
+
+\begin{proof}
+The definition of a metric connection directly leads to this relation:
+\[
+V\langle X,U \rangle = \langle D_VX,U\rangle + \langle X,D_VU \rangle
+\]
+Reversing $U,V$:
+\[
+U\langle X,V \rangle = \langle D_UX,V\rangle + \langle X,D_UV \rangle
+\]
+Then 
+\[
+V\langle X,U \rangle - U\langle X,V \rangle = \langle D_VX,U\rangle - \langle D_UX,V\rangle  + \langle X,D_VU \rangle - \langle X,D_UV \rangle
+\]
+
+
+\end{proof}
+
+
 \part{On Landau and Lifshitz's \textbf{Fluid Mechanics}}\cite{LLandauELifshitz1987}
 
 \section{Ideal Fluids} Chapter 1 of Landau and Lifshitz (1987) \cite{LLandauELifshitz1987}.  
@@ -1106,6 +1135,11 @@ if $u=u(y)$, $\Gamma^k_{ \; \; xj} = 0$, $g=1$
 
 
 
+From Sec. 3.6.2., the geodesic equation of a time-dependent problem is given by Kambe's Eqn. (3.67), 
+\[
+\partial_tX - \text{ad}^*_XX = 0 
+\]
+(cf. Kambe (2009) \cite{TKambe2009})
 
 
 \section{Compressible Fluids-One-Dimensional Flow}

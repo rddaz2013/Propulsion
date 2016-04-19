@@ -1142,6 +1142,389 @@ From Sec. 3.6.2., the geodesic equation of a time-dependent problem is given by 
 (cf. Kambe (2009) \cite{TKambe2009})
 
 
+\section{Momentum Theorems: Momentum flux}
+
+\begin{itemize}
+  \item Momentum theorems
+  \item Newton's Second law, Newton's Force law
+  \item Momentum flux
+\end{itemize}
+
+I'm following Chapter 4: Momentum Theorems of Sabersky, Acosta, Hauptmann, and Gates (1998)\cite{SAHG1998}.  
+
+Let's imagine, in control volume $B=B(t)$ (which is, in general, dependent on time $t$), that we sum up all the momentum contributions at each point in $B(t)$, and then taking the total time derivative $\frac{d}{dt}$ of this sum $\Pi$ (which becomes an integral in this ``continuum''):
+\begin{equation}\label{Eq:F=ma}
+\begin{gathered}
+  F = \dot{\Pi} \equiv \frac{d}{dt} \Pi = \frac{d}{dt} \int_{B(t)} \rho u \text{vol}^n \equiv \frac{d}{dt} ( \mathcal{L}_{\frac{ \partial }{ \partial t} + \mathbf{u} } m ) \mathbf{u} + m \mathcal{L}_{ \frac{ \partial }{ \partial t} + \mathbf{u} } \mathbf{u} = \\
+  = 0 + \int_{B(t)} m \left( \frac{ \partial u}{ \partial t} + \mathcal{L}_{\mathbf{u}} \mathbf{u}  \right) = \int_{B(t)} m \left( \frac{ \partial u }{ \partial t} + u^k \frac{ \partial u}{ \partial x^k} \right)
+\end{gathered}
+\end{equation}
+where in the second line, I used mass conservation, in that $\frac{d}{dt} \int m = \int_{B(t)} \left( \mathcal{L}_{ \frac{ \partial }{ \partial t} + \mathbf{u} } m \right) = 0$.  Also, note in the second line that $\mathcal{L}_{\mathbf{u}} \mathbf{u} = u^k \frac{ \partial \mathbf{u}}{ \partial x^k}$ for \emph{time-dependent} velocity vector field $\mathbf{u} = \mathbf{u}(t,x) \in \mathfrak{X}(\mathbb{R} \times N)$ by theorem, which I will recap here (because I (proudly) derived it on my own and haven't found it explicitly shown in any texts that I know of):  
+
+\begin{theorem}
+\begin{equation}
+\mathcal{L}_{\widetilde{V}}W = \mathcal{L}_{ \frac{ \partial }{ \partial t} +V}W = \left( \mathcal{L}_{ \frac{ \partial}{ \partial t} V } W \right)_{(t,p)} = \left( \left( \frac{ \partial }{ \partial t} + V \right) W^j \right) \left. \frac{ \partial }{ \partial x^j} \right|_{(t,p)}
+\end{equation}
+for $\widetilde{V} = \frac{ \partial }{ \partial t} + \frac{ \partial }{ \partial u^1} \in \mathfrak{X}(\mathbb{R} \times M)$  and $W \in \mathfrak{X}(\mathbb{R} \times M)$
+\end{theorem}
+
+\begin{proof}
+Let's define the Lie derivative:
+\begin{equation}
+\begin{gathered}
+  \mathcal{L}_{\widetilde{V}}W = (\mathcal{L}_{\widetilde{V}}W)_{(t,p)} = \left. \frac{d}{ds} \right|_{s=0}(d\widetilde{\theta}_{-s})_{\widetilde{\theta}_s(t,p)}(W_{\widetilde{\theta}_s(t,p)})   = \lim_{s\to 0} \frac{ (d\widetilde{\theta}_{-s})_{\widetilde{\theta}_s(t,p)}( W_{\widetilde{\theta}_s(t,p)}) - W_{\widetilde{\theta}_s(t,p)} }{s}
+\end{gathered}
+\end{equation}
+
+
+Use Case 1 of the proof of Lee's Theorem 9.38 \cite{JLee2012}, for showing $\mathcal{L}_VW = [V,W]$.  \\
+Let open neighborhood $U \subseteq J \times M$, with $(t,p) \in U$.  On open $U$, choose smooth coordinates $(t,u^i)$ on $U$.  By Theorem 9.22 of Lee \cite{JLee2012}, that at a regular point $p\in M$, $\exists \, (u^i)$ coordinates s.t. $V_p = \frac{ \partial }{ \partial u^1}$, then consider 
+
+\[
+\widetilde{V} = \frac{ \partial }{ \partial t} + \frac{ \partial }{ \partial u^1} \in \mathfrak{X}(\mathbb{R} \times M)
+\]
+with $V(t)(p) = \frac{ \partial }{ \partial u^1} \in \mathfrak{X}(M)$.  (Remember, $V(t)$ is a vector-field that is time-dependent, but is on $M$.  I will use this as a justification for using Thm. 9.22).  
+
+Now the flow $\widetilde{\theta}_s$ takes on these forms:
+\[
+\begin{gathered}
+  \widetilde{\theta}^{(t,p)}(s) = \widetilde{\theta}(s,(t,p)) = \widetilde{\theta}_s(t,p) = \\
+  = (\alpha(s,(t,p)) , \beta(s,(t,p))) = (s+t, \beta(s,(t,p)) )
+\end{gathered}
+\]
+Given these conditions, that \\
+$\beta(0,(t,p)) = p = (u^1,u^2, \dots u^n)$ and 
+\[
+\left. \frac{ \partial \beta}{ \partial s}(s, (t,p)) \right|_{s=0} = V(t,p) = \frac{ \partial }{ \partial u^1} = \left. \frac{d}{ds} \beta^{(t,p)}(s) \right|_{s=0}
+\]
+then a $\beta$ that satisfies these conditions above is 
+\[
+\beta(s,(t,p)) = \beta_s(t,p) = (u^1 + s, u^2 \dots u^n)
+\]
+so that we can conclude that 
+\[
+\widetilde{\theta}_s(t,p) = (t+s, u^1 + s, u^2 , \dots , u^n)
+\]
+
+For fixed $s$, then
+\[
+d(\widetilde{\theta}_{-s})_{\widetilde{\theta}_s(t,p)} =1_{T_{\widetilde{\theta}_s(t,p)}(\mathbb{R}\times M)}
+\]
+so that 
+\[
+\begin{gathered}
+  d(\widetilde{\theta}_{-s})_{\widetilde{\theta}_s(t,p)}(W_{\widetilde{\theta}_s(t,p)}) = d(\widetilde{\theta}_{-s})_{\widetilde{\theta}_s(t,p)} \cdot W^j(t+s,u^1 +s, u^2 \dots u^n) \left. \frac{ \partial }{ \partial u^j} \right|_{\widetilde{\theta}_s(t,p)} = W^j(t+s,u^1+s, u^2 \dots u^n) \left. \frac{ \partial }{ \partial u^j} \right|_{(t,p)} \\
+\Longrightarrow \left. \frac{d}{ds} \right|_{s=0} W^j(t+s,u^1+s, u^2 \dots u^n) \left. \frac{ \partial }{ \partial u^j} \right|_{(t,p)} = \left( \frac{\partial }{ \partial t} W^j(t,u^1 \dots u^n) + \frac{ \partial }{ \partial u^1 } W^j(t,u^1 \dots u^n) \right) \left. \frac{ \partial}{ \partial u^j} \right|_{(t,p)}
+\end{gathered}
+\]
+
+
+Thus, we can conclude that 
+\begin{equation}
+  \boxed{ \mathcal{L}_{\widetilde{V}}W = \mathcal{L}_{ \frac{ \partial }{ \partial t} +V}W = \left( \mathcal{L}_{ \frac{ \partial}{ \partial t} V } W \right)_{(t,p)} = \left( \left( \frac{ \partial }{ \partial t} + V \right) W^j \right) \left. \frac{ \partial }{ \partial x^j} \right|_{(t,p)} }
+\end{equation}
+ 
+
+\end{proof}
+
+In, Eq. \ref{Eq:F=ma}, I had used the fact that the Lie derivative should act like a derivative, similar to the product rule in calculus, on symmetric tensors, even on tensor products of different bundles: if one doubts the veracity of this, then explicitly, I calculate the following:
+\[
+\begin{gathered}
+  \frac{ \partial }{ \partial t}(\rho u) \text{vol}^d + \mathcal{L}_u (\rho u\text{vol}^d) = \frac{ \partial \rho }{ \partial t} u \text{vol}^d + \rho \frac{ \partial u }{ \partial t} \text{vol}^d + d(\rho u i_u\text{vol}^d) + 0 = \frac{ \partial \rho }{ \partial t} u \text{vol}^d + \rho \frac{ \partial u}{ \partial t} \text{vol}^d + \text{div}(\rho u^j u) \text{vol}^d \otimes \frac{ \partial }{ \partial x^j} = \\
+  = \frac{ \partial \rho }{ \partial t} u \text{vol}^d + \rho \frac{ \partial u }{ \partial t} \text{vol}^d + \text{div}(\rho u) \text{vol}^d \otimes u + \rho u^k \frac{ \partial u}{ \partial x^k} \text{vol}^d = \dot{m} \otimes u + m \left( \frac{ \partial u }{ \partial t} + u^k \frac{ \partial u }{ \partial x^k } \right)
+\end{gathered}
+\]
+where $\dot{m} = \mathcal{L}_{\frac{ \partial }{ \partial t} + \mathbf{u}} m$ and $m := \rho \text{vol}^d$.  
+
+
+Therefore, if there are no mass source terms inside $B(t)$, i.e. $\dot{m} =0 $ or $\frac{ \partial \rho}{ \partial t} + \text{div}(\rho u) = 0$, 
+\begin{equation}\label{Eq:F=mafromLiederivative}
+  \boxed{
+    F = \int_B \dot{m} \otimes u + m \left( \frac{ \partial u}{ \partial t} + u^k \frac{ \partial u}{ \partial x^k} \right) = \int_B m \left( \frac{ \partial u}{ \partial t} + u^k \frac{ \partial u}{ \partial x^k} \right) 
+} \text{ for } \dot{m}=0
+\end{equation}
+
+
+
+The \emph{exterior covariant derivative}, $D$, was defined in Frankel (2004) \cite{TFrankel2004}, Morita (2001) \cite{SMorita2001} (and of course can be searched for on wikipedia).  Recalling the definition of $D$:
+\begin{equation}\label{Def:exteriorcovariantderivative}
+\begin{aligned}
+  &  D:\Omega^p(M;E)\to \Omega^{p+1}(M;E) \\ 
+  &  D(\theta \otimes s) = d\theta \otimes s + (-1)^p \theta \wedge \nabla s
+\end{aligned}
+\end{equation}
+where $\begin{aligned} & \quad \\
+  & \theta \in \Omega^p(M) \\
+  & s \in \Gamma(E) \end{aligned}$ and where $E \to M$ is a vector bundle.  
+
+The situation we want to consider is where $M = \mathbb{R}\times N$, where $E=TN$, the tangent bundle, but on smooth manifold $N$, which represents only space.  For $\text{dim}N = d$, i.e. the dimension of $N$ is $d$, then we're considering
+\[
+D: \Omega^{d-1}(\mathbb{R} \times N ; TN) \to \Omega^d(\mathbb{R}\times N;TN)
+\]  
+with 
+\[
+u^k dS_k \otimes \rho \mathbf{u} = i_{\mathbf{u}} \text{vol}^d \otimes \rho \mathbf{u} \in \Omega^{d-1}(\mathbb{R} \times N; TN) = \Omega^{d-1}(\mathbb{R} \times N) \otimes TN
+\]
+Some clarification should deservedly be made here. We want our velocity vector field $\mathbf{u}$ to be \emph{time-dependent} and so if we can assume a (``natural'') foliation on the spacetime manifold $M$ into $\mathbb{R} \times N$, so that time $t\in \mathbb{R}$ in $\mathbb{R} \times N$, then $\mathbf{u}$ depend locally on coordinate values in $\mathbb{R}\times N$, i.e. $\mathbf{u} = \mathbf{u}(t,x^1,x^2, \dots x^d) \equiv \mathbf{u}(t,x)$.  
+
+But, $\mathbf{u} \in TN$, i.e. $\mathbf{u}$ lives in $TN$, solely, because, since we have our particular foliation, there's no $\frac{ \partial }{ \partial t}$ ``time-vector'' component or ``part'' to $\mathbf{u}$, i.e. $\mathbf{u} = u^1 \frac{ \partial }{ \partial x^1} + u^2 \frac{ \partial }{ \partial x^2} + \dots + u^d \frac{ \partial }{ \partial x^d} = u^1(t,x) \frac{ \partial }{ \partial x^1} + u^2(t,x) \frac{ \partial }{ \partial x^2} + \dots + u^d(t,x) \frac{ \partial }{ \partial x^d}$.  There's no ``time part'' or ``time component'' i.e. $u^t$ for $u^t \frac{ \partial }{ \partial t}$.  So $\mathbf{u}$ ``lives soley on'' tangent bundle $TN$.    
+
+Using the formula from the definition of the exterior covariant derivative $D$, Eq. \ref{Def:exteriorcovariantderivative}, 
+\[
+D(\theta \otimes s) = d\theta \otimes s + (-1)^p \theta \wedge \nabla s
+\]
+let us carefully calculate $D(i_{\mathbf{u}} \text{vol}^d \otimes \rho \mathbf{u})$ piece by piece.  Thus
+\[
+\begin{gathered}
+  di_{\mathbf{u}} \text{vol}^d = d(u^k dS_k) = \text{div}\mathbf{u} \text{vol}^d
+\end{gathered}
+\]
+\[
+\begin{gathered}
+  \mathbf{\nabla} (\rho \mathbf{u}) = \rho \nabla u + (\nabla \rho) u = \rho (du + Au) + (d\rho)\otimes u \\
+  \Longrightarrow u^k dS_k \wedge \nabla (\rho u) = u^k dS_k \wedge (\rho (du+Au) + (d\rho)\otimes u
+\end{gathered}
+\]
+Now
+\[
+\begin{gathered}
+\epsilon_{kj_2 \dots j_d} dx^{j_2} \wedge \dots \wedge dx^{j_d} \wedge dx^l = \epsilon_{kj_2 \dots j_d} \epsilon^{j_2 \dots j_d l }_{ 12 \dots d} dx^1 \wedge \dots \wedge dx^d = (d-1)! \delta_k^l dx^1 \wedge \dots \wedge dx^d \text{ and } \\
+du = \frac{ \partial u^m }{ \partial x^l} dx^l \otimes \frac{ \partial }{ \partial x^m}
+\end{gathered}
+\]
+and so 
+\begin{equation}\label{Eq:extcovderofmomentumfluxexplicit}
+\begin{aligned}
+  & u^k dS_k \wedge du = u^k \frac{ \partial u}{ \partial x^k} \text{vol}^n \\ 
+  & u^k dS_k \wedge Au = u^l A^k_{ \; \; lj} u^j \text{vol}^d \otimes \frac{ \partial }{ \partial x^k} = \Gamma^k_{ \; \; ij } u^i u^j \text{vol}^d \otimes \frac{ \partial }{ \partial x^k} \\ 
+  & u^k dS_k \wedge d\rho = u^k \frac{ \partial \rho }{ \partial x^k} \text{vol}^n 
+\end{aligned}
+\end{equation}
+Taking a look at the last term and $\text{div}\mathbf{u}$ above, we can combine the 2 in such a matter:
+\[
+di_{\mathbf{u}} \text{vol}^d \otimes \rho \mathbf{u} + u^k \frac{ \partial \rho }{ \partial x^k} \text{vol}^d \otimes \mathbf{u} = \text{div}(\rho \mathbf{u}) \otimes \mathbf{u} \text{vol}^d
+\]
+For the other 2 terms left, of Eq. \ref{Eq:extcovderofmomentumfluxexplicit}, notice that 
+\[
+u^k dS_k \wedge ( \rho (du + Au)) = \rho (u^k \frac{ \partial u}{ \partial x^k} + \Gamma^k_{ \; \; ij} u^i u^j \frac{ \partial }{ \partial x^k}) \text{vol}^d = \rho ( \nabla_{\mathbf{u}} \mathbf{u}) \otimes \text{vol}^d
+\]
+so that we have something, $\nabla_{\mathbf{u}} \mathbf{u}$ that looks like part of a \emph{geodesic} equation.  
+
+Thus, for $d$ odd (e.g. $d=3$), 
+\begin{equation}\label{Eq:extcovder_boundarymomentumflux}
+  \boxed{
+    \begin{aligned}
+      & D : \Omega^{d-1}(\mathbb{R} \times N, TN) \to \Omega^d(\mathbb{R}\times N,TN) \\ 
+      & D(i_{\mathbf{u}} \text{vol}^d \otimes \rho \mathbf{u}) = D( u^k dS_k \otimes \rho \mathbf{u} ) = \rho(\nabla_{\mathbf{u}} \mathbf{u} ) \otimes \text{vol}^d + \text{div}(\rho \mathbf{u}) \text{vol}^d \otimes \mathbf{u}
+\end{aligned}
+}
+\end{equation}
+
+Suppose we can generalize Stoke's law for so-called vector-valued $p$-forms using $D$, i.e.
+\[
+\int_B D(\theta \otimes s) = \int_{\partial B} \theta \otimes s
+\]
+
+
+I can make this \emph{conjecture} or \emph{proposition}: If we start with defining the momentum flux on the surface boundary of the control volume $B=B(t)$, $\partial B$ and equate that to the force on the control volume:
+\[
+F = \frac{d}{dt} \Pi \equiv \dot{\Pi} = \int_{\partial B} u^j dS_j \otimes \rho u = \int_{\partial B} i_{\mathbf{u}}\text{vol}^d \otimes \rho \mathbf{u}
+\]
+where $\mathbf{u} \in \mathfrak{X}(\mathbb{R}\times N)$ and $u^jdS_j \otimes \rho \mathbf{u} \in \Omega^d(\mathbb{R} \times N; TN)$, then we obtain this expression involving an integral on the control volume $B(t)$, but using the ``generalized'' \emph{exterior covariant derivative} $D$, s.t. 
+\begin{equation}\label{Eq:F=ma_extcovder}
+  F = \dot{\Pi} = \int_{\partial B} i_{\mathbf{u}} \text{vol}^d \otimes \rho \mathbf{u} = \int_B D(i_{\mathbf{u}} \text{vol}^d\otimes \rho \mathbf{u}) = \int_B \rho (\nabla_{\mathbf{u}} \mathbf{u} ) \otimes \text{vol}^d + \text{div}(\rho \mathbf{u}) \text{vol}^d \otimes \mathbf{u}
+\end{equation}
+
+
+But how do we reconcile Eq. \ref{Eq:F=mafromLiederivative}, obtained from taking the total time derivative of an integral of a $d$-form on $\mathbb{R} \times N$, with this expression, Eq. \ref{Eq:extcovder_boundarymomentumflux}, derived using the exterior covariant derivative $D$?  Unfortunately, by comparing components in local coordinates, I don't have a good way of reconcile the two expressions, due to the term $\Gamma^k_{ \; \; ij} u^i u^j \frac{ \partial }{ \partial x^j}$ in $\nabla_{\mathbf{u}} \mathbf{u}$.  I really don't know after playing around extensively with the algebra; please let me know otherwise (see my email address in this document).  
+
+Suppose we can do the usual Stoke's theorem on integrals of differential forms on only one ``part'' of a symmetric tensor, independent of the rest of the symmetric tensor, i.e.
+\[
+\int_V (d,-) \theta \otimes s \equiv \int_V d (\theta \otimes s) = \int_{ \partial V } \theta \otimes s
+\]
+where 
+\[
+\begin{aligned}
+& (d,-) : \Omega^p(M) \otimes \Gamma(E) \to \Omega^{p+1}(M) \otimes \Gamma(E)  \\
+  & (d,-) (\theta \otimes s) \equiv d (\theta \otimes s) = (d\theta) \otimes s
+\end{aligned}
+\]
+on vector bundle $E\to M$.  
+
+If this is the case, then
+\[
+\begin{gathered}
+  (d,-)(\rho u^j u^k dS_k \otimes \frac{ \partial }{ \partial x^j} ) \equiv d(\rho u^j u^k dS_k) \otimes \frac{ \partial }{ \partial x^j} = \frac{ \partial ( \rho u^j u^k \sqrt{g} )}{ \partial x^l } dx^l \wedge \frac{ \epsilon_{kj_2 \dots j_d} }{(d-1)!} dx^{j_2} \wedge \dots \wedge dx^{j_d} \otimes \frac{ \partial }{ \partial x^j} = \frac{1}{\sqrt{g}} \frac{ \partial ( \rho u^j u^k \sqrt{g} )}{ \partial x^k} \text{vol}^d \otimes \frac{ \partial }{ \partial x^j} = \\
+  = \left( \text{div}(\rho u) u^j + \rho u^k \frac{ \partial u^j }{ \partial x^k} \right) \text{vol}^d \otimes \frac{ \partial }{ \partial x^j } = \text{div}(\rho u) \text{vol}^d \otimes u + m \otimes \mathcal{L}_uu
+\end{gathered}
+\]
+
+Thus, if this was the case, 
+\[
+\begin{gathered}
+  F = \frac{d}{dt} \Pi \equiv \dot{\Pi} := \frac{d}{dt} \int_B m \otimes u = \int_B \dot{m} \otimes u + m \left( \frac{ \partial u}{ \partial t} + u^k \frac{ \partial u}{ \partial x^k} \right) = \int_B \frac{ \partial (\rho u)}{ \partial t} \text{vol}^d + \int_{ \partial B} \rho u^k dS_k \otimes u 
+\end{gathered}
+\]
+Even if $\dot{m}=0$, i.e. there are no mass source terms inside control volume $B$, the same expression is obtained:
+\[
+\begin{gathered}
+  F = \frac{d}{dt} \Pi \equiv \dot{\Pi} := \frac{d}{dt} \int_B m \otimes u = \int_B \dot{m} \otimes u + m \left( \frac{ \partial u}{ \partial t} + u^k \frac{ \partial u}{ \partial x^k} \right) = \int_B m\frac{ \partial  u}{ \partial t} + \int_B - \text{div}(\rho u) \text{vol}^d \otimes u  + \int_{ \partial B} \rho u^k dS_k \otimes u = \\
+  =   \int_B \frac{ \partial ( \rho u )}{ \partial t} \text{vol}^d + \int_{ \partial B} \rho u^k dS_k \otimes u 
+\end{gathered}
+\]
+
+Going back to Eq. \ref{Eq:F=ma_extcovder} involving exterior covariant derivative $D$, I can make the following adhoc addition to the $\int_{\partial B} {\mathbf{u}} \text{vol}^d \otimes \rho \mathbf{u} = \int_{\partial B} \rho u^k dS_k \otimes u $ term:
+\[
+\begin{gathered}
+  F = \dot{\Pi} := \int_{\partial B} i_{\mathbf{u}} \text{vol}^d \otimes \rho \mathbf{u}  + \int_B \frac{ \partial (\rho u)}{ \partial t} \text{vol}^d =  \\
+   = \int_B D(i_{\mathbf{u}} \text{vol}^d\otimes \rho \mathbf{u})  + \int_B \frac{ \partial (\rho u )}{ \partial t} \text{vol}^d = \int_B \rho (\nabla_{\mathbf{u}} \mathbf{u} ) \otimes \text{vol}^d + \text{div}(\rho \mathbf{u}) \text{vol}^d \otimes \mathbf{u} + \int_B \frac{ \partial ( \rho u )}{ \partial t} \text{vol}^d = \\
+  = \int_B \rho(\nabla_{\mathbf{u}} \mathbf{u} ) \text{vol}^d + \dot{m} \otimes \mathbf{u} + m \otimes \frac{ \partial u }{ \partial t} = \boxed{ \int_B \dot{m} \otimes \mathbf{u} + m \otimes \left( \frac{ \partial \mathbf{u}}{ \partial t} + \nabla_{\mathbf{u}} \mathbf{u} \right) }
+\end{gathered}
+\]
+
+Thus, depending upon whether we can use either exterior covariant derivative $D$  or $(d,-)$ for Stoke's law, then 
+\begin{equation}\label{Eq:momentumtheorems}
+\boxed{
+\begin{gathered}
+\text{ For } (d,-):  \Omega^{d-1}(N) \otimes TN \to \Omega^{d}(N) \otimes TN \\
+\begin{gathered}
+  F = \frac{d}{dt} \Pi \equiv \dot{\Pi} := \frac{d}{dt} \int_B m \otimes u = \int_B \dot{m} \otimes u + m \left( \frac{ \partial u}{ \partial t} + u^k \frac{ \partial u}{ \partial x^k} \right) = \int_B \frac{ \partial (\rho u)}{ \partial t} \text{vol}^d + \int_{ \partial B} \rho u^k dS_k \otimes u 
+\end{gathered} \\
+\text{ Otherwise, } \\
+\text{ For } D:\Omega^{d-1}(N;TN)\to \Omega^{d}(N;TN) \\
+\begin{gathered}
+  F = \dot{\Pi} := \int_{\partial B} i_{\mathbf{u}} \text{vol}^d \otimes \rho \mathbf{u}  + \int_B \frac{ \partial (\rho u)}{ \partial t} \text{vol}^d =  \\
+ =  \int_B \dot{m} \otimes \mathbf{u} + m \otimes \left( \frac{ \partial \mathbf{u}}{ \partial t} + \nabla_{\mathbf{u}} \mathbf{u} \right) 
+\end{gathered}
+\end{gathered}
+}
+\end{equation}
+These 2 cases hold, in each case, whether or not mass is conserved, i.e. $\dot{m}=0$ or not, signifying whether there is a mass source term inside $B$, or not, respectively.  
+
+My suspicion is that the second set of equations for the case of using $D$ is ``more true'' in that it holds for general Riemannian manifold $(N,g)$, with time-dependent velocity vector fields $\mathbf{u}$, in Eq. \ref{Eq:momentumtheorems}, because of the generality of the exterior covariant derivative $D$ and how $\nabla_{\mathbf{u}} \mathbf{u}$ becomes $u^k \frac{ \partial \mathbf{u}}{ \partial x^k}$, in the particular case of the Euclidean metric.  However, it was derived in an ad hoc manner.  Regardless, one aspect to investigate would be the \emph{de Rham} cohomology for $N$, to determine whether $(d,-)$ is valid or $D$ is valid.    
+
+Take a look at Subsection 4.1 Introduction of Chapter 4 Momentum Theorems of Sabersky, Acosta, Hauptmann, and Gates (1998)\cite{SAHG1998}.  Consider Figure 4.1 and the steady fluid jet deflection by stationary channel.  Then
+\[
+\begin{gathered}
+  F=\int_B \frac{ \partial ( \rho u)}{ \partial t} \text{vol}^d + \int_{\partial B} \rho u^j dS_j \otimes u = 0 + \int_{ (\partial B)_I} \rho u^j dS_j \otimes u + \int_{ (\partial B)_{III} } \rho u^j dS_j \otimes u = (-\rho_I u_I A_I) \mathbf{u}_I + \rho_{III} u_{III} A_{III} \mathbf{u}_{III}
+\end{gathered}
+\]
+If velocity is constant, $u_I = u_{III}$, and density doesn't change, and $A_I = A_{III}$, the jet cross-sectional area, 
+\[
+\begin{aligned}
+  & F = -\rho u A \mathbf{u}_I + \rho u A \mathbf{u}_{III} \\ 
+  & F_x = \rho u^2 A (\cos{\theta}-1) \\ 
+  & F_y = \rho u^2 A \sin{\theta}
+\end{aligned}
+\]
+Keep in mind that this is the force on the fluid.  The force on the stationary channel is equal and opposite to this force, by Newton's 3rd. law.  
+\[
+|F| = \rho u^2 A ( \cos^2{\theta} - 2\cos{\theta} + 1 )^{1/2} = 2\rho u^2 A |\sin{ \frac{\theta}{2} } |
+\]
+
+\subsection{Differentiating Integrals of differential forms}
+
+Frankel posed the question ``How does one compute the rate of change of an integral when the domain of integration is also changing?'' in Chapter 4 The Lie Derivative, Section 4.3 Differentiation of Integrals in Frankel (2004).  For time-dependent vector fields, he sketches the proof for Theorem 4.42 for a formula for ``bringing'' the total time derivative $\frac{d}{dt}$ ``into the integral'' of the differential form.  For a more explicit (and elucidating explanation in my opinion) derivation of this formula, I would suggest looking at Theorem 9.48, Fundamental Theorem on Time-Dependent Flows, on pp. 237 of Chapter 9 Integral Curves and Flows, in the subsection on Time-Dependent Vector Fields, of Lee (2012) \cite{JLee2012} and, in particular, the corresponding proof, for, the idea is that we'd want to flow along in $\mathbb{R} \times \mathbb{R} \times N$, in what Lee calls the ``flow domain'', and not just $\mathbb{R} \times N$, which is $N$, but parametrized by $s \in \mathbb{R}$; we'd want to parametrize, by $s\in \mathbb{R}$, $\mathbb{R} \times N$, instead.  
+
+Taking from the proof of Theorem 9.48 of Lee (2012) \cite{JLee2012}, $\exists \, !$ smooth $\widetilde{\theta}: \widehat{\mathcal{D}} \to J \times N$, where interval $J \subset \mathbb{R}$, and $\widetilde{\mathcal{D}} \subset \mathbb{R} \times ( \mathbb{R} \times N)$, s.t. 
+\[
+\begin{gathered}
+  \frac{ \partial \widetilde{\theta}}{ \partial s }(s,(t,x)) = (1, \frac{ \partial \beta}{ \partial s}(s,(t,x))) = \frac{ \partial }{ \partial t} + \mathbf{v}(s+t, \beta(s,(t,x)))  \text{ and } \\
+  \beta(0,(t,x)) =x \qquad \, \text{ (i.e. initial condition) }
+\end{gathered}
+\]  
+where $\beta : \widetilde{\mathcal{D}} \to N$ is smooth.  
+
+Note that 
+\[
+\frac{ \partial \widetilde{\theta}}{ \partial s}(0,(t,x)) = \frac{ \partial }{ \partial t} + \mathbf{v}(t,0) \equiv \frac{ \partial }{ \partial t} + \mathbf{v}
+\]
+is the generator of the flow $\widetilde{\theta} = \widetilde{\theta}(s,(t,x))$, and we define 
+\[
+\begin{aligned}
+& \widetilde{\theta}_s: \mathbb{R} \times N \to \mathbb{R} \times N \\ 
+  & \widetilde{\theta}(s,(t,x)) =: \widetilde{\theta}_s(t,x)
+\end{aligned}
+\]
+which we restrict onto appropriate open sets of $\mathbb{R} \times (\mathbb{R} \times N)$ (i.e. take heed that $\widetilde{\theta}_s$ is not valid on the entire $\mathbb{R} \times N$; see Lee (2012) \cite{JLee2012}).  
+
+Thus, for $p$-form $\omega = \omega(t,x)$, a $p$-form on $\mathbb{R} \times N$, so that $\omega \in \Omega^p(\mathbb{R} \times N) \equiv \Omega^p(N)$ (I want to denote that the components of $\omega$ can depend on time, but also denote that there is no ``$\omega^t$'' time-component for $dt$ in $\omega$, and so I'll use both notations, interchangeably, and one discerns from context), then define 
+\[
+I(t) := \int_{ B(t)} \omega(t,x)
+\]  
+Thus, we can pull back onto the domain $B(t)$ from later times, say $s+t$, and so
+\[
+\begin{gathered}
+  I'(t) \equiv \frac{d}{dt} I(t) := \lim_{s\to 0} \frac{ I(s+t) -I(t) }{ s} = \lim_{s\to 0} \frac{ \int_{B(s+t)} \omega(s+t,x) - \int_{B(t)} \omega(t,x) }{ s} = \lim_{s\to 0} \frac{ \int_{B(t) } \widetilde{\theta}^*_s\omega(t,x) - \int_{B(t)} \omega(t,x) }{s} = \\
+   = \int_{B(t)} \lim_{s\to 0} \frac{ \widetilde{\theta}_s^* \omega(t,x) - \omega(t,x) }{ s }  =: \int_{B(t)} \mathcal{L}_{\frac{ \partial }{ \partial t } + \mathbf{v}(t,x) } \omega \equiv \int_{B(t)} \mathcal{L}_{\frac{ \partial }{\partial t} + \mathbf{v} } \omega
+\end{gathered}
+\]
+
+Thus, without having to ``hand wave around'' the problem of dealing with a fixed control volume and then the volume occupied by the fixed mass that's changing with time, as in Section 4.2 General Derivation of the Momentum Theorem of Sabersky, Acosta, Hauptmann, and Gates (1998)\cite{SAHG1998}, we've shown here, with mathematical rigor, how to formally take the time derivative of integrals of differential forms.  
+
+
+\subsection{Angular Momentum}
+
+7.15.6 Noether's theorem for rotations.
+
+From rotational invariance, consider \\
+Global rotation 
+\[
+\text{ Global rotation } \qquad \, v(x) \mapsto v'(x) = Rv(x), \qquad \, R\in SO(3), \quad \, \forall \, x \in N
+\]
+(equivalent to uniform rotation)
+
+Take rotation vector of rotation angle $|\delta \widehat{\theta}|$, about axis $\mathbf{e}$, 
+\[
+\delta \widehat{\theta} = | \delta \widehat{\theta} | \mathbf{e}
+\]
+
+Then,  \\
+infinitesimal global transformation defined, as, for \\
+\phantom{ \qquad \,  } position vector $\mathbf{x}$ 
+\[
+\mathbf{x}' = \mathbf{x}+ \delta \widehat{\theta} \times \mathbf{x}
+\]
+
+From Eq. (7.147) of Kambe (2009) \cite{TKambe2009}, 
+\[
+\mathcal{L}_T = \mathcal{L}_F + \mathcal{L}_{\epsilon} + \mathcal{L}_B = \frac{1}{2} \int_N \langle v, v\rangle \rho \text{vol}^d - \int_N \epsilon(\rho,s) \rho \text{vol}^d + \mathcal{L}_B
+\]
+$\mathcal{L}_B$ depends on gauge potential $A$, function of $a$ only, and $a=a(x,t)$.  
+\[
+\delta \underline{I} = \left[ \int_N \langle v, \xi \rangle \rho \text{vol}^d \right]_{t_0}^t + \int_{t_0}^{t_1} dt \oint_S p \langle \eta, \xi \rangle dS - \int_{t_0}^{t_1} dt \int_N \langle (\nabla_t v + \rho^{-1} \text{grad} p ), \xi \rangle \rho \text{vol}^d
+\]
+\[
+\delta L_T = \frac{ \partial }{ \partial t} \int_N \langle v, \xi \rangle \rho \text{vol}^d + \oint_S p \langle \xi , \eta \rangle dS - \int_N \langle (\nabla_t v + \frac{1}{\rho } \text{grad}p ), \xi \rangle \rho \text{vol}^d
+\]
+where $\xi = \delta \widehat{\theta} \times x$
+
+Now
+\[
+\nabla_t  v+ \frac{1}{\rho } \text{grad}p = 0 
+\]
+since it's equation of motion of an ideal gas.  
+
+From vector identities:
+\[
+\langle v, \delta \widehat{\theta} \times x \rangle = \langle \delta \widehat{\theta}, x \times v \rangle \equiv \delta \widehat{\theta} \cdot (x\times v)
+\]
+So
+\[
+\begin{gathered}
+  \Longrightarrow \delta \widehat{\theta} \cdot \frac{ \partial }{ \partial t} \int_N x \times v \rho \text{vol}^d =: \delta \widehat{\theta} \cdot \frac{ \partial }{ \partial t} \mathbf{L}(N) \text{ where } \\ 
+   \delta \widehat{\theta} \cdot \int_S x \times p \mathbf{n} dS = - \delta \widehat{\theta} \cdot \mathbf{N}(S)
+\end{gathered}
+\]
+
+$\mathbf{N}(S)$ is resultant moment of pressure force $-p\mathbf{n}dS$ acting on surface element $dS$ from outside
+\[
+\Longrightarrow \frac{ \partial }{ \partial t} \mathbf{L}(M) = \mathbf{N}(S)
+\]
+Thus from Noether's theorem, total angular momentum conservation law, from $SO(3)$ gauge invariance.  
+
+
+
 \section{Compressible Fluids-One-Dimensional Flow}
 
 \subsection{thermodynamic Preliminaries}
@@ -1414,6 +1797,10 @@ T. Frankel,
 Cambridge University Press, 
 Second Edition,
 2004.
+
+\bibitem{SMorita2001}
+Shigeyuki Morita, \textbf{Geometry of Differential Forms} (Translations of Mathematical Monographs, Vol. 201)  2001
+
 
 \bibitem{JJost2011}
 J\"{u}rgen Jost. \textbf{Riemannian Geometry and Geometric Analysis (Universitext)}. 6th ed. 2011 Edition.  Springer; 6th ed. 2011 edition (August 9, 2011).  ISBN-13: 978-3642212970

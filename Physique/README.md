@@ -1,3 +1,12 @@
+# Physique
+## Webscaping (i.e. getting data from the web) reliable websites for Physical constants and making them (easily) accessible locally with (saved) **pandas** dataframes
+
+P.S. I recently discovered juypter notebooks and would point you there, to the [`Physique_jupyter.ipynb`](https://github.com/ernestyalumni/Propulsion/blob/master/Physique/Physique_jupyter.ipynb) jupyter notebook, to see how to use and modify Physique (to webscrape other websites).  Rather in this README.md, I'll point out features that have been added:
+
+* NIST Official Conversions 
+* NIST Fundamental Constants = `Physique.FundConst`
+* JPL Solar System Dynamics
+	- Planets and Pluto
 
 ## Using Physique from a working directory not containing Physique itself
 

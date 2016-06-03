@@ -4997,9 +4997,166 @@ and $\dot{m} = \rho^* u^* A^*$.
 
 
 
+\part{Electromagnetism}
+
+
+cf. 1-2 Exhaust velocity and Specific Impulse of Jahn (2006) \cite{Jahn2006}
+
+Jahn (2006) \cite{Jahn2006} defines specific impulse $I_s$ as the ratio of thrust to the rate of use of propellant by sea level weight:
+\begin{equation}
+  I_s := \frac{ T}{ \dot{m}g_0}
+\end{equation}
+
+\problemhead{1-4} It should be pointed out that the physics is exactly the same as before as propelling mass out, \emph{before} separation.  What's different is the final mass after all planned for propellant mass is expelled is different.
+
+To review,  \\
+
+Let $M=M(t)$ the mass of the entire system at any time, only excluding propellant mass that's \emph{already} expelled out.  
+
+$M\dot{u} = -\dot{M}u_{\text{exh}} + F_g$.  For the case of $F_g = -Mg$,
+\[
+\begin{gathered}
+  \dot{u} = \frac{-\dot{M}}{M} u_{\text{exh}} + \frac{F_g}{M} = \frac{-\dot{M}}{M} u_{\text{exh}} + -g \\
+  \xrightarrow{ \int dt } \Delta u \equiv u(t_f) - u(0) = -\ln{ \left( \frac{M(t_f)}{M(0)} \right)}u_{\text{exh}} - gt_f \\
+  \Longrightarrow \frac{\Delta u}{ u_{\text{exh}}} + \frac{ g\Delta t }{ u_{\text{exh}} } = \ln{ \left( \frac{M(0) }{ M(t_f)} \right)} \text{ or } \exp{ \left( \frac{ \Delta u}{ u_{\text{exh}} } \right) } \exp{ \left( \frac{ g \Delta t}{ u_{\text{exh}} } \right) } = \frac{ m_0 }{ M(t_f) }
+\end{gathered}
+\]
+where $t_f \equiv \Delta t$ and $m_0 \equiv M(0)$ (Jahn's notation in the former, my notation for the latter).   
+
+Now the mass of the power supply, $m_p$ was given by Jahn and reasoned to monotonically depend on the power $P$, which is reasonable.  Also, we have $M(0)$, and $M(t_f) \equiv  M(\Delta t)$ values:
+\[
+\begin{gathered}
+  m_p = \alpha P = \alpha \frac{ T u_{\text{exh}} }{ 2\eta} = \frac{ \alpha \dot{m} u^2_{\text{exh}} }{ 2 \eta} \\ 
+  M(\Delta t) = m_u + m_p = m_u + \frac{ \alpha }{2\eta} \frac{M_p}{\Delta t} u^2_{\text{exh}} \\ 
+  m_0 \equiv M(0) = M_p + m_u + m_p = M_p + m_u + \frac{ \alpha \dot{m} u^2_{\text{exh}} }{ 2\eta} = \\
+  = M_p + m_u + \alpha \left( \frac{ M_p }{ \Delta t} \right) \frac{u^2_{\text{exh}} }{ 2\eta}  \\
+  \Longrightarrow M_p = \frac{m_0 - m_u }{ 1 + \frac{ \alpha u^2_{\text{exh}} }{ 2\eta \Delta t} } 
+\end{gathered}
+\]
+for $\dot{m}\Delta t = M_p$ (\emph{assume constant} mass flow out, and by $\Delta t$ time, $M_p$ mass propellant is used up).
+
+Plugging all this in:
+\[
+\begin{gathered}
+  \exp{ \left( \frac{ \Delta u}{ u_{\text{exh}} }\right) } \exp{ \left( \frac{ g\Delta t}{ u_{\text{exh}} } \right) } = \frac{m_0 }{ m_u + \frac{ \alpha}{2\eta \Delta t} \left( \frac{m_0 - m_u }{ 1 + \frac{ \alpha u^2_{\text{exh}} }{ 2 \eta \Delta t} } \right) u^2_{\text{exh}} } = \frac{ 1 + \frac{ \alpha u^2_{\text{exh} }}{ 2 \eta \Delta t} }{ \frac{m_u}{m_0} + \frac{ \alpha u^2_{\text{exh}} }{ 2\eta \Delta t} }
+  \end{gathered}
+\]
+Let $g=0$.  Then the desired result is obtained, for ratio of mass payload to initial mass, including a power supply:
+\begin{equation}
+  \frac{m_u}{m_0} = e^{-\Delta u / u_{\text{exh}} } + \frac{ \alpha u_{\text{exh}}^2}{2\eta \Delta t} ( e^{ -\Delta u / u_{\text{exh}} } - 1 )
+\end{equation}
 
 
 
+
+\subsection{Charge conservation}
+
+Recall that the divergence $\text{div}$:
+\[
+\begin{aligned}
+  & \text{div}: \mathfrak{X}(M) \to C^{\infty}(M) \\
+  & \text{div}\mathbf{j} = \frac{1}{\sqrt{g}} \frac{ \partial ( j^k \sqrt{g} ) }{ \partial x^k} 
+\end{aligned}
+\]
+Usually, charge conservation is written in differential vector form as
+\[
+\frac{ \partial \rho }{ \partial t} + \text{div}\mathbf{j} = 0 
+\]
+Does this hold for the differential form version of electromagnetism?
+
+Consider $j \in \Omega^1(M)$.  Now
+\[
+j = j_{\mu} dx^{\mu} = \rho dt + j_i dx^i \in \Omega^1(M) \xmapsto{ \#} g^{\mu \nu} j_{\nu} \frac{ \partial }{ \partial x^{\mu } } \equiv j^{\mu} \frac{ \partial }{ \partial x^{\mu }} \in \mathfrak{X}(M)
+\]
+Then
+\[
+\begin{gathered}
+  *j = \frac{ \sqrt{g}}{3!} \epsilon_{\mu \nu \rho \sigma} g^{\mu \mu_1} j_{\mu_1} dx^{\nu} \wedge dx^{\rho} \wedge dx^{\sigma} \\ 
+  d*j = \frac{1}{3!} \epsilon_{\mu \nu \rho \sigma} \frac{ \partial }{ \partial x^{\mu_2} }(\sqrt{g} g^{\mu \mu_1} j_{\mu_1} ) dx^{\mu_2} \wedge dx^{\nu} \wedge dx^{\rho} \wedge dx^{\sigma} = \frac{1}{3!} \epsilon_{\mu \nu \rho \sigma} \frac{ \partial}{ \partial x^{\mu_2} } (\sqrt{g} j^{\mu } ) dx^{\mu_2} \wedge dx^{\nu} \wedge dx^{\rho} \wedge dx^{\sigma} = \\
+  = \frac{1}{3!} \lbrace \epsilon_{ijk} \frac{ \partial ( \sqrt{g}j^0  ) }{ \partial t} dt \wedge dx^i \wedge dx^j \wedge dx^k + \epsilon_{ijk} \frac{ \partial }{ \partial x^l} ( \sqrt{g}j^i )  dt \wedge dx^l \wedge dx^j \wedge dx^k + \dots \rbrace = 0  \\
+  \Longrightarrow \frac{1}{\sqrt{g}} \frac{ \partial (\sqrt{g} j^0  ) }{ \partial t} + \text{div}\mathbf{j} = \frac{1}{\sqrt{g}} \frac{ \partial ( \sqrt{g} g^{0 \mu } j_{\mu } ) }{ \partial t} + \frac{1}{\sqrt{g}} \frac{ \partial ( \sqrt{g} g^{k\mu } j_{\mu} ) }{ \partial x^k }  = 0 
+\end{gathered}
+\]
+Suppose current is a \textbf{convective current} $\mathbf{j} = \rho \mathbf{u}$, where $\mathbf{u} \in \mathfrak{X}(M)$ ($\mathbf{u} = \mathbf{u}(t,x)$, $(t,x) \in M$).
+
+Charge conservation always holds.  
+
+
+my version of Maxwell's equations:
+
+if $\mathbf{\nabla} \cdot \mathbf{B} = 0$, \\
+then $\mathbf{\nabla} \times \mathbf{E} = \frac{-1}{c} \left( \frac{ \partial \mathbf{B} }{ \partial t} \right)$
+
+if $\mathbf{\nabla} \cdot \mathbf{E} = 4\pi \rho_{\text{total}}$ \\
+then $\mathbf{\nabla} \times \mathbf{B} = \frac{1}{c} \left( \frac{ \partial \mathbf{E} }{ \partial t} + 4\pi \frac{ \partial \mathbf{P} }{ \partial t} + 4\pi \mathbf{J}_{\text{free}} + 4\pi c \mathbf{\nabla}\times \mathbf{M}\right)$
+
+
+Rachel 1.  
+
+cf. Section 1.4 Coulomb's law of Purcell (1984) \cite{Purcell1984}.
+
+For $\mathbf{F}_2 = $ force on charge 2,
+\[
+\mathbf{F}_2 = \frac{k q_1 q_2 \mathbf{r}_{21} }{ r_{21}^2 } = \frac{k q_1 q_2 (\mathbf{r}_2 - \mathbf{r}_1 ) }{ | \mathbf{r}_2 - \mathbf{r}_1 |^3}
+\]
+
+I am curious to know if the tangent-cotangent (``musical'') isomorphism holds:
+\[
+F_2^i = \frac{ kq_1 q_2 (\mathbf{r}_2 - \mathbf{r}_1)^i }{ |\mathbf{r}_2 - \mathbf{r}_1 |^3 } \in \mathfrak{X}(M) \xmapsto{ \flat } (F_2)_j = \frac{k q_1 q_2 (\mathbf{r}_2 - \mathbf{r}_1)^i g_{ij} }{ | \mathbf{r}_2 - \mathbf{r}_1 |^3 } \in \Omega^1(M)
+\]
+$k=1$ \, (cgs) \\
+$k = \frac{1}{4\pi \epsilon_0}$; $\epsilon_0 = 8.85 \times 10^{-12}$ ; $k = 8.988 \times 10^9$ \, (SI)
+
+$1$ coulomb $=  2.998 \times 10^9 $ \, esu $\cong 3 \times 10^9 \, $ esu \\
+$\epsilon_0 = 4.8 \times 10^{-16}$ esu $ = 1.6 \times 10^{-16} \, C$ \\
+$10^5$ dynes $=1 $ Newtons.  
+
+So the above takes care of Ch. 2 Electromagnetic Theory, Section 2-1 Electric Charges and Electrostatic Fields of Jahn (2006) \cite{Jahn2006} up to Eqn. (2-1).  
+
+
+Section 3.5 Capacitance and Capacitors of Purcell (1984) \cite{Purcell1984}.
+
+Consider an isolated conductor carrying charge $Q$.
+\[
+Q = C\phi_0
+\]
+cgs.  $[Q] = $ esu, $[C] = $ cm, $[\phi_0] = $ statvolts $= \frac{ \text{ergs}}{\text{esu}} = \frac{ \text{dyne}\cdot \text{cm}}{ \text{esu} }$.  \\
+SI. $[Q]=$ coulombs, \, $[C] = $ farads, $[\phi] = $ volts.  
+
+
+%\setlength{\unitlength}{1mm}
+\[
+\begin{gathered}
+\begin{picture}(8,5)(0,0)
+  \put(4,4){\circle{7.5}}
+  \put(4,4){$Q$}
+\end{picture}
+\qquad \qquad \,
+\begin{picture}(8,5)(0,0)
+  \put(.7,4.7){\line(1,0){6}}
+  \put(.7,4.0){\line(1,0){6}}
+  \end{picture}
+\end{gathered}
+\]
+
+cgs: $C=a$ \, $[a] = m$ \qquad \, $ C = \frac{A}{4\pi s}$ $[A] = \text{cm}^2$, $[s] = \text{cm}$
+
+SI: $C=4\pi \epsilon_0 a$  \, $[a] = m$ \qquad \, $ C = \frac{\epsilon_0 A}{ s}$ $[A] = \text{m}^2$, $[s] = \text{m}$
+
+$\epsilon_0 = 8.854 \times 10^{-12} \, \text{farad}/\text{meter}$
+\[
+\boxed{ 1 \, \text{cm} = 1.11 \times 10^{-12} \, \text{ farad }} 
+\]
+
+
+
+Fitzpatrick (2014) \cite{Fitz2014}
+
+\part{Physical Kinetics}
+
+
+
+Pitaevskii and Lifshitz (1981) \cite{PL1981}
 
 
 
@@ -5074,7 +5231,22 @@ Philip A. Thompson.  \textbf{Compressible-Fluid Dynamics}.  1988.
 \bibitem{MMartinez-Sanchez2005}
 Manuel Martinez-Sanchez. 16.512 Rocket Propulsion, Fall 2005. (Massachusetts Institute of Technology: MIT OpenCourseWare), \href{http://ocw.mit.edu/courses/aeronautics-and-astronautics/16-512-rocket-propulsion-fall-2005}{http://ocw.mit.edu} (Accessed 10 Feb, 2016). License: \href{http://creativecommons.org/licenses/by-nc-sa/4.0/}{Creative Commons BY-NC-SA}
 
+\bibitem{Jahn2006}
+Robert G. Jahn. \textbf{Physics of Electric Propulsion} (Dover Books on Physics).  Dover Publications (May 26, 2006). 
 
+\bibitem{Purcell1984}
+  Edward M. Purcell. \textbf{Electricity and Magnetism} (Berkeley Physics Course, Vol. 2) 2nd. Edition.  McGraw-Hill Science/Engineering/Math; 2 edition (August 1, 1984) ISBN-13: 978-0070049086
+
+  There's a 3rd. edition, 2013, and another co-author, David Morin, but I don't have access to a copy.  
+
+\bibitem{Fitz2014}
+Richard Fitzpatrick. \textbf{Plasma Physics} 2014  \url{https://www.cfa.harvard.edu/~scranmer/Ay253/LecNotes/fitzpatrick_plasma_physics.pdf}
+
+\bibitem{PL1981}
+L. P. Pitaevskii, E.M. Lifshitz. \textbf{Physical Kinetics}: Volume 10 (Course of Theoretical Physics S) 1st Edition.  Butterworth-Heinemann; 1 edition (January 15, 1981).  ISBN-13: 978-0750626354
+
+  
+  
 \end{thebibliography}
 There's an 8th edition of Biblarz and Sutton \cite{GSuttonOBiblarz2001} for 2010 that I would like to have.  If you find any of this material useful or if you'd like to help, email me or visit my Open/Tilt page \url{ernestyalumni.tilt.com} and donate to the crowdfunding campaign or click on the PayPal donate button.  
 

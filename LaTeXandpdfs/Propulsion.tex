@@ -3031,7 +3031,7 @@ Now, note that
 \end{aligned}
 \end{gathered}
 \]
-and so 
+and so
 \[
 \begin{gathered}
   \frac{ \partial (\rho Y_i)}{ \partial t} + \text{div}(\rho Y_i u_i') + \text{div}(\rho Y_i u) = \dot{m}_i''' \\
@@ -4517,6 +4517,25 @@ A copy of Dunn's implementation is in \verb|CSTRconstant.py| and \verb|CSTRdynam
 
 EY : 20160229 Things I need to understand further are the \verb|set_integrator| method of \verb|scipy.integrate.ode|, with option \verb|'vode'| and method \verb|'bdf'| (i.e. \verb|method='bdf'|) and what a \href{https://en.wikipedia.org/wiki/Stiff_equation}{Stiff Equation} is. 
 
+\section{Computational Fluid Dynamics (CFD) and Navier-Stokes equation}
+
+Consider Liquid Bipropellant Spray Combustion Modeling (liquid bipropellant in that we are considering a liquid fuel, that's injected in, and also a liquid oxidizer, injected in), as outlined by Preclik, Knab, Estublier, and Wannerberg (Preclik, et. al.) in their article ``Simulation and Analysis of Thrust Chamber Flowfields: Storable Propellant Rockets'' (2004) \cite{YHHP2004}.  
+
+Consider first gas-phase flow modeling.  They treat the gaseous phase in 2-dimensions, specifically in an axisymmetric coordinate axes setup, and solving, on it, the Favre-averaged Navier-Stokes equations, with species continuity, and so-called $k-\epsilon$ turbulence equations.  Let's examine first Navier-Stokes equations.
+
+\subsection{Navier-Stokes equations}
+
+I'll follow Cuong Nguyen's notes (November 5, 2005) on \href{http://www.mit.edu/~cuongng/Site/Publication_files/TurbulenceModeling_04NOV05.pdf}{Turbulence Modeling}.  
+
+\section{Hamiltonian}
+
+Novikov (1982) \cite{Novi1982} gives the Hamiltonian formalism for a compressible ideal fluid.
+
+In Sec. 2 ``The Hamiltonian Formalism of Systems of Hydrodynamic Origin'' of Novikov (1982) \cite{Novi1982}, the Hamiltonian formalism ``usually'' (my words) involves ``Clebsch variables'' but Novikov points out that these field variables can't always be introduced, and if so, then frequently only locally.  Novikov advocates the language of ``Poisson brackets'' over the language of symplectic manifolds (of even dimensions).  One reason is that the number of field variables is odd.
+
+
+
+
 
 \part{Cantera}
 
@@ -5231,6 +5250,15 @@ Philip A. Thompson.  \textbf{Compressible-Fluid Dynamics}.  1988.
 \bibitem{MMartinez-Sanchez2005}
 Manuel Martinez-Sanchez. 16.512 Rocket Propulsion, Fall 2005. (Massachusetts Institute of Technology: MIT OpenCourseWare), \href{http://ocw.mit.edu/courses/aeronautics-and-astronautics/16-512-rocket-propulsion-fall-2005}{http://ocw.mit.edu} (Accessed 10 Feb, 2016). License: \href{http://creativecommons.org/licenses/by-nc-sa/4.0/}{Creative Commons BY-NC-SA}
 
+
+\bibitem{YHHP2004}
+Edited by Vigor Yang, Mohammed Habiballah, James Hulka, Michael Popp.  \textbf{Liquid Rocket Thrust Chambers: Aspects of Modeling, Analysis, and Design}.  Volume 200, Progress in Astronautics and Aeronautics.  Paul Zarchan, Editor-in-Chief. 2004.  ISBN 1-56347-223-6
+
+\bibitem{Novi1982}
+S.P. Novikov. ``The Hamiltonian formalism and a many-valued analogue of Morse theory.'' \url{http://www.mi.ras.ru/~snovikov/74.pdf}
+
+
+
 \bibitem{Jahn2006}
 Robert G. Jahn. \textbf{Physics of Electric Propulsion} (Dover Books on Physics).  Dover Publications (May 26, 2006). 
 
@@ -5245,7 +5273,9 @@ Richard Fitzpatrick. \textbf{Plasma Physics} 2014  \url{https://www.cfa.harvard.
 \bibitem{PL1981}
 L. P. Pitaevskii, E.M. Lifshitz. \textbf{Physical Kinetics}: Volume 10 (Course of Theoretical Physics S) 1st Edition.  Butterworth-Heinemann; 1 edition (January 15, 1981).  ISBN-13: 978-0750626354
 
-  
+
+
+
   
 \end{thebibliography}
 There's an 8th edition of Biblarz and Sutton \cite{GSuttonOBiblarz2001} for 2010 that I would like to have.  If you find any of this material useful or if you'd like to help, email me or visit my Open/Tilt page \url{ernestyalumni.tilt.com} and donate to the crowdfunding campaign or click on the PayPal donate button.  

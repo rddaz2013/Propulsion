@@ -12,12 +12,12 @@
 #include "cuda.h"
 #include "math.h" // CUDA C/C++ math.h
 
-#define N_x 100 // total number of blocks in the grid in x-direction
-#define N_y 100 // total number of blocks in the grid in y-direction
-#define N_z 4 // total number of blocks in the grid in z-direction
+#define N_x 120 // total number of blocks in the grid in x-direction
+#define N_y 120 // total number of blocks in the grid in y-direction
+#define N_z 8 // total number of blocks in the grid in z-direction
 
-#define M_x 8 // number of threads per block in x-direction
-#define M_y 8 // number of threads per block in y-direction
+#define M_x 16 // number of threads per block in x-direction
+#define M_y 16 // number of threads per block in y-direction
 #define M_z 4 // number of threads per block in z-direction
 
 #define DELTAt 1./(100000.)
@@ -207,7 +207,7 @@ void anim_gpu(uchar4* outputBitmap, DataBlock *d, int ticks) {
 	dim3 grids(N_x,N_y,N_z);
 	dim3 threads(M_x,M_y,M_z);
 //	/* change the 1000 time steps per frame manually 
-	for (int i = 0; i < 20; ++i ) {
+	for (int i = 0; i < 2; ++i ) {
 		convect<<<grids,threads>>>( d->dev_rho, d->dev_ux, d->dev_uy, d->dev_uz);
 	}
 	
@@ -269,9 +269,9 @@ int main( void ) {
 	for (int k=0; k<(N_z*M_z); ++k) {
 		for (int j=0; j<(N_y*M_y); ++j) {
 			for (int i=0;i<(N_x*M_x); ++i) {
-				ux[i+(N_x*M_x)*j+(N_x*M_x)*(N_y*M_y)*k] = 10.0; // meters/second
-				uy[i+(N_x*M_x)*j+(N_x*M_x)*(N_y*M_y)*k] = 10.0; // meters/second
-				uz[i+(N_x*M_x)*j+(N_x*M_x)*(N_y*M_y)*k] = 7.0 ;
+				ux[i+(N_x*M_x)*j+(N_x*M_x)*(N_y*M_y)*k] = 20.0; // meters/second
+				uy[i+(N_x*M_x)*j+(N_x*M_x)*(N_y*M_y)*k] = 20.0; // meters/second
+				uz[i+(N_x*M_x)*j+(N_x*M_x)*(N_y*M_y)*k] = 16.0 ;
 			}
 		}
 	}

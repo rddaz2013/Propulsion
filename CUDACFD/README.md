@@ -47,7 +47,9 @@ In particular, **relocation truncated to fit**.
 
 > Seems like the large model is supported by gcc 4.6 (see this page). You can try that, but the above still applies about reorganizing your code.
 
-This is because when I "dialed down" the "resolution" or grid size from $N_x \times N_y \times N_z = 1920 \times 1920 \times 32 = 117964800$
+This is because when I "dialed down" the "resolution" or grid size from $N_x \times N_y \times N_z = 1920 \times 1920 \times 32 = 117964800$  I dialed it down to $N_x \times N_y \times N_z = 1080 \times 1080 \times 64 = 74649600$
+
+This note is for file, pertains to, `convect3dupwind_shared.cpp`
 
 
 

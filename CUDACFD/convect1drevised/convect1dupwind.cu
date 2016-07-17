@@ -97,7 +97,7 @@ __global__ void convect( float* rho, float* rho_in, float* u, const int L_in, co
 	
 	__syncthreads();
 	
-	xder1( rho_in, testsh_mem, result) ;  
+	sharedmem::xder1( rho_in, testsh_mem, result) ;  
 	
 /*	
 	__shared__ float teststencil[1][2];

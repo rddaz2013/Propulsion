@@ -6,7 +6,6 @@ GFXFLAGS += -lglut -lGL
 NVCC = nvcc
 NVCC_FLAGS = -std=c++11 -dc
 
-#objects = main.o finitediff.o gpu_anim.o bit_anim2d.o convect.o R3grid.o dev_R3grid.o sharedmem.o
 objects = main.o finitediff.o bit_anim2d.o convect.o R3grid.o dev_R3grid.o sharedmem.o
 
 
@@ -25,8 +24,6 @@ sharedmem.o : ./commonlib/sharedmem.cu
 finitediff.o : ./commonlib/finitediff.cu
 	$(NVCC) $(NVCC_FLAGS) $< -o $@
 
-#gpu_anim.o: ./commonlib/gpu_anim.cu
-#	$(NVCC) $(NVCC_FLAGS) $(GFXFLAGS) $< -o $@
 
 bit_anim2d.o : ./commonlib/bit_anim2d.cu
 	$(NVCC) $(NVCC_FLAGS) $(GFXFLAGS) $< -o $@

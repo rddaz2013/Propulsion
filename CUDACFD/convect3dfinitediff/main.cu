@@ -45,7 +45,7 @@ dev_Grid3d dev_grid3d( dev_L3 );
 
 const dim3 M_i { 2, 2, 2 };
 
-const int iters_per_render { 15 } ;
+const int iters_per_render { 10 } ;
 
 GPUAnim2dBit animbitmap( W, H );
 GPUAnim2dBit* bitptr = &animbitmap;

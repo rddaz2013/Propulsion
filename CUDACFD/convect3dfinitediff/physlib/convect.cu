@@ -79,6 +79,8 @@ __global__ void convect_fd_naive_sh( float* dev_rho, float3* dev_u ) {
 		
 	}
 	
+//	__syncthreads();
+		
 	__shared__ float3 stencil[NU][2] ; 
 	
 	for (int nu = 0 ; nu < NU; ++nu ) {
@@ -92,7 +94,7 @@ __global__ void convect_fd_naive_sh( float* dev_rho, float3* dev_u ) {
 	
 	float div_value { dev_div2( stencil ) } ;
 	
-//	__syncthreads();
+	__syncthreads();
 	
 	dev_rho[k] +=  dev_Deltat[0] * (-1.f) * div_value ;		
 			

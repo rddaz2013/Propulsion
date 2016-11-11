@@ -34,6 +34,12 @@ sudo dnf install boost-devel.x86_64
 ```
 - 
 
+## Clean install, from `git clone` to `scons install`
+
+```
+git clone https://github.com/Cantera/cantera.git
+```
+
 
 
 ## Troubleshooting installation/(installation) errors that pop up
@@ -70,5 +76,12 @@ sudo dnf install boost-devel.x86_64
 
 ![sudo dnf install boost-devel.x86_64](https://raw.githubusercontent.com/ernestyalumni/Propulsion/master/cantera_stuff/cantera_install_tips/images/boostdevel01Screenshot%20from%202016-11-11%2000-27-14.png)
 
+
+
+```
+git clone https://github.com/Cantera/cantera.git
+```
+
+![git clone](https://raw.githubusercontent.com/ernestyalumni/Propulsion/master/cantera_stuff/cantera_install_tips/images/gitclonecanteraScreenshot%20from%202016-11-11%2002-02-34.png)
 
 

@@ -32,7 +32,7 @@ Also, in general, you'd want to **install the developer version** of the librari
 sudo dnf install boost.x86_64
 sudo dnf install boost-devel.x86_64
 ```
-
+- 
 
 
 
@@ -56,7 +56,12 @@ cf. [“error adding symbols: DSO missing from command line” while compiling g
 
 From this page, I saw the use of the line `LIBS = -lusb-1.0 -l pthread`, and the idea of using the flag `-l pthread` ended up being the solution.  
 
+## Images gallery (that may help you with your installation process; it can be daunting)
 
+```
+dnf list boost-*
+```
+![dnf list boost](https://raw.githubusercontent.com/ernestyalumni/Propulsion/master/cantera_stuff/cantera_install_tips/images/boostdevel01Screenshot%20from%202016-11-11%2000-26-42.png)
 
 
 

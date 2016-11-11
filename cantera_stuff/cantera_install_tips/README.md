@@ -6,7 +6,7 @@ Installing Cantera on Fedora Linux, straight, directly from the github repositor
 | ------------------------- | :------------- | :------------------------- | :----------: | 
 | `cantera_install_success` | `./`           | *None*                     | A *verbose*, but complete Terminal *log* of cantera installation on *Fedora Workstation 23 Linux*, from `git clone`, cloning the githb repository for cantera, directly, all the way to a successful `scons install`. |
 | `ClassThermoPhaseExam.cpp` | `./`          | [Computing Thermodynamic Properties, Class ThermoPhase, Cantera C++ Interface User's Guide](http://www.cantera.org/docs/sphinx/html/cxx-guide/thermo.html#example-program) | Simple, complete program creates object representing gas mixture and prints its temperature |
-| `chemeqex.cpp`            | `./`           | [Chemical Equilibrium Example Program, Cantera C++ INterface User's Guide](http://www.cantera.org/docs/sphinx/html/cxx-guide/equil-example.html) | `equilibrate` method called to set gas to state of chemical equilibrium, holding temperature and pressure fixed. |
+| `chemeqex.cpp`            | `./`           | [Chemical Equilibrium Example Program, Cantera C++ Interface User's Guide](http://www.cantera.org/docs/sphinx/html/cxx-guide/equil-example.html) | `equilibrate` method called to set gas to state of chemical equilibrium, holding temperature and pressure fixed. |
 
 ## Installation Prerequisites, ala Fedora Linux, Fedora/CentOS/RedHat `dnf`
 
@@ -26,6 +26,7 @@ I found that you can't get away from `dnf install` on an *administrator* account
 
 Also, in general, you'd want to **install the developer version** of the libraries as well, usually suffixed with `-devel`, mostly because the header files will be placed in the right `/usr/*` subdirectory so to be included in the system (when compiling C++ files or installing).  
 
+- **`g++` and `gcc`** - For something else (namely CUDA Toolkit), I successfully installed, by `dnf install`, gcc 5, the C++ compiler that has compatibility with the new C++11/C++14 standard.  The C++11 standard is *necessary* for compiling C++ files using Cantera (so the flag `-std=c++11` is needed with `g++`).  
 - **`scons`** - be sure to install `scons` - it seems like there is a push to use scons, a Python program, for installation and (package) compilation, as opposed to (old-school) CMake, or Make.
 - **`boost`** - *Boost* is free peer-reviewed portable C++ source libraries.
 ```
@@ -49,7 +50,11 @@ sudo dnf install blas-devel.x86_64
 sudo dnf install python-devel
 ```
 On this note, for Fedora Linux, I *did not* find with `dnf list` `python-numpy` nor `python-numpy-dev` which, supposedly, is found in Ubuntu/Debian - this is an example of how Fedora/CentOS/RedHat package manager is different from Ubuntu/Debian.
-
+- **`sundial`** - *sundial* has (essential) non-linear solvers.  
+```
+sudo dnf install sundials.x86_64
+sudo dnf install sundials-devel.x86_64
+```
 
 
 
@@ -64,11 +69,41 @@ git clone https://github.com/Cantera/cantera.git
 scons build -j12
 ```
 `scons build` by itself is ok; I added the flag `-j12` (correct me if I'm wrong) to optimize the compilation on **12** cores.  So if you're on a quad-core CPU processor, then you'd do `-j4`.  
+-`scons test`
+In my experience, if **all** the necessary libraries and prerequisite software are installed, then `scons test` should result in *all* tests being passed, none failed.  
 -`sudo scons install`
 ```
 sudo scons install
 ```
 There's no getting around not using sudo for scons install.  
+
+A successful `sudo scons install` should end up looking like this at the very end:
+```
+Cantera has been successfully installed.
+
+File locations:
+
+  applications                /usr/local/bin
+  library files               /usr/local/lib64
+  C++ headers                 /usr/local/include
+  samples                     /usr/local/share/cantera/samples
+  data files                  /usr/local/share/cantera/data 
+  Python 2 package (cantera)  /usr/local/lib64/python2.7/site-packages
+  Python 2 samples            /usr/local/lib64/python2.7/site-packages/cantera/examples 
+  setup script                /usr/local/bin/setup_cantera
+
+The setup script configures the environment for Cantera. It is recommended that
+you run this script by typing:
+
+  source /usr/local/bin/setup_cantera
+
+before using Cantera, or else include its contents in your shell login script.
+    
+scons: done building targets.
+```
+Knowing where all the files were installed is good to know.  
+
+
 
 ## Troubleshooting installation/(installation) errors that pop up
 
@@ -133,6 +168,14 @@ sudo dnf install python-devel
 
 ![sudo dnf install python-devel](https://raw.githubusercontent.com/ernestyalumni/Propulsion/master/cantera_stuff/cantera_install_tips/images/python-develinstallsconsbuildScreenshot%20from%202016-11-11%2002-09-23.png)
 
+```
+sudo dnf install sundials.x86_64
+sudo dnf install sundials-devel.x86_64
+```
+
+![sudo dnf install sundials.x86_64](https://raw.githubusercontent.com/ernestyalumni/Propulsion/master/cantera_stuff/cantera_install_tips/images/sundial01Screenshot%20from%202016-11-11%2000-28-05.png)
+
+![sudo dnf install sundials-devel.x86_64](https://raw.githubusercontent.com/ernestyalumni/Propulsion/master/cantera_stuff/cantera_install_tips/images/sundialdevel01Screenshot%20from%202016-11-11%2000-29-28.png)
 
 
 ```
@@ -157,6 +200,19 @@ scons build
 ![sconsbuildsuccess](https://raw.githubusercontent.com/ernestyalumni/Propulsion/master/cantera_stuff/cantera_install_tips/images/sconsbuildsuccessfulScreenshot%20from%202016-11-11%2002-10-46.png)
 
 ```
+scons test
+```
+![scons test](https://raw.githubusercontent.com/ernestyalumni/Propulsion/master/cantera_stuff/cantera_install_tips/images/sconstestScreenshot%20from%202016-11-11%2002-11-43.png)
+
+```
+scons test success
+```
+![scons test](https://raw.githubusercontent.com/ernestyalumni/Propulsion/master/cantera_stuff/cantera_install_tips/images/sconstestsuccessfulScreenshot%20from%202016-11-11%2002-12-46.png)
+
+
+
+
+```
 sudo scons install
 ```
 There's no way, I found, of getting away from having to use `sudo` for scons install - you'll have to be on a sudo enabled or administrator account logged in.  
@@ -170,3 +226,7 @@ error: could not create `/usr/local/lib64/python2.7': Permission denied
 ![sudo scons install](https://raw.githubusercontent.com/ernestyalumni/Propulsion/master/cantera_stuff/cantera_install_tips/images/sconsinstallScreenshot%20from%202016-11-11%2002-05-54.png)
 
 ![sudo scons install](https://raw.githubusercontent.com/ernestyalumni/Propulsion/master/cantera_stuff/cantera_install_tips/images/sconsinstallScreenshot%20from%202016-11-11%2002-14-43.png)
+
+#### `sudo scons install` success
+
+![sudo scons install success](https://raw.githubusercontent.com/ernestyalumni/Propulsion/master/cantera_stuff/cantera_install_tips/images/sconsinstallsudosuccessScreenshot%20from%202016-11-11%2002-15-35.png)

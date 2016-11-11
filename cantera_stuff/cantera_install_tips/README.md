@@ -22,9 +22,16 @@ for other Linux distributions/flavors, the same libraries have different names f
 
 ### Installation Prerequisites for **Fedora 23 Workstation Linux** (make sure to do these `dnf install`s and installation with `scons` will go more smoothly).
 
+I found that you can't get away from `dnf install` on an *administrator* account - be sure to be on a `sudo` or `admin` account to be able to do `dnf install`s.  Also, I found that compiling Cantera had to be done on a `sudo`-enabled or administrator account, in particular, access is needed to be granted to accessing root directories such as `/opt/`, etc. (more on that later).
+
+Also, in general, you'd want to **install the developer version** of the libraries as well, usually suffixed with `-devel`, mostly because the header files will be placed in the right `/usr/*` subdirectory so to be included in the system (when compiling C++ files or installing).  
+
 - **`scons`** - be sure to install `scons` - it seems like there is a push to use scons, a Python program, for installation and (package) compilation, as opposed to (old-school) CMake, or Make.
 - **`boost`** - Boost is free peer-reviewed portable C++ source libraries.
-
+```
+sudo dnf install boost.x86_64
+sudo dnf install boost-devel.x86_64
+```
 
 
 

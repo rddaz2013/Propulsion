@@ -44,14 +44,26 @@ dnf list blas*  # find blas in dnf
 sudo dnf install blas.x86_64
 sudo dnf install blas-devel.x86_64
 ```
+- **`python-devel`** - Following the spirit of how you'd want to install the developer's version of the library concurrent with the library itself, in that you'd want the headers and symbolic links to be installed and saved onto the respective root `/usr/*` subdirectories (so that your system will know how to include the files), you'd want to install the Python developer's libraries.
+```
+sudo dnf install python-devel
+```
+On this note, for Fedora Linux, I *did not* find with `dnf list` `python-numpy` nor `python-numpy-dev` which, supposedly, is found in Ubuntu/Debian - this is an example of how Fedora/CentOS/RedHat package manager is different from Ubuntu/Debian.
+
+
 
 
 ## Clean install, from `git clone` to `scons install`
 
+- `git clone https://github.com/Cantera/cantera.git`
 ```
 git clone https://github.com/Cantera/cantera.git
 ```
-
+-`scons build -j12`
+```
+scons build -j12
+```
+`scons build` by itself is ok; I added the flag `-j12` (correct me if I'm wrong) to optimize the compilation on **12** cores.  So if you're on a quad-core CPU processor, then you'd do `-j4`.  
 
 
 ## Troubleshooting installation/(installation) errors that pop up
@@ -95,6 +107,13 @@ sudo dnf install lapack-devel.x86_64
 ```
 
 ![sudo dnf install lapack-devel.x86_64](https://raw.githubusercontent.com/ernestyalumni/Propulsion/master/cantera_stuff/cantera_install_tips/images/lapackblasScreenshot%20from%202016-11-11%2001-06-12.png)
+
+```
+sudo dnf install python-devel
+```
+
+![sudo dnf install python-devel](https://raw.githubusercontent.com/ernestyalumni/Propulsion/master/cantera_stuff/cantera_install_tips/images/python-develinstallsconsbuildScreenshot%20from%202016-11-11%2002-09-23.png)
+
 
 
 ```

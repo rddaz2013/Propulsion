@@ -18,6 +18,14 @@ and for the python module
 ```
 cython python-dev python-numpy python-numpy-dev
 ```
+for other Linux distributions/flavors, the same libraries have different names for different package managers and some libraries were already installed with the "stock" OS and some aren't (as I found in my situation.  For example, Cantera's mainpage, for Ubuntu/Debian installation (compilation), it's neglected that `boost` is already installed (which I found wasn't for Fedora 23 Workstation Linux).
+
+### Installation Prerequisites for **Fedora 23 Workstation Linux** (make sure to do these `dnf install`s and installation with `scons` will go more smoothly).
+
+- **`scons`** - be sure to install `scons` - it seems like there is a push to use scons, a Python program, for installation and (package) compilation, as opposed to (old-school) CMake, or Make.
+- **`boost`** - Boost is free peer-reviewed portable C++ source libraries.
+
+
 
 
 

@@ -64,9 +64,26 @@ git clone https://github.com/Cantera/cantera.git
 scons build -j12
 ```
 `scons build` by itself is ok; I added the flag `-j12` (correct me if I'm wrong) to optimize the compilation on **12** cores.  So if you're on a quad-core CPU processor, then you'd do `-j4`.  
-
+-`sudo scons install`
+```
+sudo scons install
+```
+There's no getting around not using sudo for scons install.  
 
 ## Troubleshooting installation/(installation) errors that pop up
+
+- `fatal error: Python.h: No such file or directory`
+```
+fatal error: Python.h: No such file or directory
+scons: *** [build/temp-py/_cantera2.os] Error 1
+```
+I found that I had to `dnf install` `python-devel` to get the header files installed onto the appropriate `/usr/*` root subdirectories.  
+- `scons: *** [/usr/local/include/cantera/Edge.h] /usr/local/include/cantera/Edge.h: Permission denied`  
+Do `sudo scons install`
+- `error: could not create `/usr/local/lib64/python2.7': Permission denied`  
+Do `sudo scons install`
+
+## Troubleshooting C++ compilation/(C++ compilation) errors that pop up
 
 - `collect2: error: ld returned 1 exit status`
 From this page that I found on Google search:
@@ -85,6 +102,8 @@ I Google searched for this webpage:
 cf. [“error adding symbols: DSO missing from command line” while compiling g13-driver, ask ubuntu](http://askubuntu.com/questions/521706/error-adding-symbols-dso-missing-from-command-line-while-compiling-g13-driver)
 
 From this page, I saw the use of the line `LIBS = -lusb-1.0 -l pthread`, and the idea of using the flag `-l pthread` ended up being the solution.  
+
+
 
 ## Images gallery (that may help you with your installation process; it can be daunting)
 
@@ -123,3 +142,31 @@ git clone https://github.com/Cantera/cantera.git
 ![git clone](https://raw.githubusercontent.com/ernestyalumni/Propulsion/master/cantera_stuff/cantera_install_tips/images/gitclonecanteraScreenshot%20from%202016-11-11%2002-02-34.png)
 
 
+```
+fatal error: Python.h: No such file or directory
+scons: *** [build/temp-py/_cantera2.os] Error 1
+```
+![fatal error: Python.h: No such file or directory](https://raw.githubusercontent.com/ernestyalumni/Propulsion/master/cantera_stuff/cantera_install_tips/images/scaninstallfailpythonherrorScreenshot%20from%202016-11-11%2002-07-47.png)
+
+### Successful installation/compilation (what we want, what it should look like)
+
+```
+scons build
+```
+
+![sconsbuildsuccess](https://raw.githubusercontent.com/ernestyalumni/Propulsion/master/cantera_stuff/cantera_install_tips/images/sconsbuildsuccessfulScreenshot%20from%202016-11-11%2002-10-46.png)
+
+```
+sudo scons install
+```
+There's no way, I found, of getting away from having to use `sudo` for scons install - you'll have to be on a sudo enabled or administrator account logged in.  
+
+It troubleshoots
+```
+scons: *** [/usr/local/include/cantera/Edge.h] /usr/local/include/cantera/Edge.h: Permission denied
+error: could not create `/usr/local/lib64/python2.7': Permission denied
+```
+
+![sudo scons install](https://raw.githubusercontent.com/ernestyalumni/Propulsion/master/cantera_stuff/cantera_install_tips/images/sconsinstallScreenshot%20from%202016-11-11%2002-05-54.png)
+
+![sudo scons install](https://raw.githubusercontent.com/ernestyalumni/Propulsion/master/cantera_stuff/cantera_install_tips/images/sconsinstallScreenshot%20from%202016-11-11%2002-14-43.png)

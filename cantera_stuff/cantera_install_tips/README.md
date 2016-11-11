@@ -63,5 +63,12 @@ dnf list boost-*
 ```
 ![dnf list boost](https://raw.githubusercontent.com/ernestyalumni/Propulsion/master/cantera_stuff/cantera_install_tips/images/boostdevel01Screenshot%20from%202016-11-11%2000-26-42.png)
 
+```
+sudo dnf install boost-devel.x86_64
+
+```
+
+![sudo dnf install boost-devel.x86_64](https://raw.githubusercontent.com/ernestyalumni/Propulsion/master/cantera_stuff/cantera_install_tips/images/boostdevel01Screenshot%20from%202016-11-11%2000-27-14.png)
+
 
 

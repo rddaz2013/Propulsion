@@ -7,6 +7,7 @@ Installing Cantera on Fedora Linux, straight, directly from the github repositor
 | `cantera_install_success` | `./`           | *None*                     | A *verbose*, but complete Terminal *log* of cantera installation on *Fedora Workstation 23 Linux*, from `git clone`, cloning the githb repository for cantera, directly, all the way to a successful `scons install`. |
 | `ClassThermoPhaseExam.cpp` | `./`          | [Computing Thermodynamic Properties, Class ThermoPhase, Cantera C++ Interface User's Guide](http://www.cantera.org/docs/sphinx/html/cxx-guide/thermo.html#example-program) | Simple, complete program creates object representing gas mixture and prints its temperature |
 | `chemeqex.cpp`            | `./`           | [Chemical Equilibrium Example Program, Cantera C++ Interface User's Guide](http://www.cantera.org/docs/sphinx/html/cxx-guide/equil-example.html) | `equilibrate` method called to set gas to state of chemical equilibrium, holding temperature and pressure fixed. |
+| `verysimplecppprog.cpp`   | `./`           | | |
 
 ## Installation Prerequisites, ala Fedora Linux, Fedora/CentOS/RedHat `dnf`
 
@@ -103,6 +104,65 @@ scons: done building targets.
 ```
 Knowing where all the files were installed is good to know.  
 
+## Compiling very simple C++ programs as a sanity check (that Cantera was installed)
+
+The Cantera main page, C++ Interface User's Guide, under [Compiling Cantera C++ Programs](http://www.cantera.org/docs/sphinx/html/cxx-guide/compiling.html) gave the tips of using 3 ways, `pkg-config`, `SCons`, `Make` as ways to compile C++ programs.
+
+However, a brief peruse of `Cantera.mak`, you'll see that the flags included are daunting, numerous, and complicated:
+```
+# Required Cantera libraries
+CANTERA_CORE_LIBS=-pthread -L/usr/local/lib64 -lcantera
+
+CANTERA_CORE_LIBS_DEP = /usr/local/lib64/libcantera.a
+
+CANTERA_EXTRA_LIBDIRS=
+
+CANTERA_CORE_FTN=-L/usr/local/lib64 -lcantera_fortran -lcantera
+
+CANTERA_FORTRAN_MODS=$(CANTERA_INSTALL_ROOT)/include/cantera
+
+CANTERA_FORTRAN_SYSLIBS=-lpthread -lstdc++
+
+###############################################################################
+#            BOOST
+###############################################################################
+
+CANTERA_BOOST_INCLUDES=
+
+###############################################################################
+#         CVODE/SUNDIALS LINKAGE
+###############################################################################
+
+CANTERA_SUNDIALS_INCLUDE=
+CANTERA_SUNDIALS_LIBS= -lsundials_cvodes -lsundials_ida -lsundials_nvecserial
+```
+Do you need `sundials` all the time?  Does anyone (still) program in Fortran (2016)?  Do we really need to include the `/usr/local/lib64` directory every time?  What's the most *minimal* number of flags needed?
+
+Thus, in this repository's subdirectory, I included the simple programs that I was able to compile without a complicated Makefile such as `Cantera.mak`.
+
+
+I found these compilation commands worked:
+```
+g++ -std=c++11 verysimplecppprog.cpp -o verysimplecppprog -lcantera -l pthread
+```
+
+
+```
+g++ -std=c++11 chemeqex.cpp -o chemeqex -lcantera -l pthread
+```
+
+```
+g++ -std=c++11 ClassThermoPhaseExam.cpp -o ClassThermoPhaseExam -lcantera -l pthread
+```
+
+These flags also worked, but seemed unnecessary:
+
+```
+g++ -std=c++11 chemeqex.cpp -o chemeqex -lcantera -L/usr/local/lib64 -lsundials_cvodes -lsundials_ida -lsundials_nvecserial -L/usr/local/lib -l pthread
+```
+
+
+
 
 
 ## Troubleshooting installation/(installation) errors that pop up
@@ -117,6 +177,14 @@ I found that I had to `dnf install` `python-devel` to get the header files insta
 Do `sudo scons install`
 - `error: could not create `/usr/local/lib64/python2.7': Permission denied`  
 Do `sudo scons install`
+- `scons: *** [/opt/cantera] /opt/cantera: Permission denied`
+```
+scons: *** [/opt/cantera] /opt/cantera: Permission denied
+scons: building terminated because of errors.
+```
+Do `sudo scons install`
+
+
 
 ## Troubleshooting C++ compilation/(C++ compilation) errors that pop up
 
@@ -129,16 +197,41 @@ I realized that I needed to include the Cantera library in this way:
 -lcantera
 ```
 when compiling with g++.  
-
-
+- `Package cantera was not found in the pkg-config search path.`
+``` 
+Package cantera was not found in the pkg-config search path.
+Perhaps you should add the directory containing `cantera.pc'
+to the PKG_CONFIG_PATH environment variable
+No package 'cantera' found
+verysimplecppprog.cpp:9:29: fatal error: cantera/Cantera.h: No such file or directory
+compilation terminated.
+```
+In my experience, I found that pkg-config, even though installed, didn't work in compiling a simple program.  
 - `/usr/lib64/libpthread.so.0: error adding symbols: DSO missing from command line`
 
 I Google searched for this webpage:
 cf. [“error adding symbols: DSO missing from command line” while compiling g13-driver, ask ubuntu](http://askubuntu.com/questions/521706/error-adding-symbols-dso-missing-from-command-line-while-compiling-g13-driver)
 
 From this page, I saw the use of the line `LIBS = -lusb-1.0 -l pthread`, and the idea of using the flag `-l pthread` ended up being the solution.  
-
-
+- `/usr/include/c++/5.3.1/bits/c++0x_warning.h:32:2: error: #error This file requires compiler and library support for the ISO C++ 2011 standard. This support must be enabled with the -std=c++11 or -std=gnu++11 compiler options.`  
+You *must* include the `-std=c++11` to use the new C++11 standard.  Indeed:
+```
+/usr/include/c++/5.3.1/bits/c++0x_warning.h:32:2: error: #error This file requires compiler and library support for the ISO C++ 2011 standard. This support must be enabled with the -std=c++11 or -std=gnu++11 compiler options.
+ #error This file requires compiler and library support \
+  ^
+In file included from /usr/local/include/cantera/base/fmt.h:2:0,
+                 from /usr/local/include/cantera/base/ctexceptions.h:14,
+                 from /usr/local/include/cantera/thermo/Phase.h:12,
+                 from /usr/local/include/cantera/thermo/ThermoPhase.h:14,
+                 from /usr/local/include/cantera/thermo.h:12,
+```
+So you'll have to compile like this:
+```
+g++ -std=c++11
+```
+and include this flag in Makefiles.  
+- [usr/bin/ld: cannot find -l<nameOfTheLibrary>](http://stackoverflow.com/questions/16710047/usr-bin-ld-cannot-find-lnameofthelibrary)
+include the `-lcantera` flag in C++ compilation.
 
 ## Images gallery (that may help you with your installation process; it can be daunting)
 

@@ -40,10 +40,10 @@ sudo dnf install lapack-devel.x86_64
 ```
 - **`blas`** - *`blas`, Basic Linear Algebra Subprograms*.  Don't take it for granted that `blas` is already installed (I had to troubleshoot this myself, beyond the Cantera main page documentation, and find where it is).  I had to install it because I found it was missing through the Cantera `scons build` 
 ```
-dnf list blas*  # find lapack in dnf
-sudo dnf install lapack.x86_64
-sudo dnf install lapack-devel.x86_64
-
+dnf list blas*  # find blas in dnf
+sudo dnf install blas.x86_64
+sudo dnf install blas-devel.x86_64
+```
 
 
 ## Clean install, from `git clone` to `scons install`

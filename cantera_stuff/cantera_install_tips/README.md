@@ -27,12 +27,24 @@ I found that you can't get away from `dnf install` on an *administrator* account
 Also, in general, you'd want to **install the developer version** of the libraries as well, usually suffixed with `-devel`, mostly because the header files will be placed in the right `/usr/*` subdirectory so to be included in the system (when compiling C++ files or installing).  
 
 - **`scons`** - be sure to install `scons` - it seems like there is a push to use scons, a Python program, for installation and (package) compilation, as opposed to (old-school) CMake, or Make.
-- **`boost`** - Boost is free peer-reviewed portable C++ source libraries.
+- **`boost`** - *Boost* is free peer-reviewed portable C++ source libraries.
 ```
 sudo dnf install boost.x86_64
 sudo dnf install boost-devel.x86_64
 ```
-- 
+- **`lapack`** - *`lapack`, Linear Algebra PACkage*.  Don't take it for granted that `lapack` is already installed (I had to troubleshoot this myself, beyond the Cantera main page documentation, and find where it is).  I had to install it because I found it was missing through the Cantera `scons build`  
+```
+dnf list lapack*  # find lapack in dnf
+sudo dnf install lapack.x86_64
+sudo dnf install lapack-devel.x86_64
+```
+- **`blas`** - *`blas`, Basic Linear Algebra Subprograms*.  Don't take it for granted that `blas` is already installed (I had to troubleshoot this myself, beyond the Cantera main page documentation, and find where it is).  I had to install it because I found it was missing through the Cantera `scons build` 
+```
+dnf list blas*  # find lapack in dnf
+sudo dnf install lapack.x86_64
+sudo dnf install lapack-devel.x86_64
+
+
 
 ## Clean install, from `git clone` to `scons install`
 
@@ -76,6 +88,13 @@ sudo dnf install boost-devel.x86_64
 
 ![sudo dnf install boost-devel.x86_64](https://raw.githubusercontent.com/ernestyalumni/Propulsion/master/cantera_stuff/cantera_install_tips/images/boostdevel01Screenshot%20from%202016-11-11%2000-27-14.png)
 
+
+```
+dnf list lapack*  # find lapack in dnf
+sudo dnf install lapack-devel.x86_64
+```
+
+![sudo dnf install lapack-devel.x86_64](https://raw.githubusercontent.com/ernestyalumni/Propulsion/master/cantera_stuff/cantera_install_tips/images/lapackblasScreenshot%20from%202016-11-11%2001-06-12.png)
 
 
 ```

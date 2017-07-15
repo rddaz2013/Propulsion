@@ -1,0 +1,1886 @@
+% file: thermo.tex
+% Thermodynamics, in unconventional ``grande'' format; fitting a widescreen format
+% 
+% If you liked this this file or found it useful, please consider donating on my Tilt/Open 
+% campaign: I'd want to raise money for a new computer. 
+% ernestyalumni.tilt.com 
+%
+% Facebook      : ernestyalumni 
+% github        : ernestyalumni
+% gmail         : ernestyalumni 
+% linkedin      : ernestyalumni 
+% twitter       : ernestyalumni 
+% wordpress.com : ernestyalumni
+% youtube       : ernestyalumni 
+% Tilt/Open     : ernestyalumni
+%
+% This code is open-source, governed by the Creative Common license.  Use of this code is governed by the Caltech Honor Code: ``No member of the Caltech community shall take unfair advantage of any other member of the Caltech community.'' 
+% 
+
+\documentclass[10pt]{amsart}
+\pdfoutput=1
+\usepackage{mathtools,amssymb,lipsum,caption}
+
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage[utf8]{inputenc}
+\usepackage{listings}
+\usepackage[table]{xcolor}
+\usepackage{pdfpages}
+\usepackage{tikz}
+\usetikzlibrary{matrix,arrows}
+
+\usepackage{multicol}
+
+\hypersetup{colorlinks=true,citecolor=[rgb]{0,0.4,0}}
+
+\oddsidemargin=15pt
+\evensidemargin=5pt
+\hoffset-45pt
+\voffset-55pt
+\topmargin=-4pt
+\headsep=5pt
+\textwidth=1120pt
+\textheight=595pt
+\paperwidth=1200pt
+\paperheight=700pt
+\footskip=40pt
+
+
+
+
+
+
+
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{corollary}{Corollary}
+%\newtheorem*{main}{Main Theorem}
+\newtheorem{lemma}{Lemma}
+\newtheorem{proposition}{Proposition}
+
+\newtheorem{definition}{Definition}
+\newtheorem{remark}{Remark}
+
+\newenvironment{claim}[1]{\par\noindent\underline{Claim:}\space#1}{}
+\newenvironment{claimproof}[1]{\par\noindent\underline{Proof:}\space#1}{\hfill $\blacksquare$}
+
+%This defines a new command \questionhead which takes one argument and
+%prints out Question #. with some space.
+\newcommand{\questionhead}[1]
+  {\bigskip\bigskip
+   \noindent{\small\bf Question #1.}
+   \bigskip}
+
+\newcommand{\problemhead}[1]
+  {
+   \noindent{\small\bf Problem #1.}
+   }
+
+\newcommand{\exercisehead}[1]
+  { \smallskip
+   \noindent{\small\bf Exercise #1.}
+  }
+
+\newcommand{\solutionhead}[1]
+  {
+   \noindent{\small\bf Solution #1.}
+   }
+
+
+\title{Thermodynamics}
+\author{Ernest Yeung \href{mailto:ernestyalumni@gmail.com}{ernestyalumni@gmail.com}}
+\date{18 octobre 2015}
+\keywords{Thermodynamics}
+\begin{document}
+
+\definecolor{darkgreen}{rgb}{0,0.4,0}
+\lstset{language=Python,
+ frame=bottomline,
+ basicstyle=\scriptsize,
+ identifierstyle=\color{blue},
+ keywordstyle=\bfseries,
+ commentstyle=\color{darkgreen},
+ stringstyle=\color{red},
+ }
+%\lstlistoflistings
+
+\maketitle
+
+\tableofcontents
+
+\begin{multicols*}{2}
+
+\begin{abstract}
+Everything about thermodynamics.  
+
+I also look at thermodynamics for engineers from a (theoretical and mathematical) physicists' point of view.  I would like to seek more cross-polination between physicists and mathematicians and engineers in thermodynamics.
+\end{abstract}
+
+%\part{Notes and Solutions for \emph{Thermal Physics} by Ralph Baierlein}
+
+\section{Background}
+\cite{RBaierlein1999}
+\subsection{Heating and Temperature}
+
+Heating: keep in mind 3 different types of heating for energy exchange between two systems:
+
+\begin{enumerate}
+  \item Heating by conduction - literal contact, molecules jiggle faster from molecules jiggling faster by bouncing off them
+  \item Heating by radiation - em waves from hot source strike and excite target
+  \item heating by convection - energy transport by flow (perhaps a fluid)
+\end{enumerate}
+
+This all relates to \\
+$Q$
+
+\subsection{Some dilute gas relationships}
+
+\subsubsection*{Pressure according to kinetic theory} i.e. some kinetic theory
+
+$F \equiv $ force on area $A$ due to molecules \\
+$\Delta p \equiv $ momentum transferred to wall per collision \\
+$n \equiv$ number of collisions in time $\Delta t$
+
+Thus
+\[
+F = \frac{ (\Delta p)n }{ \Delta t }
+\]
+
+Now $\Delta p = 2 m v_x$ since $\Delta p = mv_x - (-mv_x) = 2mv_x$ (elastic collision with momentum conversation)
+
+$v_x \Delta t A$ is a volume, inside of which gas molecules can be within distance $v_x \Delta t$ toward the wall.  \\
+$\frac{N}{V}$ number density of molecules
+
+Assume equal distribution of velocities: Thus $\frac{1}{2}$
+\[
+ n = (v_x \Delta t A) \frac{1}{2} \frac{N}{V}
+\]
+\[
+P = \frac{F}{A} = \frac{ (2mv_x)(v_x \Delta t A ) \frac{1}{2} \frac{N}{V} }{ A \Delta t} = mv_x^2 \frac{N}{V}
+\]
+
+Suppose $\langle v^2 \rangle = \langle v_x^2 \rangle + \langle v_y^2 \rangle + \langle v_z^2 \rangle = 3 \langle v_x^2 \rangle = d \langle v_x^2 \rangle$.  
+\[
+\Longrightarrow P = \frac{mN}{dV} \langle v^2 \rangle = \frac{2}{d} \frac{1}{2} m \langle v^2 \rangle \frac{N}{V}
+\]
+
+\subsubsection*{An empirical gas law}
+Now 
+\[
+P = \frac{N\tau}{V} \quad \, \text{(empirical)}
+\]
+
+\[
+\Longrightarrow \frac{1}{2} m \langle v^2 \rangle = \frac{d}{2} \tau
+\]
+
+\subsection{The First Law of Thermodynamics}
+
+\[
+dU = Q - W \text{ or } Q = dU + W 
+\]
+
+Consider $W = Q-dU$.  
+
+Consider path in $M$, $\gamma$, $\begin{aligned} & \quad \\
+  & \gamma : \mathbb{R} \to M = (U,V) \\
+  & \gamma(t) = (U(t), V(t)) \end{aligned}$
+
+$\dot{\gamma} \in \mathfrak{X}(M)$, $\dot{\gamma} = \dot{U} \frac{\partial }{ \partial U} + \dot{V} \frac{ \partial }{ \partial V}$
+
+\[
+W(\dot{\gamma}) = pdV(\dot{\gamma}) = p\dot{V} = Q(\dot{\gamma}) - dU(\dot{\gamma}) = Q(\dot{\gamma}) - \dot{U}
+\]
+Suppose $Q(\dot{\gamma}) = Q(t)dt(\dot{\gamma} \frac{ \partial }{ \partial t} ) = Q(t) \dot{\gamma}$.  
+\[
+\begin{gathered}
+  \int p \dot{V} dt = \int Q(t) \dot{\gamma}dt - \int \dot{U}dt \\ 
+  \Longrightarrow p\Delta V = \Delta Q - \Delta U
+\end{gathered}
+\]
+$p\Delta V$ interpreted as work done by gas. $\Delta Q$ is heat transferred to gas system.  $-\Delta U$ is the drop in internal energy of gas system as it does work.  
+
+\subsection{Heat capacity}
+
+\[
+Q = Q(\tau,V) = \left( \frac{ \partial Q}{ \partial \tau} \right)_V d\tau +  \left( \frac{ \partial Q}{ \partial V} \right)_{\tau} dV
+\]
+So define $C_V \equiv \left( \frac{ \partial Q}{ \partial \tau} \right)_V$ or interpret $C_V$ as energy input by heating at constant volume over ensuing change in temperature.  
+
+In this case, $\left( \frac{ \partial U}{ \partial \tau } \right)_V$.  
+
+For the case of a monatomic gas, $U =\frac{d}{2} \tau N$, $\frac{ \partial U}{ \partial \tau} = \frac{d}{2} N$.  
+\[
+C_V = \frac{d}{2} N
+\]
+$N \equiv $ number of molecules.  
+
+Now 
+\[
+\begin{aligned}
+  & Q = \Lambda_p dp + C_p d\tau \\ 
+  & Q = \Lambda_V dV + C_V d\tau
+\end{aligned} \Longrightarrow \begin{aligned}
+  & Q \wedge dp = C_p d\tau \wedge dp \\ 
+  & Q \wedge dp = \Lambda_V dV \wedge dp + C_V d\tau \wedge dp
+\end{aligned}
+\]
+Now from the thermodynamic identity, $Q = W + dU = pdV + dU$,
+\[
+Q \wedge dp = p dV \wedge dp + dU \wedge dp
+\]
+and from (empirical) ideal gas law, $pV = N\tau$ (which defines a hypersurface on $M$),
+\[
+dp V + p dV = N d\tau \Longrightarrow p dV \wedge dp = N d\tau \wedge dp
+\]
+so then
+\[
+Q \wedge dp = N d\tau \wedge dp + dU \wedge dp
+\]
+In the case of the monatomic gas, $U = \frac{d}{2} \tau N$, and so $dU = \frac{d}{2} N d\tau = C_V d\tau$ and so comparing all the equations above, one recovers
+\[
+C_p = N + C_V = \frac{2+d}{2} N
+\]
+EY: 20151019 I'm curious to know how this all generalizes for $C_V$, $C_P$ heat capacities, regardless of the type of molecule we consider.  
+
+
+\subsubsection*{The adiabatic relation for a classical ideal gas}
+
+Consider the adiabatic expansion (or contraction!) of a classical ideal gas.  \\
+This means that $Q=0$; there is no heat exchange to or from the gas system.  
+
+Recall $Q = dU + W$.  \\
+If $Q=0$, and supposing $W = pdV$, then $0 = dU + pdV$.  
+
+EY : 20151019 Either by definition, or the thermodynamic identity, $\tau d\sigma = dU + pdV$, then $C_V := \left( \frac{ \partial U}{ \partial \tau} \right)_V$.  My question is this: for manifold of thermodynamic states $M$, $M=(U,V)$, i.e. $U$ is a global coordinate and $V$ is a ``local'' coordinate.  One can make a Legendre transformation such that $M$ is parametrized by $(\tau,V)$, where $\tau$ is the temperature.  In general, one should say that $U=U(\tau,V) \in C^{\infty}(M)$, and so $dU = \frac{ \partial U }{ \partial \tau} d\tau + \frac{ \partial U}{ \partial V} dV$, $dU \in \Omega^1(M)$.    
+
+However, for this adiabatic process, we want
+\[
+Q = 0 = dU + W = dU + pdV = C_V d\tau + pdV
+\]
+which implies that $dU = C_V d\tau$.  What happened to the $\frac{ \partial U}{ \partial V} dV$? Is it that in this adiabatic process, the internal energy of the gas system goes to either doing work (expansion) or increases due to work being done on it (contraction), and is characterized completely by a drop or increase in its temperature, respectively?  And so $dU = C_V \tau$, and $pdV$ completely describes what's going on with work done or work done on it?
+
+Nevertheless, using the (empirical) ideal gas law, $pV = N\tau$, 
+\[
+0 = C_V d\tau + pdV = C_V d\tau + \frac{N\tau}{V} dV
+\]
+Consider a path $\begin{aligned} & \quad \\
+  & \gamma : \mathbb{R} \to M \\ 
+  & \gamma(t) = (\tau(t), V(t)) \end{aligned}$ \quad \, in $M$, so that $\dot{\gamma}(t) = \dot{\tau} \frac{ \partial }{ \partial \tau } + \dot{V} \frac{ \partial }{ \partial V} \in \mathfrak{X}(M)$.  
+
+Thus, 
+\[
+\begin{gathered}
+  0 = C_v \dot{\tau} + \frac{N \tau}{V} \dot{V} \text{ so } \frac{ \dot{\tau}}{\tau} + \frac{N}{C_V} \frac{ \dot{V}}{V} \\
+  \xrightarrow{ \int dt } \ln{ \frac{ \tau_f}{ \tau_i } } + \frac{N}{C_V} \ln{ \frac{V_f}{ V_i } } = 0 \text{ or } \ln{\tau V^{\frac{N}{C_V}} } = \text{ const. }
+\end{gathered}
+\]
+
+Now
+\[
+\frac{N}{C_V} = \frac{C_P - C_V}{ C_V} = \gamma -1 
+\]
+which is true, assuming the (empirical) ideal gas law, the thermodynamic identity, and, surely, for the case of a monatomic gas.  
+
+Thus
+\[
+\tau_f V_f^{\gamma-1} = \tau_i V_i^{\gamma -1}
+\]
+
+\subsection*{Problems}
+
+\problemhead{4} \emph{Adiabatic compression}. 
+
+A diesel engine doesn't have a spark plug to ignite and explode the fuel.  Instead, the air in the cylinder is compressed so highly that the fuel ignites spontaneously when sprayed into the cylinder.  
+
+\begin{enumerate}
+\item[(a)] 
+\[
+\begin{gathered}
+  \frac{ \tau_f V_f^{\gamma -1} }{ \tau_i V_i^{\gamma -1} } = \frac{ P_f V_f^{\gamma }}{ P_i V_i^{\gamma} } = 1 \\
+  \tau_f = \left( \frac{V_i}{V_f} \right)^{\gamma -1 }\tau_i
+\end{gathered}
+\]
+
+Run the Python script \verb|thermo.py| to do the calculations.  Here is (some of) the code from \verb|thermo.py| for doing so (one still needs to import the necessary libraries):
+
+\begin{lstlisting}
+roomtemp_K = KCconv.subs(T_C,20).rhs # room temperature in Kelvin                               
+
+Prob0104ans = adia_tV.subs(gamma,1.4).subs(V_f,1).subs(V_i,15).subs(tau_i, roomtemp_K) # answer to Problem 4 of Chapter 1                                                                           
+
+Prob0104ans = N( Prob0104ans.lhs) # 866.016969686253 K                                         
+Prob0104ansC = solve( KCconv.subs( T_K, Prob0104ans), T_C )[0] # 592.866969686253 C            
+solve( FCconv.subs( T_C, Prob0104ansC ), T_F)[0] # 1099.16054543526 F   
+\end{lstlisting}
+
+The final temperature is $866.01 \, K$ or $592.87 \, C$ or $1099.16 \, F$
+
+\item[(b)] Now from the ideal gas law, which is obeyed at all thermodynamic states
+\[
+\begin{gathered}
+  \frac{P_f}{ P_i} = \frac{V_i}{V_f} \frac{ \tau_f}{ \tau_i}
+\end{gathered}
+\]
+and so $\frac{P_f}{P_i} = 44.31$
+\end{enumerate}
+
+
+\section{Phase Equilibrium}
+
+\subsection{Condition of coexistence; Coexistence of phases}
+
+cf. Chapter 10: Phase Transformation, earlier sections of Kittel and Kroemer (1980) \cite{CKittelHKroemer1980}; Subsection 3.5.2. ``Coexistence of phases'' of Le Bellac, Mortessagne, Batrouni (2004) \cite{MLeBellacFMortessagneGBatrouni2004}
+
+The \emph{condition of coexistence} is 
+\[
+\mu_1(\tau,p) = \mu_2(\tau,p)
+\]
+For example $\begin{aligned} & \quad \\
+  & 1 = g = \text{ gas } \\
+  & 2 = l = \text{ liquid } \end{aligned}$
+
+Then Taylor expand:
+\[
+\mu_1(\tau_0,p_0) = \mu_2(\tau_0,p_0) = \mu_1(\tau_0,p_0) + \left( \frac{ \partial \mu_1}{ \partial p} \right)_{\tau} dp + \left( \frac{ \partial \mu_1}{ \partial \tau } \right)_p d\tau + \dots = \mu_2(\tau_0,p_0) + \left( \frac{ \partial \mu_2}{ \partial p} \right)_{\tau} dp + \left( \frac{ \partial \mu_2}{ \partial \tau} \right) d\tau + \dots
+\]
+\[
+\Longrightarrow \frac{dp}{d\tau} = \frac{ \left( \frac{ \partial \mu_1}{ \partial \tau} \right)_p - \left( \frac{ \partial \mu_2}{ \partial \tau} \right)_p }{ \left( \frac{ \partial \mu_2}{ \partial p} \right)_{\tau} - \left( \frac{ \partial \mu_1}{ \partial p }\right)_{\tau}  }
+\]
+Now
+\[
+G= N\mu(\tau,p)
+\]
+and so define
+\[
+\begin{aligned}
+  & \frac{1}{N} \left( \frac{ \partial G}{ \partial \tau} \right)_{N,p} = \frac{-\sigma}{N} \equiv - \widehat{\sigma} =  \left( \frac{ \partial \mu }{ \partial \tau} \right)_{N,p} \\
+  & \frac{1}{N} \left( \frac{ \partial G}{ \partial p} \right)_{N,\tau} = \frac{V}{N} \equiv v =  \left( \frac{ \partial \mu }{ \partial p} \right)_{N,\tau} 
+\end{aligned}
+\]
+and so
+\[
+\Longrightarrow \frac{dp}{d\tau} = \frac{ \widehat{\sigma}_2 - \widehat{\sigma}_1}{ v_2 - v_1}
+\]
+Equation 11 in Chapter 10 of Kittel and Kroemer (1980) \cite{CKittelHKroemer1980} and Eq. 3.96 of Le Bellac, Mortessagne, Batrouni (2004) \cite{MLeBellacFMortessagneGBatrouni2004} agree. 
+
+Now consider $\tau N d\widehat{\sigma}$ for constant $\tau$, 
+\[
+Q = \tau N d\widehat{\sigma} \Longrightarrow \int Q = \tau N( \widehat{\sigma}_2 - \widehat{\sigma}_1) \text{ or } \frac{ \int Q}{ N} = \tau (\widehat{\sigma}_2 - \widehat{\sigma}_1 ) 
+\]
+which is the heat added in the transfer.  
+
+Define the \textbf{latent heat of vaporization}
+\begin{equation}
+  L := \tau(\widehat{\sigma}_2 - \widehat{\sigma}_1) \qquad \, (\text{latent heat of vaporization})
+\end{equation}
+For the change of volume when 1 molecule is transferred from liquid to gas or 1 to 2, $\Delta v$, $\Delta v \equiv v_2 - v_1$, and so 
+\begin{equation}
+\left. \frac{dp}{d\tau } \right|_{\text{coexist}} = \frac{L }{ \Delta v \tau}
+\end{equation}
+
+
+\subsection{Latent heat}
+
+$p,T$ const., liquid $\to $ gas, e.g. $ \begin{aligned} & \quad \\
+  & p = 1 \text{ atm } \\
+  & T = 373 \, K \end{aligned}$
+
+latent heat of vaporization $L_{\text{vap}}$ (by def.) amount of energy supplied by heating.  \\
+$Q = dU + W$ \\
+$\epsilon := U/N = $ average (internal) energy per molecule  \\
+$v:= V/N = $ volume per molecule 
+
+$L_{\text{vap}} = d\epsilon + p dV$ \\
+\phantom{\quad \, } $d\epsilon(\dot{\gamma}) = \epsilon_{\text{vap}} - \epsilon_{\text{liq}}$ \\
+\phantom{\quad \, } $dv(\dot{\gamma}) = v_{\text{vap}} - v_{\text{liq}} >0$
+
+if $p$ const., $L_{\text{vap}} = d(\epsilon + pV) = dh$, $h:= H/N = \frac{ U + pV}{N}$
+
+EY : 20151031 Another way to think about it is this: recall that
+\[
+\begin{aligned}
+  & Q = dU + W = dU + pdV = \tau d\sigma \\ 
+  & H = U + pV \text{ so } dH = dU + pdV + Vdp = Q + Vdp
+\end{aligned}
+\]
+Consider a path $\gamma \in M$ s.t. $\begin{aligned} & \quad \\
+  & d\tau(\dot{\gamma}) = 0 \\
+  & dp(\dot{\gamma}) = 0 \end{aligned}$ \quad \, (constant $\tau,p$)
+
+\[
+\begin{aligned}
+  & Q(\dot{\gamma}) = dH(\dot{\gamma}) - Vdp(\dot{\gamma}) = dH(\dot{\gamma}) - 0 = dH(\dot{\gamma})
+  & Q(\dot{\gamma}) = \tau d\sigma(\dot{\gamma}) \\ 
+  & \int Q(\dot{\gamma}) = \int \tau d\sigma(\dot{\gamma}) = \tau(\sigma_g - \sigma_l)
+\end{aligned}
+\]
+Thus
+\[
+\begin{gathered}
+  \frac{ \int Q(\dot{\gamma})}{ N} = \tau (s_g - s_l ) = \frac{H_g}{N} - \frac{H_l}{N} \\ 
+  L \equiv \tau(s_g - s_l) = \frac{ \int Q(\dot{\gamma})}{ N} = \frac{1}{N} (H_g -H_l)
+\end{gathered}
+\]
+
+\subsubsection*{Latent heat versus heat capacity}
+
+Take slow, reversible process.  
+
+Now 
+\[
+\begin{aligned}
+  & C_V := \tau \left( \frac{ \partial \sigma }{ \partial \tau} \right)_V \\ 
+  & C_P := \tau \left( \frac{ \partial \sigma }{ \partial \tau } \right)_P
+\end{aligned}
+\]
+
+It's stated in Kittel and Kroemer (1980), pp. 166, Equation (37), Chapter 6: Ideal Gas, Subsection ``Heat capacity'' \cite{CKittelHKroemer1980}, that 
+\begin{equation}
+  C_P = \tau \left( \frac{ \partial \sigma }{ \partial \tau} \right)_P = \left( \frac{ \partial U }{ \partial \tau} \right)_P + p \left( \frac{ \partial V}{ \partial \tau} \right)_p
+\end{equation}
+
+Suppose $\sigma = \sigma(\tau, V)$.  With $\tau d\sigma = dU + W = \tau d\sigma = dU + pdV$, 
+\[
+\begin{aligned}
+  & d\sigma = \frac{ \partial \sigma }{ \partial \tau } d\tau + \frac{ \partial \sigma }{ \partial V} dV = \frac{dU}{ \tau} + \frac{p}{\tau} dV \\ 
+  & d\sigma(\dot{\gamma}) = \left( \frac{ \partial \sigma}{ \partial \tau} \right)_V + 0 = \frac{1}{\tau} dU(\dot{\gamma}) = \frac{1}{\tau} \left( \frac{ \partial U}{ \partial \tau} \right)_V
+\end{aligned}
+\]
+Then it's clear that 
+\[
+\tau \left( \frac{ \partial \sigma }{ \partial \tau } \right)_V = \left( \frac{ \partial U}{ \partial \tau} \right)_V = C_V
+\]
+
+Now suppose $\sigma = \sigma(\tau, p)$.  
+
+Consider also the enthalpy,  $H = U + pV$, and so
+\[
+dH = dU + Vdp + pdV = \tau d\sigma + Vdp
+\]
+Now for $\sigma = \sigma(\tau,p)$,
+\[
+\begin{aligned}
+  & \sigma = \sigma(\tau,p) \\ 
+  & d\sigma = \frac{ \partial \sigma }{ \partial \tau} d\tau + \frac{ \partial \sigma }{ \partial p } dp = \frac{dH}{\tau} - \frac{V}{\tau} dp
+\end{aligned} \Longrightarrow d\sigma(\dot{\gamma}) = \left( \frac{ \partial \sigma }{ \partial \tau} \right)_p + 0 = \frac{1}{\tau} \left( \frac{ \partial H}{ \partial \tau} \right)_p - 0 
+\]
+
+So 
+\[
+C_p := \tau \left( \frac{ \partial \sigma }{ \partial \tau } \right)_p = \left( \frac{ \partial H}{ \partial \tau} \right)_p
+\]
+Now 
+\[
+\begin{gathered}
+  dH(\dot{\gamma}) = dU(\dot{\gamma}) + Vdp(\dot{\gamma} ) + pdV(\dot{\gamma}) = \left( \frac{ \partial U }{ \partial \tau} \right)_p + 0 + p \left( \frac{ \partial V}{ \partial \tau} \right)_p = \left( \frac{ \partial H }{ \partial \tau } \right)_p \text{ so } \\ 
+  C_p = \tau \left( \frac{ \partial \sigma }{ \partial \tau} \right)_p = \left( \frac{ \partial U}{ \partial \tau} \right)_p + p\left( \frac{ \partial V}{ \partial \tau} \right)_p 
+\end{gathered}
+\]
+
+Kittel and Kroemer (1980) \cite{CKittelHKroemer1980} argues that for ideal gas, 
+\[
+\left( \frac{ \partial U}{ \partial \tau} \right)_p = \left( \frac{ \partial U}{ \partial \tau} \right)_V
+\]
+since $U = U(\tau)$.  
+
+\subsection{Conditions for coexistence} Sec. 12.3 of Baierlein (1999) \cite{RBaierlein1999}.  
+
+Recall 
+\[
+G = F + pV = U + pV - \tau \sigma =G(\tau,p,N)
+\]
+
+Now 
+\[
+\begin{gathered}
+  G = G(\tau, p, N_{\text{vap}}, N_{\text{liq}} )
+\Longrightarrow dG = \frac{ \partial G}{ \partial N_{\text{vap}}} dN_{\text{vap}} + \frac{ \partial G}{ \partial N_{\text{liq}} } dN_{\text{liq}} = \mu_{\text{vap}} 1 + \mu_{\text{liq}} (-1) = 0  \\
+\Longrightarrow \mu_{\text{vap}}(\tau,p) = \mu_{\text{liq}}(\tau,p)
+\end{gathered}
+\]
+
+
+
+%\part{Notes and Solutions on \emph{Fundamentals of Thermodynamics}, 8th Edition, by Claus Borgnakke, Richard E. Sonntag}
+\cite{CBorgnakkeRSonntag2012}
+
+%\section{}
+
+\section{Properties of a Pure Substance}
+
+EY : 20151030 Is the word vapor the same as gas?  vapour, gaz, gas, vapore
+
+For coexistence equilibrium, 
+\[
+\begin{aligned}
+  & \mu_g(p_0,\tau_0) = \mu_l(p_0,\tau_0) \text{ and } \\ 
+  & \mu_g(p_0 + dp, \tau_0+d\tau) = \mu_l(p_0 + dp, \tau_0+d\tau)
+\end{aligned}
+\]
+and so 
+\begin{equation}
+  \frac{dp}{d\tau} = \frac{L}{\tau \Delta v}
+\end{equation}
+where $v\equiv \frac{V}{N}$, the so-called \textbf{vapor pressure equation} or \textbf{Clausius-Clapeyron} equation.  
+
+For (2) approximations, $\Delta v = v_g - v_l \approx v_g = \frac{V_g}{N_g}$ and idealize vapor as ideal gas, $pV = N\tau$ so $\frac{dp}{d\tau} = \frac{L}{\tau^2/p}$.  
+
+Second, if $L$ constant, 
+\begin{equation}\label{Eq:CCeq_pvsT}
+  p(\tau) = p_0 \exp{ (-L_0/\tau)} \text{ or } \ln{ \left( \frac{p(\tau)}{p_0} \right) } = \frac{-L_0}{\tau}
+\end{equation}
+cf. Ch. 10 Phase Transformations, pp. 278-284, ``Derivation of the Coexistence Curve, $p$ Versus $\tau$'' of Kittel and Kroemer (1980) \cite{CKittelHKroemer1980}.  
+
+Eq. \ref{Eq:CCeq_pvsT} explains the shape of the coexistence curve between solid and gas (vapor) (sublimation) and liquid and gas (vapor) (vaporization; vaporization curve).  
+
+\textbf{Saturation} is this $p=p(\tau)$ coexistence curve.  
+
+
+\textbf{Isotherms, Isothermals}
+
+Recall $\begin{aligned} 
+  & \quad \\
+  & G = F + pV \\
+  & F = U-\tau \sigma \end{aligned}$ and so $\begin{aligned}
+  & \quad \\
+  & dG = dF + Vdp + pdV = dU - \tau d\sigma - \sigma d\tau + pdV + Vdp = -\sigma d\tau + Vdp \\
+  & dG = -\sigma d\tau + Vdp \end{aligned}$
+
+So then $\begin{aligned} & \quad \\
+  & G = G(\tau, p) \\
+  & G= G(\tau, p, N) \end{aligned}$ 
+
+where the latter statement is when we include particle transfer, so that 
+\[
+dG = -\sigma d\tau + Vdp + \mu dN \text{ for } \mu = \mu(\tau,p)
+\]
+
+For the \emph{ideal gas}:
+
+\[
+\begin{gathered}
+  F(\tau,V) = F= -N\tau \left( \ln{ \left( \frac{n_Q}{n} \right)} + 1 \right) \\ 
+  \text{ where }  \begin{aligned}
+    & n_Q = \left( \frac{M\tau }{2\pi \hbar^2 } \right)^{3/2} \\ 
+    & n \equiv N/V = \frac{p}{\tau} 
+  \end{aligned} \\
+  G(\tau,p, N) = -N \tau ( \ln{ \left( \frac{n_Q}{n} \right) } + 1 ) + N \tau = - N\tau ( \ln{ \left( \frac{n_Q}{n} \right) } ) = -N\tau \ln{ \left( \left( \frac{M\tau}{2\pi \hbar^2 } \right)^{3/2} \frac{\tau}{p} \right) } \\
+  \text{ so then }
+\left( \frac{ \partial G}{ \partial N} \right)_{\tau,p} = \mu = -\tau \ln{ \left( \left( \frac{M\tau}{2\pi \hbar^2} \right)^{3/2} \frac{\tau}{p} \right) }
+\end{gathered}
+\]
+
+For the \emph{Van der Waals gas}
+\[
+\begin{gathered}
+  F(vdW) = -N\tau \left( \ln{ \left( \frac{n_Q (V-Nb)}{N} \right) }  + 1 \right) - \frac{N^2 a }{V} \\ 
+  p = -\left( \frac{\partial F}{ \partial V} \right)_{\tau,N} = \frac{N\tau}{V-Nb} - \frac{N^2a}{V^2} \\
+  G(\tau,V,N) = \frac{N\tau V}{ V-Nb} - \frac{2N^2 a}{V} - N\tau ( \ln{ \left( \frac{n_Q (V-Nb)}{N} \right) } + 1 )
+\end{gathered}
+\]
+
+Nevertheless, consider, when considering isotherms, isothermals, 
+\[
+dG = -\sigma d\tau  + Vdp + \mu dN
+\]
+Consider a path $\gamma$ on constant $\tau$, constant total number of particles $N$, and so
+\[
+dG(\dot{\gamma}) = Vdp(\dot{\gamma}) = G_g-G_l = \int_{\gamma} Vdp
+\]
+
+
+\part{Thermodynamics (Revisited)}
+
+Let $\Sigma$ be a (topological) manifold of dim. 2.  
+
+Suppose $U$ is a global coordinate on $\Sigma$.  Then consider 1 chart $(U,V)$.  
+
+Consider $\sigma = \sigma(U,V) \in C^{\infty}(\Sigma)$.  
+
+Recall the thermodynamic identity 
+\[
+\tau d\sigma = dU + pdV
+\]
+Thus
+\[
+d\sigma = \frac{1}{\tau} dU + \frac{p}{\tau} dV \Longrightarrow \begin{aligned} & \frac{p}{\tau} = \left( \frac{ \partial \sigma}{ \partial V} \right)_U \\
+  & \frac{1}{\tau}  =\left( \frac{ \partial \sigma}{ \partial U} \right)_V \end{aligned}
+\]
+
+\section{Heat Capacity}
+
+From Kittel and Kroemer (1980) \cite{CKittelHKroemer1980}, pp. 165-166, Chapter 6: Ideal Gas, ``Heat Capacity'',
+\[
+Q = Q(\tau,p) = \Lambda_p dp + C_p d\tau = dU + W = dU + p dV 
+\]
+Let $c\in \Sigma$ s.t. $dp(\dot{c})=0$ (constant pressure).  And so 
+\[
+Q(\dot{c}) = 0 + C_p d\tau(\dot{c}) = \tau d\sigma (\dot{c}) = dU(\dot{c}) + pdV(\dot{c})
+\]
+for $c=(\tau,0)$, $\dot{c} = \frac{\partial }{ \partial \tau} \in T\Sigma$.  
+
+\[
+\Longrightarrow C_p = \tau \left( \frac{ \partial \sigma }{ \partial \tau} \right)_p = \left( \frac{ \partial U}{ \partial \tau} \right)_p + p \left( \frac{ \partial V}{ \partial \tau} \right)_p
+\]
+for heat capacity at constant pressure is larger than $C_V$ because additional heat must be added to perform the work needed to expand volume of gas against constant pressure.  
+
+Now recall for enthalpy 
+\[
+\begin{aligned}
+  & H = U+ pV \\ 
+  & H = H(\sigma, p)
+\end{aligned}
+\]
+Then
+\[
+dH = dU+ pdV + Vdp = Q + Vdp 
+\]
+Thus, for $c\in \Sigma$, $dp(\dot{c})=0$ (constant pressure).  Hence
+\[
+dH(\dot{c}) = \left( \frac{ \partial H}{ \partial \tau} \right)_p = Q(\dot{c})  +  0 = C_p
+\]
+Hence, 
+\[
+C_p = \left( \frac{ \partial H}{ \partial \tau } \right)_p = \left( \frac{ \partial Q}{ \partial \tau} \right)_p
+\]
+
+
+\section{Reactions}
+
+\subsection{Gibbs (review)}
+
+cf. Chapter 5: Chemical Potential and Gibbs Distribution of Kittel and Kroemer (1980) \cite{CKittelHKroemer1980}
+
+Recall that 
+\[
+\begin{aligned}
+  F & = U - \tau \sigma \\ 
+  dF & = dU - \tau d\sigma - \sigma d\tau = -pdV - \sigma d\tau \text{ or } dF = +\mu dN - pdV - \sigma d\tau 
+\end{aligned}
+\]
+so $F = F(\tau,V)$.  
+
+Total entropy of system $+$ reservoir $\sigma = \sigma_{\mathcal{R}} + \sigma_{\mathcal{S}}$ 
+
+\[
+\sigma = \sigma_{\mathcal{R}} + \sigma_{\mathcal{S}} = \sigma_{\mathcal{R}}(U- U_{\mathcal{S}}) + \sigma_{\mathcal{S}}(U_{\mathcal{S}}) \simeq \sigma_{\mathcal{R}}(U) - U_{\mathcal{S}} \left( \frac{ \partial \sigma_{\mathcal{S}} }{\partial U_{\mathcal{R}} } \right)_{V,N} + \sigma_{\mathcal{S}}(U_{\mathcal{S}})
+\]
+Now
+\[
+\left( \frac{ \partial \sigma_{\mathcal{R}} }{ \partial U_{\mathcal{R}} } \right)_{V,N} \equiv \frac{1}{\tau}
+\]
+and so 
+\[
+\sigma = \sigma_{\mathcal{R}}(U) - \frac{1}{\tau} U_{\mathcal{S}} + \sigma_{\mathcal{S}} = \sigma_{\mathcal{R}}(U) - F_{\mathcal{S}} / \tau
+\]
+$F_{\mathcal{S}}$ must be a minimum with respect to $U_{\mathcal{S}}$ when system in its most probable state.  
+
+EY : 20151218 Consider $\sigma = \frac{U}{\tau} - \frac{F}{\tau}$, so
+\[
+d\sigma = \frac{dU}{\tau} - \frac{U d\tau }{\tau^2} - \frac{dF}{\tau} + \frac{F}{\tau^2} d\tau
+\]
+Consider curve $\gamma : \mathbb{R} \to \Sigma$, s.t. $d\tau(\dot{\gamma})=0$, i.e. $\gamma$ represents a thermodynamic process at constant temeprature.  System in thermal equilibrium with reservoir.  
+
+Now for every thermodynamic process, entropy must increase, and so 
+\[
+d\sigma(\dot{\gamma} ) = \frac{dU}{\tau}(\dot{\gamma} ) - \frac{dF(\dot{\gamma} )}{\tau } \geq 0
+\]
+Thus, if $\int dU(\dot{\gamma} ) < 0$, $\int dF(\dot{\gamma} ) <0$, and so $F$ is a minimum.  
+
+If $d\sigma(\dot{\gamma})=0$, $dU(\dot{\gamma}) = dF(\dot{\gamma})$.  $U$ is minimized, so $F$ is minimized.  
+
+Consider $\mathcal{S}_1$, $\mathcal{S}_2$ in thermal and diffusive contact, $\mathcal{S}_1$, $\mathcal{S}_2$ in thermal contact with large reservoir, with $V_1$,$V_2$ held constant,
+\[
+\begin{aligned}
+  & F = F_1 + F_2 \\ 
+  & N = N_1 + N_2 \text{ constant } 
+\end{aligned}
+\]
+\[
+dF = \left( \frac{ \partial F_1}{ \partial N_1} \right)_{\tau,V_1} dN_1 +  \left( \frac{ \partial F_2}{ \partial N_2} \right)_{\tau,V_2} dN_2 = \left[  \left( \frac{ \partial F_1}{ \partial N_1} \right)_{\tau,V_1}  -  \left( \frac{ \partial F_2}{ \partial N_2} \right)_{\tau,V_2} \right] dN_1 = 0 
+\]
+and so $\mu_1 = \mu_2$ for diffusive equilibrium.  
+
+Note that 
+\begin{equation}
+  \mu(\tau,V,N) := \left( \frac{ \partial F}{ \partial N} \right)_{\tau,V}
+\end{equation}
+
+\textbf{Example: Chemical potential of ideal gas}.  If $\mu_1 > \mu_2$, then $dF <0$, when $dN_1 <0$, \emph{particles flow from high chemical potential to low chemical potential}.  
+
+Recall
+\[
+\begin{gathered}
+  F = -\tau [ N \ln{Z_1} - \ln{N!} ] \\ 
+  Z_1 = n_Q V = \left( \frac{M\tau}{2\pi \hbar^2} \right)^{3/2} V
+\end{gathered}
+\]
+Then
+\[
+\begin{aligned}
+  & \mu = -\tau (\ln{Z_1} - \ln{N} ) = \tau \ln{(N/Z_1 ) } \\ 
+  & \mu = \tau \ln{ (n/n_Q ) } \\ 
+  & \mu = \tau \ln{ \left( \frac{p}{\tau n_Q } \right) }
+\end{aligned}
+\]
+
+Note that the \emph{total chemical potential} $\mu$ is 
+\[
+\mu = \mu_{\text{tot}} = \mu_{\text{ext} } + \mu_{\text{int}}
+\]
+
+Examples of $\mu$:
+\[
+\mu = \tau \ln{ \left( \frac{n}{n_Q} \right) } + q\Delta V
+\]
+
+\textbf{Example: Variation of barometric pressure with altitude}.  \[
+\mu = \tau \ln{ \left( \frac{n}{n_Q} \right) } + Mgh
+\]
+
+\subsubsection{Chemical Potential and Entropy} cf. pp. 131 of Kittel and Kroemer (1980) \cite{CKittelHKroemer1980}, Ch.5.  
+\[
+\begin{gathered}
+  \sigma = \sigma(U,V,N) \\ 
+  \tau d\sigma = dU + pdV - \mu dN \\
+  - \left( \frac{ \partial \sigma }{ \partial N} \right)_{U,V} = \frac{\mu}{\tau}
+\end{gathered}
+\]
+
+\subsection{Gibbs Factor and Gibbs Sum} cf. pp. 134 of Kittel and Kroemer (1980) \cite{CKittelHKroemer1980}, Ch.5.  
+Consider system $\mathcal{S}$, with $(N,\epsilon_S)$, number of particles and internal energy, respectively, and reservoir $\mathcal{R}$, with $(N_0-N,U_0-\epsilon_S)$, in thermal and diffusive contact.  
+
+System probability $P(N,\epsilon_S) \propto g(N_0- N,U_0-\epsilon_S)$
+\[
+\frac{ P(N_1,\epsilon_1) }{ P(N_2,\epsilon_2) } = \frac{ g(N_0-N_1, U_0-\epsilon_1)}{ g(N_0-N_2, U_0-\epsilon_2) }
+\]
+Now by definition of entropy, $g(N_0,U_0) \equiv \exp{ [\sigma(N_0,U_0)]}$,
+\[
+\begin{gathered}
+  \frac{ P(N_1,\epsilon_1) }{ P(N_2,\epsilon_2) } = \exp{ (\Delta \sigma )} = \exp{ ( \sigma(N_0 -N_1, U_0 -\epsilon_1) - \sigma(N_0 -N_2, U_0 -\epsilon_2) ) }  = \exp{ \left[ (N_1-N_2) \frac{\mu}{\tau} - \frac{ (\epsilon_1-\epsilon_2)}{\tau} \right] }
+\end{gathered}
+\]
+so 
+\[
+\exp{ \left[ \frac{(N\mu - \epsilon )}{\tau } \right] }
+\]
+is the Gibbs factor.  
+
+Gibbs sum or grand sum or grand partition function $\mathcal{Z}$ is   
+\[
+\mathcal{Z}(\mu,\tau) = \sum_{N=0}^{\infty} \sum_{s(N)} \exp{ \left[ (N \mu - \epsilon_{s(N)} )/\tau \right] } = \sum_{ASN} \exp{ \left[ \frac{(N\mu - \epsilon_{s(N)} ) }{\tau} \right] }
+\]
+where $ASN = $ overall states of the system for all number of particles.  
+
+
+
+
+
+
+Problem 3 \textbf{Potential energy of gas in gravitational field} of Chapter 5: Chemical Potential and Gibbs Distribution from Kittel and Kroemer (1980) \cite{CKittelHKroemer1980}: ``Consider a column of atoms each of mass $M$ at temperature $\tau$ in a uniform gravitational field $g$.''
+
+Consider an infinitesimal layer at height $h$ and at height $h+dh$.  At each height $h$, the layers of atoms are in \emph{diffusive} and \emph{thermal equilibrium}, and so
+\[
+\tau(h+dh) = \tau(h) = \tau
+\]
+(thermal equilibrium) and 
+\[
+\mu(h+dh) = \mu(h)
+\]
+(diffusive equilibrium).  
+
+Now for chemical potential $\mu = \mu(\tau,V,N)$,
+\[
+\mu = \mu_{\text{int}} + \mu_{\text{ext}} = \tau \ln{ \left( n \left( \frac{ 2\pi \hbar^2 }{M\tau} \right)^{3/2} \right) } + Mgh
+\]
+
+Thus, to first order,
+\[
+\tau \frac{1}{n(h) } \frac{ dn(h) }{dh} = -Mg \text{ or } n(h) = n(0) \exp{ \left( \frac{-Mgh}{\tau} \right) }
+\]
+
+The thermal average potential energy per atom is 
+\[
+\begin{gathered}
+  \langle U \rangle = \frac{ \int_0^{\infty} dh Mgh n(h) }{ \int_0^{\infty} dh n(h) } = Mg \frac{ \left. \left[ \frac{ h \exp{ \left( \frac{-Mgh}{\tau} \right) } }{ -Mg/\tau } + - \frac{ \exp{ \left( \frac{-Mgh}{\tau} \right) } }{ (-Mg/\tau)^2 } \right] \right|_0^{\infty} }{ \left. \left( \frac{ \exp{ \left( \frac{-Mgh}{\tau } \right) } }{ -Mg/\tau} \right) \right|_0^{\infty} } = Mg \frac{\tau}{Mg} = \boxed{ \tau = \langle U \rangle }
+\end{gathered}
+\]
+
+From Ch.3, Eq. (64) of Kittel and Kroemer (1980) \cite{CKittelHKroemer1980}, 
+\[
+U = \frac{ \sum_{\mathbf{n}} \epsilon_{\mathbf{n}} \exp{ \left[ -\epsilon_{\mathbf{n}} /\tau \right] } }{Z_1} = \tau^2 \frac{ \partial \ln{Z_1}}{\partial \tau } = \frac{3\tau}{2}
+\]
+So the total heat capacity per atom $C$ is 
+\[
+C = \frac{ \partial E}{ \partial \tau} = \frac{ \partial ( \langle U \rangle + U ) }{ \partial \tau } = \frac{ \partial }{ \partial \tau} ( \tau + \frac{3\tau}{2} ) = \boxed{ \frac{5}{2}  = C}
+\]
+
+\subsection{Gibbs Free Energy}
+
+cf. Section ``Gibbs Free Energy'' of Ch. 9 Gibbs Free Energy and Chemical Reactions from Kittel and Kroemer (1980) \cite{CKittelHKroemer1980}
+
+Recall 
+\[
+\begin{aligned}
+  & F = U- \tau \sigma \\ 
+  & dF = dU - \tau d\sigma - \sigma d\tau = - \sigma d\tau -pdV + \mu dN
+\end{aligned}
+\]
+where the \emph{generalized} thermodynamic identity
+\[
+dU = Q + W + \mu dN = \tau d\sigma - pdV + \mu dN
+\]
+was used. 
+
+Now
+\[
+\begin{aligned}
+  & G \equiv U - \tau \sigma + pV = F + pV \\ 
+  & dG = dU - \tau d\sigma - \sigma d\tau + pdV + Vdp = \mu dN - \sigma d\tau + Vdp
+\end{aligned}
+\]
+and so $G = G(N,\tau , p)$.  
+
+Now \[
+\begin{gathered}
+  \sigma = \frac{1}{\tau} [ U +pV - G ] \\
+  \Longrightarrow d\sigma = \frac{-1}{\tau^2} d\tau ( U + pV - G) + \frac{1}{\tau} (dU + V dp + pdV - dG)
+\end{gathered}
+\]
+Consider a curve $\gamma : \mathbb{R} \to \Sigma$ s.t. $dU(\dot{\gamma}) = dp(\dot{\gamma}) = dV(\dot{\gamma})=0$ corresponding to minimized internal energy, constant pressure, and constant volume.  Then
+\[
+\begin{gathered}
+  d\sigma(\dot{\gamma}) = 0 + 0 + 0 + -dG(\dot{\gamma}) \geq 0 
+\end{gathered}
+\]
+and so $dG(\dot{\gamma}) \leq 0$, so $G$ must be a minimum, because $d\sigma(\dot{\gamma}) \geq 0$ represents the fact that entropy must always increase for any thermodynamic process.  $G$ must move to a minimum at equilibrium, i.e. ``For any irreversible change taking place entirely within $\mathcal{S}$ will increase $\sigma$ and thus decrease $G_{\mathcal{S}}$'' \cite{CKittelHKroemer1980} for $\mathcal{S}$ signifying the system.  
+
+$\tau,p$ are \textbf{intensive quantities}; they do not change value when 2 identical systems are put together.  
+
+$U,\sigma,V,G$ are linear in $N$; their values doubles when 2 identical systems are put together; apart from interface effects \\
+$U,\sigma,V,N,G$ are \textbf{extensive quantities}.  
+
+
+\[
+\begin{gathered}
+G = N\varphi(\tau,p) \\
+\left( \frac{ \partial G}{ \partial N} \right)_{p,\tau} = \varphi(\tau,p) = \mu \Longrightarrow G(N,\tau,p) = N\mu(\tau,p)
+\end{gathered}
+\]
+
+If more than 1 chemical species present, 
+\begin{equation}\label{Eq:Gibbspotential}
+  \boxed{ 
+    \begin{gathered}
+      G = \sum_j N_j \mu_j  \\
+      \tau d\sigma = dU + pdV - \sum_j \mu_j dN_j \\
+      dG = \sum_j \mu_j dN_j - \sigma d\tau + Vdp 
+      \end{gathered}
+    }
+\end{equation}
+
+
+\subsubsection{Summary of Thermodynamic Potentials}
+
+With Eq. \ref{Eq:Gibbspotential}, I will summarize the thermodynamic potentials we have, obtained through Legendre transformations:
+\[
+\begin{gathered}
+  Q = dU - W = dU + p dV
+\end{gathered}
+\]
+For curve or thermodynamic process in $\Sigma$, $\gamma$, s.t. $dp(\dot{\gamma})=0$ (thermodynamic process at \emph{constant pressure}),
+\[
+\begin{gathered}
+  Q(\dot{\gamma}) = dH(\dot{\gamma}) -Vdp(\dot{\gamma}) = dH(\dot{\gamma}) - 0 \\
+  \Longrightarrow \int_{\gamma} Q(\dot{\gamma}) = \int dH(\dot{\gamma}) = H_f - H_i \qquad \, \text{ for constant $p$ }
+\end{gathered}
+\]
+with 
+\[
+\begin{gathered}
+  H = U + pV \\
+  dH = dU + pdV + Vdp = Q + Vdp
+\end{gathered}
+\]
+For the thermodynamic potential
+\[
+\begin{gathered}
+  \begin{gathered}
+    dU = \tau d\sigma - pdV \\ 
+    \boxed{ U = U(\sigma, V) } \\
+    dU = \tau d\sigma - pdV + \sum_j \mu_j dN_j \qquad \, U = U(\sigma, V,N_j)
+\end{gathered} \\
+  \begin{gathered}
+    F = U -\tau \sigma  \\
+    dF = dU- \tau d\sigma - \sigma d\tau = -pdV - \sigma d\tau  \Longrightarrow \boxed{ F = F(\tau,V) } \\  
+    dF = Q + W - d(\tau \sigma ) 
+\end{gathered} \\
+  \begin{gathered}
+    G = F + pV \\ 
+    dG = -\sigma d\tau + Vdp \Longrightarrow \boxed{ G = G(\tau,p) } \\
+    dG = (Q - pdV ) + pdV + Vdp - d(\tau \sigma ) = Q + Vdp - d(\tau \sigma)
+\end{gathered}
+\end{gathered}
+\]
+Let $\Delta H := H_f - H_i$.  \\
+If $\Delta H < 0$, $\int_{\gamma} Q(\dot{\gamma}) <0$, heat transferred to surroundings: reaction is \emph{exothermic}.  \\
+If $\Delta H > 0$, $\int_{\gamma} Q(\dot{\gamma}) >0$, heat transferred to system: reaction is \emph{endothermic}.  
+Now $dH = Q + Vdp$.  Suppose $Q = C_p(\tau) d\tau$.  then for constant presure, $dp(\dot{\gamma})=0$ and so 
+\[
+\int_{\gamma} dH = \Delta H = \int_{\gamma} C_p(\tau) d\tau
+\]
+
+For constant volume, $dV(\dot{\gamma}_V)=0$, and so 
+\[
+Q(\dot{\gamma}_V) \equiv Q_V = dU(\dot{\gamma}_V)
+\]
+
+
+
+\subsection{Equilibrium in Reactions}
+
+cf. Section Equilibrium in Reactions for Chapter 9: Gibbs Free Energy and Chemical Reactions of Kittel and Kroemer (1980) \cite{CKittelHKroemer1980}
+
+\begin{equation}
+  \nu_1 A_1 + \nu_2 A_2 + \dots + \nu_l A_l = 0 \text{ or } \sum_j \nu_j A_j = 0
+\end{equation}
+where $\nu_j \in \mathbb{Z}$, $A_j$ chemical species, where we consider the finite set of chemical elements, and nonnegative integers $\mathbb{Z}^+$ for each element, signifying how many of the element in the molecule.  
+
+Now clearly,
+\[
+dN_j = \nu_j d\widehat{N}
+\]
+where $d\widehat{N} \equiv$ how many times reaction takes place.
+
+Now
+\[
+dG = \sum_j \mu_j dN_j - \sigma d\tau + Vdp
+\]
+and so for constant temperature, constant pressure, 
+\[
+dG = \sum_j \mu_j dN_j = \sum_j \mu_j \nu_j d\widehat{N} 
+\]
+then for equilibrium $dG=0$, 
+\begin{equation}
+\boxed{ \sum_j \nu_j \mu_j = 0 }
+\end{equation}
+
+
+\subsubsection{Equilibrium for Ideal Gases}
+
+cf. Subsection Equilibrium for Ideal Gases for Chapter 9: Gibbs Free Energy and Chemical Reactions of Kittel and Kroemer (1980) \cite{CKittelHKroemer1980}
+
+From Eq. (6.48) of Kittel and Kroemer (1980) \cite{CKittelHKroemer1980}, 
+\[
+\mu = \tau [ \ln{ \left( \frac{n}{n_Q} \right)} - \ln{ Z_{\text{int}} } ]
+\]
+and so
+\[
+\mu_j = \tau (\ln{ n_j} - \ln{c_j})
+\]
+where 
+\[
+c_j \equiv n_{Q_j} Z_j(\text{int})
+\]
+where
+\[
+Z_j(\text{int}) = \sum_{\text{int}} \exp{ \left( \frac{-\epsilon_{\text{int}} }{\tau} \right) }
+\]
+Thus
+\[
+\Longrightarrow \sum_j \nu_j \ln{n_j} = \sum_j \nu_j \ln{c_j}
+\]
+and so the \textbf{law of mass action} is obtained:
+\begin{equation}
+  \boxed{ \prod_j n_j^{\nu_j} = K(\tau) \equiv \prod_j n_{Q_j}^{\nu_j} \exp{ \left( -\nu_j F_j(\text{int})/ \tau \right) }  }
+\end{equation}
+where
+\[
+F_j(\text{int}) = -\tau \ln{Z_j(\text{int}) }
+\]
+
+From Problem 6 \textbf{Rotation of diatomic molecules} of Chapter 3: Boltzmann Distribution and Helmholtz Free Energy, Kittel and Kroemer \cite{CKittelHKroemer1980}, \\
+rotational energy at level $j\in \mathbb{Z}^+$, $\epsilon(j) = j(j+1) \epsilon_0$ \\
+multiplicity $g(j) = 2j+1$
+
+\[
+Z_R = \sum_{j=0}^{\infty} (2j+1)\exp{ \left( \frac{1}{-\tau} j(j+1) \epsilon_0 \right) } = \frac{-\tau}{\epsilon_0} \sum_{j=0}^{\infty} \frac{d}{dj} \left[ (e^{-\epsilon_0 /\tau})^{j^2+j} \right] 
+\]
+For $1 \gg \frac{\epsilon_0}{\tau}$, 
+\[
+Z_R(\tau) = \frac{-\tau}{\epsilon_0} \int_0^{\infty} \frac{d}{dx} \left[ (e^{-\epsilon_0/\tau})^{x^2 + x} \right] = \frac{\tau}{\epsilon_0}
+\]
+So 
+\[
+F_R = -\tau \ln{Z_R} = -\tau \ln{ \left( \frac{\tau}{\epsilon_0} \right)}
+\]
+and 
+\[
+\exp{ (-\nu_j F_j(\text{int})/\tau) } = \exp{ ( \nu_j \ln{ \left( \frac{\tau}{\epsilon_{0;j}} \right) } ) } = \exp{ ( \nu_j \ln{ \left( \frac{\tau}{\epsilon_{0;j}} \right) } ) } = \left( \frac{\tau}{\epsilon_{0;j} } \right)^{\nu_j}
+\]
+and so 
+\[
+K(\tau) = \prod_j (n_{Q_j})^{\nu_j} \left( \frac{\tau}{\epsilon_{0;j}} \right)^{\nu_j} = \prod_j \left[ \left( \frac{ M_j \tau }{ 2\pi \hbar^2} \right)^{d/2} \frac{\tau}{ \epsilon_{0;j} } \right]^{\nu_j}
+\]
+
+
+
+
+
+\section{Phase Equilibrium}
+
+
+\begin{description}
+\item Phase Equilibrium
+\item Phase Diagram
+\item (Phase) Coexistence Curve 
+\item Antoine Equation (parameters)
+\end{description}
+
+
+For coexistence equilibrium, $\mu_g(p_0,\tau_0) = \mu_l(p_0,\tau_0)$ and $\mu_g(p_0 + dp, \tau_0 + d\tau) = \mu_l(p_0 + dp, \tau_0+d\tau)$, and so $\frac{dp}{d\tau} = \frac{L}{ \tau \Delta v}$ with $v \equiv \frac{V}{N}$.  
+
+Make the approximation that $\Delta v \equiv v_g - v_l \approx v_g = \frac{V_g}{N_g}$ and idealize vapor as ideal gas, $pV = N\tau$, so $\frac{dp}{d\tau} = \frac{L}{\tau^2/p}$.  
+
+If $L$ constant, 
+\begin{equation}
+p(\tau) = p_0 \exp{ (-L_0 /\tau)} \text{ or } \ln{ \left( \frac{p(\tau)}{p_0} \right) } = \frac{-L_0}{\tau}
+\end{equation}
+
+Consider the Antoine Equation Parameters given in the NIST (National Institute of Standards and Technology) Chemistry WebBook \footnote{\href{http://webbook.nist.gov/cgi/cbook.cgi?ID=C7782447&Mask=4\#Thermo-Phase}{Phase change data for Oxygen}}
+
+\begin{equation}
+  \log_{10}(P) = A- (B/(T+C))
+\end{equation}
+
+Then
+\[
+\begin{gathered}
+  P = 10^{ A = \frac{B}{T+C}} = 10^A 10^{-\frac{B}{T+C}} = 10^A \exp{ \left( \frac{-B}{T+C} \ln{10} \right) }
+\end{gathered}
+\]
+Now $\frac{D}{T+C} = \frac{D}{T} - \frac{DC}{T(T+C)}$, and so
+\[
+P = 10^A \exp{ \left( \frac{ (B\ln{10} )C }{T(T+C)} \right) }\exp{ \left( \frac{-B\ln{10} }{ T} \right) }
+\]
+Consider how much the pressure is changed due to this $C$ parameter.  Consider $P_0$, $P_1$, defined as such:
+\[
+\begin{gathered}
+  \begin{aligned}
+    & P_0 = 10^A  \exp{ \left( \frac{-B\ln{10} }{ T} \right) }
+    & P_1 = 10^A \exp{ \left( \frac{ (B\ln{10} )C }{T(T+C)} \right) }\exp{ \left( \frac{-B\ln{10} }{ T} \right) }
+  \end{aligned} \Longrightarrow \frac{P_0}{P_1} = \exp{ \left( \frac{ (B\ln{10} )C }{ T(T+C) } \right)}
+\end{gathered}
+\]
+So a deviation can be estimated from $1 - \frac{P_0}{P_1}$.  
+
+Open up \verb|thermochem.py|.  The \emph{saturation curve} or \emph{coexistence curve} for, for example, oxygen, from liquid to gas, can be reproduced.  One needs to input in the Antoine parameters from the NIST website \footnote{\url{http://webbook.nist.gov/cgi/cbook.cgi?ID=C7782447&Mask=4\#Thermo-Phase}}
+
+\begin{lstlisting}
+>>> O2coec = CoexistCurve(3.85845, 325.675, -5.667 )                                            
+>>> plot( O2coec.curveSI.rhs, (T,54.36,100.16) )   
+
+>>> N(O2coec.curveSI.rhs.subs(T,60.))
+731.804072053687
+>>> N(O2coec.curveSI.rhs.subs(T,70.))
+6253.42680398774
+>>> N(O2coec.curveSI.rhs.subs(T,75.))
+14494.1195824433
+\end{lstlisting}
+
+%  \quad \quad \quad \begin{tikzpicture}
+%  \matrix (m) [matrix of math nodes, row sep=3.8em, column sep=4.8em, minimum width=2.2em]
+%  {
+%& u_t(x):= u(x,t) = U(a,t) =: U_t(a)    \\
+%    a  & x(a,t)=x   \\
+%};
+%  \path[|->]
+%  (m-2-1) edge node [above] {$U_t $} (m-1-2)
+%          edge node [above] {$g(t) = g_t$} (m-2-2)
+%  (m-2-2) edge node [auto]  {$$} (m-1-2)
+%          edge [bend left=30] node [below] {$g_t^{-1} = g_{-t}$} (m-2-1)
+%  ;
+%\end{tikzpicture}  
+
+
+\section{Ideal gas (summary)}
+
+The gist of concepts involving the ideal gas, from Chapters 3,5,6 of Kittel and Kroemer \cite{CKittelHKroemer1980} are the following.  Consider the partition function for 1 atom in a box, $Z_1$
+\[
+Z_1 = \frac{n_Q}{n} = n_Q V \text{ where } n_Q := \left( \frac{M\tau}{2\pi \hbar^2} \right)^{d/2}
+\]
+where $d$ is the dimension of space, usually $d=3$.  
+
+From Kittel and Kroemer (1980) \cite{CKittelHKroemer1980}, Example : $N$ atoms in a box, Chapter 3: ``Boltzmann Distribution and Helmholtz Free Energy'', 
+
+state of energy $\epsilon_{\alpha}(1) + \epsilon_{\beta}(2) + \dots + \epsilon_{\xi}(N)$, $\alpha, \beta, \dots \xi$ denote orbital indces of atoms in successive boxes.  \\
+each entry occurs $N!$ times in $Z_1^N$ (EY: 20151022) $N!$ ways to fill $\alpha, \beta \dots \xi$ orbitals with $N$ distinguishable particles.  Thus,
+\[
+Z_N = \frac{1}{N!} Z_1^N = \frac{1}{N!} (n_Q V)^N
+\]
+
+
+Then for $N$ \emph{indistinguishable particles}, the partition function of the system $Z_N$ is 
+\begin{equation}
+  Z_N = \frac{1}{N!} Z_1^N = \frac{1}{N!}(n_QV)^N
+\end{equation}
+
+Then the Helmholtz free energy $F$ is 
+\begin{equation}
+  F = -\tau \ln{Z_N} = -\tau \left[ N \ln{ (n_Q V) } - (N\ln{N} - N) \right] = \tau N \left[ \ln{ \left( \frac{n}{n_Q} \right) - 1  }\right]
+\end{equation}
+and so 
+\[
+\begin{gathered}
+  \frac{ \partial F}{ \partial \tau} = - N \ln{ \left( \frac{n_Q V}{N} \right) } - N - \tau N \frac{d}{2} \frac{1}{\tau}  = -N \left[ \ln{ \left( \frac{n_Q}{n} \right) } + \left( \frac{d}{2} + 1 \right) \right] 
+\end{gathered}
+\]
+\begin{equation}
+  \sigma = \frac{ -\partial F}{ \partial \tau} = N \left[ \ln{ \left( \frac{n_Q}{n} \right) } + \left( \frac{d}{2} + 1 \right) \right]
+\end{equation}
+
+Also, from using 
+\[
+\begin{gathered}
+  F := U -\tau \sigma \\ 
+  dF = dU -\tau d\sigma - \sigma d\tau = - p dV - \sigma d\tau 
+\end{gathered}
+\]
+then
+\[
+p=\frac{\tau N}{V} \text{ or } pV = \tau N
+\]
+Keep in mind that 
+\[
+\mu(\tau, V,N) \equiv \left( \frac{ \partial F}{\partial N} \right)_{\tau,V}
+\]
+
+I shall attempt to generalize the Sackur-Tetrode equation to consider vibrational and rotational energy modes, and so we should review its derivation.  
+
+Consider the example of a molecule with translational \emph{and } rotational degrees of freedom.  Note that $\mathbf{n} = (n_x,n_y,n_z)$ are good quantum numbers discretizing the translational degrees of freedom, and $j \in \mathbb{N} = \lbrace 0 ,1 , \dots \rbrace$ is a good quantum number discretizing the rotational degrees of freedom.  Then the energy (eigenvalue) for quantum state (described by particular values of ) $\mathbf{n},j$ is
+\[
+\epsilon_{\mathbf{n},j} = \frac{ \hbar^2}{2M} \left( \frac{\pi}{L} \right)^2 \mathbf{n}^2 + j(j+1) \epsilon_0 \equiv \frac{\hbar^2}{2M} \left( \frac{\pi}{L} \right)^2 (n_x^2 + n_y^2 + n_z^2 ) + j(j+1) \epsilon_0
+\]
+keeping in mind the multiplicity of the energy state from the multiplicity of the rotational energy, $g(j) = 2j+1$.  
+
+Then
+\[
+\exp{\left( -\frac{1}{\tau} \epsilon_{\mathbf{n},j} \right) } = \exp{ \left( -\frac{\hbar^2}{2M\tau} \left( \frac{\pi}{L} \right)^2 \mathbf{n}^2 \right) } e^{j(j+1) \epsilon_0 }
+\]
+Then the partition function for \emph{1} molecule in a box is 
+\[
+\begin{gathered}
+  Z_1 = \sum_{\mathbf{n},j} g(j) \exp{ \left( \frac{-\hbar^2}{2\pi \tau} \left( \frac{\pi}{L} \right)^2 \mathbf{n}^2 \right) } e^{j(j+1) \epsilon_0 } = \sum_{\mathbf{n}} \exp{ \left( \frac{ -\hbar^2}{2\pi \tau} \left( \frac{\pi}{L} \right)^2 \mathbf{n}^2 \right) } \sum_j g(j) e^{j(j+1)\epsilon_0 } = n_Q V \cdot \sum_j g(j) e^{j(j+1)\epsilon_0} = \\
+  =  n_Q V \frac{\tau}{\epsilon_0 }
+\end{gathered}
+\]
+with $n_Q := \left( \frac{M\tau}{2\pi \hbar^2 } \right)^2$. 
+
+From the indistinguishability of quantum particles, for $N$ of these particles,
+\[
+Z_N = \frac{ (n_Q V \frac{ \tau}{\epsilon_0 } )^N }{ N!} 
+\]
+and noting that 
+\[
+\ln{Z_N} = N\left[ \ln{ (n_Q V)} + \ln{ \left( \frac{\tau}{\epsilon_0 } \right) } \right] - \ln{N!} \simeq N \ln{ \left( \frac{n_Q}{n} \right) } + N \ln{ \left( \frac{\tau}{\epsilon_0 } \right) } + N 
+\]
+then
+\[
+\begin{aligned}
+  & F := -\tau \ln{Z_N} = -\tau N \left[ \ln{ \left( \frac{n_Q}{n} \right) } + 1 \right] + - \tau N \ln{ \left( \frac{\tau}{\epsilon_0 } \right) } \equiv - \tau N \left[ \ln{ \left( \frac{n_Q}{n} \right) } + 1 \right] + F(\text{int}) \\ 
+  & \sigma := -\left( \frac{ \partial F}{ \partial \tau } \right) = N \left[ \ln{ \left( \frac{n_Q}{n} \right) } + \left( \frac{d}{2} + 1 \right) \right] + N \left( \ln{ \left( \frac{\tau}{\epsilon_0} \right) } + 1 \right)
+\end{aligned}
+\]
+
+Examining the steps above, it's clear how to generalize to when the form of the energy eigenvalues in the vibrational and rotational degrees of freedom (internal degrees of freedom), described by quantum numbers $\mathbf{k}$, is unknown:
+\[
+\begin{gathered}
+  \epsilon_{\mathbf{n},\mathbf{k}} = \frac{ \hbar^2}{2M} \left( \frac{\pi}{L} \right)^2 \mathbf{n}^2  + \epsilon'_{\text{int}}(\mathbf{k}) \\
+  g(\mathbf{k}) \in \mathbb{Z}^+ \text{ is the multiplicity of the internal degrees of freedom } \\ 
+  Z_1 = n_Q V \cdot Z_{1,\text{int}} \text{ with } Z_{1,\text{int}} = \sum_{\mathbf{k}} g(k) e^{ -\frac{1}{\tau} \epsilon_{\text{int}}'(\mathbf{k}) } \\ 
+  Z_N = \frac{ (n_Q V)^N}{N!} (Z_{1,\text{int}})^N  \Longrightarrow \ln{Z_N} = N \left( \ln{ \left( \frac{n_Q}{n} \right) } + 1 \right) + N \ln{ Z_{1,\text{int}} } \\ 
+  F = -\tau N \left[ \ln{ \left( \frac{n_Q}{n} \right) + 1 } \right] + F(\text{int})(\tau) \\ 
+  \sigma = N \left[ \ln{ \left( \frac{n_Q}{n} \right) } + \left( \frac{d}{2} + 1 \right) \right] + \sigma_{\text{int}}
+\end{gathered}
+\]
+with $F(\text{int})(\tau)$ emphasizing that we could surmise or conjecture that the Helmholtz free energy contribution due to internal degrees of freedom can be a function of temperature $\tau$ (cf. Eq. (42.4) of Landau and Lifshitz (1980) \cite{LLandauELifshitz1980}).  
+
+
+
+\section{Mixtures of ideal gases}
+
+\subsection{Gibbs paradox}
+
+
+Kittel and Kroemer (1980) \cite{CKittelHKroemer1980} Problem 6 \textbf{Entropy of mixing} of Chapter 6: Ideal Gas,
+
+Prof. Steven Anlage, Introduction to Thermodynamics and Statistical Mechanics, Spring 2011, University of Maryland Physics 404, Homework 8 Solutions, Question 9, \footnote{\url{http://www.physics.umd.edu/courses/Phys404/Anlage_Spring11/hw8solv5.pdf}}
+
+Consider adding together the entropies of ideal gas A with initial volume $V$, and molecular mass $M_A$ (so it has a $n_{Q_A}$ quantum concentration), and of ideal gas B with initial volume $V$, molecular mass $M_B$, $n_{Q_B}$ quantum concentration:
+\[
+\begin{gathered}
+  \sigma_{\text{initial}} = \sigma_A + \sigma_B = N_A \ln{ \left( \frac{n_{Q_A} V}{N_A} \right) } + N_A \left( 1 + \frac{d}{2} \right)  + N_B \ln{ \left( \frac{n_{Q_B} V}{N_B} \right) } + N_B \left( 1 + \frac{d}{2} \right) 
+\end{gathered}
+\]
+After diffusive equilibrium is reached means that each of the gases now occupy a volume $2V$, gas A is free to roam in volume $2V$, as is gas B.  Thus, the entropy increases:
+\[
+\begin{gathered}
+  \sigma_{\text{final}} = N_A \ln{ \left( \frac{n_{Q_A} 2V}{N_A} \right) } + N_A \left( 1 + \frac{d}{2} \right)  + N_B \ln{ \left( \frac{n_{Q_B} 2V}{N_B} \right) } + N_B \left( 1 + \frac{d}{2} \right) 
+\end{gathered}
+\]
+and so
+\[
+\Delta \sigma = (N_A + N_B)\ln{2} = 2N\ln{2} \text{ (if $N_A=N_B=N$) }
+\]
+
+In general,
+\[
+\Delta \sigma = N_A \ln{ \left( \frac{V_A + V_B}{V_A} \right) } + N_B \ln{ \left( \frac{V_A + V_B}{V_A} \right) }
+\]
+
+
+For identical atoms $(A\equiv B)$, 
+\[
+\sigma_A = N \ln{ \left( \frac{ n_Q V}{N} \right) } + N \left( 1 + \frac{d}{2} \right) = \sigma_B
+\]
+and so
+\[
+\sigma_{\text{initial}} = \sigma_A + \sigma_B = 2N \ln{ \left( \frac{n_Q V}{N} \right) } + 2N\left( 1 + \frac{d}{2} \right) 
+\]
+For the final entropy after mixing, treat the system as a (whole) system of $2N$ indistinguishable particles occupying a volume of $2V$:
+\[
+\sigma_{\text{final}} = 2N \ln{ \left( \frac{n_Q(2V)}{2N} \right) } + 2N \left( 1 + \frac{d}{2} \right)
+\]
+and so $\Delta \sigma =0$
+
+
+From Sec. 93. Mixtures of ideal gases of Landau and Lifshitz (1980) \cite{LLandauELifshitz1980}, additivity of thermodynamic quantities (such as energy and entropy) holds only if interaction between various parts of body is negligible. 
+
+But for mixture of several substances, e.g. mixture of liquids, thermodynamic quantities are not equal to sums of thermodynamic quantities for individual components of the mixture. 
+
+Mixtures of ideal gases are an exception, since interaction between molecules is by definition negligible.  
+
+But for partial pressure of $i$th gas, $p_i = \frac{N_i\tau}{V} = \frac{N_i p}{N}$, $N = $ total number of molecules in mixture, $N_i$ number of molecules of $i$th gas.  
+
+So
+\[
+p_j = \frac{ N_j \tau }{V} = \frac{ N_j}{N} p = X_j p 
+\]
+where $X_j$ is mole fraction or particle fraction.  
+
+
+
+
+\section{Chemical Reactions}
+Topics:
+\begin{itemize}
+  \item Heat of formation i.e. standard enthalpy of formation
+\end{itemize}
+
+I will follow Chapter 10, ``Chemical Reactions'', of Landau and Lifshitz (1980) \cite{LLandauELifshitz1980}.  
+
+From Sec. 101. The condition for chemical equilibrium of Landau and Lifshitz (1980) \cite{LLandauELifshitz1980}, for a chemical reaction,
+\[
+\sum_i \nu_i A_i = 0 \qquad \nu_i \in \mathbb{Z}
+\]
+Denote thermodynamic potential $\Phi$.  
+
+In equilibrium, say at constant temperature and pressure, 
+\[
+\begin{gathered}
+  d\Phi\left( \frac{ \partial }{ \partial N_i} \right) = \frac{ \partial \Phi}{ \partial N_1} + \frac{ \partial \Phi}{ \partial N_2} \frac{ \partial N_2}{ \partial N_1} + \frac{ \partial \Phi}{ \partial N_3} \frac{ \partial N_3}{ \partial N_1} + \dots = 0 \text{ for }  \\
+  d\Phi = \frac{ \partial \Phi}{ \partial N_1} dN_1 + \frac{ \partial \Phi}{ \partial N_2} dN_2 + \dots 
+\end{gathered}
+\]
+where $N_1, N_2 \dots =$ number of particles of particles of various substances taking place in reaction. 
+
+It's clear that 
+\[
+dN_i = \frac{ \nu_i}{ \nu_1} dN_1
+\]
+so 
+\[
+\sum_i \frac{ \partial \Phi}{ \partial N_i} \frac{ \nu_i}{ \nu_1} = 0 
+\]
+Let $\mu_i := \frac{ \partial \Phi}{ \partial N_i}$.  
+\begin{equation}
+\Longrightarrow \sum_i \nu_i \mu_i = 0 
+\end{equation}
+
+Here, I will follow Section 3.5 Chemical potential of Le Bellac, Mortessagne, Batrouni (2004) \cite{MLeBellacFMortessagneGBatrouni2004}.  
+
+Recall that 
+\[
+\begin{gathered}
+  G(N,\tau,p) = N\mu(\tau,p) \\
+  G = \sum_j \mu_j N_j 
+\end{gathered}
+\]
+from Eq. \ref{Eq:Gibbspotential}, and Kittel and Kroemer (1980) \cite{CKittelHKroemer1980}.  Therefore,
+\[
+dG = \sum_j \mu_j dN_j + N_j d\mu_j = -\sigma d\tau + Vdp + \sum_j \mu_j dN_j
+\]
+and so the \textbf{Gibbs-Duhem} relation is (correctly) obtained:
+\begin{equation}\label{Eq:Gibbs-Duhem}
+  0 = \sigma d\tau - V dp + \sum_j N_j d\mu_j
+\end{equation}
+
+\subsubsection{Conduction and Convection}\label{SubsubSec:ConductionConvection}
+
+In $\tau d\sigma$, let's distinguish the \emph{conduction} component and \emph{convection} component.
+
+Consider system at equilibrium, thermal equilibrium with thermostat at temperature $\tau$ \\
+\qquad kept at pressure $p$ \\
+\qquad able to exchange particles with reservoir at chemical potential $\mu$
+
+Define
+
+\[
+\begin{aligned}
+  & \widehat{\sigma} := \frac{ \sigma}{N } \qquad \, & \text{ \textbf{entropy per particle } } \\
+  & \widehat{\epsilon} := \frac{ E}{N } \qquad \, & \text{ \textbf{energy per particle } } 
+\end{aligned}
+\]
+
+Then, 
+\[
+\boxed{ 
+\tau d\sigma = \tau d(\widehat{\sigma}N) = \tau N d\widehat{\sigma} + \tau \widehat{\sigma} dN
+}
+\]
+where \\
+
+$\tau N d\widehat{\sigma}$ is \emph{entropy change due to change in entropy per particle}, i.e. \emph{conduction term} and \\
+
+$\tau \widehat{\sigma} dN$ is \emph{entropy change due to change in number of particles} i.e. \emph{ convection term}.  
+
+So
+\[
+dE = Q + W + \mu dN = \tau d\sigma + 0 + \mu dN = \tau Nd\widehat{\sigma} + (\tau \widehat{\sigma} + \mu ) dN = \tau N d\widehat{\sigma} + \widehat{h} dN
+\]
+where
+\[
+\widehat{h} := \frac{H}{N} = \widehat{\epsilon} + pV \text{ is \textbf{enthalpy per particle} }
+\]
+since 
+\[
+\begin{gathered}
+H = E + pV \\ 
+G = E-\tau \sigma + pV = \mu N = H-\tau \sigma
+\end{gathered} \Longrightarrow \tau \widehat{\sigma} + \mu = \frac{H}{N} = \widehat{h}
+\]
+
+Interpretation of $\widehat{h}dN$: If $dN$ particles are transported into a given volume by convection, energy increases by $\widehat{\epsilon}dN$.  \\
+However, to return to initial volume, it's necessary to compress by $vdN =: \frac{V}{N}dN$ and add work done by pressure $pvdN$
+\[
+\Longrightarrow \widehat{h}dN = (\widehat{\epsilon} + pv)dN
+\]
+An example of this is \emph{Joule-Thomson expansion}.  
+
+\section{Joule-Thomson Effect}
+
+cf. Problem 1.7.6 of Le Bellac, Mortessagne, Batrouni (2004) \cite{MLeBellacFMortessagneGBatrouni2004}, Lecture 18, Sections ``Throttling Processes'', ``The Joule-Thomson Effect'' of Groth, Phys301 Fall 1999 \footnote{Edward J. Groth, 1999, Fall 1999 Physics 301, \href{http://grothserver.princeton.edu/~groth/phys301f99/lect18.pdf}{Phys301 23-Nov-1999 18-10} }
+
+From Prob. 1.7.6 of Le Bellac, Mortessagne, Batrouni (2004) \cite{MLeBellacFMortessagneGBatrouni2004}, their setup is the following: \\
+gas initially confined in fixed volume escapes freely without exchanging heat with its environment, 
+\begin{itemize}
+\item initially, gas in compartment and $(T_1,V_1,p_1)$ 
+\item expands into container of volume $V_2$ under constant pressure $p_2$ ($p_2<p_1$)
+\item 2 compartments are thermally isolated; connected by porous plug to maintain pressure difference
+\item adiabatic (but not quasi-static) expansion.
+\end{itemize}
+
+$Q=0$.  So $Q=0 = dU -W$.  Then
+\[
+\int dU - \int W = \Delta U - \int W = 0 
+\]
+
+Now
+\[
+\Delta H = H_2 - H_1 = u_2 + p_2 V_2 - U_1 - p_1 V_1 = \Delta U + p_2 V_2 - p_1 V_1 
+\]
+Treat the process of gas evacuating, or going from compartment 1 to container 2 as 2 processes:  $\int W = W_1 + W_2$ where \\
+$W_1 = -p_1 (0-V_1) = p_1 V_1 \equiv $ work done on gas as the gas evacuates the compartment. \\
+$W_2 = -p_2(V_2-0) = -p_2 V_2 = $ work done by gas as gas expands into container at constant pressure $p_2$.  
+
+Thus $\int W = W_1 + W_2 = p_1 V_1 - p_2 V_2$ and so 
+\[
+\boxed{ \Delta H = 0 }
+\]
+The enthalpy is constant for this expansion.  
+
+For an ideal gas, $H= U + pV = \frac{\gamma}{\gamma -1} N\tau$, for an ideal gas has $U = \frac{1}{\gamma -1} N\tau$.  $\gamma = \frac{5}{3}$ and $\frac{\gamma}{\gamma-1} = \frac{5/3}{ 2/3} = 5/2$.  Nevertheless, since $H$ is constant, $T$ is constant, and so there's no cooling of an ideal gas in a Joule-Thomson apparatus!  But an ideal gas has no interaction energy, and it can be argued that one has to consider interaction energy between molecules for liquefaction (cf. Groth (1999) \cite{EGroth1999}, \href{http://grothserver.princeton.edu/~groth/phys301f99/lect18.pdf}{Lecture 18 Physics 301 Fall 1999}).  
+
+From the ``Derivation of the Joule-Thomson (Kelvin) coefficient'' section of the \emph{Joule-Thomson effect} article in \href{https://en.wikipedia.org/wiki/Joule–Thomson_effect}{Wikipedia}, recall the definition of enthalpy $H:= U + pV$, and so that $dH= dU+ pdV + Vdp=\tau d\sigma + Vdp$.  
+
+Let $\sigma = \sigma(\tau,p)$.  
+\[
+\begin{gathered}
+  dH = \tau \left( \frac{ \partial \sigma}{ \partial \tau } \right)_p d\tau + (V + \tau \left( \frac{ \partial \sigma }{ \partial p }\right)_{\tau} ) dp = C_p d\tau + (V + \tau \left( \frac{ \partial \sigma }{ \partial p }\right)_{\tau} ) dp
+\end{gathered}
+\]
+since
+\[
+\begin{gathered}
+Q = Q(\tau,p) = \frac{ \partial Q}{ \partial \tau} d\tau + \frac{ \partial Q}{ \partial p } dp = C_p d\tau + \frac{ \partial Q}{ \partial p} dp
+\end{gathered}
+\]
+and so for a thermodynamic process $\gamma$ such that $dp(\dot{\gamma})=0$ (i.e. constant pressure), then we can say
+\[
+\frac{C_p}{\tau}d\tau = d\sigma \xrightarrow{ \int_{\gamma } } \int_{\gamma} \frac{C_p}{\tau} d\tau = \Delta \sigma \Longrightarrow \tau \left( \frac{ \partial \sigma }{ \partial \tau } \right)_p = C_p
+\]
+And now 
+\[
+dG = -\sigma d\tau  + Vdp = \left( \frac{ \partial G}{ \partial \tau } \right)_p d\tau + \left( \frac{ \partial G}{ \partial p } \right)_{\tau} dp
+\]
+and since $\frac{ \partial^2 G}{ \partial \tau \partial p} = \frac{ \partial^2 G}{ \partial p \partial \tau}$, 
+\[
+\left( \frac{ \partial \sigma }{ \partial p } \right)_{\tau} = - \left( \frac{ \partial V}{ \partial \tau} \right)_p = -V\alpha
+\]
+Then
+\[
+dH = C_p d\tau + V(1-\tau \alpha) dp
+\]
+and so 
+\begin{equation}\label{Eq:JouleThomsoncoeff}
+\left( \frac{ \partial \tau}{ \partial p }\right)_H = \frac{ V(1-\tau \alpha )}{-C_p}
+\end{equation}
+is the \textbf{Joule-Thomson coefficient}, where $\alpha$ is the coefficient of thermal expansion.  
+
+For an ideal gas, 
+\[
+\begin{gathered}
+  pV = N\tau \\ 
+  V = \frac{N\tau}{p}
+\end{gathered} \Longrightarrow \frac{ \partial V}{ \partial \tau} = \frac{N}{p} = \frac{V}{\tau}
+\]
+so
+\[
+dH = C_pd\tau + ( V + \tau \left( \frac{-V}{\tau} \right) ) dp = C_p d\tau 
+\]
+so that 
+\[
+\left( \frac{ \partial \tau}{ \partial p} \right)_H = 0 
+\]
+for an ideal gas.  
+
+For every real gas, every real gas has an \emph{inversion temperature} such that \\
+below the inversion temperature, $\left( \frac{ \partial T}{ \partial p} \right)_H$ is positive, and so $dp <0$ always in an expansion, and so $dT <0$ and the gas cools, and \\
+above the inversion temperature, $\left( \frac{ \partial T}{ \partial p} \right)_H$ is negative, and so $dp <0$ always in an expansion, and so $dT <0$ and the gas warms.  
+
+An inversion temperature must exist because when the molecules are close enough, there are intermolecular forces that'll make them attract each other (such as temporary configurations so a slightly (electrically) negative cloud of electrons attract slightly positively charged part of another molecule) so the interaction energy is negative.  
+
+However, it appears that this inversion temperature is not found from the Joule-Thomson coefficient expression, Eq. \ref{Eq:JouleThomsoncoeff}, but from, possibly, the Van der Waals expression or another model (cf. Lecture 18 of Groth (1999) \cite{EGroth1999}).  
+
+Looking at Figure 1.16 of  Le Bellac, Mortessagne, Batrouni (2004) \cite{MLeBellacFMortessagneGBatrouni2004}, for isenthalpy curves ($H=$ const.), in $(T,p)$ plane, $T$ vs. $p$, the dashed line intersects the points on each isenthalpy curves where $\left( \frac{ \partial T}{ \partial p } \right)_H =0$ and for lower pressures ($dp<0$, gas expands), cooling occurs.  
+
+There's a maximum temperature, about $300^{\circ} \, C$ for nitrogen, where the dashed line meets the $p=0 \, \text{atm}$ axis, meaning $\left( \frac{ \partial \tau}{ \partial p} \right)_H <0$ \, $\forall \, p >0$, so no cooling occurs.  
+
+\section{Hydrodynamics}
+
+Another example: hydrodynamics; Eulerian description in fixed volume.  
+
+Define $\epsilon := \frac{ E}{V} = \widehat{\epsilon} \cdot \left( \frac{N}{V} \right) \equiv \widehat{\epsilon} n$.  
+\[
+dE = \tau N d\widehat{\sigma} + \widehat{h} dN \xrightarrow{ \frac{1}{V} } d\epsilon = \tau n d\widehat{\sigma} + \widehat{h} dn 
+\]
+in isentropic process, $\left( \frac{1}{2} \rho u^2 + h \right) \mathbf{u}$ is energy current; $h= \frac{H}{V}$, $\mathbf{u}$ velocity of fluid
+
+
+
+
+\part{Nonequilibrium}
+
+\section{Irreversible processes: macroscopic theory}
+
+Chapter 6 of Le Bellac, Mortessagne, Batrouni (2004) \cite{MLeBellacFMortessagneGBatrouni2004}
+
+\subsection{Flux, affinities, transport coefficients}
+
+Section 6.1 of Le Bellac, Mortessagne, Batrouni (2004) \cite{MLeBellacFMortessagneGBatrouni2004}. 
+
+Assume system composed of homogeneous cells, small on macroscopic scale, but large on microscopic, labelled $(a,b,\dots )$.  \\
+Assume cells weakly interacting, so each cell independently attains local equilibrium with microscopic relaxation time $\tau_{\text{micro}}$ \\
+Assume $\tau_{\text{micro}} \ll \tau_{\text{macro}}$ where \\
+\phantom{Assume } $\tau_{\text{macro}}$ macroscopic relaxation time, for global equilibrium 
+
+
+
+
+
+
+
+
+
+
+\subsubsection{Affinities and transport coefficients}
+
+Suppose neighboring cells $a,b$ have different intensive variables $\gamma_i$, an exchange of $A_i$ will take place between them.
+
+
+
+
+
+
+
+
+Recall, from the Gibbs-Duhem relation, \ref{Eq:Gibbs-Duhem},
+\[
+N d\mu + \sigma d\tau -Vdp = 0 
+\]
+For the $d\tau =0$ isothermal case, define
+\begin{equation}
+n := \frac{N}{V} \equiv \text{ particle density }
+\end{equation}
+Then 
+\begin{equation}
+\begin{gathered}
+  dp = n d\mu \\ 
+  \Longrightarrow \boxed{ \left( \frac{ \partial p }{ \partial \mu } \right)_{\tau} = n }
+\end{gathered}
+\end{equation}
+
+
+Recall
+
+
+
+\subsubsection{Dissipation and Entropy Production}
+
+cf. Subsection 6.1.5 of Le Bellac, Mortessagne, Batrouni (2004) \cite{MLeBellacFMortessagneGBatrouni2004}. 
+
+
+
+
+
+\begin{equation}
+  \frac{dS(a)}{dt} + \sum_{b\neq a} \Phi_S(a\to b) = \frac{1}{2} \sum_{i,b\neq a} \Gamma_i(a,b) \Phi_i(a\to b)
+\end{equation}
+since 
+\[
+\frac{dS(a)}{dt} = -\sum_{i,b\neq a} \frac{1}{2} ( \gamma_i(a) + \gamma_i(b)) \Phi_i(a\to b) + \frac{1}{2} \sum_{i,b\neq a} \Gamma_i(a,b) \Phi_i(a\to b)
+\]
+and since
+\begin{equation}
+\Phi_S(a\to b) = \frac{1}{2} \sum_i (\gamma_i(a) + \gamma_i(b))\Phi_i(a\to b) = -\Phi_S(b\to a)
+\end{equation}
+
+Calculate $\frac{dS_{\text{tot}}}{dt}$, evolution of total entropy.  
+\[
+\frac{dS_{\text{tot}}}{dt} = \frac{d}{dt} \sum_a S(a) = \sum_a \frac{dS(a)}{dt}
+\]
+Note that 
+\[
+\Phi_S(b\to a) + \Phi_S(a\to b) = 0 
+\]
+by antisymmetry of $\Phi_S(a\to b)$. 
+
+The $\sum_a \sum_{b\neq a}$ is the summation of all the ways of making a size 2 ordered choice of 2 elements out of the possible cells $\lbrace a, b, \dots \rbrace$; if there are $n$ total cells, then there are $n(n-1)$ ways of picking out 2, \emph{in order}.  Note that $n(n-1)$ \emph{must} be even.  Then
+\[
+\sum_a \sum_{b\neq a} \Phi_S(a\to b) = \frac{1}{2} \sum_a \sum_{b\neq a} \Phi_S(a\to b) + \frac{1}{2} \sum_b \sum_{a\neq b} \Phi_S(b\to a) = \frac{1}{2} \sum_a \sum_{b\neq a} \Phi_S(a\to b) + \frac{1}{2} \sum_b \sum_{a\neq b} - \Phi_S(a\to b) = 0 
+\]
+So $\Phi_S$ doesn't contribute to $\frac{d S_{\text{tot}}}{dt}$: $\Longrightarrow $ \emph{reversible exchange}
+
+\[
+\frac{dS_{\text{tot}}}{dt} = \frac{1}{2} \sum_a \sum_{i,b\neq a} \Gamma_i(a,b) \Phi_i(a\to b)
+\]
+entropy production, called \emph{dissipation}; all physical phenomena accompanied by entropy production called \emph{dissipative}.  
+
+
+
+
+
+\subsubsection{Particle Diffusion}
+
+cf. pp. 399 of Kittel and Kroemer \cite{CKittelHKroemer1980}
+
+Consider a system.  \\
+One end in diffusive contact with reservoir at chemical potential $\mu_1$ \\
+Other end in diffusive contact with reservoir at chemical potential $\mu_2$ \\
+Constant temperature $\tau$.  \\
+If $\mu_1 > \mu_2$, particle flow through system from reservoir 1 to reservoir 2; $1\to 2$.   \\
+$n_i \equiv $ particle concentration in $i$ 
+
+Take
+\begin{equation}
+\mathbf{j}_n = -D \text{grad}n
+\end{equation}
+which is \textbf{Fick's law}, and where $D \equiv$ particle diffusion constant or \textbf{diffusivity}.  
+
+Mean free path $l$.  Particles freely travel over $l$.  
+
+Assume in a collision at $z$, particles come into local equilibrium at local chemical potential $\mu(z)$, local concentration $n(z)$.  
+
+At $z$, particle flux density in positive $z$ direction \qquad $\frac{1}{2} n(z-l_z) \overline{c}_z$ \\
+\phantom{At $z$, } particle flux density in negative $z$ direction \qquad $-\frac{1}{2} n(z+l_z) \overline{c}_z$
+
+Note $n(z-l_z)$ is particle concentration at $z-l_z$
+\[
+J_n^z = \frac{1}{2} \left[ n(z-l_z) - n(z+l_z) \right] \overline{c}_z = -\frac{dn}{dz} \overline{c}_z l_z
+\]
+where $\begin{aligned} & \quad \\
+  & \overline{c}_z = \overline{c} \cos{\theta}  \\
+  & \overline{l}_z = \overline{l} \cos{\theta}  
+\end{aligned}$
+
+\[
+\langle \overline{c}_z l_z \rangle = \overline{c} \overline{l} \frac{ \int_{\text{hemisphere} } \cos^2{\theta} dS }{ \int_{\text{hemisphere} } dS } = \overline{c}\overline{l} \frac{ \int_0^{\pi/2}d\theta \int_0^{2\pi } d\varphi \cos^2{\theta} \sin{\theta} d\theta }{ \int_0^{\pi/2} d\theta \sin{\theta} \int_0^{2\pi } d\varphi } = \overline{c} \overline{l} \frac{1}{3}
+\]
+Comparing with Fick's law, 
+\[
+J_n^z = \frac{-1}{3} \overline{c}\overline{l} \frac{dn}{dz} \text{ or } \mathbf{J}_N = -\frac{1}{3} \overline{c}\overline{l} \nabla n
+\]
+For diffusivity $D$ is then $D = \frac{1}{3} \overline{c}\overline{l}$.  
+
+Now recall that $\overline{l}$, the \emph{mean free path}, was derived from kinetic theory:
+\[
+l = \frac{1}{n\pi d^2}
+\]
+where $d$ is the diameter of the particle.  
+
+The mean thermal velocity was derived from the Maxwell distribution:
+\[
+\overline{c} = \left( \frac{ 8 \tau }{M \pi} \right)^{1/2}
+\]
+
+
+
+
+
+
+
+
+\subsubsection{Momentum conservation}
+
+Introduce \emph{stress tensor} $\mathcal{P}_{\alpha \beta}$, $-\mathcal{P}_{\alpha \beta}$ is $\alpha$ component of force per unit area applied by fluid outside parallelopiped on surface $\mathcal{S}_{\beta}$.  
+
+
+
+
+
+
+
+
+
+\subsubsection{Hydrodynamics of the perfect fluid}
+
+cf. Subsection 6.5.2 Hydrodynamics of the perfect fluid, of Le Bellac, Mortessagne, Batrouni (2004) \cite{MLeBellacFMortessagneGBatrouni2004}.  
+
+Consider a fluid where the only internal force is pressure.  Assume there's no thermal conduction.  In such a fluid, dissipation is absent.  The fluid is a so-called ``perfect fluid.''  Then right hand side for these transport equations (Eq. (6.87), (6.88) of Le Bellac, Mortessagne, Batrouni (2004) \cite{MLeBellacFMortessagneGBatrouni2004} is $0$:
+\[
+\begin{aligned}
+  \mathbf{j}_E' & = L_{EE} \mathbf{\nabla} \frac{1}{T} \\  
+\mathcal{P}_{\alpha \beta} - \delta_{\alpha \beta} \mathcal{P}  & = -\xi \delta_{\alpha \beta} (\partial_{\gamma} u_{\gamma} ) - 2 \eta \Delta_{\alpha \beta}
+\end{aligned}
+\]
+
+\begin{enumerate}
+  \item Consider the force acting on a fluid volume element $\text{vol}^n \in \Omega^n(N)$, where spatial manifold has dimension $n$, i.e. $\text{dim}N =n$.  
+
+The \textbf{total force} applied by rest of fluid in fluid enclosed in parallelpipe (generalized to $V$), integrate over $\partial V$ (all forces)
+\[
+\begin{gathered}
+  -\int_{\partial V} \mathcal{P}_{\alpha \beta} dx^{\alpha} \otimes dS^{\beta} = -\int_{ \partial V} \mathcal{P}_{\alpha \beta} dS^{\beta} \otimes dx^{\alpha} = -\int_V d(\mathcal{P}_{\alpha beta} dS^{\beta}) \otimes dx^{\alpha} = -\int_V \frac{ \partial (\mathcal{P}_{\alpha \beta}\sqrt{g})}{ \partial x^{\beta} } \frac{1}{\sqrt{g}} \text{vol}^n \otimes dx^{\alpha}
+\end{gathered}
+\]
+Now consider the ``left-hand side'' which describes the dynamics (or kinematics?).  For \emph{total} momentum $\Pi$
+\[
+\begin{gathered}
+  \Pi = \int_V \rho u_i dx^i \otimes \text{vol}^n \\ 
+  \frac{d\Pi}{dt} = \dot{\Pi} = \frac{d}{dt} \int_V \rho u_i \text{vol}^n \otimes dx^i =\int_V \frac{ \partial (\rho u_i )}{ \partial t} \text{vol}^n \otimes dx^i + \int_V \mathcal{L}_{\mathbf{u}} \rho u_i \text{vol}^n \otimes dx^i = \int_V \frac{ \partial ( \rho u_i ) }{ \partial t} \text{vol}^n \otimes dx^i + \int_V \mathbf{d}(\rho u_i u^j dS_j )
+\end{gathered}
+\]
+Now
+\[
+\mathbf{d}(\rho u_i u^j dS_j) = \frac{ \partial \rho }{ \partial x^j} u^j u_i \text{vol}^n + \rho \left[ \frac{ \partial u_i}{ \partial x^j} u^j \text{vol}^n + u_i \frac{ \partial u^j}{ \partial x^j} \text{vol}^n \right]
+\]
+where, recalling
+\[
+dS_j = \frac{\sqrt{g}}{ (n-1)!} \epsilon_{ji_2 \dots i_n} dx^{i_2} \wedge \dots \wedge dx^{i_n}
+\]
+then
+\[
+dx^k \wedge dS_j = \frac{\sqrt{g}}{ (n-1)!} \epsilon_{ji_2 \dots i_n} dx^k \wedge dx^{i_2} \wedge \dots \wedge dx^{i_n} = \frac{ \sqrt{g}}{ (n-1)!} \epsilon_{ji_2 \dots i_n} \epsilon^{ki_2 \dots i_n}_{12\dots n} \frac{dx^1 \wedge \dots \wedge dx^n}{n} = \delta_j^k \text{vol}^n
+\]
+  \item Consider the \emph{lab frame} (with unprimed notation).  \\
+Consider the frame \emph{at rest in the fluid's frame} (with primed notation).  
+
+Note that 
+\[
+\frac{d}{dt} \int_V \text{vol}^n = \int_V \mathcal{L}_{\frac{\partial}{\partial t} + \mathbf{u}} \text{vol}^n = \int_V 0 + \mathbf{d}i_{\mathbf{u}} \text{vol}^n + 0 = \int_{\partial V} i_{\mathbf{u}} \text{vol}^n = \int_{\partial V} u^i dS_i
+\]
+Let $s\equiv S/V \equiv \overline{\sigma} \equiv \frac{\sigma}{V}$ entropy per unit volume in fluid's frame \\
+\phantom{Let } $h' \equiv H/V$ enthalpy per unit volume in \emph{fluid's frame}.  
+
+Note that $s=s'$ since entropy is Galilean invariant.  
+
+Now
+\[
+\begin{aligned}
+  & \check{s} \equiv S/N \equiv \check{\sigma} \equiv \sigma /N \\ 
+  &  \check{h}' \equiv H/N
+\end{aligned}
+\]
+
+
+
+
+Let's review Subsubsection \ref{SubsubSec:ConductionConvection}, which is on pp.137 at the end of Section 3.5.1. Basic formulae of Le Bellac, Mortessagne, Batrouni (2004) \cite{MLeBellacFMortessagneGBatrouni2004}.  
+
+\subsubsection{Conduction and Convection}
+
+Consider system at equilibrium, with thermostate at temperature $T$, kept at pressure $p$, able to exchange particles, with reservoir at chemical potential $\mu$.  
+
+For 1 kind of particle, let 
+\[
+\begin{aligned}
+  & \check{s} \equiv S/N \text{ entropy per particle } \\ 
+  & \check{\epsilon} \equiv E/N \text{ energy per particle }
+\end{aligned}
+\]
+Thus
+\[
+\tau d\sigma = \tau d(N \check{\sigma}) = \tau N d\check{\sigma} + \tau \check{\sigma} dN
+\]
+where 
+\[
+\begin{aligned}
+  & \tau N d\check{\sigma} \text{ is entropy change due to change in entropy per particle, i.e. \textbf{ conduction term } } \\
+  & \tau \check{\sigma} dN \text{ is entropy change due to change in number of particles, i.e. \textbf{ convection term } }
+\end{aligned}
+\]
+For constant volume,
+\[
+dE = TN d\check{\sigma} + (T\check{\sigma} +\mu)dN = TN d\check{\sigma} + \check{h} dN
+\]
+where $\check{h} = \overline{H}/N = \check{\epsilon} + Pv$ is enthalpy per particle, since, recall,
+\[
+\begin{gathered}
+  \overline{H}(S,P) = E+ PV \\ 
+  \mu N = E-TS + PV =G
+\end{gathered}
+\]
+\emph{physical interpretation} of $\check{h}dN$: if $dN$ particles transported into a given volume by convection, 
+energy increases by $\check{\epsilon}dN$.  \\
+\phantom{\emph{physical interpretation} of $\check{h}dN$: } But to return to initial volume, it's necessary to compress by $vdN$ and so add energy to do work $PvdN$ by pressure.
+
+Example: hydrodynamics, where 1 uses Eulerian description in fixed volume. 
+
+Define energy density $\epsilon = \frac{E}{V} = \check{\epsilon}n$. 
+\[
+d\epsilon = Tn d\check{s} + \check{h} dn
+\]
+separates conduction and convection terms.  
+
+To reiterate, in my notation,
+\[
+\begin{gathered}
+  H = E + pV \xrightarrow{ 1/N} \check{h} = \check{\epsilon} + pV \\ 
+  G = F+ pV = E-\tau \sigma + pV = \mu N = H-\tau \sigma \Longrightarrow \mu = \check{h} - \tau \check{\sigma}\\
+  dE = Q + W + \mu dN \Longrightarrow dE = \tau d\sigma - pdV + \mu dN = \tau N d\check{\sigma} + \tau \check{\sigma}dN - pdV + \mu dN = \tau N d\check{\sigma} + (\tau \check{\sigma} + \mu ) dN = \tau N d\check{\sigma} + \check{h} dN
+\end{gathered}
+\]
+where the process considered was for constant volume, and so $dV=0$, and one must keep in mind that the general form of the (internal) energy is as a function of $\sigma, V, \lbrace N_i \rbrace$, so that 
+\[
+dE = \tau d\sigma - pdV + \sum_i \mu_i dN_i
+\]
+
+\end{enumerate}
+
+
+
+
+%\begin{figure}[b]
+%  \centering
+%  \includegraphics[width=\columnwidth]{../eps/Nielsen2011RBB_qualitative_report_topicsentiment}
+%  \caption{Web service screenshot with text from Wikipedia
+%    article ``Lundbeck''.}
+%  \label{fig:topicsentiment}
+%\end{figure}
+
+
+
+
+
+
+\end{multicols*}
+
+\begin{thebibliography}{9}
+
+\bibitem{RBaierlein1999}
+Ralph Baierlein. \textbf{Thermal Physics} Cambridge University Press (July 28, 1999), ISBN-13: 978-0521658386
+
+\bibitem{CKittelHKroemer1980}
+Charles Kittel, Herbert Kroemer, \textbf{Thermal Physics}, W. H. Freeman; Second Edition edition, 1980. 
+ISBN-13: 978-0716710882
+
+\bibitem{BSchutz1980}
+Bernard F. Schutz, \textbf{Geometrical Methods of Mathematical Physics}, Cambridge University Press, 1980.
+ISBN-13: 978-0521298872
+
+\bibitem{CBorgnakkeRSonntag2012}
+Claus Borgnakke, Richard E. Sonntag.  \textbf{Fundamentals of Thermodynamics}, 8th Edition, Wiley, (December 26, 2012). 
+ISBN-13: 978-1118131992  
+
+\bibitem{LLandauELifshitz1980}
+L.D. Landau, E.M. Lifshitz.  \textbf{Statistical Physics}, Third Edition, Part 1: Volume 5 (Course of Theoretical Physics, Volume 5). Butterworth-Heinemann; 3rd edition (January 15, 1980).  ISBN-13: 978-0750633727
+
+
+\url{https://www-physics.ucsd.edu/students/courses/spring2010/physics210a/LECTURES/210_COURSE.pdf}
+
+
+\bibitem{MLeBellacFMortessagneGBatrouni2004}
+Michel Le Bellac, Fabrice Mortessagne, G. George Batrouni.  \textbf{Equilibrium and Non-Equilibrium Statistical Thermodynamics}.  Cambridge University Press (May 3, 2004).  ISBN-13: 978-0521821438
+
+\bibitem{EGroth1999}
+Edward J. Groth. Phys301, Physics 301.  
+
+\url{http://grothserver.princeton.edu/~groth/phys301f99/lect18.pdf}
+
+\end{thebibliography}
+
+
+
+%There is a Third Edition of T. Frankel's \textbf{The Geometry of Physics} \cite{TFrankel2004}, but I don't have the funds to purchase the book (about \$ 71 US dollars, with sales tax). It would be nice to have the hardcopy text to see new updates and to use for research, as the second edition allowed me to formulate fluid mechanics and elasticity in a covariant manner.  Please help me out and donate at \url{ernestyalumni.tilt.com}.  
+
+
+
+
+\clearpage
+\onecolumn
+
+\section{Code listings}
+
+\definecolor{darkgreen}{rgb}{0, 0.4, 0}
+\lstset{language=Python,
+  numbers=left,
+  frame=bottomline,
+  basicstyle=\scriptsize,
+  identifierstyle=\color{blue},
+  keywordstyle=\bfseries,
+  commentstyle=\color{darkgreen},
+  stringstyle=\color{red},
+  literate={Ö}{{\"O}}1 {é}{{\'e}}1 {Å}{{\AA}}1,
+}
+\lstlistoflistings
+
+
+%\label{listing:brede_str_nmf}\lstinputlisting{../../matlab/brede/python/brede_str_nmf}
+
+
+%\newpage
+%\section{Automatic generation of documentation}
+
+%Demontration using epydoc:
+%\begin{verbatim}
+%epydoc --pdf -o /home/fnielsen/tmp/epydoc/ --name RBBase wikipedia/api.py
+%\end{verbatim}
+%This example does not use \verb!brede_str_nmf! but another more
+%well-documented module called {\tt api.py} that are used to download
+%material from Wikipedia. 
+
+%\includepdf[pages={-}]{/home/fnielsen/tmp/epydoc/api.pdf}
+
+\end{document}

@@ -430,6 +430,181 @@ Eperm0406 = Gconst*M_earth*(-1/(2*((R_earth+Decimal(500))*10**3)) + 1/(R_earth*1
 v = \boxed{ 7611 \, m/\text{sec} \, \quad \, T = 5678 \, s \text{ or } 1.58 \, \text{ hours }  \quad \, 33.51 \, MJ/kg }
 \]
 
+\part{Notes and Solutions for \emph{Space Propulsion Analysis and Design} by Humble, Henry, Larson}
+
+cf. Humble, Henry, and Larson (1995) \cite{HHL1995}
+
+
+
+
+\section{Thermodynamics of Fluid Flow; cf. Ch. 3. of Humble, Henry, and Larson (1995) \cite{HHL1995}}
+
+
+
+
+cf. Humble, Henry, and Larson (1995), Ch. 3. Thermodynamics of Fluid Flow \cite{HHL1995} 
+
+
+\subsection{3.1 Mass Transfer}
+
+
+
+
+\subsection{3.2 Thermodynamic Relations (Energy and Entropy)}
+
+cf. Humble, Henry, and Larson (1995), Ch. 3. Thermodynamics of Fluid Flow \cite{HHL1995}
+
+\subsubsection{3.2.5. Isentropic Flow in One-Dimension}
+
+cf. Humble, Henry, and Larson (1995), Ch. 3. Thermodynamics of Fluid Flow \cite{HHL1995}, pp. 95
+
+\textbf{Simplifying Assumptions}
+
+Fluid flow in a duct, applies to gaseous propellant in a nozzle, liquid or gaseous propellant in fuel plumbing, and coolant through nozzle's cooling tubes
+
+\begin{enumerate}
+\item isentropic flow, i.e. reversible and adiabatic; from the chamber (after combustion of propellant) to the nozzle exit. 
+  \begin{itemize}
+    \item \emph{adiabatic flow} means heat transfer doesn't dissipate energy from flow 
+    \item   although heat transfer through chamber walls is significant, it's relatively small percentage of the total energy generated.
+    \item This assumption also neglects effects of friction and fluid viscosity and doesn't apply to shock waves
+  \end{itemize}
+\item 1-dim. flow.\\
+
+  larger nozzle cone half angle, less acceptable this assumption becomes.  For most nozzles, assumption causes less than 5% error.
+\item products of combustion constitute a perfect gas
+\item Frozen flow.  Once established in chamber, products of combustion don't change in hcemical composition while traversing nozzle
+  \item steady flow
+  \end{enumerate}
+
+\emph{Isentropic Relations}  
+
+energy conservation $\Longrightarrow Q = dU - W = dU + pdV$
+
+reversible process $\Longrightarrow  Q = \tau d\sigma$ 
+
+\[
+\begin{aligned}
+ &  \tau d\sigma = dU + pdV \\
+  & dU = C_V d\tau \\
+  & d\sigma = \frac{C_V}{\tau}d\tau + \frac{p}{\tau} dV = \frac{C_V}{\tau}d\tau + \frac{N}{V} dV 
+\end{aligned}
+\]
+
+$d\sigma =0$ isentropic process
+\[
+\Longrightarrow 0 = \frac{C_V}{\tau}d\tau + \frac{N}{V} dV \text{ or } \frac{C_V}{\tau} d\tau = -\frac{N}{V} dV
+  \]
+  \[
+\begin{gathered}
+  \begin{aligned}  C_V \ln{ ( \tau_2 /\tau_1 ) } & = N \ln{ ( V_1 / V_2 ) } = \\
+    & = (C_p - C_V) \ln{ (V_1/V_2) } \end{aligned} \\
+  C_p = C_V + N \Longrightarrow \\
+  \Longrightarrow \ln{ ( \tau_2/\tau_1) } = (\gamma -1) \ln{ (V_1/V_2) } \\
+ \Longrightarrow \frac{\tau_2}{\tau_1} = \left( \frac{V_1}{V_2} \right)^{\gamma -1} = \left( \frac{\rho_2 }{\rho_1} \right)^{\gamma -1}
+\end{gathered}
+\]
+with
+\[
+\begin{aligned}
+  \gamma & \equiv \frac{C_p}{C_v} \\ 
+  \gamma - 1 & = \frac{N}{C_V}
+  \end{aligned}
+\]
+
+And so for \emph{isentropic, 1-dim., steady flow} and calorically perfect gas:
+
+\begin{equation}
+\begin{gathered}
+  \begin{aligned}
+    & (\tau_1, \rho_1) \mapsto (\tau_2, \rho_2) \\ 
+    & (\tau_1, p_1) \mapsto (\tau_2, p_2) \\ 
+    & (\rho_1, p_1) \mapsto (\rho_2, p_2) \\ 
+  \end{aligned} \qquad \, \text{ with } \qquad \, \begin{aligned}
+&    \frac{\tau_2}{\tau_1} = \left( \frac{\rho_2}{\rho_1} \right)^{\gamma-1} \text{ or } \frac{ \rho_1^{\gamma-1} }{ \tau_1} = \frac{ \rho_2^{\gamma-1}}{\tau_2} \\ 
+ & \frac{p_2}{p_1} = \left( \frac{ \tau_2}{\tau_1} \right)^{ \frac{\gamma}{\gamma -1} } \\   
+ & \frac{p_2}{p_1} = \left( \frac{ \rho_2}{\rho_1} \right)^{ \gamma } 
+    \end{aligned}
+\end{gathered}
+  \end{equation}
+
+From the Bernoulli invariant, and assuming
+\begin{enumerate}
+\item steady flow
+\item adiabatic process (no heat transfer)
+\item no significant changes in potential energy
+  \item No shaft work or shear work done
+\end{enumerate}
+\begin{equation}
+  h_1 + \frac{1}{2}u_1^2 = h_2 + \frac{1}{2}u_2^2
+  \end{equation}
+From
+\[
+\begin{gathered}
+  \mathfrak{M} := \frac{u}{a} \\
+a^2 = \frac{ \gamma \tau }{M} \\ 
+ c_p \equiv \frac{ C_p}{MN}
+\end{gathered} \text{ and } \begin{gathered}
+  C_p = \frac{N}{\gamma -1} + N = N \left( \frac{\gamma}{\gamma -1} \right) \\
+  \frac{C_p}{N} = \frac{\gamma }{ \gamma -1}  
+\end{gathered} \Longrightarrow
+\]
+\[
+\Longrightarrow 
+\begin{gathered}
+  c_p(\tau_1 - \tau_2) = \frac{1}{2} ( u_2^2 - u_1^2 ) = \\
+  = \frac{1}{2} ( \mathfrak{M}_2^2 \gamma \tau_2 - \mathfrak{M}_1 \gamma \tau_1 ) \frac{1}{M} \\
+  \Longrightarrow c_p \tau_1 + \frac{1}{2} \mathfrak{M}_1^2 \gamma \frac{\tau_1}{M} = ( c_p + \frac{1}{2} \mathfrak{M}_2^2 \frac{\gamma}{M } ) \tau_2 
+  \end{gathered}
+\]
+\[
+\begin{gathered}
+  \Longrightarrow \frac{\tau_1}{\tau_2} = \frac{ \frac{C_p}{N} + \frac{1}{2} \mathfrak{M}_2^2 \gamma }{  \frac{C_p}{N} + \frac{1}{2} \mathfrak{M}_1^2 \gamma } = \frac{ \frac{\gamma}{\gamma -1} + \frac{1}{2} \mathfrak{M}_2^2 \gamma }{   \frac{\gamma}{\gamma -1} + \frac{1}{2} \mathfrak{M}_1^2 \gamma } = \frac{ 1 + \frac{1}{2} \mathfrak{M}_2^2 (\gamma -1 ) }{ 1 + \frac{1}{2} \mathfrak{M}_1^2 (\gamma -1 ) }
+  \end{gathered}
+\]
+
+\textbf{Area ratio}
+
+From Eq. \ref{Eq:AreastoMachs}, 
+\begin{definition}[Expansion ratio]
+  \begin{equation}
+    \epsilon \equiv \text{ expansion ratio } := \frac{ A_{\text{exh}}}{ A_t} = \frac{1}{ \mathfrak{M}_{\text{exh}} } \left[ \left( 1 + \frac{\gamma -1}{2}  \mathfrak{M}_{\text{exh}}^2 \right) \frac{2}{ \gamma +1} \right]^{ \frac{\gamma +1}{ 2(\gamma -1) }}
+    \end{equation}
+  \end{definition}
+
+
+So from
+\[
+\begin{gathered}
+  \text{ mass conservation } \Longrightarrow  \dot{m} = \rho_t u_t A_T \\
+  \text{ Mach number (definition) } \Longrightarrow \mathfrak{M}_t := u_t/a_t \\
+  \frac{ \rho_t \tau_0}{M} = \frac{ \rho_0 \left( \frac{2}{\gamma +1} \right)^{\frac{1}{\gamma -1} } \tau_0 }{ M} = p_0 \left( \frac{2}{\gamma +1 } \right)^{ \frac{1}{\gamma -1} } \\
+  \frac{1}{\gamma -1} + \frac{1}{2} = \frac{ 2 + \gamma - 1}{ \gamma -1} = \frac{ \gamma +1}{ \gamma -1} 
+  \end{gathered}
+\]
+
+\[
+\begin{gathered}
+  \dot{m} u_{\text{exh}} = \rho_t \mathfrak{M}_t a_t A_t u_{\text{exh}} = \rho_t \left( \frac{\gamma \tau_t }{M} \right)^{1/2} A_t \left[ \frac{ 2\gamma }{\gamma -1} \frac{ \tau_0 }{M} \left( 1 - \left( \frac{p_e}{p_0} \right)^{\frac{\gamma -1}{\gamma } } \right) \right]^{1/2} = \frac{ \rho_t A_t }{M} \left[ \frac{ 2\gamma^2 \tau_t\tau_0 }{ \gamma -1} \left( 1 - \left( \frac{p_e}{p_0} \right)^{\frac{ \gamma -1}{\gamma } } \right) \right]^{1/2} = \\
+  = p_0 \left( \frac{2}{\gamma + 1} \right)^{\frac{1}{\gamma -1 } } A_t \left[ \frac{2 \gamma^2}{ \gamma -1} \frac{ 2 }{ \gamma + 1} \left( 1 - \left( \frac{p_e}{p_0} \right)^{ \frac{\gamma -1}{\gamma } } \right) \right]^{1/2} = A_t p_0 \left[ \frac{ 2\gamma^2 }{ \gamma -1 } \left( \frac{2}{ \gamma + 1} \right)^{ \frac{ \gamma + 1}{ \gamma -1 } } \left( 1 - \left( \frac{p_e}{ p_0 } \right)^{ \frac{\gamma -1}{ \gamma } }\right) \right]^{1/2}
+\end{gathered}
+\]
+So from
+\[
+F_{\text{thrust}} = \dot{m} u_{\text{exh}} + (p_e - p_a) A_e
+\]
+\begin{equation} \label{Eq:thrustidealrocket}
+  \boxed{ 
+  F_{\text{thrust}} = A_t p_0 \left[ \frac{ 2\gamma^2 }{ \gamma -1 } \left( \frac{2}{ \gamma + 1} \right)^{ \frac{ \gamma + 1}{ \gamma -1 } } \left( 1 - \left( \frac{p_e}{ p_0 } \right)^{ \frac{\gamma -1}{ \gamma } }\right) \right]^{1/2} + (p_e - p_a) A_{\text{exh}}  }
+  \end{equation}
+
+Eq. \ref{Eq:thrustidealrocket} is Eq. (3.129) of Humble, Henry, and Larson (1995), Ch. 3. Thermodynamics of Fluid Flow \cite{HHL1995}, pp. 112, Eq. (3-29) of Biblarz and Sutton (2001) \cite{GSuttonOBiblarz2001}, Ch. 3, pp. 63.  
+
+
+
+
+
+
 \part{1-dim. propulsion (revisited)}
 
 
@@ -3031,7 +3206,7 @@ Now, note that
 \end{aligned}
 \end{gathered}
 \]
-and so 
+and so
 \[
 \begin{gathered}
   \frac{ \partial (\rho Y_i)}{ \partial t} + \text{div}(\rho Y_i u_i') + \text{div}(\rho Y_i u) = \dot{m}_i''' \\
@@ -4442,6 +4617,11 @@ and then for general $x\in N$,
 
 \part{Numerical Computation; Scientific Computation}
 
+\section{Integration of ODEs}
+
+
+
+
 \section{Systems of Ordinary Differential Equations ODEs}
 
 EY : 20160228 There's a lack of fully general and useful examples of solving a system of ordinary differential equations (ODEs) in \verb|scipy| if one does a search on Google.  There is the \href{http://scipy-cookbook.readthedocs.org/items/numpy_scipy_ordinary_differential_equations.html}{scipy cookbook}, which has toy examples for the \href{http://scipy-cookbook.readthedocs.org/items/CoupledSpringMassSystem.html}{Coupled spring-mass system}, \href{http://scipy-cookbook.readthedocs.org/items/KdV.html}{Korteweg de Vries equation}, \href{http://scipy-cookbook.readthedocs.org/items/LoktaVolterraTutorial.html}{Matplotlib: lotka volterra tutorial}, \href{http://scipy-cookbook.readthedocs.org/items/Zombie_Apocalypse_ODEINT.html}{Modeling a Zombie Apocalypse}, \href{http://scipy-cookbook.readthedocs.org/items/Theoretical_Ecology_Hastings_and_Powell.html}{Theoretical ecology: Hastings and Powell}.  Then, there's Kevin Dunn's material for Process Model Formulation and Solution, which is \emph{excellent} for its layout, thoroughness, side-by-side comparison between Matlab and Python (scipy), and \emph{real-world} examples, though related to \emph{chemical engineering} (but which is an interesting and useful subject in its own right; so we'd might as well learn some chemical engineering).    
@@ -4511,6 +4691,675 @@ For the ``right-hand side'' (RHS) of an ODE with constant coefficients, and a RH
 A copy of Dunn's implementation is in \verb|CSTRconstant.py| and \verb|CSTRdynamic.py|, copied from verbatim.  
 
 EY : 20160229 Things I need to understand further are the \verb|set_integrator| method of \verb|scipy.integrate.ode|, with option \verb|'vode'| and method \verb|'bdf'| (i.e. \verb|method='bdf'|) and what a \href{https://en.wikipedia.org/wiki/Stiff_equation}{Stiff Equation} is. 
+
+\section{Computational Fluid Dynamics (CFD) and Navier-Stokes equation}
+
+Consider Liquid Bipropellant Spray Combustion Modeling (liquid bipropellant in that we are considering a liquid fuel, that's injected in, and also a liquid oxidizer, injected in), as outlined by Preclik, Knab, Estublier, and Wannerberg (Preclik, et. al.) in their article ``Simulation and Analysis of Thrust Chamber Flowfields: Storable Propellant Rockets'' (2004) \cite{YHHP2004}.  
+
+Consider first gas-phase flow modeling.  They treat the gaseous phase in 2-dimensions, specifically in an axisymmetric coordinate axes setup, and solving, on it, the Favre-averaged Navier-Stokes equations, with species continuity, and so-called $k-\epsilon$ turbulence equations.  Let's examine first Navier-Stokes equations.
+
+\subsection{Navier-Stokes equations}
+
+Cuong Nguyen's notes (November 5, 2005) on \href{http://www.mit.edu/~cuongng/Site/Publication_files/TurbulenceModeling_04NOV05.pdf}{Turbulence Modeling} has an incomplete review of what RANDS is, what Favre-averaged Navier-Stokes equations is, and what $k-\omega$, $k-\epsilon$ are.    
+
+\subsection{Spacetime $\Longleftrightarrow$ Grid}
+
+\subsubsection{Spatial (smooth) $N$ manifold $\Longleftrightarrow$ Grid }
+
+\[
+\begin{tikzpicture}
+  \matrix (m) [matrix of math nodes, row sep=0.8em, column sep=1.8em, minimum width=0.6em] 
+  {
+    \mathbb{R}^3 & \mathbb{Z}^3 \\
+    (l_x,l_y,l_z) \in \mathbb{R}\times \mathbb{R} \times \mathbb{R} & (N_x, N_y,N_z) \in \mathbb{Z}^+ \times \mathbb{Z}^+ \times \mathbb{Z}^+ \\
+    & (h_x,h_y,h_z) \in (\mathbb{R}^+)^3 \\
+    (x,y,z) \in \mathbb{R}^3 & (i_x,i_y,i_z) \in \lbrace 0 \dots N_x-1, \rbrace \times \lbrace 0 \dots N_y-1 \rbrace \times \lbrace 0 \dots N_z - 1\rbrace \\
+    };
+  \path[->]
+  (m-1-1) edge node [above] {\text{discretization}} (m-1-2)
+  ;
+  \path[|->]
+  (m-3-2) edge node [above] {$l_i = N_i h_i $} (m-2-1)
+  (m-4-2) edge node [above] {$x^i = i_i h_i$ } (m-4-1)
+  ;
+\end{tikzpicture} 
+\]
+
+There is a \emph{flatten} functor that is necessitated by either the contiguous architecture of memory addresses on memory of the device GPU or by software constraints (CUDA C/C++ 7.5 Toolkit doesn't take multidimensional arrays).
+
+\[
+\begin{tikzpicture}
+  \matrix (m) [matrix of math nodes, row sep=0.8em, column sep=2.3em, minimum width=1.6em] 
+  {
+     \mathbb{Z}^3 & \mathbb{Z} \\
+     (N_x, N_y,N_z) \in \mathbb{Z}^+ \times \mathbb{Z}^+ \times \mathbb{Z}^+ & N_xN_y N_z \in \mathbb{Z} \\
+ (i_x,i_y,i_z) \in \lbrace 0 \dots N_x-1, \rbrace \times \lbrace 0 \dots N_y-1 \rbrace \times \lbrace 0 \dots N_z - 1\rbrace & i_x + i_y N_x +i_z N_xN_y \equiv i \in \lbrace 0 \dots N_xN_yN_z-1 \rbrace \\
+    };
+  \path[->]
+  (m-1-1) edge node [above] {\text{flatten}} (m-1-2)
+  ;
+  \path[|->]
+  (m-2-1) edge node [above] { \text{flatten} } (m-2-2)
+  (m-3-1) edge node [above] {\text{flatten} } (m-3-2)
+  ;
+\end{tikzpicture} 
+\]
+Note that $i$ is sometimes denoted as the ``global'' index in as it directly accesses the memory address on the device (GPU).  
+
+
+
+Consider $\rho^{\infty}(\mathbb{R}^3) \in C^{\infty}(\mathbb{R}^3)$ and its behavior under the discretization (``discretize'') and flatten functors.  Also, treat $C^{\infty}(\mathbb{R}^3)$  as the ``zero''th order (trivial) vector bundle, endowed with a vector space structure itself (it's a ring, I believe, and it sits on the spatial manifold $N=\mathbb{R}^3$).  Then there is a natural projection $\pi$ back onto $N$.
+
+\[
+\begin{tikzpicture}
+  \matrix (m) [matrix of math nodes, row sep=3.8em, column sep=4.8em, minimum width=2.9em] 
+  {
+   C^{\infty}(\mathbb{R}^3) & \ni \rho(x) \in C^{\infty}(\mathbb{R}^3) & \text{Hom}(\mathbb{Z}^3,\mathbb{R}) & \text{Hom}(\mathbb{Z},\mathbb{R}) \\
+\mathbb{R}^3 & \ni x\in \mathbb{R}^3 & (i_x,i_y,i_z) & i \in \lbrace 0 \dots N_xN_yN_z - 1\rbrace \\
+    };
+  \path[->]
+  (m-1-1) edge node [left] {$\pi$} (m-2-1)
+  (m-1-2) edge node [above] {\text{discretize}} (m-1-3)
+  (m-2-2) edge node [above] {\text{discretize}} (m-2-3)
+  (m-1-3) edge node [above] {\text{flatten}} (m-1-4)
+  (m-2-3) edge node [above] {\text{flatten}} (m-2-4)
+  ;
+  \path[|->]
+  (m-1-2) edge node [left] {$\pi$} (m-2-2)
+  (m-1-3) edge node [left] {$\pi$} (m-2-3)
+  (m-1-4) edge node [left] {$\pi$} (m-2-4)
+  ;
+\end{tikzpicture} 
+\]
+Note that we can say that the discretization of $\rho(\mathbb{R}^3) \in C^{\infty}(\mathbb{R}^3)$ is a homomorphism $\text{Hom}$ from $\mathbb{Z}^3$ to $\mathbb{R}$ because vector space structure is preserved (and so discretization (discretize) is a functor, along with flatten).  As $C^{\infty}(N)$ is a vector space (ring) over the field $\mathbb{R}$ in that it is equipped with commutative (abelian) addition and scalar multiplication by field $\mathbb{R}$
+\[
+\begin{tikzpicture}
+  \matrix (m) [matrix of math nodes, row sep=1.2em, column sep=4.8em, minimum width=2.9em] 
+  {
+    f(x) + g(x) = (f+g)(x) & f(i_x,i_yi_z) + g(i_x,i_y,i_z) = (f+g)(i_x,i_y,i_z) \\
+    \lambda f(x) \in C^{\infty}(\mathbb{R}^3) &  \lambda f(i_x,i_y,i_z) \in \text{Hom}(\mathbb{Z}^3 , \mathbb{R}) \\
+  };
+  \path[->]
+    (m-1-1) edge node [above] {\text{discretize}} (m-1-2)
+  (m-2-1) edge node [above] {\text{discretize}} (m-2-2)
+  ;
+  \end{tikzpicture}
+\]
+Now consider the other object we need to consider, the vector bundle, namely the tangent bundle $TN$ over spatial (smooth) manifold $N$.  Namely consider the \emph{vector field}, representing the \emph{velocity vector field} $u$ as a section of the tangent bundle $T\mathbb{R}^3$ over Euclidean space (as a smooth manifold) $\mathbb{R}^3$.  Since $\text{dim}\mathbb{R}^3=3$, then the vector space $V \equiv T_xN$ ``over a fiber'' is of dimension 3, i.e. $\text{dim}T_xN$, $\forall \, x \in N$.
+\[
+u \in \mathfrak{X}(\mathbb{R}^3) = \Gamma(T\mathbb{R}^3)
+\]
+Recall the structure of a vector bundle, defined with a local trivialization $\varphi$ on an open set $U \subset N$:
+\[
+\begin{tikzpicture}
+  \matrix (m) [matrix of math nodes, row sep=3.2em, column sep=4.8em, minimum width=2.9em] 
+  {
+TN \\
+N \\
+  };
+  \path[->]
+    (m-1-1) edge node [left] {$\pi$} (m-2-1)
+  ;
+  \end{tikzpicture} \qquad \, 
+\begin{tikzpicture}
+  \matrix (m) [matrix of math nodes, row sep=3.2em, column sep=4.8em, minimum width=2.9em] 
+  {
+\supset \pi^{-1}(U) & U\times V \\ 
+\supset U & \\
+  };
+  \path[->]
+    (m-1-1) edge node [above] {$\varphi$} (m-1-2)
+  (m-2-1) edge node [right] {$\pi^{-1}$} (m-1-1)
+  (m-1-2) edge node [below] {\text{proj}} (m-2-1)
+  ;
+  \end{tikzpicture}
+\]
+Then consider its behavior under discretization (discretize functor):
+\[
+\begin{tikzpicture}
+  \matrix (m) [matrix of math nodes, row sep=3.2em, column sep=2.8em, minimum width=2.4em] 
+  {
+u(x) \in \Gamma(TN) & (x,u(x)) \\ 
+x\in N  & \\
+  };
+  \path[|->]
+    (m-1-1) edge node [above] {$\varphi$} (m-1-2)
+   edge node [right] {$\pi$} (m-2-1)
+  (m-1-2) edge node [below] {\text{proj}} (m-2-1)
+  ;
+\end{tikzpicture} \xrightarrow{ \text{ discretize } }
+\begin{tikzpicture}
+  \matrix (m) [matrix of math nodes, row sep=3.2em, column sep=2.8em, minimum width=2.4em] 
+  {
+u(i_x,i_y,i_z) \in \text{Hom}(\mathbb{Z}^3,\mathbb{R}^3) & ((i_x,i_y,i_z),u(i_x,i_y,i_z)) \in \mathbb{Z}^3 \times \text{Hom}(\mathbb{Z}^3 , \mathbb{R}^3) \\ 
+(i_x,i_y,i_z)  & \\
+  };
+  \path[|->]
+    (m-1-1) edge node [above] {$\varphi$} (m-1-2)
+   edge node [right] {$\pi$} (m-2-1)
+  (m-1-2) edge node [below] {\text{proj}} (m-2-1)
+  ;
+\end{tikzpicture}
+\]
+
+\subsection{Finite Volume}
+
+\emph{Keywords:} Finite Volume, Upwind methods
+
+Ferziger and Peric (2013) \cite{JFMP2013}.  However, here is my generalization.
+
+\subsubsection{Upwind method}
+
+Consider the so-called ``upwind method.''  Consider the 1-dimensional case.
+
+Let $C_i^1 \equiv $ $i$th cell of dimension 1, for $i = 0, \dots , N-1$.  So there are $N$ total cells.
+
+Cells are centered at $x_{2i+1} = l \frac{ (2i+1)}{2} = l(i + \frac{1}{2})$.  $l$ is the 1-dimensional size or length of a single cell.  Notice that in this case, I am assuming a uniform grid.  Note that this can be easily generalized to a grid with different cell sizes for each cell.  
+
+For the $i$th cell, which is a 1-(cubic) simplex, a line segment, $C_i^1$, it has 2 $0$-(cubic) simplices (faces), which in this 1-dimensional case, it's 2 isolated points: $\partial C_i^1 = \lbrace C^0_{i \pm 1} \rbrace$.
+
+The centers of these faces, i.e. the position of these 2 points, at the ends of the line segment, are
+\[
+x_{C^0_{i \pm 1} } = l \left( \frac{2i  +1 \pm 1 }{2} \right) = l ( i + \frac{1}{2} \pm \frac{1}{2} ) = \lbrace li, l(i+1) \rbrace
+\]
+
+I will take the mass conservation equation, in its integral form, as an example here, but this example can be easily generalized to the convection of any other conserved quantity.  Define the average mass density $\overline{\rho}_i$:
+\begin{equation}
+  \overline{\rho}_i := \frac{1}{l} \int_{C_i^1} \rho \text{vol}^1
+\end{equation}
+For the mass conservation equation (in integral form),
+\begin{equation}\label{Eq:massconsvdiscretize}
+\int_V  \frac{ \partial \rho}{ \partial t} = - \int_{\partial V} i_{\mathbf{u}}\rho \text{vol}^1
+  \end{equation}
+where the integral is taken over the volume $V$, and over its boundary $\partial V$ (which is the surface of $V$).
+
+For the left-hand side (LHS) of Eq. \ref{Eq:massconsvdiscretize}, rewrite it in terms of $\overline{\rho}_i$,
+\[
+\begin{gathered}
+  \int_{C_i^1} \frac{  \partial \rho}{ \partial t}(t,x) \text{vol}^1 \approx \int_{C_i^1} \frac{ \rho(t+\Delta t, x) - \rho(t,x) }{ \Delta t} \text{vol}^1 = \\
+  = \frac{1}{ \Delta t} \left[ \int_{C_i^1} \rho(t+\Delta t,x) \text{vol}^1 - \int_{C_i^1} \rho(t,x) \text{vol}^1 \right] = \\
+  = \frac{l}{\Delta t} \left[ \overline{\rho}_i(t+\Delta t) - \overline{\rho}_i(t) \right]
+  \end{gathered}
+\]
+
+Considering the mass flux through the ``surface'' or through the endpoints of the line segment, that is a cell in the 1-dimensional case,
+\[
+\int_{\partial C_i^1} i_{\mathbf{u}} \rho \text{vol}^1 = \int_{ \partial C_i^1} \rho u^i dS_i
+\]
+then the so-called ``upwind'' scheme is this:
+\[
+\begin{gathered}
+  \int_{C^0_{i+1}} \rho u^i dS_i = u^x(x_{C^0_{i+1}}) \int_{C^0_{i+1} } \rho dS_x = \begin{cases} 
+    \overline{\rho}_iu^x(x_{C^0_{i+1}} ) & \text{ if } u^x(x_{C^0_{i+1}}) > 0 \\
+    \overline{\rho}_{i+1}u^x(x_{C^0_{i+1}} ) & \text{ if } u^x(x_{C^0_{i+1}}) < 0
+    \end{cases} \\
+  \int_{C^0_{i-1}} \rho u^i dS_i = -u^x(x_{C^0_{i-1}}) \int_{C^0_{i-1} } \rho dS_x = \begin{cases} 
+    -\overline{\rho}_{i-1}u^x(x_{C^0_{i-1}} ) & \text{ if } u^x(x_{C^0_{i-1}}) > 0 \\
+    -\overline{\rho}_{i}u^x(x_{C^0_{i-1}} ) & \text{ if } u^x(x_{C^0_{i-1}}) < 0
+    \end{cases} 
+\end{gathered}
+\]
+
+
+For the 3-dimensional case, I refer back to my notes on \href{https://github.com/ernestyalumni/CompPhys/blob/master/LaTeXandpdfs/CompPhys.pdf}{Computational Physics} in the 3-dim. ``Upwind'' subsection. 
+
+
+For a rectangular prism (cubic),
+
+for cell $C^3_{ijk}$, $i=0 \dots N_x-1$, $j=0 \dots N_y-1$ , $k=0 \dots N_z-1$, $N_x\cdot N_y \cdot N_z$ total cells.
+
+Cells centered at
+\[
+(x_{2i+1}, y_{2j+1}, z_{2j+1}) = (l^x \frac{ (2i+1)}{2} , l^y \frac{(2j+1)}{2}, l^z \frac{(2k+1)}{2} ) = \left( \sum_{l=0}^{i-1} l_l^x + \frac{l_i^x}{2} , \sum_{l=0}^{j-1}l_l^y + \frac{l_j^y}{2}, \sum_{l=0}^{k-1}l_l^z + \frac{l_k^y}{2}  \right)
+\]
+For the 3-(cubic) simplex, $C^3_{ijk}$, it has 6 2-(cubic) simplices (faces).  So for $C_{ijk}^3$, consider $\lbrace C^2_{i\pm 1, jk}, C^2_{ij\pm 1,k}, C^2_{ijk\pm 1}\rbrace$.
+
+The center of these faces, such as for $C^2_{i\pm 1, jk}$, $x_{ C^2_{i\pm 1, jk} }$, for instance,
+\[
+\begin{aligned}
+ x_{C^2_{i\pm 1,jk}} = (x_{2i+1\pm 1},y_{2j+1},z_{2k+1}) = (l^x\left( \frac{2i+1\pm 1}{2}\right) , l^y\frac{(2j+1)}{2},  l^z\frac{(2j+1)}{2} ) = \left( \sum_{l=0}^{ \frac{2i - 1 \pm 1 }{2} } l_l^x, \sum_{l=0}^{j-1} l_l^y + \frac{l_j^y}{2}, \sum_{l=0}^{l-1} l_l^z + \frac{l_k^z}{2} \right) 
+  \end{aligned}
+\]
+
+We want the flux.  So for
+\[
+\overline{\rho}_{ijk} := \frac{1}{l_i^x l_j^yl^z_k} \int_{C^3_{ijk}} \rho \text{vol}^3
+\]
+then the flux through 2-(cubic) simplices (faces), $\int \rho i_{\mathbf{u}}\text{vol}^3$,
+\[
+\begin{aligned}
+ &  \int_{C^2_{i+1,jk}} \rho i_{\mathbf{u}} \text{vol}^3 = \begin{cases} l_j^yl_k^z \overline{\rho}_{ijk} u^x(x_{C^2_{i+1, jk} } ) & \text{ if } u^x(x_{C^2_{i+1,jk} }) > 0 \\ 
+ l_j^y l^z_k \overline{\rho}_{i+1,jk} u^x(x_{C^2_{i+1, jk} } ) & \text{ if } u^x(x_{C^2_{i+1,jk} }) < 0 \end{cases} \\
+\end{aligned}
+\]
+\[
+\begin{gathered}
+  \int_{C^2_{i-1,jk}} \rho i_{\mathbf{u}} \text{vol}^3 = \int_{C^2_{i-1,jk}} \rho u^i dS_i = \int_{C^2_{i-1,jk}} \rho u^i \frac{ \sqrt{g}}{ (3-1)!} \epsilon_{ii_2i_3} dx^{i_2} \wedge dx^{i_3} = -u^x(x_{C^2_{i-1,jk}}) \int_{C^2_{i-1,jk} } \rho dy dz = \\
+  = \begin{cases}
+    -l_j^y l^z_k \overline{\rho}_{i-1,jk} u^x(x_{C^2_{i-1,jk}}) & \text{ if } u^x(x_{C^2_{i-1,jk}}) > 0 \\
+        -l_j^y l^z_k \overline{\rho}_{i,jk} u^x(x_{C^2_{i-1,jk}}) & \text{ if } u^x(x_{C^2_{i-1,jk}}) < 0 
+    \end{cases}
+\end{gathered}
+\]
+
+and so on.
+
+
+
+
+\subsection{Finite Difference}
+
+Consider mass conservation.
+
+\[
+\begin{gathered}
+\frac{d}{dt} M  = \frac{d}{dt} \int_V m \equiv \frac{d}{dt} \int \rho \text{vol}^d = \int \mathcal{L}_{ \frac{ \partial }{ \partial t} + \mathbf{u} } \rho \text{vol}^d = \int \frac{ \partial \rho }{ \partial t} \text{vol}^d + \mathbf{d}u_{\mathbf{u}}\rho \text{vol}^d = \int \left( \frac{ \partial \rho}{ \partial t} + \text{div}(\rho \mathbf{u} ) \right) \text{vol}^d = 0 
+\end{gathered}
+\]
+
+From here,
+\[
+\begin{gathered}
+  \frac{ \partial \rho }{ \partial t} + \text{div}(\rho \mathbf{u}) = \frac{ \partial \rho }{ \partial t} + \frac{1}{\sqrt{g}} \frac{ \partial }{ \partial x^k} (\rho u^k \sqrt{g}) = \frac{ \partial \rho}{ \partial t} + \rho \text{div}\mathbf{u} + u^k \frac{ \partial \rho }{ \partial x^k} = 0
+  \end{gathered}
+\]
+If $\text{div}\mathbf{u} = 0$, this is the \emph{incompressible} case.
+
+If $\sqrt{g}=1$, $\frac{ \partial \rho}{ \partial t} + \frac{ \partial }{ \partial x^k}(\rho u^k) = 0 $
+
+\subsubsection{ 2 and more species, mass conservation}
+
+Suppose $M_{\text{tot}} = M_A + M_B$, $\begin{aligned} \rho_{A} & = \frac{ M_A}{ | \int \text{vol}^d| } \\ \rho_{B} & = \frac{ M_B}{ | \int \text{vol}^d| } \end{aligned}$.  (assume, cf. Landau and Lifshitz, that species $A,B$ ``don't talk to each other'', that is, interaction between them is negligible in terms of occupying volume; this is what gases do).
+
+\[
+\begin{gathered}
+  \dot{M}_{\text{tot}} \equiv \frac{d}{dt} M_{\text{tot}} = \frac{d}{dt}(M_A + M_B) = \frac{d}{dt} \left( \int \rho_A \text{vol}^d + \int \rho_B \text{vol}^d\right) = \frac{d}{dt} \left( \int (\rho_A + \rho_B) \text{vol}^d\right) = \\
+  = \int \left( \frac{ \partial \rho_A}{ \partial t} + \text{div}(\rho_A \mathbf{u}) + \frac{ \partial \rho_B}{\partial t} + \text{div}(\rho_B \mathbf{u}) \right) \text{vol}^d   = \int \frac{ \partial (\rho_A + \rho_B) }{ \partial t} + \text{div}((\rho_A + \rho_B)\mathbf{u} ) = 0 
+  \end{gathered}
+\]
+\begin{equation}
+  \begin{gathered}
+    U = U(\sigma, V,N) \\ 
+    dU  = \tau d\sigma - p dV + \mu dN
+    \end{gathered}
+  \end{equation}
+
+
+\begin{equation}
+\begin{gathered}
+  H=H(\sigma,p,N) := U + pV \\
+dH = dU + pdV + Vdp = \tau d\sigma + \mu dN + Vdp
+\end{gathered}
+\end{equation}
+
+\begin{equation}
+\begin{gathered}
+  G = G(\tau, p , N) = U + pV - \tau \sigma = H-\tau \sigma = \mu N \\ 
+  dG = dU + pdV + Vdp - \tau d\sigma - \sigma d\tau = \tau d\sigma - pdV + \mu dN + pdV + Vdp - \tau d\sigma - \sigma d\tau = \\
+  = -\sigma d\tau + Vdp + \mu dN = \mu dN + N d\mu
+  \end{gathered}
+  \end{equation}
+
+\subsection{Compressible, inviscid (no viscosity) flow i.e. Euler equations}
+
+Consider the total momentum of a fluid element $V$, $V \subset N$, $\mathbf{P}$:
+\begin{equation}
+  \mathbf{P} = \int_V \mathbf{p} \text{vol}^d = \int_V p^i \text{vol}^d \otimes \mathbf{e}_i
+\end{equation}
+where $\text{vol}^d$ is the volume $d$-form on the \emph{spatial} (smooth) manifold $N$, $N$ is of dimension $\text{dim}N = d$, $\mathbf{e}_i$ is an orthonormal basis vector of the orthonormal frame on $N$, and where $i=1,2, \dots , d$, with repeated indices imply summation (i.e. Einstein's summation notation).  $\mathbf{p} = \mathbf{p}(t,\mathbf{x})$ is a time-dependent vector field taking values on the tangent bundle of $N$, $TN$.  Note that $\mathbf{P}$ is also a time-dependent vector field, after integration of $\mathbf{p}\text{vol}^d$ over $V$: strictly speaking, one could say that $\mathbf{p}$ and $\mathbf{P}$ belongs to the space of all vector fields over $\mathbb{R}\times N$, with $\mathbf{R}$ representing time, $\mathfrak{X}(\mathbb{R}\times N) = T(\mathbb{R}\times N)$, but with the component in the time direction being strictly zero.  
+
+Consider the (total) time derivative of $\mathbf{P}$:
+\begin{equation}\label{Eq:TimeDevPEulerEqn}
+  \begin{gathered}
+    \dot{\mathbf{P}} \equiv \frac{d}{dt} \mathbf{P} = \frac{d}{dt} \int_V p^i \text{vol}^d\otimes \mathbf{e}_i = \int_V \left( \frac{ \partial p^i}{ \partial t} + \text{div}(p^i \mathbf{u}) \right)\text{vol}^d \otimes \mathbf{e}_i = \\
+    = \int_V T^{ij} dS_j \otimes \mathbf{e}_i = -\int_V (\text{grad}p) \text{vol}^d
+    \end{gathered}
+  \end{equation}
+where the usual ``right-hand side'' (RHS) for the Euler equations for inviscid flow is the second line of Eq. \ref{Eq:TimeDevPEulerEqn}, and there, $p$ is the pressure for the thermodynamic system at $V$.  This thermodynamic system is the (single) gas phase inside $V$.  Take $V$ small enough such that the system equilibrates \emph{locally} and thus the pressure $p$ is a good parameter to specify the thermodynamic state of the system at local equilibrium in $V$.  $p$ takes on double duty as a $C^{\infty}$ function on $\mathbb{R}\times N$, i.e. $p \in C^{\infty}(\mathbb{R}\times N)$, with $C^{\infty}(\mathbb{R}\times N)$ denoting the space of all smooth (i.e. infinitely differentiable) functions over (i.e. depending upon) $\mathbb{R}\times N$.
+
+One thing to note about the derivation of the usual ``left-hand side'' (LHS) for the Navier-Stokes equations, as shown in the first line of Eq. \ref{Eq:TimeDevPEulerEqn}, is that the Lie derivative is only acting on the ``differential form'' part of the integrand $\mathbf{p} \text{vol}^d = p^i \text{vol}^d \otimes \mathbf{e}_i$.  This could be made clearer in considering the definition of a time derivative as a limit, and the flow of a differential form under the ``full'' velocity vector field $\frac{d}{dt} = \frac{ \partial}{ \partial t} + \mathbf{u}$, $\varphi_{\Delta t}$, where $\mathbf{u} \in \mathfrak{X}(\mathbb{R}\times N) = T(\mathbb{R}\times N)$ is the usual time-dependent velocity vector field, taking only values in $TN$.  Indeed
+\begin{equation}\label{Eq:LHSderivationNavierStokes}
+\begin{gathered}
+  \frac{d}{dt} \int_V p^i \text{vol}^d \otimes \mathbf{e}_i := \lim_{\Delta t \to 0 } \frac{ \int_{\varphi_{\Delta t}V} p^i(t+\Delta t,\mathbf{x}) \text{vol}^d \otimes \mathbf{e}_i - \int_V p^i(t,\mathbf{x})\text{vol}^d \otimes \mathbf{e}_i }{ \Delta t} = \\
+   = \lim_{\Delta t \to 0} \lbrace \int_{V} \varphi_{\Delta t}^*(p^i(t+\Delta t, \mathbf{x}) \text{vol}^d) \otimes \mathbf{e}_i - \int_Vp^i(t,\mathbf{x})\text{vol}^d \otimes \mathbf{e}_i \rbrace \frac{1}{\Delta t} = \\
+   = \int_V \lim_{\Delta t \to 0} \left[ \varphi^*_{\Delta t} (p^i(t+\Delta t,\mathbf{x}) - p^i(t,\mathbf{x}) )\right]\frac{1}{\Delta t} \otimes \mathbf{e}_i =  \\
+   = \int_V \mathcal{L}_{\frac{ \partial }{\partial t} + \mathbf{u}}(p^i(t,\mathbf{x}) \text{vol}^d) \otimes \mathbf{e}_i
+  \end{gathered}
+\end{equation}
+Note that the derivation in Eq. \ref{Eq:LHSderivationNavierStokes} resolves the (possible) pitfall of perhaps taking the Lie derivative $\mathcal{L}_{\frac{\partial }{ \partial t} + \mathbf{u}}$ over the \emph{entire} integrand, $\mathbf{p}\text{vol}^d \in \Omega^d(N,TN)$, with $\Omega^d(N,TN)$ denoting the space of all $TN$-valued $d$-forms.  If that was the case, taking $\mathcal{L}_{\frac{\partial}{\partial t} + \mathbf{u}}$ over the entire integrand, we'd expect the Lie derivative to act as a ``symmetric'' derivation over a symmetric tensor product, i.e. $\mathcal{L}_{ \frac{ \partial }{ \partial t} + \mathbf{u} }( \mathbf{p} \text{vol}^d ) = (\mathcal{L}_{\frac{ \partial }{ \partial t} + \mathbf{u} }(\mathbf{p})) \text{vol}^d + \mathbf{p} \otimes (\mathcal{L}_{\frac{ \partial }{ \partial t} + \mathbf{u} } \text{vol}^d )$.  However, the derivation in Eq. \ref{Eq:LHSderivationNavierStokes} shows that this is not the case.  
+
+The point is, or the take away is, that the total time derivative $\frac{d}{dt}$ can be ``moved into'' the integral of a vector-valued differential form and ``inside the integral,'' the Lie derivative is performed.  
+
+We should take care of how mass density is defined in a small volume $V$.  Clearly, to obtain the total mass $M$ inside a volume $V$, we integrate over the mass density $\rho$, over $V$:
+\begin{equation}
+  M = \int_V \rho \text{vol}^d
+  \end{equation}
+Clearly, when $\rho=0$, then $M=0$, with the physical interpretation, clearly, being that there's no gas inside $V$.
+
+Taking the total time derivative of $M$:
+\begin{equation}\label{Eq:totaltimederMderivation}
+\begin{gathered}
+  \dot{M} = \frac{d}{dt} \int_V \rho \text{vol}^d = \int_V \frac{ \partial \rho }{ \partial t} \text{vol}^d + \int_V \mathbf{d}i_{\mathbf{u} } \text{vol}^d = \int_V \frac{ \partial \rho }{ \partial t} \text{vol}^d + \int_{\partial V} i_{\mathbf{u}}\rho \text{vol}^d = \\
+  = \int_V \left( \frac{ \partial \rho }{ \partial t} + \text{div}(\rho \mathbf{u} ) \right) \text{vol}^d
+  \end{gathered}
+  \end{equation}
+In the first line of Eq. \ref{Eq:totaltimederMderivation}, the last term, $\int_{\partial V} i_{\mathbf{u}}\rho \text{vol}^d$ expresses the mass flux through the surface of volume $V$, $\partial V$, and then, applying Stoke's law, leads to the second line of Eq. \ref{Eq:totaltimederMderivation}, leading to the divergence of $\rho \mathbf{u}$.  Multiplying vector fields by $C^{\infty}$ functions, in this case $\mathbf{u}$ and $\rho$, respectively, is ok since the space of vector fields $\mathfrak{X}(\mathbb{R}\times N)$ is a module over the commutative algebra of $C^{\infty}(\mathbb{R}\times N)$.
+
+Mass conservation dictates that
+\begin{equation}
+  \dot{M} = 0 
+  \end{equation}
+This statement can be adapted to multiple number of species.
+
+If $V$ can be made arbitrary and sufficiently small, then the usual statement, in differential form, of mass conservation is obtained:
+\begin{equation}\label{Eq:massconsvdiff}
+\frac{ \partial \rho}{\partial t} + \text{div}(\rho \mathbf{u} ) = 0 \text{ or } \frac{ \partial \rho }{ \partial t} = -\text{div}(\rho \mathbf{u} )
+\end{equation}
+
+Now, one should take special care in defining the ``momentum density'', the momentum per unit volume, $\mathbf{p}$,  with respect to the mass density, given a velocity vector field $\mathbf{u}$:
+\begin{equation}
+\mathbf{p} = \rho \mathbf{u}  \text{ or } p^i = \rho u^i \qquad \, i = 1, \dots , d
+  \end{equation}
+If $\rho =0$, then $\mathbf{p}=0$.  But it can be that $\mathbf{u} \neq 0$, say, at a particular point in $(t,\mathbf{x})$.  Then $\frac{\mathbf{p}}{\rho}$ is ill-defined.
+
+If $\mathbf{u}=0$, but $\rho >0$, then the physical interpretation is clear: the gas is at rest.  $\mathbf{p}=0$ is thus clear.  Then $\frac{p}{\rho}$ is well-defined and so is $\mathbf{u}$ at that point $(t,\mathbf{x})$.
+
+So Eq. \ref{Eq:massconsvdiff} gives a direct recipe for the use of finite difference methods in the next time step $t+\Delta t$, where $\Delta t$ is infinitesimally small, for $\rho$, $\rho(t+\Delta,\mathbf{x})$.  But the important point is that we may not be able to define what $\mathbf{u}$ will be in the next time step.
+
+From Eqns. \ref{Eq:TimeDevPEulerEqn}, \ref{Eq:LHSderivationNavierStokes}, we obtain a direct recipe for the use of finite difference methods in the next time step $t+\Delta t$ for $\mathbf{p}$ or $p^i$, $i=1\dots d$:
+\begin{equation}\label{Eq:momentumdiff}
+\begin{gathered}
+  \frac{ \partial p^i }{ \partial t} + \text{div}(p^i \mathbf{u}) = -(\text{grad}p)^i \text{ or } \frac{ \partial p^i}{ \partial t} = - \text{div}(p^i \mathbf{u}) - (\text{grad}p)^i
+  \end{gathered}
+  \end{equation}
+As a notation note, $p$, that isn't decorated by superscript $i$'s or isn't boldfaced, refers to the \emph{pressure}, indeed the ``local'' pressure at point $(t,\mathbf{x})$; $p^i$ or $\mathbf{p}$ refer to the momentum density.
+
+So from Eq. \ref{Eq:momentumdiff}, we obtain $\mathbf{p}(t+\Delta t, \mathbf{x})$, but we don't obtain $\mathbf{u}$ directly.  If $\rho >0$ (and the fact that $\rho$ is non-negative is a \emph{physical} fact that must be enforced in the math), then dividing $\mathbf{p}$ by $\rho$ yields $\mathbf{u}$:
+\begin{equation}\label{Eq:fromprhoobtainu}
+\frac{\mathbf{p}}{\rho} = \mathbf{u} \qquad \, \text{ if } \rho >0
+\end{equation}
+However, if $\rho =0$, then $\mathbf{u}$ is undetermined.  
+
+My concerns are the following: in the implementation of finite difference methods, what is ``small enough'' for $\rho$ to warrant it to be effectively zero?  In Eq. \ref{Eq:fromprhoobtainu}, suppose $\rho$ is very small, but due to the floating point representation of numbers by the computer away from $0$, then $\mathbf{u}$ could be very large, perhaps ``overflowing'' the floating pointer presentation of the number.
+
+On one level, I would think that we can check if $\rho$ is equal to $0$ or not and then if not, calculate the new $\mathbf{u}(t+\Delta t, \mathbf{x})$.  If $\rho$ is equal to $0$, then $\mathbf{u}$ is left alone.  
+
+\subsection{Energy density}
+
+Consider a thermodynamic system at rest.  Indeed, consider moving into the reference frame where the fluid element is at rest inside the volume $V$; this can be done at any instant $t$.
+
+The enthalpy $H$ of this system is defined as
+\begin{equation}
+H := U + pV
+  \end{equation}
+with $U$ denoting the \emph{internal energy} of the thermodynamic system.  $U$ includes all the energy locked up in rotational and vibrational modes, chemical potential, random thermal kinetic energy, but \emph{not} the kinetic energy due to the \emph{bulk} fluid motion due to velocity vector field $\mathbf{u}$.
+
+$H$ is a function of entropy (entropy that's \emph{not} multiplied by the Boltzmann constant; it is dimensionless in this notation) $\sigma$ of the system, pressure $p$, and the number of molecules of the species; and if there's only one species present, this is denoted as $N$; otherwise, for each species $i$, $H$ is a function of $\lbrace N_i\rbrace_i$, the number of each species present:
+\[
+H = H(\sigma,p,N) \text{ or } H = H(\sigma, p , \lbrace N_i \rbrace_i )
+\]
+In fact, the parameters $\sigma,p,\lbrace N_i \rbrace_i$ or $(\sigma,p,N)$ in the single-species case, define exactly (i.e. that's all you need to know) the state of the thermodynamic system at a given time and place $(t,\mathbf{x})$ - let these parameters be global coordinates for a manifold $\Sigma$ that represents all possible thermodynamic states of the system.
+
+$U$ is a function of $\sigma,V,N$ or $\sigma, V,\lbrace N_i \rbrace_i$ in the multi-species case, which also specify completely the thermodynamic state of the system
+\[
+U = U(\sigma,V,N)
+\]
+Going from $U$ to $H$ is a Legendre transformation on $\Sigma$ - $\Sigma$ stays the same, but the (global) coordinates are transformed.
+
+Nevertheless, when there is no gas in $V$, i.e. $N=0$, then define the zero $U=0$ for $N=0$.
+\[
+U=U(\sigma,V,0) = U(0,V,0) = 0 
+\]
+Notice that $\sigma=0$ in the above expression.  The physical argument is this: if there is no gas in the box of volume $V$, there is only 1 way to arrange the microstates of the thermodynamic system in such a manner, and so the $\log$ of $1$ is $0$ and so $\sigma =0$.
+
+For $H$, we have to define what it means for $H$ to be zero carefully.  If $N=0$, then $U=0$ and so
+\[
+H(\sigma,p,0)= U(\sigma,V,0) + pV = 0 + pV
+\]
+I will argue that $p=0$ if $N=0$.  For if $N=0$, then there's no pressure to push back against the target gas system.  This is clearly the case of a vacuum.  For the case where there's already an ambient or background gas phase in and around $V$, this is also the case as well as we're concerned with the target gas system.  The background gas can be pushing against itself and have a pressure inside and around $V$, or even a pressure gradient, but if there's no target gas there at $V$, then there's nothing for this background gas to push against, other than itself.
+
+So $H=0$ when $N=0$.
+
+Define the (internal) energy density in this reference frame (denoted with $'$) where the fluid is at rest, the (internal) energy per unit volume, $\epsilon'$ to be
+\begin{equation}
+  \epsilon' := \frac{U}{V}
+  \end{equation}
+Define the enthalpy per unit volume $h'$ to be
+\begin{equation}
+  h':= \frac{H}{V} = \epsilon' + p
+\end{equation}
+If $\epsilon'=0$, and yet temperature of the thermodynamic system $\tau$ is positive, i.e. $\tau  >0$, then no gas is there.  Thus, also $h'=0$ as $p=0$ as argued above.
+
+As a notation note, $\tau$ denotes the temperature in units of \emph{energy} such as joules $(J)$ or $(\text{ergs})$: use Boltzmann's constant $k_B$ as a units conversion factor between $\tau$ and the usual temperature $T$ in Kelvin
+\[
+\tau = k_b T
+\]
+
+Why I've elaborated upon when $U=0$ and $H=0$ and thus when $\epsilon'=0$ and $h'=0$ is because, first, the energy scale ``zero'' can be arbitrarily set and so it's good to set it once and for all, with physically meaningful reasons.  Second, there can be confusion that arises in the consideration of what it means for $H=0$ as when it is defined as $H:=U+pV$, and of what pressure $p$ refers to: the pressure that the target gas system encounters, only, or would it include the ``ambient'' pressure even if there's no gas in the local volume $V$ we're considering.  Third, these considerations stem from the concern of what it means to, in a volume $V$ with no gas initially present, put 1 molecule of gas into the fixed volume $V$ and the resulting changes in thermodynamic quantities; for instance, where there was no gas before, putting in 1 gas molecule results immediately in $pV$ work that needs to be done to restore the volume back to its initial ``fixed'' volume $V$ (see Le Bellac, Mortessagne, Batrouni (2004) \cite{MLeBellacFMortessagneGBatrouni2004} and its lucid distinguishing between \emph{convection} and \emph{conduction} for a thermodynamic system).
+
+Clearly, when switching, i.e. ``boosting'' into the reference frame where the fluid is moving, i.e. the observer's or laboratory's frame of reference, $\epsilon'$ transforms into $\epsilon$, the (internal) energy density in this lab frame, in the following manner:
+\begin{equation}
+\epsilon = \epsilon' + \frac{1}{2} \rho u^2
+  \end{equation}
+Denote this kinetic energy density $\frac{1}{2} \rho u^2$ as $k \equiv \frac{1}{2} \rho u^2$.
+
+
+For total energy in a volume $V$, $E$, given by
+\begin{equation}
+  E := \int_V \epsilon \text{vol}^d
+  \end{equation}
+then the total time derivative of $E$, $\dot{E} \equiv \frac{dE}{dt}$ is given by, from differential geometry as above,
+\begin{equation}\label{Eq:dotEbalanceeqLHS}
+\begin{gathered}
+  \dot{E} \equiv \frac{d}{dt} \int_V \epsilon \text{vol}^d = \int \left( \frac{ \partial \epsilon }{ \partial t} + \text{div}(\epsilon \mathbf{u} ) \right) \text{vol}^d = \\
+   = \int \left( \frac{ \partial \epsilon }{ \partial t} + \text{div}(k+\epsilon')\mathbf{u} \right) \text{vol}^d = \int \left( \frac{ \partial \epsilon}{ \partial t} + \text{div}(k\mathbf{u}) + \text{div}((h'-p) \mathbf{u} ) \right) \text{vol}^d = \int_V \left( \frac{ \partial \epsilon}{ \partial t} + \text{div}(k\mathbf{u}) + \text{div}(h'\mathbf{u} ) - \text{div}(p\mathbf{u}) \right) \text{vol}^d
+\end{gathered}
+\end{equation}
+From physics, the total time derivative of the energy $E$, $\dot{E}$ is equal to the work done on the fluid system inside and about $V$ by external forces.  Neglecting body forces, the only external forces are due to stresses and strains at the surface of $V$, which are wrapped up in the stress-strain tensor $T^{ij}$.  Using Stoke's equation again, a surface integral involving $T^{ij}$ can be transformed into a volume integral.  For the case of the perfect fluid, $T^{ij}$ takes the form of $T^{ij} = g^{ij}(-p)$, where $g^{ij}$ is the metric of the spatial manifold $N$.  Thus
+\begin{equation}\label{Eq:dotEbalanceeqRHS}
+\begin{gathered}
+  \dot{E} = \int_V \text{div}(u_iT^{ij}) \text{vol}^d = \int_V \text{div}(u_i g^{ij}(-p)) \text{vol}^d = -\int_V \text{div}(\mathbf{u}p) \text{vol}^d
+  \end{gathered}
+\end{equation}
+
+Recognizing that we can subtract from both sides the $-\int_V \text{div}(\mathbf{u}p)\text{vol}^d$ term of the ``left-hand side'' and ``right-hand side'' of the ``energy balance'' equation for $\dot{E}$, Eqns. \ref{Eq:dotEbalanceeqLHS}, \ref{Eq:dotEbalanceeqRHS}, respectively, then we obtain the desired integral and differential form for the energy density $\epsilon$ under compressible fluid flow:
+\begin{equation}
+\begin{gathered}
+  \Longrightarrow \int_V \left( \frac{ \partial \epsilon}{ \partial t} + \text{div}((k+h')\mathbf{u}) \right) \text{vol}^d =0 \Longrightarrow \boxed{ \frac{ \partial \epsilon}{ \partial t} + \text{div}((k+h')\mathbf{u}) = 0 }
+  \end{gathered}
+\end{equation}
+Now if we can express $h'$ in terms of $\rho$ and $\mathbf{u}$, given the concerns above, and $\epsilon$, then we'd have succeeded in a complete or ``closed'' set of differential equations  for dynamically evolving the fluid system.
+
+Consider using the heat constants for constant volume and constant pressure, $C_V$, $C_p$, respectively.  Definitively or exactly,
+\[
+\begin{aligned}
+  & dU = C_V N d\tau \\ 
+  & dH = C_p N d\tau
+  \end{aligned}
+\]
+These statements are exact.
+
+Assuming that $C_V$ and $C_p$ are constant over the range of temperatures we're interested in (note that this case can be modified as $C_V$, $C_p$ can be interpolated from experimentally obtained values and so they're \emph{not} constant), then
+\[
+dU=C_V N d\tau \xrightarrow{ \int } U = C_V N \tau
+\]
+where for $\tau=0$, $U=0$ (I've set the zero for $U$ to be such).  Also notice that when $N=0$, $U=0$ - physically, we'd expect that if there's no gas there at $V$, then $U=0$.  
+
+Also
+\[
+\int_{\gamma} dH = \int_{\gamma} C_p N d\tau = C_pN(\tau-\tau_0) = H-H_0
+\]
+where $\gamma$ is a curve on $\Sigma$.
+
+Let's set the zero for $H$.  For $\tau_0=0$, consider
+\[
+H-H_0 = C_pN\tau \Longrightarrow H = C_pN\tau
+\]
+Now
+\[
+H_0 = U_0 + pV = 0 
+\]
+where $pV=N\tau$, the ideal gas law, was used for $\tau=0$, as for $\tau =0$, $p=0$ if $V\neq 0$.
+
+Now that the zeros for $H$ and $U$ are set, then we can definitely say that
+\[
+H = U + pV = C_VN\tau + pV = C_p N\tau \text{ or } U = C_pN\tau -pV
+\]
+Now
+\[
+\gamma := \frac{C_p}{C_V}
+\]
+and so
+\[
+\gamma -1 = \frac{C_p}{C_V} - 1 = \frac{C_p - C_V}{C_V}
+\]
+From $H=U+pV$, and the expressions above,
+\[
+\begin{gathered}
+  C_pN\tau = C_VN\tau + pV \text{ or } (C_p- C_V)N\tau = pV \\ 
+  \Longrightarrow (\gamma - 1) C_V N\tau = (\gamma -1) U = pV \\
+  \xrightarrow{ \frac{1}{V} } (\gamma - 1 )\epsilon' = p  \\
+  \Longrightarrow \boxed{ p = (\gamma - 1) ( \epsilon - \frac{1}{2} \rho u^2) } \text{ or } p = (\gamma - 1) ( \epsilon - k ) 
+  \end{gathered}
+\]
+Thus, we can reexpress $h'$ in a number of ways using the expression above:
+\[
+h' = \epsilon' + p = \epsilon' + (\gamma -1) \epsilon' = \gamma \epsilon'
+\]
+Thus,
+\[
+\begin{gathered}
+  \frac{ \partial \epsilon}{ \partial t} + \text{div}(k\mathbf{u}) + \text{div}(\gamma \epsilon' \mathbf{u} ) = \frac{ \partial \epsilon }{ \partial t} + \text{div}(k \mathbf{u} ) + \text{div}( \gamma ( \epsilon - k)\mathbf{u} ) = \\
+  \frac{  \partial \epsilon}{ \partial t} + \text{div}(k\mathbf{u}(1-\gamma) ) + \text{div}(\gamma \epsilon \mathbf{u} ) = 0 
+  \end{gathered}
+\]
+where $\epsilon' = \epsilon -k$ was used.
+
+Thus
+\begin{equation}\label{Eq:timederEperfectgas}
+  \boxed{ \frac{ \partial \epsilon }{ \partial t} = -\text{div}(\gamma \epsilon \mathbf{u} ) - \text{div}(k \mathbf{u}(1-\gamma) ) } \text{ where } k := \frac{1}{2} \rho u^2
+  \end{equation}
+
+I want to point out that an advantage of this expression for $\epsilon$, Eqn. \ref{Eq:timederEperfectgas}, is that there is no division so we are not worried about dividing by $0$; this is a good trait to have in numerical computation, and on the theoretical side, division by $C^{\infty}$ functions is undefined for the vector field as a section of the tangent bundle $TN$.  
+
+Of note, it should be remarked that the temperature $\tau$ can be easily obtained once $\epsilon$ and $\mathbf{u}$ is known at each point $(t,\mathbf{x})$:
+\[
+\begin{gathered}
+  \epsilon = k + \epsilon' = k + c_V \tau \\ 
+  \Longrightarrow \boxed{  \tau = \frac{ \epsilon - k }{ c_V} }
+  \end{gathered}
+\]
+where $c_V := \frac{C_V}{V}$ the heat capacity at constant volume, per unit volume.
+
+To obtain $\epsilon$ over $N$, as is necessary for our numerical computation to work, recall the following definitions and following steps:
+\begin{equation}\label{Eq:energydensityeverywhere}
+\begin{gathered}
+  \epsilon := \epsilon' + \frac{1}{2} \rho u^2 \qquad \, \rho \geq 0 \\ 
+  \epsilon' := \frac{U}{V} = \frac{C_V N \tau}{ V} =\frac{ C_V \rho \tau }{ M } \\
+\boxed{  \epsilon = \rho \left( \frac{C_V \tau}{M} + \frac{1}{2} u^2 \right) }
+\end{gathered}
+\end{equation}
+Again, I want to emphasize the advantage of the last expression in Eq. \ref{Eq:energydensityeverywhere} in that it's clear, in the physical interpretation, that when $\rho =0$, no gas is present at that point $(t,\mathbf{x})$, then $\epsilon=0$ and that there are no division arithmetic, avoiding division error in numerical computation and the fact that the division operator is undefined on the theory side (that the space of vector fields, $\mathfrak{X}(\mathbb{R}\times N)$ is a R-module).  
+
+Thus, here is the strategy for the numerical computation for compressible fluid flow for the case of the ideal gas:
+
+Given $\rho$, initially, everywhere on $N$, \\
+Given an initial $\mathbf{u}$ everywhere on $N$, \\
+\phantom{Given } $\mathbf{p}$ is easily obtained through $\mathbf{p} = \rho \mathbf{u}$.
+
+Given an initial temperature ``distribution'' $\tau$, then we have an initial ``distribution'' for what $\epsilon$ is at each point in $N$, through
+\[
+\epsilon = \rho \left( \frac{C_V \tau}{M} + \frac{1}{2} u^2 \right)
+\]
+
+we can then use the following complete set of differential equations that dynamically evolves the system at each small volume $V$ is as follows:
+
+\begin{equation}
+  \boxed{
+    \begin{aligned}
+      \frac{ \partial \rho }{ \partial t} & = -\text{div}(\rho \mathbf{u} ) \\ 
+      \frac{ \partial p^i}{ \partial t} & = -\text{div}(p^i \mathbf{u}) - (\text{grad}p)^i \\
+      \frac{ \partial \epsilon }{ \partial t} &= - \text{div}(\gamma \epsilon \mathbf{u} ) - \text{div}( k \mathbf{u} ( 1- \gamma) )
+    \end{aligned}
+}
+  \end{equation}
+with the pressure $p$ given by
+\[
+p = (\gamma -1)(\epsilon - \frac{1}{2} \rho u^2)
+\]
+at all points $(t,\mathbf{x})$.
+
+The only adhoc assertion is obtaining the velocity vector field at the new time step, denoted $\mathbf{u}(t+\Delta t, \mathbf{x})$:
+\[
+\frac{ \mathbf{p}(t+\Delta t, \mathbf{x}) }{ \rho(t+\Delta t, \mathbf{x}) } = \mathbf{u}(t+\Delta t, \mathbf{x})
+\]
+if $\rho(t+\Delta t, \mathbf{x}) \neq 0$.
+
+Otherwise, $\mathbf{u}(t+\Delta t, \mathbf{x}) = u(t,\mathbf{x})$.  
+
+Another possibility for $\mathbf{u}$ is if, in the absence of the target gas system, that it obeys the geodesic equation.  If this is the case, then for the 4-vector that is the ``4-velocity'', $u \in \mathfrak{X}(\mathbb{R}\times N)$, which takes on 2 different forms (and we'll use the nonrelativistic version)
+\[
+\begin{aligned}
+  & u = (-1, \mathbf{\beta}) & \qquad \, \text{ relativistic } \\ 
+  & u = (1, \mathbf{u} ) & \qquad \, \text{ nonrelativistic form }
+  \end{aligned}
+\]
+
+\[
+\begin{gathered}
+  \nabla_u u = u^{\rho} \nabla_{ \frac{ \partial }{ \partial x^{\rho}} } u = u^{\rho} \lbrace \frac{ \partial u }{ \partial x^{\rho }} + \Gamma^{\mu}_{ \, \, \nu \rho } u^{\nu} \frac{ \partial }{ \partial x^{\mu } } \rbrace = \\
+  = \frac{ \partial \mathbf{u}}{ \partial t} +  u^k \frac{ \partial \mathbf{u}}{ \partial x^k } + \Gamma^{\mu}_{ \,\, 0 0} \frac{ \partial }{ \partial x^{\mu} } + \Gamma^{\mu}_{ \, \, k0 } u^k \frac{ \partial }{ \partial x^{\mu }} + u^k \Gamma^{\mu}_{ \, \, 0k} \frac{ \partial }{ \partial x^{\mu} } + u^k \Gamma^{\mu}_{ \, \, jk} u^j \frac{ \partial }{ \partial x^{\mu } } = \\
+  = \frac{ \partial \mathbf{u} }{ \partial t} + u^k \frac{ \partial \mathbf{u}}{ \partial x^k} + \Gamma^{\mu}_{ \, \, 0 0} \frac{ \partial }{ \partial x^{\mu} } + 2 \Gamma^{\mu}_{ \, \, k0} u^k \frac{ \partial }{ \partial x^{\mu} } + u^k u^j \Gamma^{\mu}_{ \, \, jk} \frac{ \partial }{ \partial x^{\mu } }
+  \end{gathered}
+\]
+
+
+\section{Hamiltonian}
+
+Novikov (1982) \cite{Novi1982} gives the Hamiltonian formalism for a compressible ideal fluid.
+
+In Sec. 2 ``The Hamiltonian Formalism of Systems of Hydrodynamic Origin'' of Novikov (1982) \cite{Novi1982}, the Hamiltonian formalism ``usually'' (my words) involves ``Clebsch variables'' but Novikov points out that these field variables can't always be introduced, and if so, then frequently only locally.  Novikov advocates the language of ``Poisson brackets'' over the language of symplectic manifolds (of even dimensions).  One reason is that the number of field variables is odd.
+
+
+
+\section{Heat Equation} 
+
+\subsection{Boundary Conditions}
+
+Let $N= \mathbb{R}^3$.  Let $B\subset \mathbb{R}^3$, $B := \lbrace (x,y,z) \in \mathbb{R}^3 | 0 \leq x \leq l_x, 0 \leq y \leq l_y, 0 \leq z \leq l_z \rbrace$; $(l_x,l_y,l_z) \in (\mathbb{R^+}^3$, i.e. $\mathbb{R}^+ \subset \mathbb{R}$, i.e. all positive real numbers (still an open set), with $l_x,l_y,l_z >0$.
+
+Consider the ``inlet'' hypersurface at $x=0$, $S_{\text{inlet}}$, so $S_{\text{inlet}} \subset B$ (in fact, $S_{\text{inlet}} \subset \partial B$, $\text{dim}S_{\text{inlet}} = d-1=3-1=2$.  Define as such:
+\begin{equation}
+S_{\text{inlet}} := \lbrace (x,y,z) \in B | x=0 \rbrace
+\end{equation}
+
+Consider the ``sides'' hypersurface, $S_{\text{sides}}$, $S_{\text{sides}} \subset B$, in fact, $S_{\text{sides}} \subset \partial B$.
+
+Now
+\begin{equation}
+S_{\text{sides}} := S_{y=0} \coprod S_{y=l_y } \coprod S_{z=0} \coprod S_{z=l_z}
+\end{equation}
+with
+\begin{equation}
+  \begin{aligned}
+    & S_{y=0} = \lbrace (x,y,z) \in  B | y= 0 \rbrace \\ 
+    & S_{y=l_y} = \lbrace (x,y,z) \in  B | y= l_y \rbrace \\ 
+    & S_{z=0} = \lbrace (x,y,z) \in  B | z= 0 \rbrace \\ 
+    & S_{z=l_z} = \lbrace (x,y,z) \in  B | z= l_z \rbrace 
+    \end{aligned}
+  \end{equation}
+
+\section{Lattice Boltzmann method}
+
+
+Pitaevskii, Lifshitz's \textbf{Physical Kinetics} (1981) \cite{PL1981}
+
+
+
+
+Bao and Meskas (2011) \cite{BaMe2011}
+
+
 
 
 \part{Cantera}
@@ -4992,9 +5841,166 @@ and $\dot{m} = \rho^* u^* A^*$.
 
 
 
+\part{Electromagnetism}
+
+
+cf. 1-2 Exhaust velocity and Specific Impulse of Jahn (2006) \cite{Jahn2006}
+
+Jahn (2006) \cite{Jahn2006} defines specific impulse $I_s$ as the ratio of thrust to the rate of use of propellant by sea level weight:
+\begin{equation}
+  I_s := \frac{ T}{ \dot{m}g_0}
+\end{equation}
+
+\problemhead{1-4} It should be pointed out that the physics is exactly the same as before as propelling mass out, \emph{before} separation.  What's different is the final mass after all planned for propellant mass is expelled is different.
+
+To review,  \\
+
+Let $M=M(t)$ the mass of the entire system at any time, only excluding propellant mass that's \emph{already} expelled out.  
+
+$M\dot{u} = -\dot{M}u_{\text{exh}} + F_g$.  For the case of $F_g = -Mg$,
+\[
+\begin{gathered}
+  \dot{u} = \frac{-\dot{M}}{M} u_{\text{exh}} + \frac{F_g}{M} = \frac{-\dot{M}}{M} u_{\text{exh}} + -g \\
+  \xrightarrow{ \int dt } \Delta u \equiv u(t_f) - u(0) = -\ln{ \left( \frac{M(t_f)}{M(0)} \right)}u_{\text{exh}} - gt_f \\
+  \Longrightarrow \frac{\Delta u}{ u_{\text{exh}}} + \frac{ g\Delta t }{ u_{\text{exh}} } = \ln{ \left( \frac{M(0) }{ M(t_f)} \right)} \text{ or } \exp{ \left( \frac{ \Delta u}{ u_{\text{exh}} } \right) } \exp{ \left( \frac{ g \Delta t}{ u_{\text{exh}} } \right) } = \frac{ m_0 }{ M(t_f) }
+\end{gathered}
+\]
+where $t_f \equiv \Delta t$ and $m_0 \equiv M(0)$ (Jahn's notation in the former, my notation for the latter).   
+
+Now the mass of the power supply, $m_p$ was given by Jahn and reasoned to monotonically depend on the power $P$, which is reasonable.  Also, we have $M(0)$, and $M(t_f) \equiv  M(\Delta t)$ values:
+\[
+\begin{gathered}
+  m_p = \alpha P = \alpha \frac{ T u_{\text{exh}} }{ 2\eta} = \frac{ \alpha \dot{m} u^2_{\text{exh}} }{ 2 \eta} \\ 
+  M(\Delta t) = m_u + m_p = m_u + \frac{ \alpha }{2\eta} \frac{M_p}{\Delta t} u^2_{\text{exh}} \\ 
+  m_0 \equiv M(0) = M_p + m_u + m_p = M_p + m_u + \frac{ \alpha \dot{m} u^2_{\text{exh}} }{ 2\eta} = \\
+  = M_p + m_u + \alpha \left( \frac{ M_p }{ \Delta t} \right) \frac{u^2_{\text{exh}} }{ 2\eta}  \\
+  \Longrightarrow M_p = \frac{m_0 - m_u }{ 1 + \frac{ \alpha u^2_{\text{exh}} }{ 2\eta \Delta t} } 
+\end{gathered}
+\]
+for $\dot{m}\Delta t = M_p$ (\emph{assume constant} mass flow out, and by $\Delta t$ time, $M_p$ mass propellant is used up).
+
+Plugging all this in:
+\[
+\begin{gathered}
+  \exp{ \left( \frac{ \Delta u}{ u_{\text{exh}} }\right) } \exp{ \left( \frac{ g\Delta t}{ u_{\text{exh}} } \right) } = \frac{m_0 }{ m_u + \frac{ \alpha}{2\eta \Delta t} \left( \frac{m_0 - m_u }{ 1 + \frac{ \alpha u^2_{\text{exh}} }{ 2 \eta \Delta t} } \right) u^2_{\text{exh}} } = \frac{ 1 + \frac{ \alpha u^2_{\text{exh} }}{ 2 \eta \Delta t} }{ \frac{m_u}{m_0} + \frac{ \alpha u^2_{\text{exh}} }{ 2\eta \Delta t} }
+  \end{gathered}
+\]
+Let $g=0$.  Then the desired result is obtained, for ratio of mass payload to initial mass, including a power supply:
+\begin{equation}
+  \frac{m_u}{m_0} = e^{-\Delta u / u_{\text{exh}} } + \frac{ \alpha u_{\text{exh}}^2}{2\eta \Delta t} ( e^{ -\Delta u / u_{\text{exh}} } - 1 )
+\end{equation}
 
 
 
+
+\subsection{Charge conservation}
+
+Recall that the divergence $\text{div}$:
+\[
+\begin{aligned}
+  & \text{div}: \mathfrak{X}(M) \to C^{\infty}(M) \\
+  & \text{div}\mathbf{j} = \frac{1}{\sqrt{g}} \frac{ \partial ( j^k \sqrt{g} ) }{ \partial x^k} 
+\end{aligned}
+\]
+Usually, charge conservation is written in differential vector form as
+\[
+\frac{ \partial \rho }{ \partial t} + \text{div}\mathbf{j} = 0 
+\]
+Does this hold for the differential form version of electromagnetism?
+
+Consider $j \in \Omega^1(M)$.  Now
+\[
+j = j_{\mu} dx^{\mu} = \rho dt + j_i dx^i \in \Omega^1(M) \xmapsto{ \#} g^{\mu \nu} j_{\nu} \frac{ \partial }{ \partial x^{\mu } } \equiv j^{\mu} \frac{ \partial }{ \partial x^{\mu }} \in \mathfrak{X}(M)
+\]
+Then
+\[
+\begin{gathered}
+  *j = \frac{ \sqrt{g}}{3!} \epsilon_{\mu \nu \rho \sigma} g^{\mu \mu_1} j_{\mu_1} dx^{\nu} \wedge dx^{\rho} \wedge dx^{\sigma} \\ 
+  d*j = \frac{1}{3!} \epsilon_{\mu \nu \rho \sigma} \frac{ \partial }{ \partial x^{\mu_2} }(\sqrt{g} g^{\mu \mu_1} j_{\mu_1} ) dx^{\mu_2} \wedge dx^{\nu} \wedge dx^{\rho} \wedge dx^{\sigma} = \frac{1}{3!} \epsilon_{\mu \nu \rho \sigma} \frac{ \partial}{ \partial x^{\mu_2} } (\sqrt{g} j^{\mu } ) dx^{\mu_2} \wedge dx^{\nu} \wedge dx^{\rho} \wedge dx^{\sigma} = \\
+  = \frac{1}{3!} \lbrace \epsilon_{ijk} \frac{ \partial ( \sqrt{g}j^0  ) }{ \partial t} dt \wedge dx^i \wedge dx^j \wedge dx^k + \epsilon_{ijk} \frac{ \partial }{ \partial x^l} ( \sqrt{g}j^i )  dt \wedge dx^l \wedge dx^j \wedge dx^k + \dots \rbrace = 0  \\
+  \Longrightarrow \frac{1}{\sqrt{g}} \frac{ \partial (\sqrt{g} j^0  ) }{ \partial t} + \text{div}\mathbf{j} = \frac{1}{\sqrt{g}} \frac{ \partial ( \sqrt{g} g^{0 \mu } j_{\mu } ) }{ \partial t} + \frac{1}{\sqrt{g}} \frac{ \partial ( \sqrt{g} g^{k\mu } j_{\mu} ) }{ \partial x^k }  = 0 
+\end{gathered}
+\]
+Suppose current is a \textbf{convective current} $\mathbf{j} = \rho \mathbf{u}$, where $\mathbf{u} \in \mathfrak{X}(M)$ ($\mathbf{u} = \mathbf{u}(t,x)$, $(t,x) \in M$).
+
+Charge conservation always holds.  
+
+
+my version of Maxwell's equations:
+
+if $\mathbf{\nabla} \cdot \mathbf{B} = 0$, \\
+then $\mathbf{\nabla} \times \mathbf{E} = \frac{-1}{c} \left( \frac{ \partial \mathbf{B} }{ \partial t} \right)$
+
+if $\mathbf{\nabla} \cdot \mathbf{E} = 4\pi \rho_{\text{total}}$ \\
+then $\mathbf{\nabla} \times \mathbf{B} = \frac{1}{c} \left( \frac{ \partial \mathbf{E} }{ \partial t} + 4\pi \frac{ \partial \mathbf{P} }{ \partial t} + 4\pi \mathbf{J}_{\text{free}} + 4\pi c \mathbf{\nabla}\times \mathbf{M}\right)$
+
+
+% Rachel 1.  
+
+cf. Section 1.4 Coulomb's law of Purcell (1984) \cite{Purcell1984}.
+
+For $\mathbf{F}_2 = $ force on charge 2,
+\[
+\mathbf{F}_2 = \frac{k q_1 q_2 \mathbf{r}_{21} }{ r_{21}^2 } = \frac{k q_1 q_2 (\mathbf{r}_2 - \mathbf{r}_1 ) }{ | \mathbf{r}_2 - \mathbf{r}_1 |^3}
+\]
+
+I am curious to know if the tangent-cotangent (``musical'') isomorphism holds:
+\[
+F_2^i = \frac{ kq_1 q_2 (\mathbf{r}_2 - \mathbf{r}_1)^i }{ |\mathbf{r}_2 - \mathbf{r}_1 |^3 } \in \mathfrak{X}(M) \xmapsto{ \flat } (F_2)_j = \frac{k q_1 q_2 (\mathbf{r}_2 - \mathbf{r}_1)^i g_{ij} }{ | \mathbf{r}_2 - \mathbf{r}_1 |^3 } \in \Omega^1(M)
+\]
+$k=1$ \, (cgs) \\
+$k = \frac{1}{4\pi \epsilon_0}$; $\epsilon_0 = 8.85 \times 10^{-12}$ ; $k = 8.988 \times 10^9$ \, (SI)
+
+$1$ coulomb $=  2.998 \times 10^9 $ \, esu $\cong 3 \times 10^9 \, $ esu \\
+$\epsilon_0 = 4.8 \times 10^{-16}$ esu $ = 1.6 \times 10^{-16} \, C$ \\
+$10^5$ dynes $=1 $ Newtons.  
+
+So the above takes care of Ch. 2 Electromagnetic Theory, Section 2-1 Electric Charges and Electrostatic Fields of Jahn (2006) \cite{Jahn2006} up to Eqn. (2-1).  
+
+
+Section 3.5 Capacitance and Capacitors of Purcell (1984) \cite{Purcell1984}.
+
+Consider an isolated conductor carrying charge $Q$.
+\[
+Q = C\phi_0
+\]
+cgs.  $[Q] = $ esu, $[C] = $ cm, $[\phi_0] = $ statvolts $= \frac{ \text{ergs}}{\text{esu}} = \frac{ \text{dyne}\cdot \text{cm}}{ \text{esu} }$.  \\
+SI. $[Q]=$ coulombs, \, $[C] = $ farads, $[\phi] = $ volts.  
+
+
+%\setlength{\unitlength}{1mm}
+\[
+\begin{gathered}
+\begin{picture}(8,5)(0,0)
+  \put(4,4){\circle{7.5}}
+  \put(4,4){$Q$}
+\end{picture}
+\qquad \qquad \,
+\begin{picture}(8,5)(0,0)
+  \put(.7,4.7){\line(1,0){6}}
+  \put(.7,4.0){\line(1,0){6}}
+  \end{picture}
+\end{gathered}
+\]
+
+cgs: $C=a$ \, $[a] = m$ \qquad \, $ C = \frac{A}{4\pi s}$ $[A] = \text{cm}^2$, $[s] = \text{cm}$
+
+SI: $C=4\pi \epsilon_0 a$  \, $[a] = m$ \qquad \, $ C = \frac{\epsilon_0 A}{ s}$ $[A] = \text{m}^2$, $[s] = \text{m}$
+
+$\epsilon_0 = 8.854 \times 10^{-12} \, \text{farad}/\text{meter}$
+\[
+\boxed{ 1 \, \text{cm} = 1.11 \times 10^{-12} \, \text{ farad }} 
+\]
+
+
+
+Fitzpatrick (2014) \cite{Fitz2014}
+
+\part{Physical Kinetics}
+
+
+
+Pitaevskii and Lifshitz (1981) \cite{PL1981}
 
 
 
@@ -5017,7 +6023,10 @@ Gordon C. Oates. \textbf{Aerothermodynamics of Gas Turbine and Rocket Propulsion
 
 \bibitem{GSuttonOBiblarz2001}
 George P. Sutton, Oscar Biblarz. \textbf{Rocket Propulsion Elements}, 7th Edition. Wiley, 2001.  
- 
+\bibitem{HHL1995} 
+Ronald W. Humble, Gary N. Henry, Wiley J. Larson.  \textbf{Space Propulsion Analysis and Design}.  First Edition-Revised.  The McGraw-Hill Companies, Inc.  Primis Custom Publishing.  1995. ISBN 0-07-031320-2   
+  
+
 
 \bibitem{RBaierlein1999}
 Ralph Baierlein. \textbf{Thermal Physics} Cambridge University Press (July 28, 1999), ISBN-13: 978-0521658386
@@ -5060,6 +6069,8 @@ John Lee, \textbf{Introduction to Smooth Manifolds} (Graduate Texts in Mathemati
 Ovidiu Calin, Der-Chen Chang. \textbf{Geometric Mechanics on Riemannian Manifolds: Applications to Partial Differential Equations} (Applied and Numerical Harmonic Analysis).  Birkh\"{a}user. 2005. ISBN-13: 978-0817643546
 
 
+
+
 \bibitem{DGoodwin}
 D. G. Goodwin, CANTERA, Division of Engineering and Applied Science, California Institute of Technology,\url{www.cantera.org}.
 
@@ -5070,6 +6081,40 @@ Philip A. Thompson.  \textbf{Compressible-Fluid Dynamics}.  1988.
 Manuel Martinez-Sanchez. 16.512 Rocket Propulsion, Fall 2005. (Massachusetts Institute of Technology: MIT OpenCourseWare), \href{http://ocw.mit.edu/courses/aeronautics-and-astronautics/16-512-rocket-propulsion-fall-2005}{http://ocw.mit.edu} (Accessed 10 Feb, 2016). License: \href{http://creativecommons.org/licenses/by-nc-sa/4.0/}{Creative Commons BY-NC-SA}
 
 
+\bibitem{JFMP2013} Joel H. Ferziger, Milovan Peric.  \textbf{Computational Methods for Fluid Dynamics}, 3rd Edition.  Springer.  2013.  
+
+\bibitem{CKLS2005} Tuncer Cebeci, Jian P. Shao, Fassi Kafyeke, Eric Laurendeau.  \textbf{Computational Fluid Dynamics for Engineers}.  Horizons Publishing Inc., 2005.  ISBN 0-9766545-0-4 Horizons Pbulishing Inc., Long Beach, ISBN 3-540-24451-4 Springer Berlin Heidelberg, New York.  
+  
+
+
+\bibitem{YHHP2004}
+Edited by Vigor Yang, Mohammed Habiballah, James Hulka, Michael Popp.  \textbf{Liquid Rocket Thrust Chambers: Aspects of Modeling, Analysis, and Design}.  Volume 200, Progress in Astronautics and Aeronautics.  Paul Zarchan, Editor-in-Chief. 2004.  ISBN 1-56347-223-6
+
+\bibitem{Novi1982}
+S.P. Novikov. ``The Hamiltonian formalism and a many-valued analogue of Morse theory.'' \url{http://www.mi.ras.ru/~snovikov/74.pdf}
+
+\bibitem{BaMe2011}
+Yuanxun Bill Bao and Justin Meskas.  ``Lattice Boltzmann Method for Fluid Simulations.''   \url{http://www.cims.nyu.edu/~billbao/report930.pdf}
+
+
+\bibitem{Jahn2006}
+Robert G. Jahn. \textbf{Physics of Electric Propulsion} (Dover Books on Physics).  Dover Publications (May 26, 2006). 
+
+\bibitem{Purcell1984}
+  Edward M. Purcell. \textbf{Electricity and Magnetism} (Berkeley Physics Course, Vol. 2) 2nd. Edition.  McGraw-Hill Science/Engineering/Math; 2 edition (August 1, 1984) ISBN-13: 978-0070049086
+
+  There's a 3rd. edition, 2013, and another co-author, David Morin, but I don't have access to a copy.  
+
+\bibitem{Fitz2014}
+Richard Fitzpatrick. \textbf{Plasma Physics} 2014  \url{https://www.cfa.harvard.edu/~scranmer/Ay253/LecNotes/fitzpatrick_plasma_physics.pdf}
+
+\bibitem{PL1981}
+L. P. Pitaevskii, E.M. Lifshitz. \textbf{Physical Kinetics}: Volume 10 (Course of Theoretical Physics S) 1st Edition.  Butterworth-Heinemann; 1 edition (January 15, 1981).  ISBN-13: 978-0750626354
+
+
+
+
+  
 \end{thebibliography}
 There's an 8th edition of Biblarz and Sutton \cite{GSuttonOBiblarz2001} for 2010 that I would like to have.  If you find any of this material useful or if you'd like to help, email me or visit my Open/Tilt page \url{ernestyalumni.tilt.com} and donate to the crowdfunding campaign or click on the PayPal donate button.  
 

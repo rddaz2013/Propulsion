@@ -37,6 +37,8 @@
 ## wordpress    : ernestyalumni                                                    
 ##                                                                                  
 ############################################################################ 
+import os
+
 
 import Tconv
 from Tconv import FCconv, KCconv, T_C, T_K, T_F
@@ -46,13 +48,24 @@ import numpy as np
 
 from scrape_BS import scraping_allascii
 
-lines,title,src,header,rawtbl,tbl=scraping_allascii("./Physique/rawdata/allascii.txt")
+# cf. http://stackoverflow.com/questions/7165749/open-file-in-a-relative-location-in-python
+print os.path.dirname(__file__)
+_Physique_dir = os.path.dirname(__file__)
+_RAWDAT_DIR  = "rawdata/"
+
+print os.path.join(_Physique_dir,_RAWDAT_DIR)
+
+lines,title,src,header,rawtbl,tbl=scraping_allascii( 
+    os.path.join(_Physique_dir,_RAWDAT_DIR)+"allascii.txt")
+
 FundConst = pd.DataFrame(tbl,columns=header)
 
-conv = pd.read_pickle('./Physique/rawdata/DF_conv')
-plnfacts = pd.read_pickle('./Physique/rawdata/DF_plnfacts')
-Braeunig_standatm = pd.read_pickle('./Physique/rawdata/DF_Braeunig_ATMOS')
+conv = pd.read_pickle(
+    os.path.join(_Physique_dir,_RAWDAT_DIR)+"DF_conv"
+    )
 
-
+plnfacts = pd.read_pickle(
+    os.path.join(_Physique_dir,_RAWDAT_DIR)+"DF_plnfacts"
+    )
 
 

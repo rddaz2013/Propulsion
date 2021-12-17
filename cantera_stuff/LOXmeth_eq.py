@@ -27,19 +27,15 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 def equil(g=None,p=ct.one_atm,solver_choice="gibbs"):
-    if g==None:
-        gas = ct.Solution("gri30.xml")
-    else:
-        gas = g
-    
+    gas = ct.Solution("gri30.xml") if g is None else g
     nsp = gas.n_species
-    
+
     # find methane, nitrogen, and oxygen indices
     ich4 = gas.species_index('CH4')
     io2  = gas.species_index('O2')
-    
+
     phi = np.linspace(0.75,5,50)  # O/F mass ratio (ranging from 0.75-5
-    
+
     tad = []
     xeq = []
     for phi_i in phi:
@@ -52,7 +48,7 @@ def equil(g=None,p=ct.one_atm,solver_choice="gibbs"):
         gas.equilibrate('HP',solver=solver_choice)
         tad.append( gas.T)
         xeq.append( gas.X )
-        
+
     # preprocess xeq as a numpy array for easier indexing
     xeq = np.array(xeq)
     return phi, tad, xeq, gas
@@ -69,17 +65,17 @@ def make_equil_plts(phi, tad, xeq, gas):
     plt.xlabel('Equivalence Ratio')
     plt.ylabel('Temperature (K)')
     plt.title('Adiabatic Flame Temperature')
-    
+
     plt.subplot(212)
     phixeqsemilogyplt = plt.semilogy(phi,xeq) # matplotlib semilogy takes in the correct dimensions! What I mean is that say phi is a list of length 50.  Suppose xeq is a numpy array of shape (50,53).  This will result in 53 different (line) graphs on the same plot, the correct number of line graphs for (50) (x,y) data points/dots!
     plt.xlabel('Equivalence Ratio')
     plt.ylabel('Mole Fraction')
     plt.title('Equilibrium Composition')
-    
+
     j = 10
     for k in range(gas.n_species):
         plt.text(phi[j],1.5*xeq[j,k],gas.species_name(k))
-        j = j + 2
+        j += 2
         if j > 46:
             j = 10
     plt.show()
@@ -95,7 +91,7 @@ def make_equil_plts_2(phi, tad, xeq, gas):
     plt.xlabel('Equivalence Ratio')
     plt.ylabel('Temperature (K)')
     plt.title('Adiabatic Flame Temperature')
-    
+
     plt.figure(2)
     plt.ylim(10.**(-14),1)
     plt.xlim(phi[0],phi[49])
@@ -103,11 +99,11 @@ def make_equil_plts_2(phi, tad, xeq, gas):
     plt.xlabel('Equivalence Ratio')
     plt.ylabel('Mole Fraction')
     plt.title('Equilibrium Composition')
-    
+
     j = 10
     for k in range(gas.n_species):
         plt.text(phi[j],1.5*xeq[j,k],gas.species_name(k))
-        j = j + 2
+        j += 2
         if j > 46:
             j = 10
     plt.show()
@@ -168,18 +164,14 @@ def equil_general(Ox='O2',Fuel='CH3',g=None,p=ct.one_atm,solver_choice="gibbs"):
     phi,tad,xeq,gas,MWeq,gammas,char_v = equil_general(Ox='N2O4',Fuel='N2H4',g=gas,p=ct.one_atm*80.,solver_choice="auto")
 
     """
-    if g==None:
-        gas = ct.Solution("gri30.xml")
-    else:
-        gas = g
-    
+    gas = ct.Solution("gri30.xml") if g is None else g
     nsp = gas.n_species
-    
+
     iFu = gas.species_index(Fuel)  # index of Fuel
     iOx  = gas.species_index(Ox)  # index of Oxidizer
-    
+
     phi = np.linspace(0.75,5,50)  # O/F mass ratio (ranging from 0.75-5
-    
+
     tad  = []
     xeq  = []
     MWeq = []
@@ -198,7 +190,7 @@ def equil_general(Ox='O2',Fuel='CH3',g=None,p=ct.one_atm,solver_choice="gibbs"):
         MWeq.append( gas.mean_molecular_weight )
         gammas.append( gas.cp/gas.cv )
         char_v.append( char_velocity( gas.mean_molecular_weight, gas.T, gas.cp/gas.cv) )
-        
+
     # preprocess xeq as a numpy array for easier indexing
     xeq = np.array(xeq)
     return phi, tad, xeq, gas, MWeq, gammas, char_v

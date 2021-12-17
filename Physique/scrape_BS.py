@@ -107,13 +107,10 @@ def scraping_allascii(filename='./rawdata/allascii.txt'):
     header = lines[2].split()
 
     # cf. http://stackoverflow.com/questions/12866631/python-split-a-string-with-at-least-2-whitespaces for re
-    rawtbl = []
-    for line in lines[4:]:
-        rawtbl.append( re.split(r'\s{2,}', line) )
+    rawtbl = [re.split(r'\s{2,}', line) for line in lines[4:]]
     tbl = []
     for rawline in rawtbl:
-        line = []
-        line.append(rawline[0])
+        line = [rawline[0]]
         try:
             line.append(Decimal(rawline[1].replace(" ","")))
         except decimal.InvalidOperation:
@@ -205,10 +202,12 @@ def make_NASAPLNFACTS(url=NASAPLNFACTSURL):
     NASAPLNsoup = scraped_BS(url)
     tbl = NASAPLNsoup.soup.find("table")
 
-    tbldata = []
-    for row in tbl.find_all('tr'):
-        if row.find_all('td') != []:
-            tbldata.append( [ele.text for ele in row.find_all('td')] )
+    tbldata = [
+        [ele.text for ele in row.find_all('td')]
+        for row in tbl.find_all('tr')
+        if row.find_all('td') != []
+    ]
+
     tbldata.pop()
     return tbldata
     
@@ -242,13 +241,17 @@ def make_tbls_from_soup(url=Braeunig_ATMOS_URL):
 
 def make_Braeunig_ATMOS(url=Braeunig_ATMOS_URL):
     tbls, tblsdata, hdrsdata = make_tbls_from_soup(url)
-    
+
     # Physical Properties of U.S. Standard Atmosphere, 1976 in SI Units
     standatm_FOOTNOTE = tblsdata[1].pop()
     standatm_DATA  = [[Decimal(ele.replace(',','')) for ele in row] for row in tblsdata[1]]
     standatm_TITLE = hdrsdata[1][0][0]
     standatm_HDR   = hdrsdata[1][1]
-    standatm_dict = {"footnote":standatm_FOOTNOTE,"data":standatm_DATA,"title":standatm_TITLE,"header":standatm_HDR}
-    return standatm_dict
+    return {
+        "footnote": standatm_FOOTNOTE,
+        "data": standatm_DATA,
+        "title": standatm_TITLE,
+        "header": standatm_HDR,
+    }
 
 # now, go to toPd.py

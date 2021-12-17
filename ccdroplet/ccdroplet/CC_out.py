@@ -48,8 +48,16 @@ def CH4result(key):
     """
     calculations for a single initial droplet size only
     """
-    result = CCDroplet.main(gri30_gas,ctCH4,"methane",CH4_TUP,CH4CH_PARAMS,CH4INLETS_VARY_D_0[key],Hrefchoice='y', Tboilo=111.5)
-    return result
+    return CCDroplet.main(
+        gri30_gas,
+        ctCH4,
+        "methane",
+        CH4_TUP,
+        CH4CH_PARAMS,
+        CH4INLETS_VARY_D_0[key],
+        Hrefchoice='y',
+        Tboilo=111.5,
+    )
 
 def CH4results():
     choicesaveresults = raw_input("Save results? (y/n)")
@@ -272,12 +280,11 @@ def load_droplet_dat(filename):
     """
     dat = np.load(filename)
 
-    results = {'x'       : dat[0], 
+    return {'x'       : dat[0], 
                'xclean'  : dat[4],
                'rawdat'  : CCDroplet.T_gDv_d_Tuple(T_g=dat[1],D=dat[2],v_d=dat[3]),
                'cleandat': CCDroplet.T_gDv_d_Tuple(T_g=dat[5],D=dat[6],v_d=dat[7])
                }
-    return results
 
              
 

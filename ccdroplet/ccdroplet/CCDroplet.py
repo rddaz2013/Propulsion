@@ -193,26 +193,26 @@ def evap_K(gas,reaction_tuple,T_g,P,phi_g,h_fg,T_boil, rho_l ,T_infty, dotm_Ox, 
     # Calculate average temperature in the 
     # "inner zone" (gaseous phase of fuel and oxidizer)
     avgT = (T_boil + T_fguess)*0.5
-    
+
     # Set the state of the fuel and oxidizer at avgT and P
     gas.X      = reaction_tuple.Fuelstr+':1'
     gas.TP     = avgT, P
     k_gFuel    = gas.thermal_conductivity
     C_PFuel    = gas.cp
     Deltah_Fc  = gas.enthalpy_mass
-    
+
     gas.X      = reaction_tuple.Oxstr+':1'
     gas.TP     = avgT, P
     k_gOx      = gas.thermal_conductivity
     Deltah_Oxc = gas.enthalpy_mass
-    
+
     # Calculate k_g and C_P using Law and Williams' (1972) empirical laws for alkane droplets
     C_P = C_PFuel
     k_g = k_gFuel*0.4 + k_gOx*0.6
 
     # rho_l = rho_l(T_s) = rho_l(T_b) 
     # i.e. the droplet is assumed to have uniform temperature; that uniform temperature is the temperature at the surface, which is the boiling temperature at some particular pressure p!  Then you can look up the density for the fuel as a LIQUID
-    
+
     gas.X = reaction_tuple.Prod_str
     gas.TP = avgT,P
     Deltah_Prc = gas.enthalpy_mass
@@ -224,7 +224,7 @@ def evap_K(gas,reaction_tuple,T_g,P,phi_g,h_fg,T_boil, rho_l ,T_infty, dotm_Ox, 
     F_index  = gas.species_index(reaction_tuple.Fuelstr)
 
     NU = dotm_Ox/(dotm_l+(dotm_g-dotm_Ox))
-    
+
     Deltah_c = Deltah_Fc + NU*Deltah_Oxc - (NU+1)*Deltah_Prc
 
     T_s     = T_boil
@@ -232,9 +232,7 @@ def evap_K(gas,reaction_tuple,T_g,P,phi_g,h_fg,T_boil, rho_l ,T_infty, dotm_Ox, 
 
     B_OQ = ((Deltah_c/NU)+C_P*(T_infty-T_s))/(0+h_fg)
 
-    K = 8.* k_g/ (rho_l*C_P)*np.log( 1. + B_OQ)
-
-    return K
+    return 8.* k_g/ (rho_l*C_P)*np.log( 1. + B_OQ)
 
 def dh_g_over_dphi(gas,reaction_tuple,T_g,P,phi,epsilon = EPSILON ):
     """
@@ -275,8 +273,7 @@ def dh_g_over_dphi(gas,reaction_tuple,T_g,P,phi,epsilon = EPSILON ):
     gas.TP = T_g,P
     gas.equilibrate('TP')
     h_2 = gas.enthalpy_mass # J/kg
-    dh_g_over_dphi_result = (h_1 - h_2)/(phi_1-phi_2)
-    return dh_g_over_dphi_result
+    return (h_1 - h_2)/(phi_1-phi_2)
 
 def dh_g_over_dT_g(gas,reaction_tuple,T_g,P,phi,epsilon=EPSILON):
     """
@@ -308,8 +305,7 @@ def dh_g_over_dT_g(gas,reaction_tuple,T_g,P,phi,epsilon=EPSILON):
     gas.X  = phi_to_X(phi,reaction_tuple)
     gas.TP = T_g2,P
     h_2 = gas.enthalpy_mass # J/kg
-    dh_g_over_dT_g_result = (h_1-h_2)/(T_g1-T_g2)
-    return dh_g_over_dT_g_result
+    return (h_1-h_2)/(T_g1-T_g2)
 
 
 def dh_g_over_dT_g_v2(gas,reaction_tuple,T_g,P,phi, epsilon=0.00001):
@@ -344,8 +340,7 @@ def dh_g_over_dT_g_v2(gas,reaction_tuple,T_g,P,phi, epsilon=0.00001):
     gas.TP = T_g2,P
     gas.equilibrate('TP')
     h_2 = gas.enthalpy_mass # J/kg
-    dh_g_over_dT_g_result = (h_1-h_2)/(T_g1-T_g2)
-    return dh_g_over_dT_g_result
+    return (h_1-h_2)/(T_g1-T_g2)
 
 
 def get_initial_flow_vals(gas,reaction_tuple,chamber_params,inlet_conds,rho_l,F_over_O):
@@ -653,8 +648,14 @@ def phi_to_X(phi, reaction_tuple):
 
     """
     n_F_over_n_Ox = phi*reaction_tuple.n_F/float(reaction_tuple.n_Ox) # \frac{n_F}{n_{Ox}} = \phi*\left( \frac{n_F}{n_{Ox}} \right)_{st}
-    X_str = reaction_tuple.Fuelstr+r':'+str(n_F_over_n_Ox)+' '+reaction_tuple.Oxstr+':1'
-    return X_str
+    return (
+        reaction_tuple.Fuelstr
+        + r':'
+        + str(n_F_over_n_Ox)
+        + ' '
+        + reaction_tuple.Oxstr
+        + ':1'
+    )
     
 
 if __name__ == "__main__":

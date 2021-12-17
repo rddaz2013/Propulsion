@@ -30,20 +30,20 @@ class R1(object):
 
 class R2(object):
       def __init__(self):
-      	  self.M = Manifold(2,'R2',r'\mathbb{R}^2',start_index=1)
-	  self.cart_ch = self.M.chart('x y')
-	  self.U       = self.M.open_subset('U',
-				coord_def={self.cart_ch: 
-					(self.cart_ch[1]<0, self.cart_ch[2]!=0)})	  # cf. http://sagemanifolds.obspm.fr/examples/pdf/SM_tutorial.pdf "Introducing a second chart on the manifold" the condition AND written with [] instead of ()
+            self.M = Manifold(2,'R2',r'\mathbb{R}^2',start_index=1)
+            self.cart_ch = self.M.chart('x y')
+            self.U = self.M.open_subset('U',
+            coord_def={self.cart_ch: 
+            	(self.cart_ch[1]<0, self.cart_ch[2]!=0)})	  # cf. http://sagemanifolds.obspm.fr/examples/pdf/SM_tutorial.pdf "Introducing a second chart on the manifold" the condition AND written with [] instead of ()
 
-	  self.sph_ch  = self.U.chart(r'r:(0,+oo) ph:(0,2*pi):\phi')
-	  self.cart_ch_U = self.cart_ch.restrict(self.U)
-	  self.transit_sph_to_cart = self.sph_ch.transition_map(self.cart_ch_U, 
-	  			   [self.sph_ch[1]*cos(self.sph_ch[2]), 
-				    self.sph_ch[1]*sin(self.sph_ch[2])])
-	  Eucnorm = sqrt( sum([self.cart_ch_U[i[0]]**2 for i in self.M.index_generator(1)]) )
-	  self.transit_sph_to_cart.set_inverse( Eucnorm, 
-	  					atan2(self.cart_ch_U[2],self.cart_ch_U[1]) )
+            self.sph_ch  = self.U.chart(r'r:(0,+oo) ph:(0,2*pi):\phi')
+            self.cart_ch_U = self.cart_ch.restrict(self.U)
+            self.transit_sph_to_cart = self.sph_ch.transition_map(self.cart_ch_U, 
+            [self.sph_ch[1]*cos(self.sph_ch[2]), 
+            self.sph_ch[1]*sin(self.sph_ch[2])])
+            Eucnorm = sqrt(sum(self.cart_ch_U[i[0]]**2 for i in self.M.index_generator(1)))
+            self.transit_sph_to_cart.set_inverse( Eucnorm, 
+            					atan2(self.cart_ch_U[2],self.cart_ch_U[1]) )
       def equip_metric(self):
       	  self.g = self.M.riemannian_metric('g')
 	  for i in self.M.index_generator(1):
@@ -95,25 +95,32 @@ class R2(object):
 
 class R3(object):
       def __init__(self):
-      	  self.M = Manifold(3,'R3',r'\mathbb{R}^3',start_index=1)
-	  self.cart_ch = self.M.chart('x y z')
-	  
-	  self.U = self.M.open_subset('U',coord_def={self.cart_ch: (self.cart_ch[1]<0, self.cart_ch[2]!=0)})
-	  self.cart_ch_U = self.cart_ch.restrict(self.U)
-	  
-	  self.sph_ch  = self.U.chart(r'rh:(0,+oo):\rho th:(0,pi):\theta ph:(0,2*pi):\phi')
-	  rh,th,ph = [self.sph_ch[i[0]] for i in self.M.index_generator(1)] 
-	  self.transit_sph_to_cart = self.sph_ch.transition_map(self.cart_ch_U,
-					[rh*sin(th)*cos(ph),rh*sin(th)*sin(ph),rh*cos(th)])
-	  Sphnorm = sqrt(sum([self.cart_ch_U[i[0]]**2 for i in self.M.index_generator(1)]))
-	  self.transit_sph_to_cart.set_inverse( Sphnorm,atan2( sqrt( sum([ self.cart_ch_U[i]**2 for i in range(1,3)])), self.cart_ch_U[3]), atan2( self.cart_ch_U[2],self.cart_ch_U[1]) )
+            self.M = Manifold(3,'R3',r'\mathbb{R}^3',start_index=1)
+            self.cart_ch = self.M.chart('x y z')
 
-	  
-	  self.cyl_ch = self.U.chart(r'r:(0,+oo) phi:(0,2*pi):\phi zc')
-	  r,phi,zc = [self.cyl_ch[i[0]] for i in self.M.index_generator(1)]
-	  self.transit_cyl_to_cart = self.cyl_ch.transition_map(self.cart_ch_U,
-	  			        [r*cos(phi),r*sin(phi),zc])
-	  self.transit_cyl_to_cart.set_inverse( sqrt( self.cart_ch_U[1]**2 + self.cart_ch_U[2]**2 ) , atan2( self.cart_ch_U[2],self.cart_ch_U[1]), self.cart_ch_U[3] )
+            self.U = self.M.open_subset('U',coord_def={self.cart_ch: (self.cart_ch[1]<0, self.cart_ch[2]!=0)})
+            self.cart_ch_U = self.cart_ch.restrict(self.U)
+
+            self.sph_ch  = self.U.chart(r'rh:(0,+oo):\rho th:(0,pi):\theta ph:(0,2*pi):\phi')
+            rh,th,ph = [self.sph_ch[i[0]] for i in self.M.index_generator(1)]
+            self.transit_sph_to_cart = self.sph_ch.transition_map(self.cart_ch_U,
+            [rh*sin(th)*cos(ph),rh*sin(th)*sin(ph),rh*cos(th)])
+            Sphnorm = sqrt(sum(self.cart_ch_U[i[0]]**2 for i in self.M.index_generator(1)))
+            self.transit_sph_to_cart.set_inverse(
+                Sphnorm,
+                atan2(
+                    sqrt(sum(self.cart_ch_U[i]**2 for i in range(1, 3))),
+                    self.cart_ch_U[3],
+                ),
+                atan2(self.cart_ch_U[2], self.cart_ch_U[1]),
+            )
+
+
+            self.cyl_ch = self.U.chart(r'r:(0,+oo) phi:(0,2*pi):\phi zc')
+            r,phi,zc = [self.cyl_ch[i[0]] for i in self.M.index_generator(1)]
+            self.transit_cyl_to_cart = self.cyl_ch.transition_map(self.cart_ch_U,
+            			  [r*cos(phi),r*sin(phi),zc])
+            self.transit_cyl_to_cart.set_inverse( sqrt( self.cart_ch_U[1]**2 + self.cart_ch_U[2]**2 ) , atan2( self.cart_ch_U[2],self.cart_ch_U[1]), self.cart_ch_U[3] )
 	  
       def equip_metric(self):
       	  self.g = self.M.riemannian_metric('g')
@@ -247,7 +254,7 @@ class EuclideanManifold(object):
       
 	  
 def make_pt(ch):
-    """
+      """
     make_pt = make_pt(ch)
     INPUT
     ch = sagemanifold chart
@@ -255,10 +262,9 @@ def make_pt(ch):
     EXAMPLES of USAGE
     p = make_pt(R3.cart_ch)
     """
-    coords = ch[:]
-    farglst = ['p',]+list(coords)
-    p = ch.scalar_field( function(*farglst) )
-    return p
+      coords = ch[:]
+      farglst = ['p',]+list(coords)
+      return ch.scalar_field( function(*farglst) )
 
 
 def make_u(ch):
@@ -340,7 +346,7 @@ def div(u,g):
     return xder( uflat.hodge_star(g) )
 
 def grad(p,g):
-    """
+      """
     grad = grad(p,g)
 
     EXAMPLE of USAGE
@@ -348,9 +354,8 @@ def grad(p,g):
     p = make_pt(R3.M)
     grad(p,R3.g)
     """
-    dp = xder( p )
-    gradp = g.inverse()['^ij']*dp['_j']
-    return gradp
+      dp = xder( p )
+      return g.inverse()['^ij']*dp['_j']
 
 def curl(u,g):
     """
@@ -362,7 +367,7 @@ def curl(u,g):
     return duflat.hodge_star(g)
 
 def buildrho(ch):
-    """
+      """
     buildrho = buildrho(ch)
     build a time-dependent $\rho$ the mass density, as a scalar function on a chart of a manifold
     
@@ -370,10 +375,10 @@ def buildrho(ch):
     R2=Rd(2)
     rho2=buildrho(R2.X_U)
     """
-    n_0 = ch.domain().manifold().dim()
-    variables = [t,]+[ch[i] for i in range(1,n_0+1)]
-    rho = ch.domain().scalar_field(function('rho',*variables),name='rho',latex_name=r'\rho' )
-    return rho
+      n_0 = ch.domain().manifold().dim()
+      variables = [t,]+[ch[i] for i in range(1,n_0+1)]
+      return ch.domain().scalar_field(
+          function('rho', *variables), name='rho', latex_name=r'\rho')
 
 
 

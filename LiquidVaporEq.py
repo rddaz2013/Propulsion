@@ -80,9 +80,7 @@ def _get_Phase_data(name="methane"):
     PhaseURL = WEBBK_URL + soup.find('a',text="Phase change data")['href']
 
     Phaseurl = requests.get( PhaseURL )
-    Phasesoup = BeautifulSoup( Phaseurl.content, "html.parser")
-
-    return Phasesoup
+    return BeautifulSoup( Phaseurl.content, "html.parser")
     
 def cleaned_Phase_data(name="methane"):
     """
@@ -112,11 +110,11 @@ def cleaned_Phase_data(name="methane"):
     Phasesoup = _get_Phase_data(name)
     # Phase change data headers
     Phasechangedatahdrs = [hdr.string for hdr in Phasesoup.find_all('table')[2].find_all('tr')[0].find_all('th')]
-    
+
     # Some substances will have a boiling point; some won't
-                           
+
     # Temperatures table for Phase change                              
-    tempstbl = Phasesoup.find_all('table')[2].find_all('tr')[1].find_all('td') 
+    tempstbl = Phasesoup.find_all('table')[2].find_all('tr')[1].find_all('td')
     if tempstbl[0].text == u'Tboil':
         Tboiltext = [td.text for td in tempstbl]
         Tboildict = OrderedDict( zip( Phasechangedatahdrs , Tboiltext) )
@@ -130,9 +128,10 @@ def cleaned_Phase_data(name="methane"):
     AntEqsoup = Phasesoup.find('table',summary="Antoine Equation Parameters")
     AntEqhdrs = [hdr.string for hdr in AntEqsoup.find('tr').find_all('th')]
 
-    AntEqtbl = []
-    for row in AntEqsoup.find_all('tr')[1:]:
-        AntEqtbl.append( [td.text for td in row.find_all('td')] )
+    AntEqtbl = [
+        [td.text for td in row.find_all('td')]
+        for row in AntEqsoup.find_all('tr')[1:]
+    ]
 
     # split up the temperature range
     AntEqtbl_split = []
@@ -146,7 +145,7 @@ def cleaned_Phase_data(name="methane"):
     # scrape Molecular Weight 
     MW = Phasesoup.find('a',text="Molecular weight").find_previous('li').text
     MW = float(MW.split(':')[1].strip())
-    
+
     # scrape Enthalpy of vaporization 
     vaptbls = Phasesoup.find_all('table',summary="Enthalpy of vaporization")
     DeltaHtbls = []
@@ -158,7 +157,7 @@ def cleaned_Phase_data(name="methane"):
         for row in tbl.find_all('tr')[1:]:
             cleantbl.append( [td.text for td in row.find_all('td')] )
         DeltaHtbls.append(cleantbl)
-    
+
     # some substances have only 1 Enthalpy of vaporization table; some have more than 2 and
     # are of different format
     # So, unfortunately, the tables on this page isn't "standard" in that the headers are 
@@ -167,15 +166,21 @@ def cleaned_Phase_data(name="methane"):
     # I will hack away expediently.  
 
     if len(vaptbls) > 1:
-        DeltaHvaptbl = []
-        for row in vaptbls[1].find_all('tr'): 
-            DeltaHvaptbl.append( (row.find('th').text , row.find('td').text) )
+        DeltaHvaptbl = [
+            (row.find('th').text, row.find('td').text)
+            for row in vaptbls[1].find_all('tr')
+        ]
+
         DeltaHtbls[-1] = DeltaHvaptbl
 
-    
-    phasedat_result = PhaseData(MW=MW,T_boil=Tboildict,AntEqhdrs=AntEqhdrs_split,AntEqParams=AntEqtbl_split,DeltaH_vap=DeltaHtbls)    
 
-    return phasedat_result
+    return PhaseData(
+        MW=MW,
+        T_boil=Tboildict,
+        AntEqhdrs=AntEqhdrs_split,
+        AntEqParams=AntEqtbl_split,
+        DeltaH_vap=DeltaHtbls,
+    )
 
 
 # This is the Clausius-Clapeyron relation for phase coexistence, see my derivation in thermo.pdf or thermo.tex, rewritten in terms of enthalpy of vaporization

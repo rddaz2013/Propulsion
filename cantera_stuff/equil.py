@@ -27,23 +27,16 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 def equil(g=None):
-    if g==None:
-        gas = ct.Solution("gri30.cti")
-        # from Importing Phases for the Python Module, "functions importPhase and IdealGasMix have been removed. Solution objects, which represent the phase (regardless of the underlying thermodynamic model) as well as providing access to kinetics and transport properties, are created directly using the Solution class."
-        # note that setMoleFractions was also changed in Python
-    # cf. http://www.cantera.org/docs/sphinx/html/cython/migrating.html
-    else:
-        gas = g
-    
+    gas = ct.Solution("gri30.cti") if g is None else g
     nsp = gas.n_species
-    
+
     # find methane, nitrogen, and oxygen indices
     ich4 = gas.species_index('CH4')
     io2  = gas.species_index('O2')
     in2  = gas.species_index('N2')
-    
+
     phi = [0.2 + 0.05*(i+1) for i in range(50)]
-    
+
     tad = []
     xeq = []
     for phi_i in phi:
@@ -56,7 +49,7 @@ def equil(g=None):
         gas.equilibrate('HP')
         tad.append( gas.T)
         xeq.append( gas.X )
-        
+
     # preprocess xeq as a numpy array for easier indexing
     xeq = np.array(xeq)
     return phi, tad, xeq, gas
@@ -73,17 +66,17 @@ def make_equil_plts(phi, tad, xeq, gas):
     plt.xlabel('Equivalence Ratio')
     plt.ylabel('Temperature (K)')
     plt.title('Adiabatic Flame Temperature')
-    
+
     plt.subplot(212)
     phixeqsemilogyplt = plt.semilogy(phi,xeq) # matplotlib semilogy takes in the correct dimensions! What I mean is that say phi is a list of length 50.  Suppose xeq is a numpy array of shape (50,53).  This will result in 53 different (line) graphs on the same plot, the correct number of line graphs for (50) (x,y) data points/dots!
     plt.xlabel('Equivalence Ratio')
     plt.ylabel('Mole Fraction')
     plt.title('Equilibrium Composition')
-    
+
     j = 10
     for k in range(gas.n_species):
         plt.text(phi[j],1.5*xeq[j,k],gas.species_name(k))
-        j = j + 2
+        j += 2
         if j > 46:
             j = 10
     plt.show()
@@ -99,7 +92,7 @@ def make_equil_plts_2(phi, tad, xeq, gas):
     plt.xlabel('Equivalence Ratio')
     plt.ylabel('Temperature (K)')
     plt.title('Adiabatic Flame Temperature')
-    
+
     plt.figure(2)
     plt.ylim(10.**(-14),1)
     plt.xlim(phi[0],phi[49])
@@ -107,11 +100,11 @@ def make_equil_plts_2(phi, tad, xeq, gas):
     plt.xlabel('Equivalence Ratio')
     plt.ylabel('Mole Fraction')
     plt.title('Equilibrium Composition')
-    
+
     j = 10
     for k in range(gas.n_species):
         plt.text(phi[j],1.5*xeq[j,k],gas.species_name(k))
-        j = j + 2
+        j += 2
         if j > 46:
             j = 10
     plt.show()

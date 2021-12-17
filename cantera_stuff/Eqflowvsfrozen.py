@@ -101,14 +101,13 @@ def parse_spec(desiredspec, srcspec):
     desiredspecfromsrc = [spec for spec in srcspec if spec.name in desirednames]
     if len(desiredspecfromsrc) == n_desirednames:
         return desiredspecfromsrc
-    else:
-        desirednames = Set(desirednames)
-        srcnames = Set([spec.name for spec in desiredspecfromsrc])
-        missingnames = desirednames - srcnames
-        # try this: matching lower cases
-        loweredmissingnames = Set([name.lower() for name in missingnames])
-        missingspecfromsrc = [spec for spec in srcspec if spec.name.lower() in loweredmissingnames]
-        return desiredspecfromsrc + missingspecfromsrc
+    desirednames = Set(desirednames)
+    srcnames = Set([spec.name for spec in desiredspecfromsrc])
+    missingnames = desirednames - srcnames
+    # try this: matching lower cases
+    loweredmissingnames = Set([name.lower() for name in missingnames])
+    missingspecfromsrc = [spec for spec in srcspec if spec.name.lower() in loweredmissingnames]
+    return desiredspecfromsrc + missingspecfromsrc
         
 # If one runs this
 # H2O2gas = ct.Solution(thermo="IdealGas",kinetics="GasKinetics",species=nasaH2O2spec,reactions=H2O2rxns)
